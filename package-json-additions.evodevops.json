@@ -1,0 +1,6 @@
+{
+    "_comment": "npm dependencies that EvoDevOps Base's published frontend stubs require. Merge these into your host project's package.json `dependencies` and run `npm install` (or `pnpm install`).",
+    "dependencies": {
+        "cmdk": "^1.0.0"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "_hash": "837c3e03319e26ea8b9328513544ba54afcc92eb545ed3ec9dd5032a08926538",
+    "patches": {
+        "laravel/ai": [
+            {
+                "package": "laravel/ai",
+                "description": "Enable structured output streaming (until upstream lands the fix)",
+                "url": "patches/laravel-ai-structured-streaming.patch",
+                "sha256": "0e4bf4b2c13bc688647ea0921ae63f0b06ba2c39bb7e2be4dd3ac8b71a48b1b4",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}

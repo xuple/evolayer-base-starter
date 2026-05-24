@@ -1,0 +1,389 @@
+version: 1
+namespace: evo.base
+name: EvoDevOps Base
+
+lanes:
+  sqlite:
+    purpose: local default development
+    vector_search: false
+    semantic_search_strategy: like
+  postgresql:
+    purpose: production-shaped development and production
+    vector_search: true
+    semantic_search_strategy: pgvector
+
+entities:
+  # The user entity is host-owned — Base relates to it but does not ship the
+  # model. `model` here is the conventional starter default; the host's actual
+  # model is config('auth.providers.users.model'). Not class-validated.
+  user:
+    model: App\Models\User
+    table: users
+    key: id
+    traits:
+      - authenticatable
+      - must_verify_email
+      - has_roles
+      - two_factor_authenticatable
+    fields:
+      id: integer
+      name: string
+      email: string
+      email_verified_at: datetime?
+    relations:
+      form_submissions:
+        type: has_many
+        target: form_submission
+      ai_invocations:
+        type: has_many
+        target: ai_invocation
+    permissions:
+      roles:
+        - admin
+
+  form_submission:
+    model: EvoDevOps\Base\Models\FormSubmission
+    table: form_submissions
+    key: id
+    key_type: ulid
+    traits:
+      - soft_deletes
+      - tags
+      - activity_log_subject
+    fields:
+      id: ulid
+      user_id: integer?
+      type:
+        enum:
+          - contact
+          - enquiry
+          - complaint
+      first_name: string
+      last_name: string
+      email: string
+      phone: string?
+      subject: string
+      message: text
+      status:
+        enum:
+          - new
+          - read
+          - archived
+      triage_urgency:
+        enum?:
+          - low
+          - medium
+          - high
+      triage_sentiment:
+        enum?:
+          - positive
+          - neutral
+          - negative
+      triage_summary: text?
+      embedding:
+        sqlite: json?
+        postgresql: vector(1536)?
+      deleted_at: datetime?
+      created_at: datetime
+      updated_at: datetime
+    relations:
+      user:
+        type: belongs_to
+        target: user
+        optional: true
+      tags:
+        type: morph_to_many
+        target: tag
+      activities:
+        type: morph_many
+        target: activity
+      media:
+        type: morph_many
+        target: media
+    workflows:
+      submit:
+        actor: guest_or_user
+        emits:
+          - form_submission.created
+        dispatches:
+          - triage_form_submission
+      triage:
+        actor: system
+        writes:
+          - triage_urgency
+          - triage_sentiment
+          - triage_summary
+          - tags
+          - embedding
+        emits:
+          - ai_triage.completed
+      mark_read:
+        actor: authenticated_user
+        writes:
+          - status
+        emits:
+          - form_submission.marked_read
+      archive:
+        actor: authenticated_user
+        writes:
+          - status
+        emits:
+          - form_submission.archived
+
+  ai_invocation:
+    model: EvoDevOps\Base\Models\AiInvocation
+    table: ai_invocations
+    key: id
+    key_type: ulid
+    traits:
+      - activity_log_subject
+    fields:
+      id: ulid
+      user_id: integer?
+      feature_key: string
+      provider: string?
+      provider_driver: string?
+      model: string?
+      status:
+        enum:
+          - pending
+          - succeeded
+          - failed
+      request_projection: json?
+      response_projection: json?
+      raw_request: json?
+      raw_response: json?
+      failure_type: string?
+      failure_message: text?
+      started_at: datetime?
+      finished_at: datetime?
+    relations:
+      user:
+        type: belongs_to
+        target: user
+        optional: true
+      attempts:
+        type: has_many
+        target: ai_invocation_attempt
+
+  ai_invocation_attempt:
+    model: EvoDevOps\Base\Models\AiInvocationAttempt
+    table: ai_invocation_attempts
+    key: id
+    key_type: ulid
+    fields:
+      id: ulid
+      ai_invocation_id: ulid
+      provider: string
+      model: string
+      status:
+        enum:
+          - pending
+          - succeeded
+          - failed
+      response_keys: json?
+      missing_fields: json?
+      invalid_fields: json?
+      exception_class: string?
+      started_at: datetime?
+      finished_at: datetime?
+    relations:
+      invocation:
+        type: belongs_to
+        target: ai_invocation
+
+  ai_capability:
+    model: EvoDevOps\Base\Models\AiCapability
+    table: ai_capabilities
+    key: id
+    key_type: ulid
+    note: per-agent observability storage for capability probes
+    fields:
+      id: ulid
+      agent_class: string
+      provider: string
+      model: string
+      schema_hash: string
+      probe_schema: string
+      status: string
+      output_mode: string
+      probe_passed: boolean
+      failure_reason: text?
+      latency_ms: integer?
+      note: text?
+      probed_at: datetime
+      superseded_at: datetime?
+      created_at: datetime
+      updated_at: datetime
+
+  media:
+    package: spatie/laravel-medialibrary
+    table: media
+    key: id
+    fields:
+      id: integer
+      model_type: string
+      model_id: ulid
+      uuid: uuid?
+      collection_name: string
+      name: string
+      file_name: string
+      mime_type: string?
+      disk: string
+      size: integer
+      created_at: datetime?
+      updated_at: datetime?
+
+  tag:
+    package: spatie/laravel-tags
+    table: tags
+    key: id
+    fields:
+      id: integer
+      name: translatable_string
+      type: string?
+
+  activity:
+    package: spatie/laravel-activitylog
+    table: activity_log
+    key: id
+    fields:
+      id: integer
+      log_name: string?
+      description: string
+      subject_type: string?
+      subject_id: ulid?
+      causer_type: string?
+      causer_id: integer?
+      properties: json?
+
+  change_event:
+    model: EvoDevOps\Base\Models\ChangeEvent
+    table: change_events
+    key: id
+    key_type: ulid
+    fields:
+      id: ulid
+      actor_user_id: integer?
+      subject_type: string?
+      subject_id: string?
+      event_name: string
+      event_version: integer
+      correlation_id: ulid?
+      causation_id: ulid?
+      source: string
+      before: json?
+      after: json?
+      properties: json?
+      metadata: json?
+      occurred_at: datetimetz
+    relations:
+      actor:
+        type: belongs_to
+        target: user
+        optional: true
+      subject:
+        type: morph_to
+        target: any
+
+projections:
+  admin_inbox:
+    route: evodevops.base.admin.inbox.show
+    source: form_submission
+    includes:
+      - tags
+      - triage
+      - activity
+      - lineage
+      - thread_studio_compose
+      - semantic_search
+  admin_submissions:
+    route: evodevops.base.admin.submissions.index
+    source: form_submission
+    includes:
+      - tags
+      - triage
+      - activity
+  thread_studio:
+    route: evodevops.base.ai.thread-studio.show
+    source: ai_invocation
+    requires_role: admin
+  prd_studio:
+    route: evodevops.base.admin.prd.show
+    source: prd_agent
+    requires_role: admin
+
+events:
+  form_submission.created:
+    subject: form_submission
+    actor: guest_or_user
+  ai_triage.completed:
+    subject: form_submission
+    actor: system
+  form_submission.marked_read:
+    subject: form_submission
+    actor: authenticated_user
+  form_submission.archived:
+    subject: form_submission
+    actor: authenticated_user
+  ai_invocation.succeeded:
+    subject: ai_invocation
+    actor: authenticated_user
+  ai_invocation.failed:
+    subject: ai_invocation
+    actor: authenticated_user
+
+jobs:
+  triage_form_submission:
+    class: EvoDevOps\Base\Jobs\TriageFormSubmissionJob
+    retries: 3
+    backoff:
+      - 30
+      - 60
+      - 120
+    side_effects:
+      - writes triage fields
+      - syncs ai tags
+      - logs system activity
+      - indexes embeddings when PostgreSQL vector search is available
+
+agents:
+  thread_studio:
+    class: EvoDevOps\Base\Ai\Agents\ThreadStudioAgent
+    capability_ledger: ai_capability
+  prd:
+    class: EvoDevOps\Base\Ai\Agents\PrdAgent
+    endpoint: evodevops.base.admin.prd.generate
+    output: structured_prd
+    requires_role: admin
+  text_assist:
+    class: EvoDevOps\Base\Ai\Agents\TextAssistAgent
+    endpoint: evodevops.base.ai.text-assist.stream
+    output: plain_text_stream
+    requires_role: admin
+
+blocks:
+  ai_text_field:
+    path: resources/js/blocks/ai-text-field/index.tsx
+    endpoint: evodevops.base.ai.text-assist.stream
+  ai_triage:
+    path: resources/js/blocks/ai-triage/index.tsx
+    consumes:
+      - triage_urgency
+      - triage_sentiment
+      - triage_summary
+      - tags
+  streaming_card:
+    path: resources/js/blocks/streaming-card/index.tsx
+    consumes:
+      - partial_text
+      - processing_state
+  voice_input:
+    path: resources/js/blocks/voice-input/index.tsx
+    endpoint: evodevops.base.ai.voice-input.transcribe
+  semantic_search:
+    path: resources/js/blocks/semantic-search/index.tsx
+    endpoint: evodevops.base.admin.inbox.search
+    strategies:
+      sqlite: like
+      postgresql: pgvector
