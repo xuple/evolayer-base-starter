@@ -102,7 +102,7 @@ export default function About() {
             <main className="relative mx-auto flex w-full max-w-7xl flex-col gap-14 overflow-hidden py-8 sm:py-12">
                 <div className="bg-brand/10 pointer-events-none absolute inset-x-8 top-0 -z-10 h-80 rounded-full blur-3xl" />
 
-                <section className="grid min-h-[34rem] gap-8 lg:grid-cols-[minmax(0,1fr)_28rem] lg:items-stretch">
+                <section>
                     <div className="flex flex-col justify-center rounded-[2.5rem] border border-neutral-200 bg-white/85 p-7 shadow-[0_28px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:p-10 lg:p-12 dark:border-neutral-800 dark:bg-neutral-950/85">
                         <div className="border-brand/20 bg-brand/10 text-brand inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold tracking-[0.18em] uppercase">
                             <Sparkles className="size-3.5" />
@@ -150,31 +150,29 @@ export default function About() {
                                 </code>
                             </pre>
                         </div>
-                    </div>
 
-                    <aside className="rounded-[2.5rem] border border-neutral-200 bg-neutral-950 p-5 text-white shadow-[0_28px_90px_rgba(15,23,42,0.14)] dark:border-neutral-800">
-                        <div className="rounded-[2rem] bg-white/8 p-5">
-                            <p className="text-xs font-semibold tracking-[0.18em] text-neutral-400 uppercase">
+                        <div className="mt-9 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+                            <p className="text-xs font-semibold tracking-[0.18em] text-neutral-500 uppercase">
                                 System map
                             </p>
-                            <div className="mt-5 space-y-3">
+                            <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                                 {layers.map((layer) => {
                                     const Icon = layer.icon;
 
                                     return (
                                         <div
                                             key={layer.name}
-                                            className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"
+                                            className="rounded-2xl border border-neutral-200 bg-neutral-50/80 p-4 dark:border-neutral-800 dark:bg-neutral-900/70"
                                         >
                                             <div className="flex items-center gap-3">
-                                                <span className="bg-brand/20 text-brand flex size-9 items-center justify-center rounded-xl">
+                                                <span className="bg-brand/10 text-brand flex size-9 items-center justify-center rounded-xl">
                                                     <Icon className="size-4" />
                                                 </span>
-                                                <h2 className="font-semibold">
+                                                <h2 className="font-semibold text-neutral-950 dark:text-neutral-50">
                                                     {layer.name}
                                                 </h2>
                                             </div>
-                                            <p className="mt-3 text-sm leading-6 text-neutral-300">
+                                            <p className="mt-3 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
                                                 {layer.summary}
                                             </p>
                                         </div>
@@ -182,7 +180,7 @@ export default function About() {
                                 })}
                             </div>
                         </div>
-                    </aside>
+                    </div>
                 </section>
 
                 <section className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
