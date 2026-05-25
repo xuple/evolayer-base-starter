@@ -2,10 +2,10 @@ import { usePage } from '@inertiajs/react';
 import type { EvoLayerSharedProps } from '@/types/evolayer';
 
 /**
- * Read the EvoDevOps shared props from the current Inertia page.
+ * Read the EvoLayer shared props from the current Inertia page.
  *
  * The host's HandleInertiaRequests middleware is expected to share an
- * `evo: { base: { examples, features } }` block — see the package README
+ * `evolayer: { base: { examples, features } }` block — see the package README
  * for the one-line wiring snippet.
  *
  * This hook centralises the type coercion. If a host project augments
@@ -18,8 +18,8 @@ export function useEvoLayerProps(): EvoLayerSharedProps {
 
     if (!props.evolayer) {
         throw new Error(
-            'EvoLayer Base: usePage().props.evolayer is missing. Add the evo shared prop to '
-                + "HandleInertiaRequests::share() — see the package README's 'Wire EvoDevOps shared props into Inertia' step."
+            'EvoLayer Base: usePage().props.evolayer is missing. Add the evolayer shared prop to '
+                + "HandleInertiaRequests::share() — see the package README's 'Wire EvoLayer shared props into Inertia' step."
         );
     }
 

@@ -2,8 +2,9 @@
 
 The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
-`RELEASE.md`**; this is the starter-specific summary. **Nothing is tagged,
-pushed, or published yet** — remotes, distribution, and version are open.
+`RELEASE.md`**; this is the starter-specific summary. The repository is pushed to
+the self-hosted forge and mirrored to GitHub; version/tag and public
+distribution remain open.
 
 ## Provisional version
 
@@ -67,6 +68,7 @@ distribution model and the push recipe.
 
 ## Open decisions
 
-Exact remote URLs, the final version/tag, and live AI verification (needs
-`GEMINI_API_KEY` / `ANTHROPIC_API_KEY`) — still pending. No remote is wired up
-and nothing is pushed.
+Final version/tag and live AI verification (needs `GEMINI_API_KEY` /
+`ANTHROPIC_API_KEY`) are still pending. Remotes are configured:
+`origin` is `ssh://git@forge.dev.home.arpa:222/xupleteam/evolayer-base-starter.git`;
+`github` is `git@github.com:xuple/evolayer-base-starter.git`.

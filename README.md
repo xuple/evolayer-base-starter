@@ -103,7 +103,7 @@ automatically — they are not copied into this repo.
 
 ## Re-syncing the package frontend
 
-The EvoDevOps React stubs are committed to this repo so it clones and builds without any
+The EvoLayer React stubs are committed to this repo so it clones and builds without any
 publish step. To pull a newer `xuple/evolayer-base` release's frontend over the top:
 
 ```bash

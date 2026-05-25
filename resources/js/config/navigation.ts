@@ -13,7 +13,7 @@ import { edit as editSecurity } from '@/routes/security/index';
 import type { EvoLayerNavItem } from '@/types/evolayer';
 
 /*
- * EvoDevOps feature URLs are stable string paths rather than Wayfinder
+ * EvoLayer feature URLs are stable string paths rather than Wayfinder
  * controller imports. This keeps the always-published `navigation.ts` (core)
  * free of compile-time dependencies on any single feature's routes — a feature
  * you haven't enabled won't have a Wayfinder-generated controller, and core

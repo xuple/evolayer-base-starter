@@ -1,5 +1,5 @@
 /**
- * Published by `xuple/evolayer-base` — self-contained types for the EvoDevOps
+ * Published by `xuple/evolayer-base` — self-contained types for the EvoLayer
  * frontend layer. Designed to be importable from the package's published
  * pages, hooks, and config files without depending on the host's existing
  * shared-props or NavItem definitions.
@@ -8,16 +8,16 @@
  *   usePage().props.evolayer.base.{examples, features}
  *
  * The `evolayer.base.*` sub-tree reserves room for sibling packages
- * (`evo.commerce.*`, `evo.saas.*`, `evo.rls.*`) to coexist under the same
- * top-level `evo` namespace without collision.
+ * (`evolayer.commerce.*`, `evolayer.saas.*`, `evolayer.rls.*`) to coexist
+ * under the same top-level `evolayer` namespace without collision.
  *
  * Host integration:
- *   - To use EvoDevOps nav items inside your existing sidebar, either
+ *   - To use EvoLayer nav items inside your existing sidebar, either
  *     widen your own `NavItem` type with the fields below, or render the
- *     EvoDevOps items separately via `useExampleNavItems()`.
+ *     EvoLayer items separately via `useExampleNavItems()`.
  *   - To get autocomplete on `usePage().props.evolayer.base`, augment your
  *     `InertiaConfig.sharedPageProps` declaration to include
- *     `evo: { base: EvoLayerBaseSharedProps }`. The package does not augment
+ *     `evolayer: { base: EvoLayerBaseSharedProps }`. The package does not augment
  *     Inertia automatically (would conflict with the host's own
  *     declaration).
  */
@@ -45,15 +45,15 @@ export interface EvoLayerBaseSharedProps {
 }
 
 /**
- * The full `evo` shared-props tree. Variants extend with their own
- * sub-namespace (e.g. `evo.commerce`, `evo.saas`, `evo.rls`).
+ * The full `evolayer` shared-props tree. Variants extend with their own
+ * sub-namespace (e.g. `evolayer.commerce`, `evolayer.saas`, `evolayer.rls`).
  */
 export interface EvoLayerSharedProps {
     base: EvoLayerBaseSharedProps;
 }
 
 /**
- * Self-contained NavItem shape used by the EvoDevOps package. The host's
+ * Self-contained NavItem shape used by the EvoLayer package. The host's
  * own `NavItem` can be a superset — pass package items through
  * `useExampleNavItems()` to consume.
  */
