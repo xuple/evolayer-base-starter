@@ -65,7 +65,7 @@ The AI features default to **Gemini**. Set a key for whichever provider you poin
 `AI_DEFAULT_PROVIDER` at, then verify structured streaming works end to end:
 
 ```bash
-php artisan ai:stream-smoke gemini
+php artisan evolayer:ai:stream-smoke gemini
 ```
 
 Keys live in `.env` (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, …).
