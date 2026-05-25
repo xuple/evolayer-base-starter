@@ -136,7 +136,7 @@ the package's own installer: `php artisan evolayer:install`.
 
 ## Project Status
 
-EvoLayer is pre-1.0. The repos are pushed to the self-hosted Forge and mirrored to GitHub, but the first release tag and public distribution path are still pending. See [RELEASE.md](RELEASE.md) and [CHANGELOG.md](CHANGELOG.md).
+EvoLayer is pre-1.0. Base and the starter are free/public MIT projects; Forge and private GitHub are pre-launch staging, and Packagist is the public launch target. See [RELEASE.md](RELEASE.md) and [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

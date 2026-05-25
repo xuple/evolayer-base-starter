@@ -31,6 +31,7 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   script to re-publish the package frontend on upgrade.
 
 ### Notes
-- While private, the package is resolved from the forge `vcs` repository at
-  `dev-main` (composer.lock is not committed); becomes `^0.1` once tagged. See
-  `RELEASE.md`. `composer create-project` verified end-to-end from the forge.
+- During private pre-launch staging, the package is resolved from the Forge `vcs`
+  repository at `dev-main` (composer.lock is not committed). At public launch it
+  becomes `^0.1` from Packagist. See `RELEASE.md`. `composer create-project`
+  verified end-to-end from the Forge.
