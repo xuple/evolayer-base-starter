@@ -5,7 +5,7 @@
 | EvoLayer Base configuration
 |--------------------------------------------------------------------------
 |
-| Merged into the top-level `evo` config key by Xuple\EvoLayer\Base\BaseServiceProvider.
+| Merged into the top-level `evolayer` config key by Xuple\EvoLayer\Base\BaseServiceProvider.
 | All Base settings live under `evolayer.base.*` so sibling packages (Commerce,
 | SaaS, RLS, etc.) can claim `evolayer.commerce.*`, `evolayer.saas.*`, etc. without
 | collision.
