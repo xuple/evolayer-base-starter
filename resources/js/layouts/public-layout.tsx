@@ -21,7 +21,7 @@ export default function PublicLayout({ title, description, children }: Props) {
                 </Head>
             )}
             <div className="flex min-h-screen flex-col items-center bg-background p-6 text-foreground lg:p-8">
-                <header className="mb-6 w-full max-w-6xl text-sm not-has-[nav]:hidden">
+                <header className="mb-6 w-full max-w-7xl text-sm not-has-[nav]:hidden">
                     <nav className="flex items-center justify-between gap-4">
                         <Link
                             href="/"
