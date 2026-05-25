@@ -32,25 +32,25 @@ const layers: Layer[] = [
     {
         name: 'AI layer',
         summary:
-            'Structured streaming, provider probes, typed agents, smoke commands, and a seeded capability ledger.',
+            'Stream structured responses, probe providers, run smoke commands, and track capabilities from a seeded ledger.',
         icon: Bot,
     },
     {
         name: 'Product layer',
         summary:
-            'ThreadStudio, PRD Studio, contact AI, voice input, and admin inbox examples wired as real Inertia pages.',
+            'Explore ThreadStudio, PRD Studio, contact AI, voice input, and admin workflows as real Inertia pages.',
         icon: Sparkles,
     },
     {
         name: 'Data layer',
         summary:
-            'Prefixed EvoLayer tables, ontology compile, change-event lineage, media, tags, and activity logging.',
+            'Own tables are namespaced, ontology is compiled, and lineage, media, tags, and activity logging are ready.',
         icon: Database,
     },
     {
         name: 'Laravel layer',
         summary:
-            'Laravel 13, Fortify, React 19, Inertia, Wayfinder, Tailwind, permissions, and production build tooling.',
+            'Laravel 13, Fortify, React 19, Inertia, Wayfinder, Tailwind, permissions, and production builds stay conventional.',
         icon: Layers,
     },
 ];
@@ -58,40 +58,40 @@ const layers: Layer[] = [
 const demoSurface = [
     {
         title: 'ThreadStudio',
-        text: 'Compose structured AI responses and watch streamed fields arrive.',
+        text: 'Test structured AI streaming with a support-style workflow you can adapt or remove.',
         icon: Workflow,
     },
     {
         title: 'PRD Studio',
-        text: 'Turn rough product notes into scoped requirements.',
+        text: 'Turn rough product notes into scoped requirements and see how admin AI screens are wired.',
         icon: FileText,
     },
     {
         title: 'Admin inbox',
-        text: 'Review contact submissions behind the EvoLayer admin gate.',
+        text: 'Review contact submissions behind the EvoLayer admin gate with roles already seeded.',
         icon: LockKeyhole,
     },
     {
         title: 'Contact AI',
-        text: 'Triage, tag, and enrich form submissions with optional media.',
+        text: 'Submit a contact request, then triage, tag, and enrich it with optional media.',
         icon: RouteIcon,
     },
 ] satisfies DemoCard[];
 
 const walkthrough = [
-    'Start with the public landing and contact flow.',
-    'Log in with the seeded admin user.',
-    'Open ThreadStudio for structured streaming composition.',
-    'Review PRD Studio, voice input, text assist, and the admin inbox.',
+    'Open the public landing page and submit the contact flow.',
+    'Sign in as test@example.com / password to unlock admin-only examples.',
+    'Add a provider key, then use ThreadStudio to verify structured streaming.',
+    'Scan PRD Studio, voice input, text assist, and the admin inbox before deleting what you do not need.',
 ] as const;
 
 const proof = [
     'Clean create-project install',
-    'Migrate and seed',
-    'Wayfinder generated',
-    'Ontology compiled',
-    'Production build passed',
-    'Doctor command green',
+    'Database migrated and seeded',
+    'Typed routes generated',
+    'Ontology cache compiled',
+    'Production assets built',
+    'Doctor checks green',
 ] as const;
 
 export default function About() {
@@ -115,18 +115,18 @@ export default function About() {
                         </h1>
 
                         <p className="mt-6 max-w-2xl text-base leading-8 text-neutral-600 sm:text-lg dark:text-neutral-400">
-                            Start from a working application: auth, typed
-                            routes, structured AI workflows, admin screens,
-                            ontology tooling, and release checks already wired
-                            together.
+                            Start from a working application: Laravel auth,
+                            typed routes, structured AI workflows, admin
+                            screens, ontology tooling, and local verification
+                            commands already wired together.
                         </p>
 
                         <div className="mt-8 flex flex-wrap gap-3">
                             <Link
-                                href="/register"
+                                href="/login"
                                 className="bg-brand hover:bg-brand-hover inline-flex items-center rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-sm transition"
                             >
-                                Create account
+                                Explore the demo
                             </Link>
                             <a
                                 href={docsBaseUrl}
