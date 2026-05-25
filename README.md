@@ -4,13 +4,25 @@ The [Laravel React Inertia starter kit](https://laravel.com/docs/starter-kits) w
 **EvoLayer Base** layer pre-wired: an AI/ontology/blocks substrate built on the
 [`laravel/ai`](https://github.com/laravel/ai) SDK, ready to extend.
 
+You get the full application code in your repo from day one: auth, Inertia pages,
+React components, Tailwind styling, EvoLayer examples, config, seeders, and tests
+are all yours to change.
+
 This template ships in **kitchen-sink** posture — every example feature is enabled out of
 the box so you can see the full surface immediately. Disable what you don't want by flipping
 a single env flag (see [Features](#features)).
 
 It is a thin fork of `laravel/react-starter-kit` that requires the
-[`xuple/evolayer-base`](../evodevops-base-pkg) composer package and pre-applies the small set of
+[`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) Composer package and pre-applies the small set of
 host-side integration edits the package can't publish on its own.
+
+## What ships
+
+- Laravel 13 + Fortify + React 19 + Inertia + TypeScript + Tailwind, following the official React starter structure.
+- EvoLayer Base examples: ThreadStudio, PRD Studio, admin inbox, contact AI, voice input, text assist, and marketing pages.
+- Structured-output streaming support through the committed `laravel/ai` patch.
+- Spatie permission/activitylog/medialibrary/tags config and migrations committed where the host app must own them.
+- A seeded admin demo user plus AI capability ledger for immediate local exploration.
 
 ## Quick start
 
@@ -32,6 +44,8 @@ clone this repo directly instead, run the equivalent in one shot:
 ```bash
 composer setup
 ```
+
+Private pre-release installs need access to the Forge/GitHub repositories described in [RELEASE.md](RELEASE.md). Once the packages are tagged and published, the same command works without the VCS repository setup.
 
 ### Demo login
 
@@ -92,7 +106,7 @@ host files. These are already applied in this template:
 - `app/Http/Middleware/HandleInertiaRequests.php` — shares the `evolayer.base.{examples,features}` prop.
 - `app/Models/User.php` — adds Spatie's `HasRoles` so the admin gate resolves `hasRole('admin')`.
 - `resources/js/components/app-sidebar.tsx` — renders the enabled example pages via `useExampleNavItems()`.
-- `resources/js/types/global.d.ts` — types the `evo` shared prop.
+- `resources/js/types/global.d.ts` — types the `evolayer` shared prop.
 - `resources/js/app.tsx` — uses the `|` title separator.
 - `database/seeders/DatabaseSeeder.php` — seeds the AI capability ledger and the admin demo user.
 
@@ -118,7 +132,11 @@ the package's own installer: `php artisan evolayer:install`.
 
 - `composer dev` — run server, queue, logs, and Vite together.
 - `php artisan evolayer:doctor` — health-check the install.
-- `npm run types:check` / `composer lint` / `vendor/bin/phpunit`.
+- `npm run types:check` / `npm run build` / `composer lint` / `composer test`.
+
+## Project Status
+
+EvoLayer is pre-1.0. The repos are pushed to the self-hosted Forge and mirrored to GitHub, but the first release tag and public distribution path are still pending. See [RELEASE.md](RELEASE.md) and [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
