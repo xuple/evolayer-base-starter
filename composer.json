@@ -16,7 +16,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "xuple/evolayer-base": "*@dev",
+        "xuple/evolayer-base": "dev-main",
         "inertiajs/inertia-laravel": "^3.0",
         "laravel/chisel": "^0.1.0",
         "laravel/fortify": "^1.37.2",
@@ -55,6 +55,10 @@
             "options": {
                 "symlink": false
             }
+        },
+        {
+            "type": "vcs",
+            "url": "ssh://git@forge.dev.home.arpa:222/xupleteam/evolayer-base.git"
         }
     ],
     "scripts": {
