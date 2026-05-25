@@ -7,6 +7,11 @@ free/public MIT projects. The self-hosted Forge and private GitHub repositories
 are pre-launch staging; the launch target is public GitHub plus Packagist.
 Version/tag remains open.
 
+Web IA is part of the release posture: `evodevops.com` teaches and markets the
+family, `docs.evodevops.com/base` is the canonical Base documentation root, `/`
+is the starter's demo/install landing page, and `/about` explains why the Base
+layer exists.
+
 ## Provisional version
 
 First release target: **0.1.0** (pre-1.0). Not yet tagged.

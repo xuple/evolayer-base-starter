@@ -16,6 +16,11 @@ It is a thin fork of `laravel/react-starter-kit` that requires the
 [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) Composer package and pre-applies the small set of
 host-side integration edits the package can't publish on its own.
 
+Public web strategy: `evodevops.com` is the editorial/teaching home for the
+starter-kit family, while `https://docs.evodevops.com/base` is the canonical
+EvoLayer Base documentation path. In this starter, `/` is the demo/install
+landing page and `/about` is the product explainer.
+
 ## What ships
 
 - Laravel 13 + Fortify + React 19 + Inertia + TypeScript + Tailwind, following the official React starter structure.
