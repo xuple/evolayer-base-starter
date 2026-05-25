@@ -20,26 +20,37 @@ cd my-app && npm install && npm run build && php artisan serve
 `migrate --seed`, `wayfinder:generate`, and `evolayer:ontology:compile`. Demo
 admin: `test@example.com` / `password`.
 
-## Local path repository during development
+## How the package is resolved
 
-While the package is unpublished, the starter resolves it from a sibling
-directory via a `path` repository, with `xuple/evolayer-base: *@dev`:
+While the package is private/unpublished the starter resolves it from the **forge
+`vcs` repository** at `dev-main` — so `composer create-project` works from any
+machine with forge access, not just one with a sibling checkout:
 
 ```jsonc
-"repositories": [{ "type": "path", "url": "../evodevops-base-pkg",
-                   "options": { "symlink": false } }]
+"require":      { "xuple/evolayer-base": "dev-main" },
+"repositories": [{ "type": "vcs",
+                   "url": "ssh://git@forge.dev.home.arpa:222/xupleteam/evolayer-base.git" }]
 ```
 
-The directory name stays `evodevops-base-pkg` (filesystem ≠ package identity).
-`composer validate --strict` warns about the unbound `*@dev` constraint — this is
-**expected during development** and is swapped for a real version (e.g. `^0.1`)
-once the package is tagged and reachable from a Composer repository.
+`composer.lock` is **not committed** (matches the `laravel/laravel` skeleton): a
+committed lock pinned the package to a machine-local source and broke
+`create-project` elsewhere. Each created project resolves fresh and commits its
+own lock. After the package is tagged, `dev-main` becomes `^0.1`.
+
+**Local side-by-side package dev (optional):** to edit the package locally and
+have this starter pick it up without pushing to the forge, add an *uncommitted*
+path override:
+
+```bash
+composer config repositories.local path ../evodevops-base-pkg   # do not commit
+```
 
 ## Pre-release checklist (before tagging)
 
 1. `vendor/bin/phpunit`, `npm run types:check`, `npm run build` green.
-2. `composer validate --strict` clean apart from the intentional `*@dev` warning.
+2. `composer validate --strict` clean (the `dev-main` constraint is bound — no warning).
 3. `php artisan evolayer:doctor` all-green.
+4. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end (verified).
 4. **Live AI** — add `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` to `.env`, then run
    `php artisan evolayer:ai:stream-smoke gemini` and `... anthropic`. Blocked
    until keys are provided.

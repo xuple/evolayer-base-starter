@@ -31,7 +31,6 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   script to re-publish the package frontend on upgrade.
 
 ### Notes
-- During development the package is resolved from a local path repository
-  (`../evodevops-base-pkg`) with `xuple/evolayer-base: *@dev`; this is replaced by
-  a real version constraint once the package is tagged/published (see
-  `RELEASE.md`).
+- While private, the package is resolved from the forge `vcs` repository at
+  `dev-main` (composer.lock is not committed); becomes `^0.1` once tagged. See
+  `RELEASE.md`. `composer create-project` verified end-to-end from the forge.
