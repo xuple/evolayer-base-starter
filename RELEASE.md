@@ -50,14 +50,19 @@ composer config repositories.local path ../evodevops-base-pkg   # do not commit
 
 ## Pre-release checklist (before tagging)
 
-1. `vendor/bin/phpunit`, `npm run types:check`, `npm run build` green.
+1. `composer test`, `npm run types:check`, `npm run build` green.
 2. `composer validate --strict` clean (the `dev-main` constraint is bound — no warning).
 3. `php artisan evolayer:doctor` all-green.
-4. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end (verified).
-4. **Live AI** — add `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` to `.env`, then run
+4. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end.
+5. **Live AI** — add `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` to `.env`, then run
    `php artisan evolayer:ai:stream-smoke gemini` and `... anthropic`. Blocked
    until keys are provided.
-5. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
+6. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
+
+Verified from `/tmp/evolayer-test` using the Forge VCS repository argument:
+`composer create-project` resolved the starter and package, applied the patch,
+migrated/seeded, generated Wayfinder + ontology, then `npm install`,
+`npm run build`, `php artisan evolayer:doctor`, and `composer test` all passed.
 
 ## Distribution (direction set)
 
