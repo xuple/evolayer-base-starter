@@ -66,6 +66,20 @@ repository pointing at the package's private git URL, and the dependency becomes
 `"xuple/evolayer-base": "^0.1"`. See the package `RELEASE.md` for the full
 distribution model and the push recipe.
 
+## CI access note
+
+Until `xuple/evolayer-base` is tagged and published on Packagist, CI must have
+read access to that private package repository. Forge-based CI can use the
+committed Forge VCS URL directly. GitHub-hosted CI needs an explicit
+secret/deploy key/PAT with access to `xuple/evolayer-base`; otherwise
+`composer install` will fail before tests run.
+
+The GitHub workflows are intentionally `workflow_dispatch` only during this
+private pre-release phase to avoid noisy failure emails on every push. Re-enable
+push/PR triggers when the package is published on Packagist. A temporary
+`EVOLAYER_BASE_GITHUB_TOKEN` secret can be used before then, but that is only a
+pre-release workaround.
+
 ## Open decisions
 
 Final version/tag and live AI verification (needs `GEMINI_API_KEY` /
