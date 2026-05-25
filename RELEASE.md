@@ -45,7 +45,17 @@ once the package is tagged and reachable from a Composer repository.
    until keys are provided.
 5. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
 
+## Distribution (direction set)
+
+Private-first: a self-hosted git server is the primary `origin`, with a private
+GitHub repo (a few collaborators) as a likely mirror — **not** public Packagist
+while private. At publish time the dev `path` repo is replaced by a `vcs`
+repository pointing at the package's private git URL, and the dependency becomes
+`"xuple/evolayer-base": "^0.1"`. See the package `RELEASE.md` for the full
+distribution model and the push recipe.
+
 ## Open decisions
 
-Remotes, Packagist vs private distribution, final version/tag, and live AI
-verification (needs API keys) — all deferred. See the package `RELEASE.md`.
+Exact remote URLs, the final version/tag, and live AI verification (needs
+`GEMINI_API_KEY` / `ANTHROPIC_API_KEY`) — still pending. No remote is wired up
+and nothing is pushed.
