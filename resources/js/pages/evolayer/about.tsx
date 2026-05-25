@@ -242,10 +242,10 @@ export default function About() {
                             <Gauge className="text-brand size-6" />
                             <div>
                                 <p className="text-xs font-semibold tracking-[0.18em] text-neutral-500 uppercase">
-                                    Release proof
+                                    Known-good baseline
                                 </p>
                                 <h2 className="mt-1 text-2xl font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
-                                    Verified before the tag.
+                                    Install, build, then customize.
                                 </h2>
                             </div>
                         </div>
