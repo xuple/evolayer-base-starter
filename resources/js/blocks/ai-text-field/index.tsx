@@ -157,9 +157,7 @@ export function AiTextField({
                 return;
             }
 
-            setError(
-                'The connection was lost while generating. Try again.',
-            );
+            setError('The connection was lost while generating. Try again.');
         } finally {
             setSuggesting(false);
         }
@@ -217,9 +215,7 @@ export function AiTextField({
                     </span>
                 )}
             </div>
-            {error && (
-                <p className="text-sm text-destructive">{error}</p>
-            )}
+            {error && <p className="text-sm text-destructive">{error}</p>}
         </div>
     );
 }

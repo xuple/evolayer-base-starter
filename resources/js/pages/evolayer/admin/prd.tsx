@@ -197,14 +197,16 @@ export default function PrdPage({
                                             buildPayload={() => ({
                                                 field_hint:
                                                     'Product context for a PRD document — describe what the product does, who it is for, and the core problem it solves',
-                                                context: [
-                                                    form.audience &&
-                                                        `Audience: ${form.audience}`,
-                                                    form.constraints &&
-                                                        `Constraints: ${form.constraints}`,
-                                                ]
-                                                    .filter(Boolean)
-                                                    .join('\n') || undefined,
+                                                context:
+                                                    [
+                                                        form.audience &&
+                                                            `Audience: ${form.audience}`,
+                                                        form.constraints &&
+                                                            `Constraints: ${form.constraints}`,
+                                                    ]
+                                                        .filter(Boolean)
+                                                        .join('\n') ||
+                                                    undefined,
                                             })}
                                             rows={8}
                                             placeholder="Describe the product, workflow, customer pain, business goal, and any existing system context."
@@ -215,7 +217,9 @@ export default function PrdPage({
                                                         size="sm"
                                                         label="Dictate"
                                                         disabled={processing}
-                                                        transcribeUrl={voiceInputUrl}
+                                                        transcribeUrl={
+                                                            voiceInputUrl
+                                                        }
                                                         onTranscribed={(
                                                             text,
                                                         ) => {
@@ -258,7 +262,9 @@ export default function PrdPage({
                                                     size="sm"
                                                     label="Dictate"
                                                     disabled={processing}
-                                                    transcribeUrl={voiceInputUrl}
+                                                    transcribeUrl={
+                                                        voiceInputUrl
+                                                    }
                                                     onTranscribed={(text) => {
                                                         setForm((current) => ({
                                                             ...current,

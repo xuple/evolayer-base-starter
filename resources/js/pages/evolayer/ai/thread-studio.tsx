@@ -316,7 +316,7 @@ export default function ThreadStudioPage({
                     <Card className="border-neutral-200/80 shadow-sm dark:border-neutral-800">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Sparkles className="h-4 w-4 text-brand" />
+                                <Sparkles className="text-brand h-4 w-4" />
                                 Compose a support-ready answer
                             </CardTitle>
                             <CardDescription>
@@ -658,8 +658,7 @@ export default function ThreadStudioPage({
                                             <Skeleton className="mt-1 h-4 w-4/5" />
                                         </div>
                                     </div>
-                                ) : result ||
-                                  streamingFields.summary ? (
+                                ) : result || streamingFields.summary ? (
                                     <>
                                         <div className="flex flex-wrap gap-2">
                                             {(result?.urgency ??

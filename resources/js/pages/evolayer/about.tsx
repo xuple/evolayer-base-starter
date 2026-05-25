@@ -15,19 +15,19 @@ const roleBlocks = [
         name: 'Docs',
         summary:
             'The docs cover installation, setup, conventions, and verification.',
-        icon: <FileText className="size-5 text-brand" />,
+        icon: <FileText className="text-brand size-5" />,
     },
     {
         name: 'Public pages',
         summary:
             'The public pages explain the starter and link people into login, registration, and docs.',
-        icon: <WorkflowIcon className="size-5 text-brand" />,
+        icon: <WorkflowIcon className="text-brand size-5" />,
     },
     {
         name: 'Auth and app',
         summary:
             'Authentication, settings, and the first app pages are already wired and ready to extend.',
-        icon: <ShieldCheckIcon className="size-5 text-brand" />,
+        icon: <ShieldCheckIcon className="text-brand size-5" />,
     },
 ] as const;
 
@@ -73,7 +73,7 @@ export default function About() {
             <Head title="About" />
 
             <div className="relative w-full overflow-hidden">
-                <div className="absolute inset-x-0 top-0 -z-10 h-[28rem] bg-gradient-to-b from-brand/10 via-transparent to-transparent" />
+                <div className="from-brand/10 absolute inset-x-0 top-0 -z-10 h-[28rem] bg-gradient-to-b via-transparent to-transparent" />
 
                 <main className="mx-auto flex w-full max-w-6xl flex-col py-6 sm:py-8">
                     <header className="border-b border-neutral-200/80 pb-5 dark:border-neutral-800/80">
@@ -104,7 +104,7 @@ export default function About() {
                                     href={docsBaseUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-hover"
+                                    className="bg-brand hover:bg-brand-hover inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition"
                                 >
                                     Open base docs
                                 </a>
@@ -128,7 +128,7 @@ export default function About() {
                                     key={block.name}
                                     className="rounded-[1.75rem] border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-950"
                                 >
-                                    <div className="flex size-11 items-center justify-center rounded-2xl bg-brand/10">
+                                    <div className="bg-brand/10 flex size-11 items-center justify-center rounded-2xl">
                                         {block.icon}
                                     </div>
                                     <h3 className="mt-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
@@ -181,7 +181,7 @@ export default function About() {
                                         className="rounded-[1.5rem] border border-neutral-200 bg-neutral-50/80 p-4 dark:border-neutral-800 dark:bg-neutral-900/70"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <RouteIcon className="size-5 text-brand" />
+                                            <RouteIcon className="text-brand size-5" />
                                             <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
                                                 {block.name}
                                             </h3>

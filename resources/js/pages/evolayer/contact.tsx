@@ -1,8 +1,13 @@
 import { Form } from '@inertiajs/react';
-import { useEvoLayerProps } from '@/hooks/use-evolayer-props';
-import { MailIcon, MessageSquareIcon, PaperclipIcon, PhoneIcon } from 'lucide-react';
+import {
+    MailIcon,
+    MessageSquareIcon,
+    PaperclipIcon,
+    PhoneIcon,
+} from 'lucide-react';
 import { useCallback, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
+import { useEvoLayerProps } from '@/hooks/use-evolayer-props';
 import ContactController from '@/actions/Xuple/EvoLayer/Base/Http/Controllers/ContactController';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -40,7 +45,8 @@ export default function Contact() {
     const fetchHintsRef = useRef<AbortController | null>(null);
 
     const contactAiEnabled = evolayer.base.examples.contact_ai;
-    const contactAttachmentsEnabled = evolayer.base.features.contact_attachments;
+    const contactAttachmentsEnabled =
+        evolayer.base.features.contact_attachments;
 
     const fetchHints = useCallback(
         async (type: string): Promise<void> => {
@@ -92,9 +98,9 @@ export default function Contact() {
                                 key={item.label}
                                 className="flex items-start gap-4"
                             >
-                                <div className="flex size-11 flex-shrink-0 items-center justify-center rounded-2xl bg-brand/10">
+                                <div className="bg-brand/10 flex size-11 flex-shrink-0 items-center justify-center rounded-2xl">
                                     <item.icon
-                                        className="size-5 text-brand"
+                                        className="text-brand size-5"
                                         aria-hidden="true"
                                     />
                                 </div>
@@ -105,7 +111,7 @@ export default function Contact() {
                                     {item.href ? (
                                         <a
                                             href={item.href}
-                                            className="mt-1 text-sm text-neutral-600 transition hover:text-brand dark:text-neutral-400"
+                                            className="hover:text-brand mt-1 text-sm text-neutral-600 transition dark:text-neutral-400"
                                         >
                                             {item.value}
                                         </a>
@@ -264,7 +270,8 @@ export default function Contact() {
                                         <Label htmlFor="attachments">
                                             Attachments{' '}
                                             <span className="font-normal text-neutral-400">
-                                                (optional, up to 5 files, 10 MB each)
+                                                (optional, up to 5 files, 10 MB
+                                                each)
                                             </span>
                                         </Label>
                                         <label
@@ -282,8 +289,12 @@ export default function Contact() {
                                                 className="sr-only"
                                             />
                                         </label>
-                                        <InputError message={errors['attachments']} />
-                                        <InputError message={errors['attachments.0']} />
+                                        <InputError
+                                            message={errors['attachments']}
+                                        />
+                                        <InputError
+                                            message={errors['attachments.0']}
+                                        />
                                     </div>
                                 )}
 

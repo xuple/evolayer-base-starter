@@ -1,5 +1,10 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
-import { AlertCircle, LoaderCircle, PaperclipIcon, Sparkles } from 'lucide-react';
+import {
+    AlertCircle,
+    LoaderCircle,
+    PaperclipIcon,
+    Sparkles,
+} from 'lucide-react';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
 import InboxController from '@/actions/Xuple/EvoLayer/Base/Http/Controllers/Admin/InboxController';
@@ -149,7 +154,7 @@ function ComposePanel({ message }: { message: string }) {
         <div className="flex h-full flex-col">
             <div className="border-b border-sidebar-border/70 px-4 py-3 dark:border-sidebar-border">
                 <div className="flex items-center gap-2">
-                    <Sparkles className="size-3.5 text-brand" />
+                    <Sparkles className="text-brand size-3.5" />
                     <span className="text-xs font-semibold tracking-[0.14em] text-neutral-500 uppercase dark:text-neutral-400">
                         ThreadStudio
                     </span>
@@ -489,7 +494,7 @@ export default function InboxPage({
                                     className={cn(
                                         'block px-4 py-3 transition-colors hover:bg-neutral-50/60 dark:hover:bg-neutral-900/40',
                                         selected?.id === submission.id &&
-                                            'border-r-2 border-r-brand bg-brand/5',
+                                            'border-r-brand bg-brand/5 border-r-2',
                                     )}
                                 >
                                     <div className="flex items-start justify-between gap-2">

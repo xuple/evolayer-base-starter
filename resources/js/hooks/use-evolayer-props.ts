@@ -14,12 +14,14 @@ import type { EvoLayerSharedProps } from '@/types/evolayer';
  * published pages.
  */
 export function useEvoLayerProps(): EvoLayerSharedProps {
-    const props = usePage().props as unknown as { evolayer?: EvoLayerSharedProps };
+    const props = usePage().props as unknown as {
+        evolayer?: EvoLayerSharedProps;
+    };
 
     if (!props.evolayer) {
         throw new Error(
-            'EvoLayer Base: usePage().props.evolayer is missing. Add the evolayer shared prop to '
-                + "HandleInertiaRequests::share() — see the package README's 'Wire EvoLayer shared props into Inertia' step."
+            'EvoLayer Base: usePage().props.evolayer is missing. Add the evolayer shared prop to ' +
+                "HandleInertiaRequests::share() — see the package README's 'Wire EvoLayer shared props into Inertia' step.",
         );
     }
 

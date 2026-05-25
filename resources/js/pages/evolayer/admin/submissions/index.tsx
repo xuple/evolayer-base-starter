@@ -112,7 +112,7 @@ export default function SubmissionsIndex({ submissions }: Props) {
                                                             submission.id,
                                                     },
                                                 )}
-                                                className="font-medium text-neutral-900 hover:text-brand dark:text-neutral-100"
+                                                className="hover:text-brand font-medium text-neutral-900 dark:text-neutral-100"
                                             >
                                                 {submission.first_name}{' '}
                                                 {submission.last_name}
@@ -235,6 +235,9 @@ export default function SubmissionsIndex({ submissions }: Props) {
 
 SubmissionsIndex.layout = {
     breadcrumbs: [
-        { title: 'Submissions', href: evolayer.base.admin.submissions.index.url() },
+        {
+            title: 'Submissions',
+            href: evolayer.base.admin.submissions.index.url(),
+        },
     ],
 } satisfies AppLayoutPageProps;

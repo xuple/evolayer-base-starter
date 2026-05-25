@@ -63,7 +63,11 @@ function formatActivityTime(iso: string): string {
     });
 }
 
-export default function SubmissionsShow({ submission, attachments, activity }: Props) {
+export default function SubmissionsShow({
+    submission,
+    attachments,
+    activity,
+}: Props) {
     const markRead = useForm({});
     const archive = useForm({});
 
@@ -86,7 +90,9 @@ export default function SubmissionsShow({ submission, attachments, activity }: P
             <div className="flex flex-col gap-6 p-4">
                 <div className="flex items-center gap-3">
                     <Button variant="ghost" size="sm" asChild>
-                        <Link href={evolayer.base.admin.submissions.index.url()}>
+                        <Link
+                            href={evolayer.base.admin.submissions.index.url()}
+                        >
                             <ArrowLeftIcon className="size-4" />
                             Submissions
                         </Link>
@@ -187,7 +193,7 @@ export default function SubmissionsShow({ submission, attachments, activity }: P
                                         <dd>
                                             <a
                                                 href={`tel:${submission.phone}`}
-                                                className="text-neutral-700 hover:text-brand dark:text-neutral-300"
+                                                className="hover:text-brand text-neutral-700 dark:text-neutral-300"
                                             >
                                                 {submission.phone}
                                             </a>
@@ -305,7 +311,10 @@ export default function SubmissionsShow({ submission, attachments, activity }: P
 
 SubmissionsShow.layout = {
     breadcrumbs: [
-        { title: 'Submissions', href: evolayer.base.admin.submissions.index.url() },
+        {
+            title: 'Submissions',
+            href: evolayer.base.admin.submissions.index.url(),
+        },
         { title: 'View submission', href: '#' },
     ],
 } satisfies AppLayoutPageProps;
