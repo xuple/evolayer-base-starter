@@ -183,17 +183,17 @@ export default function About() {
                     </div>
                 </section>
 
-                <section className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+                <section>
                     <div>
                         <p className="text-xs font-semibold tracking-[0.18em] text-neutral-500 uppercase">
                             Demo surface
                         </p>
-                        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
+                        <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
                             One install, a full product-shaped walkthrough.
                         </h2>
                     </div>
 
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="mt-7 grid gap-4 md:grid-cols-2">
                         {demoSurface.map((item) => {
                             const Icon = item.icon;
 
