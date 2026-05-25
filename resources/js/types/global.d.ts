@@ -1,5 +1,5 @@
 import type { Auth } from '@/types/auth';
-import type { EvoSharedProps } from '@/types/evodevops';
+import type { EvoLayerSharedProps } from '@/types/evolayer';
 
 declare module 'react' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -14,8 +14,8 @@ declare module '@inertiajs/core' {
             name: string;
             auth: Auth;
             sidebarOpen: boolean;
-            // Published by evodevops/base — see resources/js/types/evodevops.d.ts.
-            evo: EvoSharedProps;
+            // Published by xuple/evolayer-base — see resources/js/types/evolayer.d.ts.
+            evolayer: EvoLayerSharedProps;
             [key: string]: unknown;
         };
     }

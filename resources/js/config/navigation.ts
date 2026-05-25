@@ -10,7 +10,7 @@ import { dashboard } from '@/routes';
 import { edit as editAppearance } from '@/routes/appearance/index';
 import { edit as profileEdit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security/index';
-import type { EvoNavItem } from '@/types/evodevops';
+import type { EvoLayerNavItem } from '@/types/evolayer';
 
 /*
  * EvoDevOps feature URLs are stable string paths rather than Wayfinder
@@ -22,7 +22,7 @@ import type { EvoNavItem } from '@/types/evodevops';
  * Host/starter routes (dashboard, profile, etc.) keep their typed Wayfinder
  * imports since the starter always ships them.
  */
-export const sidebarPrimaryNavItems: EvoNavItem[] = [
+export const sidebarPrimaryNavItems: EvoLayerNavItem[] = [
     {
         title: 'Home',
         href: '/home',
@@ -54,7 +54,7 @@ export const sidebarPrimaryNavItems: EvoNavItem[] = [
     },
 ];
 
-export const sidebarSecondaryNavItems: EvoNavItem[] = [
+export const sidebarSecondaryNavItems: EvoLayerNavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
@@ -63,12 +63,12 @@ export const sidebarSecondaryNavItems: EvoNavItem[] = [
     },
 ];
 
-export const mainNavItems: EvoNavItem[] = [
+export const mainNavItems: EvoLayerNavItem[] = [
     ...sidebarPrimaryNavItems,
     ...sidebarSecondaryNavItems,
 ];
 
-export const settingsNavItems: EvoNavItem[] = [
+export const settingsNavItems: EvoLayerNavItem[] = [
     {
         title: 'Settings',
         href: profileEdit(),
@@ -77,7 +77,7 @@ export const settingsNavItems: EvoNavItem[] = [
     },
 ];
 
-export const settingsSectionNavItems: EvoNavItem[] = [
+export const settingsSectionNavItems: EvoLayerNavItem[] = [
     {
         title: 'Profile',
         href: profileEdit(),

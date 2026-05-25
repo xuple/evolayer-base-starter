@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import { AlertCircle, FileText, LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
 import type { FormEvent, ReactElement } from 'react';
-import { generate } from '@/actions/EvoDevOps/Base/Http/Controllers/Admin/PrdController';
+import { generate } from '@/actions/Xuple/EvoLayer/Base/Http/Controllers/Admin/PrdController';
 import { AiTextField } from '@/blocks/ai-text-field';
 import { VoiceInput } from '@/blocks/voice-input';
 import InputError from '@/components/input-error';

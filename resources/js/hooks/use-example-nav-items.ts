@@ -1,10 +1,10 @@
-import type { EvoNavItem } from '@/types/evodevops';
-import { useEvoProps } from '@/hooks/use-evo-props';
+import type { EvoLayerNavItem } from '@/types/evolayer';
+import { useEvoLayerProps } from '@/hooks/use-evolayer-props';
 
-export function useExampleNavItems<T extends EvoNavItem = EvoNavItem>(
+export function useExampleNavItems<T extends EvoLayerNavItem = EvoLayerNavItem>(
     items: T[],
 ): T[] {
-    const examples = useEvoProps().base?.examples;
+    const examples = useEvoLayerProps().base?.examples;
 
     if (!examples) {
         return items;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c47556d2674899ca3434a6896cab42d",
+    "content-hash": "dcde42b83f3e91a277e1182eceb5f5aa",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -888,89 +888,6 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
-        },
-        {
-            "name": "evodevops/base",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "../evodevops-base-pkg",
-                "reference": "d0bf558bf312a81903f02f0b9f93cc31ec30faa8"
-            },
-            "require": {
-                "inertiajs/inertia-laravel": "^3.0",
-                "laravel/ai": "^0.6.5",
-                "laravel/framework": "^13.7",
-                "php": "^8.3",
-                "spatie/laravel-activitylog": "^5.0",
-                "spatie/laravel-permission": "^7.4"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^11.0",
-                "pestphp/pest": "^4.6",
-                "pestphp/pest-plugin-laravel": "^4.1",
-                "spatie/laravel-medialibrary": "^11.22",
-                "spatie/laravel-tags": "^4.11"
-            },
-            "suggest": {
-                "cweagans/composer-patches": "Required for structured streaming on laravel/ai <=0.6.5. See patches/README.md.",
-                "spatie/laravel-medialibrary": "Required to enable contact attachment processing. Set EVO_BASE_FEATURE_CONTACT_ATTACHMENTS=true after install.",
-                "spatie/laravel-tags": "Required to enable AI auto-tagging on form submissions during triage."
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "EvoDevOps\\Base\\BaseServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "EvoDevOps\\Base\\": "src/",
-                    "EvoDevOps\\Base\\Database\\Factories\\": "database/factories/",
-                    "EvoDevOps\\Base\\Database\\Seeders\\": "database/seeders/"
-                },
-                "files": [
-                    "src/Compat/bootstrap.php"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "EvoDevOps\\Base\\Tests\\": "tests/",
-                    "EvoDevOps\\Base\\Tests\\Fixtures\\": "tests/Fixtures/"
-                }
-            },
-            "scripts": {
-                "apply-patches": [
-                    "@php scripts/apply-patches.php"
-                ],
-                "post-install-cmd": [
-                    "@apply-patches"
-                ],
-                "post-update-cmd": [
-                    "@apply-patches"
-                ],
-                "test": [
-                    "vendor/bin/pest"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "EvoDevOps Base — AI agents, ontology, and premium React blocks for the Laravel React Inertia starter.",
-            "keywords": [
-                "ai",
-                "evodevops",
-                "inertia",
-                "laravel",
-                "ontology",
-                "react"
-            ],
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            }
         },
         {
             "name": "fruitcake/php-cors",
@@ -8903,6 +8820,91 @@
                 "source": "https://github.com/webmozarts/assert/tree/2.4.0"
             },
             "time": "2026-05-20T13:07:01+00:00"
+        },
+        {
+            "name": "xuple/evolayer-base",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../evodevops-base-pkg",
+                "reference": "4bbe2984b37b010c14ca5004de13e1cc1e138a5f"
+            },
+            "require": {
+                "inertiajs/inertia-laravel": "^3.0",
+                "laravel/ai": "^0.6.5",
+                "laravel/framework": "^13.7",
+                "php": "^8.3",
+                "spatie/laravel-activitylog": "^5.0",
+                "spatie/laravel-permission": "^7.4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^11.0",
+                "pestphp/pest": "^4.6",
+                "pestphp/pest-plugin-laravel": "^4.1",
+                "spatie/laravel-medialibrary": "^11.22",
+                "spatie/laravel-tags": "^4.11"
+            },
+            "suggest": {
+                "cweagans/composer-patches": "Required for structured streaming on laravel/ai <=0.6.5. See patches/README.md.",
+                "spatie/laravel-medialibrary": "Required to enable contact attachment processing. Set EVOLAYER_BASE_FEATURE_CONTACT_ATTACHMENTS=true after install.",
+                "spatie/laravel-tags": "Required to enable AI auto-tagging on form submissions during triage."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Xuple\\EvoLayer\\Base\\BaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Xuple\\EvoLayer\\Base\\": "src/",
+                    "Xuple\\EvoLayer\\Base\\Database\\Factories\\": "database/factories/",
+                    "Xuple\\EvoLayer\\Base\\Database\\Seeders\\": "database/seeders/"
+                },
+                "files": [
+                    "src/Compat/bootstrap.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Xuple\\EvoLayer\\Base\\Tests\\": "tests/",
+                    "Xuple\\EvoLayer\\Base\\Tests\\Fixtures\\": "tests/Fixtures/"
+                }
+            },
+            "scripts": {
+                "apply-patches": [
+                    "@php scripts/apply-patches.php"
+                ],
+                "post-install-cmd": [
+                    "@apply-patches"
+                ],
+                "post-update-cmd": [
+                    "@apply-patches"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "EvoLayer Base — AI agents, ontology, and premium React blocks for the Laravel React Inertia starter. Part of the EvoDevOps starter-kit family.",
+            "keywords": [
+                "ai",
+                "evodevops",
+                "evolayer",
+                "inertia",
+                "laravel",
+                "ontology",
+                "react",
+                "xuple"
+            ],
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
         }
     ],
     "packages-dev": [
@@ -11286,7 +11288,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "evodevops/base": 20
+        "xuple/evolayer-base": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

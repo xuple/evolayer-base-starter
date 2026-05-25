@@ -1,5 +1,5 @@
 import { usePage } from '@inertiajs/react';
-import type { EvoSharedProps } from '@/types/evodevops';
+import type { EvoLayerSharedProps } from '@/types/evolayer';
 
 /**
  * Read the EvoDevOps shared props from the current Inertia page.
@@ -13,15 +13,15 @@ import type { EvoSharedProps } from '@/types/evodevops';
  * becomes a no-op and full type-safety is restored throughout the package's
  * published pages.
  */
-export function useEvoProps(): EvoSharedProps {
-    const props = usePage().props as unknown as { evo?: EvoSharedProps };
+export function useEvoLayerProps(): EvoLayerSharedProps {
+    const props = usePage().props as unknown as { evolayer?: EvoLayerSharedProps };
 
-    if (!props.evo) {
+    if (!props.evolayer) {
         throw new Error(
-            'EvoDevOps Base: usePage().props.evo is missing. Add the evo shared prop to '
+            'EvoLayer Base: usePage().props.evolayer is missing. Add the evo shared prop to '
                 + "HandleInertiaRequests::share() — see the package README's 'Wire EvoDevOps shared props into Inertia' step."
         );
     }
 
-    return props.evo;
+    return props.evolayer;
 }

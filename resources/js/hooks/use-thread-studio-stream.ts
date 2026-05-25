@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import ThreadStudioController from '@/actions/EvoDevOps/Base/Http/Controllers/Ai/ThreadStudioController';
+import ThreadStudioController from '@/actions/Xuple/EvoLayer/Base/Http/Controllers/Ai/ThreadStudioController';
 
 export type ThreadStudioResult = {
     summary: string;

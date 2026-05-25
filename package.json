@@ -1,5 +1,6 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
+    "name": "evolayer-base-starter",
     "private": true,
     "type": "module",
     "scripts": {

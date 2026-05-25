@@ -40,7 +40,7 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
-    // EvoDevOps example pages, filtered to those enabled via EVO_BASE_EXAMPLE_* flags.
+    // EvoDevOps example pages, filtered to those enabled via EVOLAYER_BASE_EXAMPLE_* flags.
     const exampleNavItems = useExampleNavItems(sidebarPrimaryNavItems).map(
         (item): NavItem => ({
             title: item.title,

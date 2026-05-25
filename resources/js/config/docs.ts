@@ -2,7 +2,7 @@ export const docsBaseUrl = 'https://docs.evodevops.com/base';
 
 export const starterDocsCommands = [
     {
-        title: 'Open: EvoDevOps Base Docs',
+        title: 'Open: EvoLayer Base Docs',
         description: 'Open the starter base documentation and setup guidance.',
         value: 'open evodevops base docs documentation help support qa',
         url: docsBaseUrl,

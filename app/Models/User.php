@@ -19,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
-    // HasRoles wires up spatie/laravel-permission so EvoDevOps Base's
+    // HasRoles wires up spatie/laravel-permission so EvoLayer Base's
     // SpatieAdminGate can resolve admin access via hasRole('admin').
     use HasFactory, HasRoles, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 

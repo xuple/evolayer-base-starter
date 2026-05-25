@@ -1,10 +1,12 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "evodevops/base-starter",
+    "name": "xuple/evolayer-base-starter",
     "type": "project",
-    "description": "EvoDevOps Base starter — the Laravel React Inertia starter kit with the EvoDevOps AI / ontology / blocks layer pre-wired.",
+    "description": "EvoLayer Base starter — the Laravel React Inertia starter kit with the EvoLayer AI / ontology / blocks layer pre-wired. Part of the EvoDevOps starter-kit family.",
     "keywords": [
+        "evolayer",
         "evodevops",
+        "xuple",
         "laravel",
         "inertia",
         "react",
@@ -14,7 +16,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "evodevops/base": "*@dev",
+        "xuple/evolayer-base": "*@dev",
         "inertiajs/inertia-laravel": "^3.0",
         "laravel/chisel": "^0.1.0",
         "laravel/fortify": "^1.37.2",
@@ -62,15 +64,15 @@
             "@php artisan key:generate",
             "@php artisan migrate --seed --force",
             "@php artisan wayfinder:generate --with-form --no-interaction",
-            "@php artisan ontology:compile --no-erd --no-interaction",
+            "@php artisan evolayer:ontology:compile --no-erd --no-interaction",
             "npm install",
             "npm run build"
         ],
-        "evodevops:resync": [
-            "@php artisan vendor:publish --tag=evodevops-base-frontend --force",
-            "@php artisan vendor:publish --tag=evodevops-base-config --force",
+        "evolayer:resync": [
+            "@php artisan vendor:publish --tag=evolayer-base-frontend --force",
+            "@php artisan vendor:publish --tag=evolayer-base-config --force",
             "@php artisan wayfinder:generate --with-form --no-interaction",
-            "@php artisan ontology:compile --no-erd --no-interaction"
+            "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
@@ -98,7 +100,7 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --seed --force",
             "@php artisan wayfinder:generate --with-form --no-interaction",
-            "@php artisan ontology:compile --no-erd --no-interaction"
+            "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"

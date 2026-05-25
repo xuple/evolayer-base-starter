@@ -7,7 +7,7 @@ import { docsBaseUrl } from '@/config/docs';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { edit as profileEdit } from '@/routes/profile';
-import evodevops from '@/routes/evodevops';
+import evolayer from '@/routes/evolayer';
 
 type StarterLink = {
     title: string;
@@ -54,7 +54,7 @@ const extensionPaths: ExtensionPath[] = [
         title: 'Public pages and docs',
         description:
             'Use the about page to review the public pages, docs, and first app areas before extending.',
-        href: evodevops.base.about().url,
+        href: evolayer.base.about().url,
         icon: Blocks,
     },
     {
@@ -227,7 +227,7 @@ export default function Home() {
 }
 
 Home.layout = (page: ReactElement) => (
-    <AppLayout breadcrumbs={[{ title: 'Home', href: evodevops.base.home() }]}>
+    <AppLayout breadcrumbs={[{ title: 'Home', href: evolayer.base.home() }]}>
         {page}
     </AppLayout>
 );

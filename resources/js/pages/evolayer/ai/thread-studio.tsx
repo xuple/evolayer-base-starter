@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import { AlertCircle, LoaderCircle, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
-import ThreadStudioController from '@/actions/EvoDevOps/Base/Http/Controllers/Ai/ThreadStudioController';
+import ThreadStudioController from '@/actions/Xuple/EvoLayer/Base/Http/Controllers/Ai/ThreadStudioController';
 import { StreamingCard } from '@/blocks/streaming-card';
 import { VoiceInput } from '@/blocks/voice-input';
 import Heading from '@/components/heading';
@@ -93,7 +93,7 @@ const dogfoodExamples: Array<{
     {
         label: 'Install help',
         message:
-            "Greetings, now what do I do once I've downloaded EvoDevOps Base?",
+            "Greetings, now what do I do once I've downloaded EvoLayer Base?",
         tone: 'balanced',
     },
     {
@@ -269,7 +269,7 @@ export default function ThreadStudioPage({
                 <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <Heading
                         title="ThreadStudio"
-                        description="Dogfood EvoDevOps Base support: turn rough starter-kit setup, install, and local-dev messages into a polished reply plus an internal handoff note."
+                        description="Dogfood EvoLayer Base support: turn rough starter-kit setup, install, and local-dev messages into a polished reply plus an internal handoff note."
                     />
                     <div className="rounded-lg border border-neutral-200/80 bg-neutral-50 px-4 py-3 text-sm shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
                         <div className="text-xs font-semibold tracking-[0.18em] text-neutral-500 uppercase">
@@ -320,7 +320,7 @@ export default function ThreadStudioPage({
                                 Compose a support-ready answer
                             </CardTitle>
                             <CardDescription>
-                                Use a real EvoDevOps Base support message. The
+                                Use a real EvoLayer Base support message. The
                                 model will summarize it, classify tone and
                                 urgency, draft a customer reply, and write an
                                 internal note.
@@ -527,7 +527,7 @@ export default function ThreadStudioPage({
                                     className={cn(
                                         'min-h-72 w-full rounded-md border border-input bg-transparent px-3 py-3 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
                                     )}
-                                    placeholder="Paste a rough EvoDevOps Base install, setup, or local-dev support message here..."
+                                    placeholder="Paste a rough EvoLayer Base install, setup, or local-dev support message here..."
                                 />
                                 <InputError
                                     message={validationError ?? undefined}

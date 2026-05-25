@@ -1,9 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import SubmissionsController from '@/actions/EvoDevOps/Base/Http/Controllers/Admin/SubmissionsController';
+import SubmissionsController from '@/actions/Xuple/EvoLayer/Base/Http/Controllers/Admin/SubmissionsController';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import evodevops from '@/routes/evodevops';
+import evolayer from '@/routes/evolayer';
 import type { AppLayoutPageProps } from '@/types/layout';
 
 type Submission = {
@@ -235,6 +235,6 @@ export default function SubmissionsIndex({ submissions }: Props) {
 
 SubmissionsIndex.layout = {
     breadcrumbs: [
-        { title: 'Submissions', href: evodevops.base.admin.submissions.index.url() },
+        { title: 'Submissions', href: evolayer.base.admin.submissions.index.url() },
     ],
 } satisfies AppLayoutPageProps;

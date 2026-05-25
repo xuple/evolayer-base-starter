@@ -1,10 +1,10 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeftIcon, PaperclipIcon } from 'lucide-react';
-import SubmissionsController from '@/actions/EvoDevOps/Base/Http/Controllers/Admin/SubmissionsController';
+import SubmissionsController from '@/actions/Xuple/EvoLayer/Base/Http/Controllers/Admin/SubmissionsController';
 import { AiTriage } from '@/blocks/ai-triage';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import evodevops from '@/routes/evodevops';
+import evolayer from '@/routes/evolayer';
 import type { AppLayoutPageProps } from '@/types/layout';
 
 type ActivityEntry = {
@@ -86,7 +86,7 @@ export default function SubmissionsShow({ submission, attachments, activity }: P
             <div className="flex flex-col gap-6 p-4">
                 <div className="flex items-center gap-3">
                     <Button variant="ghost" size="sm" asChild>
-                        <Link href={evodevops.base.admin.submissions.index.url()}>
+                        <Link href={evolayer.base.admin.submissions.index.url()}>
                             <ArrowLeftIcon className="size-4" />
                             Submissions
                         </Link>
@@ -305,7 +305,7 @@ export default function SubmissionsShow({ submission, attachments, activity }: P
 
 SubmissionsShow.layout = {
     breadcrumbs: [
-        { title: 'Submissions', href: evodevops.base.admin.submissions.index.url() },
+        { title: 'Submissions', href: evolayer.base.admin.submissions.index.url() },
         { title: 'View submission', href: '#' },
     ],
 } satisfies AppLayoutPageProps;

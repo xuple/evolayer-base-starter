@@ -161,7 +161,7 @@ return [
             'key' => env('OPENROUTER_API_KEY'),
             'url' => env('OPENROUTER_URL', 'https://openrouter.ai/api/v1'),
             'http_referer' => env('OPENROUTER_HTTP_REFERER'),
-            'x_title' => env('OPENROUTER_TITLE', env('APP_NAME', 'EvoDevOps Base')),
+            'x_title' => env('OPENROUTER_TITLE', env('APP_NAME', 'EvoLayer Base')),
             'models' => [
                 'text' => [
                     'default' => env('OPENROUTER_CHAT_MODEL', 'openrouter/auto'),

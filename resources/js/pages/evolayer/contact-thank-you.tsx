@@ -3,7 +3,7 @@ import { CheckCircleIcon } from 'lucide-react';
 import type { ReactElement } from 'react';
 import { Button } from '@/components/ui/button';
 import PublicLayout from '@/layouts/public-layout';
-import evodevops from '@/routes/evodevops';
+import evolayer from '@/routes/evolayer';
 
 export default function ContactThankYou() {
     return (
@@ -25,7 +25,7 @@ export default function ContactThankYou() {
 
             <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Button asChild variant="outline">
-                    <Link href={evodevops.base.contact()}>Send another message</Link>
+                    <Link href={evolayer.base.contact()}>Send another message</Link>
                 </Button>
                 <Button asChild>
                     <Link href="/">Back to home</Link>

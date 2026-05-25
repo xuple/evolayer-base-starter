@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use EvoDevOps\Base\Database\Seeders\AiCapabilitySeeder;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Xuple\EvoLayer\Base\Database\Seeders\AiCapabilitySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // EvoDevOps Base: provision the AI capability ledger.
+        // EvoLayer Base: provision the AI capability ledger.
         $this->call(AiCapabilitySeeder::class);
 
         // Kitchen-sink demo: a test user with the admin role so every example

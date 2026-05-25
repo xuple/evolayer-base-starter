@@ -42,11 +42,11 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-            // EvoDevOps Base shared prop — consumed by published pages via useEvoProps().
-            'evo' => [
+            // EvoLayer Base shared prop — consumed by published pages via useEvoLayerProps().
+            'evolayer' => [
                 'base' => [
-                    'examples' => config('evo.base.examples'),
-                    'features' => config('evo.base.features'),
+                    'examples' => config('evolayer.base.examples'),
+                    'features' => config('evolayer.base.features'),
                 ],
             ],
         ];
