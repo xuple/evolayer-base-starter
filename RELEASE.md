@@ -9,8 +9,8 @@ Version/tag remains open.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
 family, `docs.evodevops.com/base` is the canonical Base documentation root, `/`
-is the starter's demo/install landing page, and `/about` explains why the Base
-layer exists.
+mounts the EvoLayer Base demo/install explainer, and the package's opt-in
+marketing routes expose that same page at `/about`.
 
 ## Provisional version
 

@@ -18,8 +18,9 @@ host-side integration edits the package can't publish on its own.
 
 Public web strategy: `evodevops.com` is the editorial/teaching home for the
 starter-kit family, while `https://docs.evodevops.com/base` is the canonical
-EvoLayer Base documentation path. In this starter, `/` is the demo/install
-landing page and `/about` is the product explainer.
+EvoLayer Base documentation path. In this starter, `/` mounts the EvoLayer Base
+demo/install explainer; the package's opt-in marketing routes expose that same
+page at `/about`.
 
 ## What ships
 
