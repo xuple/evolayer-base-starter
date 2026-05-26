@@ -17,6 +17,18 @@ jobs:
         with:
           php-version: '8.4'
 
+      - name: Configure private EvoLayer package source
+        env:
+          EVOLAYER_BASE_GITHUB_TOKEN: ${{ secrets.EVOLAYER_BASE_GITHUB_TOKEN }}
+        run: |
+          if [ -z "$EVOLAYER_BASE_GITHUB_TOKEN" ]; then
+            echo "::error::Set the EVOLAYER_BASE_GITHUB_TOKEN secret with read access to xuple/evolayer-base while the package is private."
+            exit 1
+          fi
+
+          composer config repositories.0 vcs https://github.com/xuple/evolayer-base.git
+          composer config --global github-oauth.github.com "$EVOLAYER_BASE_GITHUB_TOKEN"
+
       - name: Install Dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
