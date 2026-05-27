@@ -59,9 +59,11 @@ composer config repositories.local path ../evodevops-base-pkg   # do not commit
 2. `composer validate --strict` clean (the `dev-main` constraint is bound — no warning).
 3. `php artisan evolayer:doctor` all-green.
 4. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end.
-5. **Live AI** — add `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` to `.env`, then run
-   `php artisan evolayer:ai:stream-smoke gemini` and `... anthropic`. Blocked
-   until keys are provided.
+5. **Live AI** — add provider keys to `.env`, then run the relevant smoke
+   commands. Gemini structured streaming is the primary green path. Anthropic
+   structured output passes `php artisan evolayer:ai:smoke-test anthropic`, but
+   `php artisan evolayer:ai:stream-smoke anthropic` currently returns zero
+   `TextDelta` events and an empty final payload.
 6. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
 
 Verified from `/tmp/evolayer-test` using the Forge VCS repository argument:
@@ -93,8 +95,9 @@ pre-release workaround.
 
 ## Open decisions
 
-Final version/tag, Packagist publication, GitHub CI re-enable, and live AI
-verification (needs `GEMINI_API_KEY` / `ANTHROPIC_API_KEY`) are still pending.
+Final version/tag, Packagist publication, GitHub CI re-enable, and final live AI
+streaming verification are still pending. Anthropic is no longer blocked on key
+presence, but its structured-streaming path still needs investigation.
 Remotes are configured:
 `origin` is `ssh://git@forge.dev.home.arpa:222/xupleteam/evolayer-base-starter.git`;
 `github` is `git@github.com:xuple/evolayer-base-starter.git`.
