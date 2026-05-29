@@ -71,8 +71,21 @@ jobs:
       - name: Build assets
         run: npm run build
 
-      - name: Run health check
-        run: php artisan evolayer:doctor
+      - name: Run health check (strict)
+        # evolayer:doctor exits 0 even when it reports advisory items, by
+        # design — the package treats doctor as informational. This starter
+        # ships kitchen-sink posture, so any advisory is a regression here.
+        # We fail the job unless the trailing summary line confirms all
+        # checks passed. If the package ever changes that summary string,
+        # update the grep below in lockstep.
+        run: |
+          set -o pipefail
+          output=$(php artisan evolayer:doctor --no-ansi 2>&1)
+          echo "$output"
+          if ! printf '%s\n' "$output" | grep -qE '^\s*INFO All checks passed\.\s*$'; then
+            echo "::error::evolayer:doctor reported advisories — review the '!' lines above. Doctor exits 0 by design; this starter CI enforces strictness."
+            exit 1
+          fi
 
       - name: Run tests
         run: composer test
