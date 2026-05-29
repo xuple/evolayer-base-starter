@@ -23,6 +23,9 @@ composer create-project xuple/evolayer-base-starter my-app
 cd my-app && npm install && npm run build && php artisan serve
 ```
 
+`npm run build` is the default frontend quality gate and runs both the client
+bundle and the SSR bundle.
+
 `post-create-project-cmd` runs `key:generate`, creates the SQLite database,
 `migrate --seed`, `wayfinder:generate`, and `evolayer:ontology:compile`. Demo
 admin: `test@example.com` / `password`.
@@ -50,12 +53,12 @@ have this starter pick it up without pushing to the forge, add an *uncommitted*
 path override:
 
 ```bash
-composer config repositories.local path ../evodevops-base-pkg   # do not commit
+composer config repositories.evolayer-base path ../evolayer-base   # do not commit
 ```
 
 ## Pre-release checklist (before tagging)
 
-1. `composer test`, `npm run types:check`, `npm run build` green.
+1. `composer test`, `npm run types:check`, `npm run build` (client + SSR) green.
 2. `composer validate --strict` clean (the `dev-main` constraint is bound — no warning).
 3. `php artisan evolayer:doctor` all-green.
 4. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end.

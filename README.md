@@ -36,7 +36,7 @@ page at `/about`.
 composer create-project xuple/evolayer-base-starter my-app
 cd my-app
 
-# install + build the frontend
+# install + build the frontend, including SSR
 npm install
 npm run build        # or `npm run dev` for HMR
 
@@ -146,7 +146,7 @@ the package's own installer: `php artisan evolayer:install`.
 
 - `composer dev` — run server, queue, logs, and Vite together.
 - `php artisan evolayer:doctor` — health-check the install.
-- `npm run types:check` / `npm run build` / `composer lint` / `composer test`.
+- `npm run types:check` / `npm run build` (client + SSR) / `composer lint` / `composer test`.
 
 ## Project Status
 
