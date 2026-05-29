@@ -29,6 +29,45 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
 - Minimal post-create hook (`key:generate`, sqlite, `migrate --seed`,
   `wayfinder:generate`, `evolayer:ontology:compile`) and a `composer evolayer:resync`
   script to re-publish the package frontend on upgrade.
+- Public contribution, security, and support policies (`CONTRIBUTING.md`,
+  `SECURITY.md`, `SUPPORT.md`).
+- `tests/Feature/KitchenSinkContractTest.php` locks the documented kitchen-sink
+  install posture: every `EVOLAYER_BASE_*` env key read by `config/evolayer.php`
+  is set to `true` in `.env.example`, the shared `evolayer.base.{examples,features}`
+  Inertia prop exposes them all, and disabling a flag propagates to the prop.
+- README section "Where this sits in the EvoDevOps family" positioning Base as
+  the AI / ontology / blocks substrate, with sibling layers (Commerce / SaaS /
+  RLS) planned in their own starter repos.
+- README "Provider status" callout flagging Anthropic structured streaming as
+  a known-pending probe; Gemini and OpenAI remain the verified streaming paths.
+- `CONTRIBUTING.md` "Where does my change belong?" routing matrix mapping
+  concrete paths to starter / package / both, plus an explicit rule against
+  editing `vendor/xuple/evolayer-base` from this starter (also surfaced in
+  the README).
+- `CONTRIBUTING.md` "Feature-flag conventions" section distinguishing
+  `EVOLAYER_BASE_EXAMPLE_*` (bundled demo surfaces) from
+  `EVOLAYER_BASE_FEATURE_*` (substrate capabilities), with PR documentation
+  requirements for new flags.
+- `CONTRIBUTING.md` "Testing scope" section: the starter ships PHPUnit
+  Feature/HTTP coverage only; browser/E2E coverage belongs in the package.
+- Starter CI fails the build if `composer.lock` is committed to the repo, and
+  the tests workflow enforces `evolayer:doctor` strictness — any advisory from
+  the (otherwise informational, zero-exit) doctor command now fails the build.
+
+### Changed
+- `npm run build` defaults to the combined client + SSR build (`build` runs
+  `build:ssr`).
+- Spatie host-owned migrations use ULID-compatible morph columns
+  (`nullableUlidMorphs` / `ulidMorphs` on `activity_log.subject_id`,
+  `taggables.taggable_id`, `media.model_id`) so PostgreSQL hosts can point them
+  at EvoLayer ULID models.
+- Vite production output splits vendor chunks.
+- README "Features" intro distinguishes example surfaces
+  (`EVOLAYER_BASE_EXAMPLE_*`) from substrate capabilities
+  (`EVOLAYER_BASE_FEATURE_*`); the `CONTACT_ATTACHMENTS` flag was previously
+  described under the `EXAMPLE_*` prefix by mistake.
+- README opening softened: the starter is a Laravel host application carrying
+  EvoLayer-published examples, not a copy of package internals.
 
 ### Notes
 - During private pre-launch staging, the package is resolved from the Forge `vcs`
