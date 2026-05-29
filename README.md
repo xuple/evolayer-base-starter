@@ -27,7 +27,7 @@ page at `/about`.
 - Laravel 13 + Fortify + React 19 + Inertia + TypeScript + Tailwind, following the official React starter structure.
 - EvoLayer Base examples: ThreadStudio, PRD Studio, admin inbox, contact AI, voice input, text assist, and marketing pages.
 - Structured-output streaming support through the committed `laravel/ai` patch.
-- Spatie permission/activitylog/medialibrary/tags config and migrations committed where the host app must own them.
+- Spatie permission/activitylog/medialibrary/tags config and migrations committed where the host app must own them, including ULID-compatible morph columns for EvoLayer models.
 - A seeded admin demo user plus AI capability ledger for immediate local exploration.
 
 ## Quick start
@@ -120,6 +120,14 @@ The Spatie packages (`laravel-permission`, `laravel-activitylog`, `laravel-media
 `laravel-tags`) have their config and migrations committed under `config/` and
 `database/migrations/`. EvoLayer Base's own migrations load from the package and run
 automatically — they are not copied into this repo.
+
+The committed activitylog, tags, and medialibrary migrations deliberately use ULID-compatible morph columns where they can point at EvoLayer models:
+
+- `activity_log.subject_id` via `nullableUlidMorphs('subject', 'subject')`
+- `taggables.taggable_id` via `ulidMorphs('taggable')`
+- `media.model_id` via `ulidMorphs('model')`
+
+Keep those edits if you regenerate Spatie migrations; PostgreSQL will reject EvoLayer ULIDs in default bigint morph columns.
 
 ## Re-syncing the package frontend
 
