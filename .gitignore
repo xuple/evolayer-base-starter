@@ -28,4 +28,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+/.claude
 /composer.lock

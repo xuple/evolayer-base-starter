@@ -33,6 +33,8 @@ This starter is a thin host over the [`xuple/evolayer-base`](https://github.com/
 
 The EvoLayer React stubs listed in the first row are committed here so the starter clones and builds without a publish step, but they are **package-owned** — edits go upstream and `composer evolayer:resync` pulls them in. The same rule applies to `vendor/xuple/evolayer-base`: do not edit it from this starter; fix package internals in the package repo, then `composer update` + `composer evolayer:resync` here.
 
+**Exception — starter-owned landing pages.** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults (this starter is the public `composer create-project` entry point, so its landing surface lives here). Edit those in this repo; `composer evolayer:resync` will overwrite them, so re-apply the overrides after a resync until the package supports a stable extension point. All other `resources/js/pages/evolayer/**` files remain package-owned.
+
 If a change spans both repos (most commonly: a new `EVOLAYER_BASE_*` flag, or a host edit that requires a package change), land the package PR first against a resolvable ref the starter can pick up, then open the starter PR pointing at it.
 
 ## Feature-flag conventions
