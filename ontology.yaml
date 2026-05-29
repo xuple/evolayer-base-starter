@@ -264,9 +264,10 @@ entities:
     key_type: ulid
     fields:
       id: ulid
-      actor_user_id: integer?
+      actor_type: string?
+      actor_id: string?
       subject_type: string?
-      subject_id: string?
+      subject_id: ulid?
       event_name: string
       event_version: integer
       correlation_id: ulid?
@@ -277,6 +278,8 @@ entities:
       properties: json?
       metadata: json?
       occurred_at: datetimetz
+      created_at: datetimetz?
+      updated_at: datetimetz?
     relations:
       actor:
         type: belongs_to

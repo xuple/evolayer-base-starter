@@ -55,6 +55,15 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   the (otherwise informational, zero-exit) doctor command now fails the build.
 
 ### Changed
+- `composer evolayer:resync` now also publishes the `evolayer-base-ontology`
+  tag, so `ontology.yaml` refreshes alongside the frontend and config when a
+  newer `xuple/evolayer-base` release lands. Previously the ontology stub
+  stayed stale through resync until manually re-published.
+- `ontology.yaml` `change_event` entity caught up to the package's actual
+  schema: `actor_user_id` → `actor_type` + `actor_id`; `subject_id` is
+  `ulid?` instead of `string?`; `created_at` / `updated_at` added. The
+  remaining `actor: belongs_to → user` relation (vs the migration's
+  polymorphic `nullableMorphs('actor')`) is filed for upstream.
 - `npm run build` defaults to the combined client + SSR build (`build` runs
   `build:ssr`).
 - Spatie host-owned migrations use ULID-compatible morph columns

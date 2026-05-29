@@ -68,6 +68,7 @@
         "evolayer:resync": [
             "@php artisan vendor:publish --tag=evolayer-base-frontend --force",
             "@php artisan vendor:publish --tag=evolayer-base-config --force",
+            "@php artisan vendor:publish --tag=evolayer-base-ontology --force",
             "@php artisan wayfinder:generate --with-form --no-interaction",
             "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
         ],
