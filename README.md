@@ -4,9 +4,12 @@ The [Laravel React Inertia starter kit](https://laravel.com/docs/starter-kits) w
 **EvoLayer Base** layer pre-wired: an AI/ontology/blocks substrate built on the
 [`laravel/ai`](https://github.com/laravel/ai) SDK, ready to extend.
 
-You get the full application code in your repo from day one: auth, Inertia pages,
-React components, Tailwind styling, EvoLayer examples, config, seeders, and tests
-are all yours to change.
+You get a full Laravel application in your repo from day one: auth, host Inertia
+pages, React components, Tailwind styling, EvoLayer-published examples, config,
+seeders, and tests are all available to adapt. The examples are owned by the
+`xuple/evolayer-base` package and published here so the starter clones and builds
+without an install step — see [Re-syncing the package frontend](#re-syncing-the-package-frontend)
+for how upstream changes flow in.
 
 This template ships in **kitchen-sink** posture — every example feature is enabled out of
 the box so you can see the full surface immediately. Disable what you don't want by flipping
@@ -64,9 +67,10 @@ and PRD Studio) is reachable immediately:
 
 ## Features
 
-Each example feature is gated by an `EVOLAYER_BASE_EXAMPLE_*` flag in `.env`. Setting one to
-`false` (or deleting the line) drops that feature's routes, sidebar entry, and shared props —
-nothing else changes.
+Each bundled example surface is gated by an `EVOLAYER_BASE_EXAMPLE_*` flag in `.env`;
+starter-level substrate features (medialibrary-backed attachments, etc.) use the
+`EVOLAYER_BASE_FEATURE_*` prefix instead. Setting any flag to `false` (or deleting the
+line) drops that feature's routes, sidebar entry, and shared props — nothing else changes.
 
 | Flag                                   | What it adds                                               |
 | -------------------------------------- | ---------------------------------------------------------- |
@@ -89,6 +93,13 @@ php artisan evolayer:ai:stream-smoke gemini
 ```
 
 Keys live in `.env` (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, …).
+
+> **Provider status:** Gemini and OpenAI pass `evolayer:ai:stream-smoke` end to end with
+> the committed `laravel/ai` patch. Anthropic's structured-streaming path currently
+> returns zero `TextDelta` events and an empty final payload — treat
+> `evolayer:ai:stream-smoke anthropic` as a known-pending probe until that's reverified.
+> The non-streaming `evolayer:ai:smoke-test anthropic` does pass. See
+> [`patches/README.md`](patches/README.md) for the verification matrix.
 
 ## The `laravel/ai` patch
 
@@ -139,8 +150,15 @@ composer update xuple/evolayer-base
 composer evolayer:resync   # re-publishes frontend + config, regenerates wayfinder + ontology
 ```
 
+**Do not edit files under `vendor/xuple/evolayer-base` in this starter.** Package
+internals belong in the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) repo;
+fix them there, tag a release (or update the local path override per
+[RELEASE.md](RELEASE.md)), then `composer update` + `composer evolayer:resync` here to
+pull the change.
+
 To **add** EvoLayer Base to an existing Laravel app instead (rather than starting here), use
-the package's own installer: `php artisan evolayer:install`.
+the package's own installer: `php artisan evolayer:install`. You don't need to run that
+command in this starter — its work is already pre-applied.
 
 ## Tooling
 
