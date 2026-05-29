@@ -69,8 +69,11 @@ and PRD Studio) is reachable immediately:
 
 Each bundled example surface is gated by an `EVOLAYER_BASE_EXAMPLE_*` flag in `.env`;
 starter-level substrate features (medialibrary-backed attachments, etc.) use the
-`EVOLAYER_BASE_FEATURE_*` prefix instead. Setting any flag to `false` (or deleting the
-line) drops that feature's routes, sidebar entry, and shared props — nothing else changes.
+`EVOLAYER_BASE_FEATURE_*` prefix instead. Set a flag to `false` to drop that feature's
+routes and hide its sidebar entry; the shared `evolayer.base.{examples,features}` Inertia
+prop still carries the key but reports it as `false`, so client code can branch on it.
+`.env.example` enables the kitchen-sink set explicitly so a fresh install shows the full
+surface.
 
 | Flag                                   | What it adds                                               |
 | -------------------------------------- | ---------------------------------------------------------- |

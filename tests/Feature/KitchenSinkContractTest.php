@@ -13,8 +13,9 @@ use Tests\TestCase;
  * The canonical list of EVOLAYER_BASE_* flags lives in config/evolayer.php
  * (package-owned). This starter promises every one of them is enabled by
  * default in .env.example, and that the same set surfaces on the shared
- * Inertia prop. Disabling a flag must drop it from the prop, not merely
- * hide a nav entry — the rule documented in CONTRIBUTING.md.
+ * Inertia prop. Disabling a flag must propagate to that prop as `false`
+ * (the key stays, the value flips) — not merely hide a nav entry — so
+ * client code can branch on it. See CONTRIBUTING.md for the contract.
  */
 class KitchenSinkContractTest extends TestCase
 {
@@ -63,7 +64,7 @@ class KitchenSinkContractTest extends TestCase
         }
     }
 
-    public function test_disabling_an_example_flag_drops_it_from_the_shared_prop(): void
+    public function test_disabling_an_example_flag_surfaces_as_false_on_the_shared_prop(): void
     {
         // Picking the first key dynamically keeps the test resilient to
         // upstream renames; the rule under test is structural, not per-feature.
@@ -76,9 +77,14 @@ class KitchenSinkContractTest extends TestCase
         $shared = $this->app->make(HandleInertiaRequests::class)
             ->share(Request::create('/'));
 
+        $this->assertArrayHasKey(
+            $victim,
+            $shared['evolayer']['base']['examples'],
+            "evolayer.base.examples.{$victim} should remain present on the prop when disabled — only the value flips.",
+        );
         $this->assertFalse(
             $shared['evolayer']['base']['examples'][$victim],
-            "Disabling evolayer.base.examples.{$victim} should propagate to the shared prop.",
+            "Disabling evolayer.base.examples.{$victim} should surface as false on the shared prop.",
         );
     }
 

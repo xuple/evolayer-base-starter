@@ -53,7 +53,7 @@ When adding a new flag, document in the PR:
 - Surfaces it gates: routes, sidebar entry, shared-prop key, blocks.
 - Owner and whether the flag is intended to be permanent or removable once the feature stabilises.
 
-Disabled must mean inaccessible, not merely hidden — flipping a flag to `false` should drop the route, the sidebar entry, and the shared-prop value together. Cover that in tests where the flag is registered (route gating is the package's responsibility; the starter's kitchen-sink contract test covers the shared-prop side).
+Disabled must mean inaccessible, not merely hidden — flipping a flag to `false` should drop the route, hide the sidebar entry, and surface the flag as `false` on the shared `evolayer.base.{examples,features}` prop (the key stays; only its value flips). Cover that in tests where the flag is registered (route gating is the package's responsibility; the starter's kitchen-sink contract test covers the shared-prop side).
 
 ## Testing scope
 
