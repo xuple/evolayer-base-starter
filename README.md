@@ -166,6 +166,12 @@ command in this starter — its work is already pre-applied.
 - `php artisan evolayer:doctor` — health-check the install.
 - `npm run types:check` / `npm run build` (client + SSR) / `composer lint` / `composer test`.
 
+## Where this sits in the EvoDevOps family
+
+EvoLayer Base is the **AI / ontology / blocks substrate**: a Laravel + Inertia + React layer that turns the [`laravel/ai`](https://github.com/laravel/ai) SDK into a structured-output streaming surface, with an `ontology.yaml`-driven event/projection model and a small block library on top. This starter is the `composer create-project` entry point for Base. The package itself is [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) under the `evolayer.base.*` config and route namespace.
+
+Sibling EvoDevOps layers (`evolayer.commerce.*`, `evolayer.saas.*`, `evolayer.rls.*`, …) are planned as separate packages with their own starter repos following the same pattern; they will not ship inside this Base starter. `evodevops.com` is the editorial / teaching home for the family; `docs.evodevops.com/base` is the canonical Base documentation root.
+
 ## Project Status
 
 EvoLayer is pre-1.0. Base and the starter are free/public MIT projects; Forge and private GitHub are pre-launch staging, and Packagist is the public launch target. See [RELEASE.md](RELEASE.md) and [CHANGELOG.md](CHANGELOG.md).
