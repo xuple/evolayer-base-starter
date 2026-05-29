@@ -144,8 +144,8 @@ export default function Home() {
                                         className={cn(
                                             'text-sm font-medium transition-colors',
                                             item.accent
-                                                ? 'group-hover:text-brand text-neutral-900 dark:text-neutral-100'
-                                                : 'group-hover:text-brand text-neutral-900 dark:text-neutral-100',
+                                                ? 'text-neutral-900 group-hover:text-brand dark:text-neutral-100'
+                                                : 'text-neutral-900 group-hover:text-brand dark:text-neutral-100',
                                         )}
                                     >
                                         {item.title}
@@ -189,7 +189,7 @@ export default function Home() {
                                             <Icon className="h-4 w-4" />
                                         </div>
                                     </div>
-                                    <div className="group-hover:text-brand text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-100">
+                                    <div className="text-sm font-medium text-neutral-900 transition-colors group-hover:text-brand dark:text-neutral-100">
                                         {item.title}
                                     </div>
                                     <div className="mt-1 text-xs leading-6 text-neutral-500">

@@ -98,9 +98,9 @@ export default function Contact() {
                                 key={item.label}
                                 className="flex items-start gap-4"
                             >
-                                <div className="bg-brand/10 flex size-11 flex-shrink-0 items-center justify-center rounded-2xl">
+                                <div className="flex size-11 flex-shrink-0 items-center justify-center rounded-2xl bg-brand/10">
                                     <item.icon
-                                        className="text-brand size-5"
+                                        className="size-5 text-brand"
                                         aria-hidden="true"
                                     />
                                 </div>
@@ -111,7 +111,7 @@ export default function Contact() {
                                     {item.href ? (
                                         <a
                                             href={item.href}
-                                            className="hover:text-brand mt-1 text-sm text-neutral-600 transition dark:text-neutral-400"
+                                            className="mt-1 text-sm text-neutral-600 transition hover:text-brand dark:text-neutral-400"
                                         >
                                             {item.value}
                                         </a>

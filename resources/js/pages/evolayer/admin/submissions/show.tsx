@@ -193,7 +193,7 @@ export default function SubmissionsShow({
                                         <dd>
                                             <a
                                                 href={`tel:${submission.phone}`}
-                                                className="hover:text-brand text-neutral-700 dark:text-neutral-300"
+                                                className="text-neutral-700 hover:text-brand dark:text-neutral-300"
                                             >
                                                 {submission.phone}
                                             </a>

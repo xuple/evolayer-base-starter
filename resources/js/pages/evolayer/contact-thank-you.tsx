@@ -8,9 +8,9 @@ import evolayer from '@/routes/evolayer';
 export default function ContactThankYou() {
     return (
         <div className="mx-auto flex w-full max-w-lg flex-col items-center py-16 text-center">
-            <div className="bg-brand/10 flex size-16 items-center justify-center rounded-full">
+            <div className="flex size-16 items-center justify-center rounded-full bg-brand/10">
                 <CheckCircleIcon
-                    className="text-brand size-8"
+                    className="size-8 text-brand"
                     aria-hidden="true"
                 />
             </div>

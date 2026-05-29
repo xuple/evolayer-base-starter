@@ -316,7 +316,7 @@ export default function ThreadStudioPage({
                     <Card className="border-neutral-200/80 shadow-sm dark:border-neutral-800">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Sparkles className="text-brand h-4 w-4" />
+                                <Sparkles className="h-4 w-4 text-brand" />
                                 Compose a support-ready answer
                             </CardTitle>
                             <CardDescription>

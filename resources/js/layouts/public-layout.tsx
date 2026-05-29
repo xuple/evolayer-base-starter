@@ -27,7 +27,7 @@ export default function PublicLayout({ title, description, children }: Props) {
                             href="/"
                             className="flex items-center gap-2 text-foreground"
                         >
-                            <AppLogoIcon className="text-brand h-6 w-6 fill-current" />
+                            <AppLogoIcon className="h-6 w-6 fill-current text-brand" />
                             <span className="text-lg font-semibold tracking-tight">
                                 {name}
                             </span>

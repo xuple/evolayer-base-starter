@@ -112,7 +112,7 @@ export default function SubmissionsIndex({ submissions }: Props) {
                                                             submission.id,
                                                     },
                                                 )}
-                                                className="hover:text-brand font-medium text-neutral-900 dark:text-neutral-100"
+                                                className="font-medium text-neutral-900 hover:text-brand dark:text-neutral-100"
                                             >
                                                 {submission.first_name}{' '}
                                                 {submission.last_name}
