@@ -28,5 +28,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-/.claude
+/.claude/settings.local.json
 /composer.lock
