@@ -162,6 +162,10 @@ command in this starter — its work is already pre-applied.
 - `php artisan evolayer:doctor` — health-check the install.
 - `npm run types:check` / `npm run build` (client + SSR) / `composer lint` / `composer test`.
 
+The starter is also pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost): `AGENTS.md` / `CLAUDE.md` carry the starter-specific boundaries followed by Boost's framework guidelines, and `.mcp.json` / `.codex/config.toml` / `opencode.json` register `php artisan boost:mcp` so agents can call `search-docs`, `tinker`, `database-query`, etc. Skills live under `.claude/skills/` and `.agents/skills/`. **Boost is a `require-dev` dependency**; the MCP layer is only available when the app is installed with dev dependencies (the `composer install` / `composer create-project` default — `composer install --no-dev` skips it).
+
+The test runner is **PHPUnit** (`vendor/bin/phpunit`), not Pest. This is the inherited posture from `laravel/react-starter-kit` and has not yet been formally revisited for the EvoLayer pivot. Treat PHPUnit as the current contract — `composer test`, the kitchen-sink contract test, and CI all assume it — but the question of whether to migrate to Pest before public 0.1 is an open architectural decision tracked alongside the package-side closeout items.
+
 ## Where this sits in the EvoDevOps family
 
 EvoLayer Base is the **AI / ontology / blocks substrate**: a Laravel + Inertia + React layer that turns the [`laravel/ai`](https://github.com/laravel/ai) SDK into a structured-output streaming surface, with an `ontology.yaml`-driven event/projection model and a small block library on top. This starter is the `composer create-project` entry point for Base. The package itself is [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) under the `evolayer.base.*` config and route namespace.
