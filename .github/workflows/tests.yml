@@ -65,6 +65,18 @@ jobs:
       - name: Generate application key
         run: php artisan key:generate
 
+      - name: Prepare Laravel app
+        # resources/js/{actions,routes,wayfinder} and resources/js/types/ontology.ts
+        # are gitignored; tsc imports `@/routes`, `@/actions/...`, etc. so they
+        # must exist before type-check or build. SQLite migration also needs the
+        # database file to exist (post-create-project-cmd does this for end users;
+        # CI does it here). evolayer:ontology:compile emits the TS ontology types.
+        run: |
+          touch database/database.sqlite
+          php artisan migrate --seed --force
+          php artisan wayfinder:generate --with-form --no-interaction
+          php artisan evolayer:ontology:compile --no-erd --no-interaction
+
       - name: Type-check frontend
         run: npm run types:check
 
