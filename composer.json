@@ -59,6 +59,7 @@
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --seed --force",
             "@php artisan wayfinder:generate --with-form --no-interaction",
             "@php artisan evolayer:ontology:compile --no-erd --no-interaction",
