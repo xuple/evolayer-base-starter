@@ -277,13 +277,14 @@ entities:
       after: json?
       properties: json?
       metadata: json?
+      tenant_id: string?
       occurred_at: datetimetz
       created_at: datetimetz?
       updated_at: datetimetz?
     relations:
       actor:
-        type: belongs_to
-        target: user
+        type: morph_to
+        target: any
         optional: true
       subject:
         type: morph_to

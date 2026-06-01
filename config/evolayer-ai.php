@@ -26,10 +26,17 @@ return [
     |--------------------------------------------------------------------------
     |
     | The starter's ThreadStudio surface uses Laravel AI SDK agents with structured
-    | output. Treat feature providers as capability-first: Gemini is the
-    | lowest-friction first-run path because it uses the SDK's native provider
-    | without a custom base URL, while NVIDIA, OpenCode, and OpenRouter prove
-    | OpenAI-compatible Chat Completions and model-router style paths.
+    | output. Curated ThreadStudio providers are the directly-verified ones —
+    | Gemini and OpenAI today (ADR-020). Gemini is the lowest-friction first-run
+    | path (native SDK provider, no custom base URL); OpenAI is the second
+    | matrix-verified provider.
+    |
+    | NVIDIA, OpenCode, and OpenRouter remain configured here as OpenAI-compatible
+    | router / probe candidates — exercisable via the broad diagnostic commands
+    | (evolayer:ai:probe / smoke-test / stream-smoke) — but they are NOT curated
+    | for ThreadStudio runtime selection until directly verified. Anthropic is
+    | likewise diagnostic-known but blocked/pending for ThreadStudio while its
+    | structured streaming emits no usable TextDelta events.
     |
     */
 
@@ -154,6 +161,15 @@ return [
             'driver' => 'openai',
             'key' => env('OPENAI_API_KEY'),
             'url' => env('OPENAI_URL', 'https://api.openai.com/v1'),
+            'models' => [
+                'text' => [
+                    // OpenAI is a curated ThreadStudio provider (ADR-020). It
+                    // needs a default model so ThreadStudio can resolve one when
+                    // none is selected; without this the feature falls back to
+                    // the defaultModel() sentinel and fails at request time.
+                    'default' => env('OPENAI_CHAT_MODEL', 'gpt-4o-mini'),
+                ],
+            ],
         ],
 
         'openrouter' => [

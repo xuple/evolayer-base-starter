@@ -44,7 +44,15 @@ type ThreadStudioCapability = {
 };
 
 type ThreadStudioProvider = {
-    name: 'anthropic' | 'gemini' | 'nvidia' | 'opencode' | 'openrouter';
+    // Curated ThreadStudio providers (ADR-020) are gemini + openai; the other
+    // names remain valid provider keys for diagnostics / future adaptive mode.
+    name:
+        | 'gemini'
+        | 'openai'
+        | 'anthropic'
+        | 'nvidia'
+        | 'opencode'
+        | 'openrouter';
     label: string;
     model: {
         name: string;
