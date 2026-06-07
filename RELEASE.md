@@ -63,10 +63,14 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
 3. `php artisan evolayer:doctor` all-green.
 4. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end.
 5. **Live AI** — add provider keys to `.env`, then run the relevant smoke
-   commands. Gemini structured streaming is the primary green path. Anthropic
-   structured output passes `php artisan evolayer:ai:smoke-test anthropic`, but
-   `php artisan evolayer:ai:stream-smoke anthropic` currently returns zero
-   `TextDelta` events and an empty final payload.
+   commands. ThreadStudio's curated providers are **Gemini** (default) and
+   **OpenAI** — both are selectable as `AI_THREAD_STUDIO_PROVIDER` and pass
+   structured streaming. **Anthropic** is diagnostic-only / blocked for
+   ThreadStudio: its non-streaming `php artisan evolayer:ai:smoke-test anthropic`
+   passes, but `php artisan evolayer:ai:stream-smoke anthropic` currently returns
+   zero `TextDelta` events and an empty final payload, so it is not curated for
+   ThreadStudio runtime selection. **NVIDIA / OpenCode / OpenRouter** remain
+   diagnostic / probe candidates, not curated ThreadStudio providers.
 6. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
 
 Verified from `/tmp/evolayer-test` using the Forge VCS repository argument:
@@ -99,8 +103,10 @@ pre-release workaround.
 ## Open decisions
 
 Final version/tag, Packagist publication, GitHub CI re-enable, and final live AI
-streaming verification are still pending. Anthropic is no longer blocked on key
-presence, but its structured-streaming path still needs investigation.
-Remotes are configured:
+streaming verification are still pending. The ThreadStudio provider roster is
+settled (Gemini + OpenAI curated; Anthropic diagnostic-only / blocked; routers
+are probe candidates); what remains open is Anthropic's structured-streaming
+investigation, which — if it lands usable `TextDelta` events — would make it a
+candidate for re-curation. Remotes are configured:
 `origin` is `ssh://git@forge.dev.home.arpa:222/xupleteam/evolayer-base-starter.git`;
 `github` is `git@github.com:xuple/evolayer-base-starter.git`.

@@ -38,8 +38,13 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
 - README section "Where this sits in the EvoDevOps family" positioning Base as
   the AI / ontology / blocks substrate, with sibling layers (Commerce / SaaS /
   RLS) planned in their own starter repos.
-- README "Provider status" callout flagging Anthropic structured streaming as
-  a known-pending probe; Gemini and OpenAI remain the verified streaming paths.
+- Agent-support tooling: `AGENTS.md` and `CLAUDE.md` (byte-identical) carrying the
+  package/starter boundary, feature-flag conventions, and verification gauntlet;
+  Laravel Boost as a `require-dev` dependency with `.mcp.json`, `.codex/config.toml`,
+  and `opencode.json` wiring `php artisan boost:mcp` for Claude Code, Codex, and
+  OpenCode; six Boost skills published under `.claude/skills/` and `.agents/skills/`.
+  The MCP layer assumes dev dependencies — `composer install --no-dev` omits Boost.
+  The test runner is documented as PHPUnit-first.
 - `CONTRIBUTING.md` "Where does my change belong?" routing matrix mapping
   concrete paths to starter / package / both, plus an explicit rule against
   editing `vendor/xuple/evolayer-base` from this starter (also surfaced in
@@ -59,11 +64,11 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   tag, so `ontology.yaml` refreshes alongside the frontend and config when a
   newer `xuple/evolayer-base` release lands. Previously the ontology stub
   stayed stale through resync until manually re-published.
-- `ontology.yaml` `change_event` entity caught up to the package's actual
-  schema: `actor_user_id` → `actor_type` + `actor_id`; `subject_id` is
-  `ulid?` instead of `string?`; `created_at` / `updated_at` added. The
-  remaining `actor: belongs_to → user` relation (vs the migration's
-  polymorphic `nullableMorphs('actor')`) is filed for upstream.
+- `ontology.yaml` `change_event` entity now fully matches the package's published
+  schema after resync: `actor_user_id` → `actor_type` + `actor_id`; the `actor`
+  relation is `morph_to → any` (was `belongs_to → user`, vs the migration's
+  polymorphic `nullableMorphs('actor')`); `tenant_id: string?` is present;
+  `subject_id` is `ulid?`; `created_at` / `updated_at` added.
 - `npm run build` defaults to the combined client + SSR build (`build` runs
   `build:ssr`).
 - Spatie host-owned migrations use ULID-compatible morph columns
@@ -77,6 +82,28 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   described under the `EXAMPLE_*` prefix by mistake.
 - README opening softened: the starter is a Laravel host application carrying
   EvoLayer-published examples, not a copy of package internals.
+- ThreadStudio provider posture aligned to the package's D-prime curated roster:
+  README, `.env.example`, and the resynced `config/evolayer-ai.php` describe
+  **Gemini** (default) and **OpenAI** as the curated/selectable ThreadStudio
+  providers; **Anthropic** as diagnostic-only / blocked-pending (structured
+  streaming emits no usable `TextDelta` events); and **NVIDIA / OpenCode /
+  OpenRouter** as router / probe candidates, not curated. `OPENAI_CHAT_MODEL`
+  (`gpt-4o-mini` default) added so OpenAI resolves a default model. The published
+  config and ThreadStudio frontend were resynced to the package's D-prime snapshot.
+- Starter CI generates the Wayfinder helpers and compiles the ontology (after
+  creating + migrating the SQLite database) before `npm run types:check` and
+  `npm run build` — without these the gitignored generated route/action/ontology
+  types are absent on a fresh CI checkout.
+- Starter CI consumes the package's `evolayer:doctor --strict --no-ansi`
+  exit-code contract directly, replacing the earlier grep-the-summary-line
+  wrapper.
+- `composer setup` creates the SQLite database file before migrating, so a fresh
+  direct clone sets up without a manual `touch`.
+- Frontend identity fixes: the `Repository` / `Documentation` links point at the
+  EvoLayer Base repo and docs (not the upstream Laravel kit); `welcome.tsx` is
+  documented as the inherited Laravel-kit fallback retained for the chisel
+  auth-trim flow; README opening tightened and public-facing URLs marked
+  post-launch.
 
 ### Notes
 - During private pre-launch staging, the package is resolved from the Forge `vcs`
