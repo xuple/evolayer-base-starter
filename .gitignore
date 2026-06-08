@@ -29,4 +29,5 @@ yarn-error.log
 /.vscode
 /.zed
 /.claude/settings.local.json
+/.claude/scheduled_tasks.lock
 /composer.lock

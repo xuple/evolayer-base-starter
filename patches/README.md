@@ -37,7 +37,7 @@ provider.
 The fix belongs upstream in `laravel/ai`. We deferred filing it because:
 
 - It's a tiny two-line change in a fast-moving SDK; upstream may already have a parallel design in flight.
-- The repo's correctness is fully covered locally by the patch and our 22-test `ThreadStudioStreamTest` suite.
+- The repo's correctness is fully covered locally by the patch and the `ThreadStudioStreamTest` suite.
 - Pursuing it costs more than the value of removing the patch in the short term.
 
 **When to revisit:** When a new `laravel/ai` minor release lands (anything past v0.6.5). At that point:
