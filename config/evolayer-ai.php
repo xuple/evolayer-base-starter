@@ -32,10 +32,10 @@ return [
     | matrix-verified provider.
     |
     | NVIDIA, OpenCode, and OpenRouter remain configured here as OpenAI-compatible
-    | router-backed probe candidates — exercisable via the broad diagnostic commands
+    | router-backed diagnostic-eligible probe candidates — exercisable via the broad diagnostic commands
     | (evolayer:ai:probe / smoke-test / stream-check) — but they are NOT runtime-approved
     | for ThreadStudio runtime selection until directly verified. Anthropic is
-    | likewise diagnostic-known but blocked/pending for ThreadStudio while its
+    | likewise diagnostic-eligible but blocked / pending re-verification for ThreadStudio while its
     | structured streaming emits no usable TextDelta events.
     |
     */
