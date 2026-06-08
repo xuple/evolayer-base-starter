@@ -39,7 +39,7 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   the AI / ontology / blocks substrate, with sibling layers (Commerce / SaaS /
   RLS) planned in their own starter repos.
 - Agent-support tooling: `AGENTS.md` and `CLAUDE.md` (byte-identical) carrying the
-  package/starter boundary, feature-flag conventions, and verification gauntlet;
+  package/starter boundary, feature-flag conventions, and verification suite;
   Laravel Boost as a `require-dev` dependency with `.mcp.json`, `.codex/config.toml`,
   and `opencode.json` wiring `php artisan boost:mcp` for Claude Code, Codex, and
   OpenCode; six Boost skills published under `.claude/skills/` and `.agents/skills/`.
