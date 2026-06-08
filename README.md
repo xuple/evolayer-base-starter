@@ -94,11 +94,13 @@ Keys live in `.env` (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, �
 > **Gemini** (default) and **OpenAI** — both pass `evolayer:ai:stream-check` end to end
 > with the committed `laravel/ai` patch, and only these two are selectable as
 > `AI_THREAD_STUDIO_PROVIDER`. Anthropic's structured-streaming path currently returns
-> zero `TextDelta` events and an empty final payload, so it is **diagnostic-only / blocked
-> for ThreadStudio** — exercise it with `evolayer:ai:smoke-test anthropic` (the
-> non-streaming path passes), but it is not runtime-approved for selection. NVIDIA / OpenCode /
-> OpenRouter are likewise router-backed probe candidates, not runtime-approved. See
-> [`patches/README.md`](patches/README.md) for the verification matrix.
+> zero `TextDelta` events and an empty final payload, so it is
+> **diagnostic-eligible but blocked for ThreadStudio runtime / pending
+> re-verification** — exercise it with `evolayer:ai:smoke-test anthropic` (the
+> non-streaming path passes), but it is not runtime-approved for selection.
+> NVIDIA / OpenCode / OpenRouter are likewise router-backed diagnostic-eligible
+> probe candidates, not runtime-approved. See [`patches/README.md`](patches/README.md)
+> for the verification matrix.
 
 ## The `laravel/ai` patch
 

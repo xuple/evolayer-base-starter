@@ -69,6 +69,12 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   relation is `morph_to → any` (was `belongs_to → user`, vs the migration's
   polymorphic `nullableMorphs('actor')`); `tenant_id: string?` is present;
   `subject_id` is `ulid?`; `created_at` / `updated_at` added.
+- `ontology.yaml` now carries the package's broader ontology↔migration sync
+  corrections: `form_submission.honeypot`, AI invocation subject/tenant/cost/
+  duration fields, attempt provider metadata, `ai_capability.conditions`, and
+  timestamps are declared; AI invocation statuses now match runtime
+  (`started` / `succeeded` / `failed`); and provider/model details live on
+  invocation attempts rather than the parent invocation entity.
 - `npm run build` defaults to the combined client + SSR build (`build` runs
   `build:ssr`).
 - Spatie host-owned migrations use ULID-compatible morph columns
@@ -85,12 +91,13 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
 - ThreadStudio provider posture aligned to the package's Verified Runtime Strategy:
   README, `.env.example`, and the resynced `config/evolayer-ai.php` describe
   **Gemini** (default) and **OpenAI** as the runtime-approved/selectable ThreadStudio
-  providers; **Anthropic** as diagnostic-only / blocked-pending (structured
-  streaming emits no usable `TextDelta` events); and **NVIDIA / OpenCode /
-  OpenRouter** as router-backed probe candidates, not runtime-approved. `OPENAI_CHAT_MODEL`
-  (`gpt-4o-mini` default) added so OpenAI resolves a default model. The published
-  config and ThreadStudio frontend were resynced to the package's Verified Runtime
-  Strategy snapshot.
+  providers; **Anthropic** as diagnostic-eligible but blocked for ThreadStudio
+  runtime / pending re-verification (structured streaming emits no usable
+  `TextDelta` events); and **NVIDIA / OpenCode / OpenRouter** as router-backed
+  diagnostic-eligible probe candidates, not runtime-approved.
+  `OPENAI_CHAT_MODEL` (`gpt-4o-mini` default) added so OpenAI resolves a default
+  model. The published config and ThreadStudio frontend were resynced to the
+  package's Verified Runtime Strategy snapshot.
 - Starter CI generates the Wayfinder helpers and compiles the ontology (after
   creating + migrating the SQLite database) before `npm run types:check` and
   `npm run build` — without these the gitignored generated route/action/ontology

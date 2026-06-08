@@ -64,6 +64,7 @@ entities:
       phone: string?
       subject: string
       message: text
+      honeypot: string?
       status:
         enum:
           - new
@@ -141,26 +142,39 @@ entities:
       id: ulid
       user_id: integer?
       feature_key: string
-      provider: string?
-      provider_driver: string?
-      model: string?
+      route_name: string?
       status:
         enum:
-          - pending
+          - started
           - succeeded
           - failed
+      subject_type: string?
+      subject_id: ulid?
+      tenant_id: string?
       request_projection: json?
       response_projection: json?
       raw_request: json?
       raw_response: json?
       failure_type: string?
       failure_message: text?
+      exception_class: string?
+      prompt_tokens: integer?
+      completion_tokens: integer?
+      cost_cents: integer?
+      cost_currency: string?
       started_at: datetime?
       finished_at: datetime?
+      duration_ms: integer?
+      created_at: datetime
+      updated_at: datetime
     relations:
       user:
         type: belongs_to
         target: user
+        optional: true
+      subject:
+        type: morph_to
+        target: any
         optional: true
       attempts:
         type: has_many
@@ -174,19 +188,27 @@ entities:
     fields:
       id: ulid
       ai_invocation_id: ulid
+      attempt: integer
       provider: string
-      model: string
+      provider_driver: string?
+      model: string?
+      capability_status: string?
+      output_mode: string?
       status:
         enum:
-          - pending
+          - started
           - succeeded
           - failed
       response_keys: json?
       missing_fields: json?
       invalid_fields: json?
       exception_class: string?
+      exception_message: text?
       started_at: datetime?
       finished_at: datetime?
+      duration_ms: integer?
+      created_at: datetime
+      updated_at: datetime
     relations:
       invocation:
         type: belongs_to
@@ -211,6 +233,7 @@ entities:
       failure_reason: text?
       latency_ms: integer?
       note: text?
+      conditions: json?
       probed_at: datetime
       superseded_at: datetime?
       created_at: datetime
