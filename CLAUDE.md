@@ -62,7 +62,7 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 
 ## Frontend stub flow
 
-The package publishes React stubs into the starter via `vendor:publish --tag=evolayer-base-frontend` so the starter clones and builds without an install step. These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalize), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
+The package publishes React stubs into the starter via `vendor:publish --tag=evolayer-base-frontend` so the starter clones and builds without an install step. These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalise), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
 
 ## Inertia layout resolver
 

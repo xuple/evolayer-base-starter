@@ -17,6 +17,6 @@ Please include:
 - Laravel, PHP, Node, npm, and database versions.
 - Whether you used `composer create-project`, cloned the repo directly, or added an uncommitted local path repository override.
 - Exact commands run and the full error output.
-- Whether the feature is default starter behavior or enabled by an `EVOLAYER_BASE_*` flag.
+- Whether the feature is default starter behaviour or enabled by an `EVOLAYER_BASE_*` flag.
 
 Issues without enough reproduction detail may be closed or converted to a discussion.

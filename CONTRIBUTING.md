@@ -85,7 +85,7 @@ npm run lint:check
 
 ## Documentation
 
-Update README, CHANGELOG, or RELEASE when changing install flow, route/page IA, feature flags, CI behavior, package resolution, commands, or public release posture.
+Update README, CHANGELOG, or RELEASE when changing install flow, route/page IA, feature flags, CI behaviour, package resolution, commands, or public release posture.
 
 ## Pull Request Checklist
 

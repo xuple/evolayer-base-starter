@@ -15,6 +15,6 @@ Please include:
 - Affected starter version or commit SHA.
 - Laravel, PHP, Node, npm, database, and browser/runtime versions where relevant.
 - Reproduction steps from a fresh `composer create-project` install where possible.
-- Whether the issue affects default starter behavior or an opt-in EvoLayer feature flag.
+- Whether the issue affects default starter behaviour or an opt-in EvoLayer feature flag.
 
 We will acknowledge valid reports as soon as practical and coordinate fixes before public disclosure.
