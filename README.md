@@ -85,19 +85,19 @@ The AI features default to **Gemini**. Set a key for whichever provider you poin
 `AI_DEFAULT_PROVIDER` at, then verify structured streaming works end to end:
 
 ```bash
-php artisan evolayer:ai:stream-smoke gemini
+php artisan evolayer:ai:stream-check gemini
 ```
 
 Keys live in `.env` (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, …).
 
-> **Provider status:** ThreadStudio's curated (directly-verified) providers are
-> **Gemini** (default) and **OpenAI** — both pass `evolayer:ai:stream-smoke` end to end
+> **Provider status:** ThreadStudio's runtime-approved (directly-verified) providers are
+> **Gemini** (default) and **OpenAI** — both pass `evolayer:ai:stream-check` end to end
 > with the committed `laravel/ai` patch, and only these two are selectable as
 > `AI_THREAD_STUDIO_PROVIDER`. Anthropic's structured-streaming path currently returns
 > zero `TextDelta` events and an empty final payload, so it is **diagnostic-only / blocked
 > for ThreadStudio** — exercise it with `evolayer:ai:smoke-test anthropic` (the
-> non-streaming path passes), but it is not curated for selection. NVIDIA / OpenCode /
-> OpenRouter are likewise OpenAI-compatible probe candidates, not curated. See
+> non-streaming path passes), but it is not runtime-approved for selection. NVIDIA / OpenCode /
+> OpenRouter are likewise router-backed probe candidates, not runtime-approved. See
 > [`patches/README.md`](patches/README.md) for the verification matrix.
 
 ## The `laravel/ai` patch

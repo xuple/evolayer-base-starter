@@ -44,8 +44,8 @@ type ThreadStudioCapability = {
 };
 
 type ThreadStudioProvider = {
-    // Curated ThreadStudio providers (ADR-020) are gemini + openai; the other
-    // names remain valid provider keys for diagnostics / future adaptive mode.
+    // Runtime-approved ThreadStudio providers (ADR-020) are gemini + openai; the
+    // other names remain valid provider keys for diagnostics / future adaptive mode.
     name:
         | 'gemini'
         | 'openai'

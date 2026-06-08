@@ -100,7 +100,7 @@ php artisan evolayer:ontology:compile --no-erd --no-interaction
 
 The only committed patch is `patches/laravel-ai-structured-streaming.patch`, applied automatically via `cweagans/composer-patches` (`extra.patches` in `composer.json`). It enables structured-output streaming until upstream `laravel/ai` ships the fix. See `patches/README.md` for the verification matrix and revisit conditions. Don't add new vendor patches without a similar dossier.
 
-## Verification gauntlet
+## Verification suite
 
 Run before opening a PR:
 

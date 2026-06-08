@@ -82,14 +82,15 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   described under the `EXAMPLE_*` prefix by mistake.
 - README opening softened: the starter is a Laravel host application carrying
   EvoLayer-published examples, not a copy of package internals.
-- ThreadStudio provider posture aligned to the package's D-prime curated roster:
+- ThreadStudio provider posture aligned to the package's Verified Runtime Strategy:
   README, `.env.example`, and the resynced `config/evolayer-ai.php` describe
-  **Gemini** (default) and **OpenAI** as the curated/selectable ThreadStudio
+  **Gemini** (default) and **OpenAI** as the runtime-approved/selectable ThreadStudio
   providers; **Anthropic** as diagnostic-only / blocked-pending (structured
   streaming emits no usable `TextDelta` events); and **NVIDIA / OpenCode /
-  OpenRouter** as router / probe candidates, not curated. `OPENAI_CHAT_MODEL`
+  OpenRouter** as router-backed probe candidates, not runtime-approved. `OPENAI_CHAT_MODEL`
   (`gpt-4o-mini` default) added so OpenAI resolves a default model. The published
-  config and ThreadStudio frontend were resynced to the package's D-prime snapshot.
+  config and ThreadStudio frontend were resynced to the package's Verified Runtime
+  Strategy snapshot.
 - Starter CI generates the Wayfinder helpers and compiles the ontology (after
   creating + migrating the SQLite database) before `npm run types:check` and
   `npm run build` — without these the gitignored generated route/action/ontology
