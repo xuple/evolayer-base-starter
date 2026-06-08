@@ -58,11 +58,10 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
 
 ## Pre-release checklist (before tagging)
 
-1. `composer test`, `npm run types:check`, `npm run build` (client + SSR) green.
-2. `composer validate --strict` clean (the `dev-main` constraint is bound — no warning).
-3. `php artisan evolayer:doctor` all-green.
-4. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end.
-5. **Live AI** — add provider keys to `.env`, then run the relevant smoke
+1. Full verification suite green: `composer test`, `composer validate --strict`, `php artisan evolayer:doctor --strict --no-ansi`, `npm run types:check`, `npm run build` (client + SSR), `composer lint:check`, `npm run lint:check`, `npm run format:check`.
+2. The `dev-main` constraint remains bound while pre-launch — `composer validate --strict` must stay clean.
+3. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end.
+4. **Live AI** — add provider keys to `.env`, then run the relevant smoke
    commands. ThreadStudio's runtime-approved providers are **Gemini** (default) and
    **OpenAI** — both are selectable as `AI_THREAD_STUDIO_PROVIDER` and pass
    structured streaming. **Anthropic** is diagnostic-only / blocked for
@@ -71,7 +70,7 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
    zero `TextDelta` events and an empty final payload, so it is not runtime-approved
    for ThreadStudio runtime selection. **NVIDIA / OpenCode / OpenRouter** remain
    router-backed probe candidates, not runtime-approved ThreadStudio providers.
-6. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
+5. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
 
 Verified from `/tmp/evolayer-test` using the Forge VCS repository argument:
 `composer create-project` resolved the starter and package, applied the patch,
