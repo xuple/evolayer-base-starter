@@ -12,7 +12,7 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 | | Owns | Posture |
 | --- | --- | --- |
 | [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) (package) | Examples, blocks, agents, ontology, `evolayer:*` commands, the `evolayer.base.*` config shape | Conservative — installs add no routes by default |
-| `xuple/evolayer-base-starter` (this repo) | The Laravel host shell: Inertia/auth wiring, host migrations, `laravel/ai` patch, kitchen-sink `.env.example`, CI | Kitchen-sink — every example feature on out of the box |
+| `xuple/evolayer-base-starter` (this repo) | The Laravel host shell: Inertia/auth wiring, host migrations, `laravel/ai` patch, kitchen-sink `.env.example`, CI | Kitchen-sink — every example feature switched on out of the box |
 
 The starter is a thin fork of `laravel/react-starter-kit`. It gives you a full Laravel application from day one — auth, host Inertia pages, React components, Tailwind styling, EvoLayer-published examples, config, seeders, and tests are all available to adapt. The examples are owned by the package and committed here so the starter clones and builds without an install step; see [Re-syncing the package frontend](#re-syncing-the-package-frontend) for how upstream changes flow in.
 
