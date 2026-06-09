@@ -6,6 +6,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-06-10
+
 ### Added
 - Added shell contract coverage for the public `/` route versus authenticated
   `/home` (`evolayer.base.home`), command-palette mounting, and centralized
