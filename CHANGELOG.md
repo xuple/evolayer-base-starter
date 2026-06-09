@@ -6,9 +6,11 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-09
+
 ### Fixed
 - Corrected the starter PHP floor to `^8.4`, matching the package and Laravel 13
-  dependency stack.
+  dependency stack. Pairs with `xuple/evolayer-base` v0.1.1.
 - Public GitHub Actions now run on PHP 8.4 only, create `.env` before Composer
   scripts that need app context, and generate Wayfinder / ontology files before
   frontend linting resolves imports.
