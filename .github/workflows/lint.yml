@@ -33,6 +33,11 @@ jobs:
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           npm ci
 
+      - name: Audit dependencies
+        run: |
+          composer audit
+          npm audit --audit-level=high
+
       - name: Prepare generated frontend contracts
         # ESLint resolves imports from gitignored Wayfinder/ontology outputs.
         run: |

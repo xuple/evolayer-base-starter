@@ -51,8 +51,14 @@ jobs:
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
+      - name: Audit PHP dependencies
+        run: composer audit
+
       - name: Install Node dependencies
         run: npm ci
+
+      - name: Audit Node dependencies
+        run: npm audit --audit-level=high
 
       - name: Generate application key
         run: php artisan key:generate
