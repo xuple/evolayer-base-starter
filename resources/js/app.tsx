@@ -5,6 +5,7 @@ import { initializeTheme } from '@/hooks/use-appearance';
 import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { CommandPaletteProvider } from '@/providers/command-palette-provider';
 
 const appName = import.meta.env.VITE_APP_NAME || 'EvoLayer Base';
 
@@ -26,7 +27,7 @@ createInertiaApp({
     withApp(app) {
         return (
             <TooltipProvider delayDuration={0}>
-                {app}
+                <CommandPaletteProvider>{app}</CommandPaletteProvider>
                 <Toaster />
             </TooltipProvider>
         );

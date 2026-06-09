@@ -5,7 +5,7 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 - **Start here** when you want a full demo app with EvoLayer Base already wired in, every example surface visible.
 - **Use the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) package directly** when adding Base to an existing Laravel app.
 
-> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.2` with `xuple/evolayer-base` `v0.1.1`.
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.3` with `xuple/evolayer-base` `v0.1.1`.
 
 ## How the pieces fit
 
@@ -17,6 +17,8 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 The starter is a thin fork of `laravel/react-starter-kit`. It gives you a full Laravel application from day one — auth, host Inertia pages, React components, Tailwind styling, EvoLayer-published examples, config, seeders, and tests are all available to adapt. The examples are owned by the package and committed here so the starter clones and builds without an install step; see [Re-syncing the package frontend](#re-syncing-the-package-frontend) for how upstream changes flow in.
 
 Public web strategy (post-launch): `evodevops.com` will be the editorial / teaching home for the EvoDevOps starter-kit family, and `docs.evodevops.com/base` will be the canonical EvoLayer Base documentation path. In this starter, `/` mounts the EvoLayer Base demo/install explainer; the package's opt-in marketing routes expose that same page at `/about`.
+
+Authenticated users land on `/home` (`evolayer.base.home`) after login, registration, password reset, and passkey authentication. The public `/` route remains named `home` and is still the post-logout / public landing destination.
 
 ## What ships
 
@@ -40,7 +42,7 @@ php artisan serve
 ```
 
 `composer create-project` runs the post-create hook automatically (`key:generate`, create
-the SQLite database, `migrate --seed`, `wayfinder:generate`, `evolayer:ontology:compile`). If you
+the SQLite database, `migrate --seed`, `route:clear`, `wayfinder:generate`, `evolayer:ontology:compile`). If you
 clone this repo directly instead, run the equivalent in one shot:
 
 ```bash
@@ -72,11 +74,13 @@ starter-level substrate features (medialibrary-backed attachments, etc.) use the
 routes and hide its sidebar entry; the shared `evolayer.base.{examples,features}` Inertia
 prop still carries the key but reports it as `false`, so client code can branch on it.
 `.env.example` enables the kitchen-sink set explicitly so a fresh install shows the full
-surface.
+surface. If a downstream app disables `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`, choose a
+replacement authenticated landing route and update `fortify.home` away from the
+starter's default `/home` before removing that route.
 
 | Flag                                   | What it adds                                               |
 | -------------------------------------- | ---------------------------------------------------------- |
-| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`     | Public Home / About launcher pages                         |
+| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`     | Public About and authenticated Home launcher pages          |
 | `EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO`       | ThreadStudio — streaming AI compose with structured output |
 | `EVOLAYER_BASE_EXAMPLE_PRD_STUDIO`          | PRD Studio — turn notes into scoped requirements           |
 | `EVOLAYER_BASE_EXAMPLE_ADMIN_INBOX`         | Admin inbox for contact-form submissions                   |

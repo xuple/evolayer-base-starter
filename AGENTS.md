@@ -90,6 +90,7 @@ These are install-time switches, not per-user / rollout / A-B / billing flags. F
 ```bash
 touch database/database.sqlite                              # if missing
 php artisan migrate --seed --force
+php artisan route:clear
 php artisan wayfinder:generate --with-form --no-interaction
 php artisan evolayer:ontology:compile --no-erd --no-interaction
 ```

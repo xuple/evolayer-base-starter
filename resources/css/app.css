@@ -53,6 +53,7 @@
 
     --color-brand: var(--brand);
     --color-brand-hover: var(--brand-hover);
+    --color-brand-foreground: var(--brand-foreground);
 
     --color-sidebar: var(--sidebar);
     --color-sidebar-foreground: var(--sidebar-foreground);
@@ -91,6 +92,7 @@
     --chart-5: oklch(0.769 0.188 70.08);
     --brand: oklch(0.56 0.19 35);
     --brand-hover: oklch(0.49 0.18 32);
+    --brand-foreground: oklch(0.985 0 0);
     --radius: 0.625rem;
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
@@ -129,6 +131,7 @@
     --chart-5: oklch(0.645 0.246 16.439);
     --brand: oklch(0.67 0.18 38);
     --brand-hover: oklch(0.75 0.16 43);
+    --brand-foreground: oklch(0.145 0 0);
     --sidebar: oklch(0.205 0 0);
     --sidebar-foreground: oklch(0.985 0 0);
     --sidebar-primary: oklch(0.985 0 0);

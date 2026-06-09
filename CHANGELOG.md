@@ -6,6 +6,25 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Added shell contract coverage for the public `/` route versus authenticated
+  `/home` (`evolayer.base.home`), command-palette mounting, and centralized
+  navigation wiring.
+
+### Changed
+- The authenticated shell now treats `/home` as the canonical Fortify landing
+  path for successful login, registration, verification, password reset, and
+  passkey fallback flows. Public `/` remains the logout/public landing route.
+- Sidebar, header, settings, and command-palette navigation now share the same
+  navigation source.
+- Wayfinder generation paths now clear stale route caches first, and the lint
+  workflow pins Node 22 to match the tests workflow.
+- Added a semantic `brand-foreground` color token for brand-filled UI.
+
+### Fixed
+- Mounted the global command-palette provider and dialog in the Inertia app shell
+  and connected the header search affordance to the same palette.
+
 ## [0.1.3] - 2026-06-09
 
 ### Added
@@ -16,7 +35,7 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ### Changed
 - Refreshed public-state documentation now that the starter is public on GitHub
-  and Packagist, CI is live, and the current public line is starter `v0.1.2`
+  and Packagist, CI is live, and the current public line is starter `v0.1.3`
   with base `v0.1.1`.
 - Clarified that the starter repository intentionally omits `composer.lock`, but
   created client applications should normally commit their generated lockfile.

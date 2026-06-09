@@ -4,7 +4,7 @@ The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
 free/public MIT projects on GitHub and Packagist. The current public release line
-is `xuple/evolayer-base-starter v0.1.2` consuming `xuple/evolayer-base v0.1.1`
+is `xuple/evolayer-base-starter v0.1.3` consuming `xuple/evolayer-base v0.1.1`
 through the `^0.1` constraint. GitHub is the public publication source; the
 self-hosted Forge remains an internal mirror.
 
@@ -15,7 +15,7 @@ marketing routes expose that same page at `/about`.
 
 ## Current public release
 
-Current starter release: **0.1.2** (pre-1.0 developer preview). Future fixes use
+Current starter release: **0.1.3** (pre-1.0 developer preview). Future fixes use
 new patch releases; do not move published tags.
 
 ## create-project flow (end users)
@@ -29,8 +29,20 @@ cd my-app && npm install && npm run build && php artisan serve
 bundle and the SSR bundle.
 
 `post-create-project-cmd` runs `key:generate`, creates the SQLite database,
-`migrate --seed`, `wayfinder:generate`, and `evolayer:ontology:compile`. Demo
-admin: `test@example.com` / `password`.
+`migrate --seed`, clears stale route caches, `wayfinder:generate`, and
+`evolayer:ontology:compile`. Demo admin: `test@example.com` / `password`.
+
+## Route identity migration notes
+
+The starter treats `/home` (`evolayer.base.home`) as the canonical authenticated
+entry point. Public `/` remains named `home` and remains the logout/public landing
+route. When changing this contract in a downstream app, review:
+
+- `config/fortify.php` `home`.
+- Shell logo links, passkey success fallbacks, and any hard-coded `/dashboard`
+  assumptions.
+- Generated Wayfinder imports after route changes. Run `php artisan route:clear`
+  before `php artisan wayfinder:generate --with-form --no-interaction`.
 
 ## How the package is resolved
 
@@ -83,7 +95,7 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
    version immediately before tagging.
 
 The first-hour install path has been rehearsed end-to-end from a clean
-directory: `composer create-project` resolved starter `v0.1.2` and base
+directory: `composer create-project` resolved starter `v0.1.3` and base
 `v0.1.1`, applied the `laravel/ai` patch, migrated/seeded, generated Wayfinder
 and ontology, then `npm install`, `npm audit`, `npm run build`,
 `evolayer:doctor --strict`, and `composer test` all passed.

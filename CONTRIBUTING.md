@@ -39,6 +39,19 @@ The EvoLayer React stubs listed in the first row are committed here so the start
 
 If a change spans both repos (most commonly: a new `EVOLAYER_BASE_*` flag, or a host edit that requires a package change), land the package PR first against a resolvable ref the starter can pick up, then open the starter PR pointing at it.
 
+### Adding starter routes or pages safely
+
+- Use the public `home` route (`/`) only for public landing/logout flows.
+- Use `evolayer.base.home` (`/home`) for the authenticated starter launcher. If a downstream app disables `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`, it must choose a replacement authenticated landing route and update `config/fortify.php`.
+- Put host shell pages/routes in starter-owned files. Put new EvoLayer examples, blocks, agents, or package routes in `xuple/evolayer-base` first, then resync here.
+- After route changes, clear stale route caches before regenerating typed frontend contracts:
+
+```bash
+php artisan route:clear
+php artisan wayfinder:generate --with-form --no-interaction
+php artisan evolayer:ontology:compile --no-erd --no-interaction
+```
+
 ## Feature-flag conventions
 
 The starter uses two prefixes, both static and `.env`-driven, read through `config/evolayer.php` and surfaced on the shared `evolayer.base.{examples,features}` prop:

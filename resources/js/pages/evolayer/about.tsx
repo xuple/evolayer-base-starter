@@ -124,7 +124,7 @@ export default function About() {
                         <div className="mt-8 flex flex-wrap gap-3">
                             <Link
                                 href="/login"
-                                className="inline-flex items-center rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-hover"
+                                className="inline-flex items-center rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-brand-foreground shadow-sm transition hover:bg-brand-hover"
                             >
                                 Explore the demo
                             </Link>
@@ -226,7 +226,7 @@ export default function About() {
                         <ol className="mt-7 space-y-4">
                             {walkthrough.map((step, index) => (
                                 <li key={step} className="flex gap-4">
-                                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
+                                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-brand-foreground">
                                         {index + 1}
                                     </span>
                                     <span className="pt-1 text-sm leading-6 text-neutral-700 dark:text-neutral-300">

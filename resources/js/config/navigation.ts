@@ -1,12 +1,15 @@
 import {
     FileText,
+    FolderGit2,
     Home,
     Inbox,
     LayoutGrid,
+    BookOpen,
     Settings,
     Sparkles,
 } from 'lucide-react';
 import { dashboard } from '@/routes';
+import { home as evolayerHome } from '@/routes/evolayer/base';
 import { edit as editAppearance } from '@/routes/appearance/index';
 import { edit as profileEdit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security/index';
@@ -22,15 +25,37 @@ import type { EvoLayerNavItem } from '@/types/evolayer';
  * Host/starter routes (dashboard, profile, etc.) keep their typed Wayfinder
  * imports since the starter always ships them.
  */
-export const sidebarPrimaryNavItems: EvoLayerNavItem[] = [
+export const authenticatedHomeNavItem: EvoLayerNavItem = {
+    title: 'Home',
+    href: evolayerHome(),
+    icon: Home,
+    isAccent: true,
+    description: 'Go to the launcher',
+    exampleKey: 'marketing_pages',
+};
+
+export const dashboardNavItem: EvoLayerNavItem = {
+    title: 'Dashboard',
+    href: dashboard(),
+    icon: LayoutGrid,
+    description: 'View your activity',
+};
+
+export const externalNavItems: EvoLayerNavItem[] = [
     {
-        title: 'Home',
-        href: '/home',
-        icon: Home,
-        isAccent: true,
-        description: 'Go to the launcher',
-        exampleKey: 'marketing_pages',
+        title: 'Repository',
+        href: 'https://github.com/xuple/evolayer-base-starter',
+        icon: FolderGit2,
     },
+    {
+        title: 'Documentation',
+        href: 'https://docs.evodevops.com/base',
+        icon: BookOpen,
+    },
+];
+
+export const sidebarPrimaryNavItems: EvoLayerNavItem[] = [
+    authenticatedHomeNavItem,
     {
         title: 'ThreadStudio',
         href: '/ai/thread-studio',
@@ -54,14 +79,7 @@ export const sidebarPrimaryNavItems: EvoLayerNavItem[] = [
     },
 ];
 
-export const sidebarSecondaryNavItems: EvoLayerNavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-        description: 'View your activity',
-    },
-];
+export const sidebarSecondaryNavItems: EvoLayerNavItem[] = [dashboardNavItem];
 
 export const mainNavItems: EvoLayerNavItem[] = [
     ...sidebarPrimaryNavItems,

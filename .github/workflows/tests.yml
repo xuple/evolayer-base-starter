@@ -68,10 +68,13 @@ jobs:
         # are gitignored; tsc imports `@/routes`, `@/actions/...`, etc. so they
         # must exist before type-check or build. SQLite migration also needs the
         # database file to exist (post-create-project-cmd does this for end users;
-        # CI does it here). evolayer:ontology:compile emits the TS ontology types.
+        # CI does it here). route:clear prevents stale cached routes from causing
+        # incomplete Wayfinder output. evolayer:ontology:compile emits the TS
+        # ontology types.
         run: |
           touch database/database.sqlite
           php artisan migrate --seed --force
+          php artisan route:clear
           php artisan wayfinder:generate --with-form --no-interaction
           php artisan evolayer:ontology:compile --no-erd --no-interaction
 
