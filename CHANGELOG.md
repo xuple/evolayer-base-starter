@@ -6,6 +6,13 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-06-09
+
+### Fixed
+- Added an npm override for `shell-quote` 1.8.4 so fresh public installs no
+  longer report the critical audit finding through `concurrently` during
+  `npm install`.
+
 ## [0.1.1] - 2026-06-09
 
 ### Fixed
