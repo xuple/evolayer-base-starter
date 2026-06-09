@@ -32,21 +32,22 @@ admin: `test@example.com` / `password`.
 
 ## How the package is resolved
 
-While the package is private/unpublished the starter resolves it from the
-**Forge `vcs` repository** at `dev-main` — so `composer create-project` works
-from any machine with Forge access, not just one with a sibling checkout:
+The starter consumes the package from **Packagist** as a tagged release:
 
 ```jsonc
-"require":      { "xuple/evolayer-base": "dev-main" },
-"repositories": [{ "type": "vcs",
-                   "url": "ssh://git@forge.dev.home.arpa:222/xupleteam/evolayer-base.git" }]
+"require": { "xuple/evolayer-base": "^0.1" }
 ```
 
-`composer.lock` is **not committed** (matches the `laravel/laravel` skeleton): a
-committed lock pinned the package to a machine-local source and broke
-`create-project` elsewhere. Each created project resolves fresh and commits its
-own lock. At public launch, `dev-main` becomes `^0.1` and the private Forge VCS
-repository entry is removed so Composer resolves the package from Packagist.
+No custom `repositories` entry ships in the public starter — Composer resolves
+`xuple/evolayer-base` straight from Packagist. `composer.lock` is **not
+committed** (matches the `laravel/laravel` skeleton): each created project
+resolves fresh and commits its own lock.
+
+> **Pre-launch staging (historical).** Before `xuple/evolayer-base` was
+> published to Packagist, the starter resolved it from a private Forge `vcs`
+> repository at `dev-main` (`ssh://git@<private-forge-host>/<owner>/evolayer-base.git`).
+> That `repositories` block was removed when the starter moved to `^0.1`; it is
+> retained here only as internal context.
 
 **Local side-by-side package dev (optional):** to edit the package locally and
 have this starter pick it up without pushing to the forge, add an *uncommitted*
@@ -59,8 +60,8 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
 ## Pre-release checklist (before tagging)
 
 1. Full verification suite green: `composer test`, `composer validate --strict`, `php artisan evolayer:doctor --strict --no-ansi`, `npm run types:check`, `npm run build` (client + SSR), `composer lint:check`, `npm run lint:check`, `npm run format:check`.
-2. The `dev-main` constraint remains bound while pre-launch — `composer validate --strict` must stay clean.
-3. `composer create-project xuple/evolayer-base-starter <dir> --repository='{"type":"vcs","url":"ssh://…/evolayer-base-starter.git"}' --stability=dev` succeeds end to end.
+2. The `^0.1` constraint resolves the published package from Packagist — `composer validate --strict` must stay clean.
+3. A clean Packagist `composer create-project xuple/evolayer-base-starter <dir>` (no `--repository` / `--stability` flags) succeeds end to end.
 4. **Live AI** — add provider keys to `.env`, then run the relevant smoke
    commands. ThreadStudio's runtime-approved providers are **Gemini** (default) and
    **OpenAI** — both are selectable as `AI_THREAD_STUDIO_PROVIDER` and pass
@@ -111,5 +112,5 @@ router-backed diagnostic-eligible probe candidates); what remains open is
 Anthropic's structured-streaming investigation, which — if it lands usable
 `TextDelta` events — would make it a candidate for runtime approval. Remotes are
 configured:
-`origin` is `ssh://git@forge.dev.home.arpa:222/xupleteam/evolayer-base-starter.git`;
+`origin` is `ssh://git@<private-forge-host>/<owner>/evolayer-base-starter.git`;
 `github` is `git@github.com:xuple/evolayer-base-starter.git`.
