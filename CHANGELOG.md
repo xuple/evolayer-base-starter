@@ -6,6 +6,13 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- Corrected the starter PHP floor to `^8.4`, matching the package and Laravel 13
+  dependency stack.
+- Public GitHub Actions now run on PHP 8.4 only, create `.env` before Composer
+  scripts that need app context, and generate Wayfinder / ontology files before
+  frontend linting resolves imports.
+
 ## [0.1.0] - 2026-06-09
 
 First public release — the publicly installable starter for the EvoLayer Base

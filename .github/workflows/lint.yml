@@ -33,6 +33,16 @@ jobs:
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           npm ci
 
+      - name: Prepare generated frontend contracts
+        # ESLint resolves imports from gitignored Wayfinder/ontology outputs.
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          php artisan migrate --seed --force
+          php artisan wayfinder:generate --with-form --no-interaction
+          php artisan evolayer:ontology:compile --no-erd --no-interaction
+
       - name: Run Pint
         run: composer lint:check
 
