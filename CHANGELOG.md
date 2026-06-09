@@ -6,8 +6,11 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-Provisional first release: **0.1.0** (not yet tagged or published — see
-`RELEASE.md`).
+## [0.1.0] - 2026-06-09
+
+First public release — the publicly installable starter for the EvoLayer Base
+**developer preview**. Pairs with `xuple/evolayer-base` v0.1.0 (consumed as
+`^0.1` from Packagist). Pre-1.0; APIs may change before 1.0.
 
 EvoLayer Base Starter — the Laravel React Inertia starter kit with the EvoLayer
 Base layer pre-wired. Part of the EvoDevOps starter-kit family.
