@@ -5,7 +5,7 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 - **Start here** when you want a full demo app with EvoLayer Base already wired in, every example surface visible.
 - **Use the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) package directly** when adding Base to an existing Laravel app.
 
-> **Pre-release status:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are pre-1.0 and currently staged on a private Forge plus a private GitHub mirror. The Packagist + public GitHub launch is the target. See [RELEASE.md](RELEASE.md) for what changes at tag day and how to install during the staging window.
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.2` with `xuple/evolayer-base` `v0.1.1`.
 
 ## How the pieces fit
 
@@ -47,7 +47,13 @@ clone this repo directly instead, run the equivalent in one shot:
 composer setup
 ```
 
-Private pre-release installs need access to the Forge/GitHub repositories described in [RELEASE.md](RELEASE.md). Once the packages are tagged and published, the same command works without the VCS repository setup.
+The starter repository intentionally does **not** commit `composer.lock`, matching
+the Laravel application skeleton. A created client application should normally
+commit its generated `composer.lock` for deterministic deploys.
+
+Hosting the created app behind Nginx/PHP-FPM? See
+[`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) for the write-permission
+handoff, SQLite file notes, and proxied Vite `--strictPort` workflow.
 
 ### Demo login
 
@@ -166,6 +172,9 @@ command in this starter — its work is already pre-applied.
 - `composer dev` — run server, queue, logs, and Vite together.
 - `php artisan evolayer:doctor` — health-check the install.
 - `npm run types:check` / `npm run build` (client + SSR) / `composer lint` / `composer test`.
+- [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) — Nginx/PHP-FPM
+  hosted-dev checklist, `tempnam()` troubleshooting, and fixed-port Vite HMR
+  guidance.
 
 The starter is also pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost): `AGENTS.md` / `CLAUDE.md` carry the starter-specific boundaries followed by Boost's framework guidelines, and `.mcp.json` / `.codex/config.toml` / `opencode.json` register `php artisan boost:mcp` so agents can call `search-docs`, `tinker`, `database-query`, etc. Skills live under `.claude/skills/` and `.agents/skills/`. **Boost is a `require-dev` dependency**; the MCP layer is only available when the app is installed with dev dependencies (the `composer install` / `composer create-project` default — `composer install --no-dev` skips it).
 
@@ -179,7 +188,7 @@ Sibling EvoDevOps layers (`evolayer.commerce.*`, `evolayer.saas.*`, `evolayer.rl
 
 ## Project Status
 
-EvoLayer is pre-1.0. Base and the starter are free/public MIT projects; Forge and private GitHub are pre-launch staging, and Packagist is the public launch target. See [RELEASE.md](RELEASE.md) and [CHANGELOG.md](CHANGELOG.md).
+EvoLayer is pre-1.0. Base and the starter are free/public MIT projects published on GitHub and Packagist. See [RELEASE.md](RELEASE.md) and [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

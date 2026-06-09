@@ -6,6 +6,21 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-06-09
+
+### Added
+- Added a hosted Nginx/PHP-FPM first-hour guide covering Laravel writable
+  directories, the SQLite database file, `tempnam()` troubleshooting, and
+  proxied Vite `--strictPort` usage.
+- Added a generic Nginx dev vhost example for PHP 8.4-FPM and Vite HMR.
+
+### Changed
+- Refreshed public-state documentation now that the starter is public on GitHub
+  and Packagist, CI is live, and the current public line is starter `v0.1.2`
+  with base `v0.1.1`.
+- Clarified that the starter repository intentionally omits `composer.lock`, but
+  created client applications should normally commit their generated lockfile.
+
 ## [0.1.2] - 2026-06-09
 
 ### Fixed
@@ -133,7 +148,6 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   post-launch.
 
 ### Notes
-- During private pre-launch staging, the package is resolved from the Forge `vcs`
-  repository at `dev-main` (composer.lock is not committed). At public launch it
-  becomes `^0.1` from Packagist. See `RELEASE.md`. `composer create-project`
-  verified end-to-end from the Forge.
+- Historical: during private pre-public staging, the package resolved from the
+  Forge `vcs` repository at `dev-main` while `composer.lock` stayed uncommitted.
+  The public line now resolves `^0.1` from Packagist. See `RELEASE.md`.

@@ -115,7 +115,7 @@ npm run format:check               # Prettier (resources/ only)
 npm run build                      # Vite client + SSR
 ```
 
-All eight gates green on HEAD before push. The starter CI runs the same set on `workflow_dispatch` (workflows are paused on push/PR until the package is public on Packagist — see RELEASE.md).
+All eight gates green on HEAD before push. The public starter CI runs the same suite on push, pull request, and `workflow_dispatch` (see RELEASE.md).
 
 ## Out of scope — do not invent
 
@@ -129,7 +129,7 @@ All eight gates green on HEAD before push. The starter CI runs the same set on `
 
 - [`README.md`](README.md) — full user-facing story.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — full routing matrix + flag conventions + PR checklist.
-- [`RELEASE.md`](RELEASE.md) — pre-release checklist, package resolution, public-launch swap.
+- [`RELEASE.md`](RELEASE.md) — release checklist, package resolution, and public CI posture.
 - [`CHANGELOG.md`](CHANGELOG.md) — `[Unreleased]` covers everything between the EvoLayer pivot and the next tag.
 - [`SECURITY.md`](SECURITY.md), [`SUPPORT.md`](SUPPORT.md) — community policies.
 - [`patches/README.md`](patches/README.md) — vendor patch dossier.
