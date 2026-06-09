@@ -3,9 +3,11 @@
 The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
-free/public MIT projects. The self-hosted Forge and private GitHub repositories
-are pre-launch staging; the launch target is public GitHub plus Packagist.
-Version/tag remains open.
+free/public MIT projects. `xuple/evolayer-base` is already public and published
+on Packagist at `v0.1.0`; the starter consumes it as `^0.1` and is mid-launch —
+public GitHub visibility + Packagist submission are the next step, and the
+starter `v0.1.0` tag is still pending. GitHub is the public publication source;
+the self-hosted Forge remains an internal mirror.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
 family, `docs.evodevops.com/base` is the canonical Base documentation root, `/`
@@ -75,42 +77,40 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
    ThreadStudio providers.
 5. Move `CHANGELOG.md` `[Unreleased]` → `[0.1.0]`.
 
-Verified from `/tmp/evolayer-test` using the Forge VCS repository argument:
-`composer create-project` resolved the starter and package, applied the patch,
-migrated/seeded, generated Wayfinder + ontology, then `npm install`,
-`npm run build`, `php artisan evolayer:doctor`, and `composer test` all passed.
+The first-hour install path has been rehearsed end-to-end from a clean
+directory: `composer create-project` resolved the starter and package, applied
+the `laravel/ai` patch, migrated/seeded, generated Wayfinder + ontology, then
+`npm install`, `npm run build`, `evolayer:doctor --strict`, and `composer test`
+all passed — including live Gemini + OpenAI structured-streaming compose.
 
-## Distribution (direction set)
+## Distribution
 
-Pre-launch staging is private: the self-hosted Forge is `origin`, and GitHub is
-a mirror for collaboration. Public launch is GitHub + Packagist. At launch the
-starter dependency becomes `"xuple/evolayer-base": "^0.1"` and the private Forge
-`repositories` entry is removed. See the package `RELEASE.md` for the full
-distribution model and push recipe.
+`xuple/evolayer-base` is **public on GitHub and published on Packagist** at
+`v0.1.0`; the starter consumes it as `^0.1` from Packagist. The starter is next:
+make its GitHub repo public, submit it to Packagist, run the public
+`create-project` rehearsal, then tag `v0.1.0`. **GitHub is the public
+publication source**; the self-hosted Forge remains an internal mirror
+(`origin`). See the package `RELEASE.md` for the full package-first bridge.
 
 ## CI access note
 
-Until `xuple/evolayer-base` is tagged and published on Packagist, CI must have
-read access to that private package repository. Forge-based CI can use the
-committed Forge VCS URL directly. GitHub-hosted CI needs an explicit
-secret/deploy key/PAT with access to `xuple/evolayer-base`; otherwise
-`composer install` will fail before tests run.
-
-The GitHub workflows are intentionally `workflow_dispatch` only during this
-private pre-release phase to avoid noisy failure emails on every push. Re-enable
-push/PR triggers when the package is published on Packagist. A temporary
-`EVOLAYER_BASE_GITHUB_TOKEN` secret can be used before then, but that is only a
-pre-release workaround.
+Now that `xuple/evolayer-base` is public on Packagist, CI no longer needs a
+private package-access secret — `composer install` resolves the package from
+Packagist. The GitHub workflows were `workflow_dispatch` only during the
+private pre-release; **re-enable push/PR triggers after the final public
+`composer create-project` rehearsal passes**. The temporary
+`EVOLAYER_BASE_GITHUB_TOKEN` workaround is no longer needed.
 
 ## Open decisions
 
-Final version/tag, Packagist publication, GitHub CI re-enable, and final live AI
-streaming verification are still pending. The ThreadStudio provider roster is
-settled (Gemini + OpenAI runtime-approved; Anthropic diagnostic-eligible but
-blocked for ThreadStudio runtime / pending re-verification; routers are
-router-backed diagnostic-eligible probe candidates); what remains open is
-Anthropic's structured-streaming investigation, which — if it lands usable
-`TextDelta` events — would make it a candidate for runtime approval. Remotes are
-configured:
-`origin` is `ssh://git@<private-forge-host>/<owner>/evolayer-base-starter.git`;
-`github` is `git@github.com:xuple/evolayer-base-starter.git`.
+The base package is tagged and published (`xuple/evolayer-base v0.1.0`).
+Remaining for the starter: public GitHub visibility + Packagist submission, the
+public `create-project` rehearsal, the `v0.1.0` tag, the minimum
+`docs.evodevops.com/base` page, and re-enabling GitHub CI — then announcement.
+The ThreadStudio provider roster is settled (Gemini + OpenAI runtime-approved;
+Anthropic diagnostic-eligible but blocked for ThreadStudio runtime / pending
+re-verification; routers are router-backed diagnostic-eligible probe
+candidates); what remains open there is Anthropic's structured-streaming
+investigation. Remotes: `origin` is the internal Forge mirror; `github`
+(`git@github.com:xuple/evolayer-base-starter.git`) is the public publication
+source.
