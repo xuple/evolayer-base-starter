@@ -5,14 +5,14 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 - **Start here** when you want a full demo app with EvoLayer Base already wired in, every example surface visible.
 - **Use the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) package directly** when adding Base to an existing Laravel app.
 
-> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.3` with `xuple/evolayer-base` `v0.1.1`.
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.5` with `xuple/evolayer-base` `v0.1.2`.
 
 ## How the pieces fit
 
-| | Owns | Posture |
-| --- | --- | --- |
-| [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) (package) | Examples, blocks, agents, ontology, `evolayer:*` commands, the `evolayer.base.*` config shape | Conservative — installs add no routes by default |
-| `xuple/evolayer-base-starter` (this repo) | The Laravel host shell: Inertia/auth wiring, host migrations, `laravel/ai` patch, kitchen-sink `.env.example`, CI | Kitchen-sink — every example feature switched on out of the box |
+|                                                                           | Owns                                                                                                              | Posture                                                         |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) (package) | Examples, blocks, agents, ontology, `evolayer:*` commands, the `evolayer.base.*` config shape                     | Conservative — installs add no routes by default                |
+| `xuple/evolayer-base-starter` (this repo)                                 | The Laravel host shell: Inertia/auth wiring, host migrations, `laravel/ai` patch, kitchen-sink `.env.example`, CI | Kitchen-sink — every example feature switched on out of the box |
 
 The starter is a thin fork of `laravel/react-starter-kit`. It gives you a full Laravel application from day one — auth, host Inertia pages, React components, Tailwind styling, EvoLayer-published examples, config, seeders, and tests are all available to adapt. The examples are owned by the package and committed here so the starter clones and builds without an install step; see [Re-syncing the package frontend](#re-syncing-the-package-frontend) for how upstream changes flow in.
 
@@ -55,7 +55,7 @@ commit its generated `composer.lock` for deterministic deploys.
 
 Hosting the created app behind Nginx/PHP-FPM? See
 [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) for the write-permission
-handoff, SQLite file notes, and proxied Vite `--strictPort` workflow.
+handoff, SQLite file notes, and env-driven fixed-port Vite HMR workflow.
 
 ### Demo login
 
@@ -78,9 +78,9 @@ surface. If a downstream app disables `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`, c
 replacement authenticated landing route and update `fortify.home` away from the
 starter's default `/home` before removing that route.
 
-| Flag                                   | What it adds                                               |
-| -------------------------------------- | ---------------------------------------------------------- |
-| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`     | Public About and authenticated Home launcher pages          |
+| Flag                                        | What it adds                                               |
+| ------------------------------------------- | ---------------------------------------------------------- |
+| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`     | Public About and authenticated Home launcher pages         |
 | `EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO`       | ThreadStudio — streaming AI compose with structured output |
 | `EVOLAYER_BASE_EXAMPLE_PRD_STUDIO`          | PRD Studio — turn notes into scoped requirements           |
 | `EVOLAYER_BASE_EXAMPLE_ADMIN_INBOX`         | Admin inbox for contact-form submissions                   |
@@ -177,8 +177,8 @@ command in this starter — its work is already pre-applied.
 - `php artisan evolayer:doctor` — health-check the install.
 - `npm run types:check` / `npm run build` (client + SSR) / `composer lint` / `composer test`.
 - [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) — Nginx/PHP-FPM
-  hosted-dev checklist, `tempnam()` troubleshooting, and fixed-port Vite HMR
-  guidance.
+  hosted-dev checklist, `tempnam()` troubleshooting, and env-driven fixed-port
+  Vite HMR guidance.
 
 The starter is also pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost): `AGENTS.md` / `CLAUDE.md` carry the starter-specific boundaries followed by Boost's framework guidelines, and `.mcp.json` / `.codex/config.toml` / `opencode.json` register `php artisan boost:mcp` so agents can call `search-docs`, `tinker`, `database-query`, etc. Skills live under `.claude/skills/` and `.agents/skills/`. **Boost is a `require-dev` dependency**; the MCP layer is only available when the app is installed with dev dependencies (the `composer install` / `composer create-project` default — `composer install --no-dev` skips it).
 

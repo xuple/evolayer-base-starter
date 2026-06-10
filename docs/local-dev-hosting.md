@@ -122,12 +122,24 @@ For a direct browser workflow, Vite's default behavior is convenient: if the
 requested port is busy, it tries the next available port. Behind Nginx, that is
 brittle because the reverse proxy keeps pointing at the original port.
 
-When Nginx proxies to a fixed Vite port, run Vite with `--strictPort` so a port
-collision fails loudly:
+When Nginx proxies to a fixed Vite port, set the same port in `.env` so the
+starter enables `strictPort` and a collision fails loudly:
+
+```env
+APP_URL=https://app.example.test
+VITE_DEV_SERVER_PORT=5186
+```
+
+Then start Vite normally:
 
 ```bash
-npm run dev -- --host 127.0.0.1 --port 5186 --strictPort
+npm run dev
 ```
+
+When `VITE_DEV_SERVER_PORT` is empty, Vite keeps its normal flexible dev-server
+behavior and may move to the next available port. When it is set, Vite binds to
+`127.0.0.1:<port>` and fails instead of falling forward if that port is already
+occupied. Host-level Nginx configuration remains outside the starter.
 
 If you host several local apps, find a free port before updating the Nginx
 example:
@@ -145,8 +157,8 @@ comm -23 \
 
 Then use the same port in both places:
 
-```bash
-npm run dev -- --host 127.0.0.1 --port 5186 --strictPort
+```env
+VITE_DEV_SERVER_PORT=5186
 ```
 
 ```nginx

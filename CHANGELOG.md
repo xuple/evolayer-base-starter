@@ -6,14 +6,29 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-06-10
+
+### Added
+
+- Added optional `VITE_DEV_SERVER_PORT` support so hosted local development can
+  bind Vite to a fixed loopback port with `strictPort` using plain
+  `npm run dev`.
+
+### Changed
+
+- Updated hosted Nginx/PHP-FPM local-development docs to prefer the env-driven
+  fixed-port Vite workflow and refreshed the current public version line.
+
 ## [0.1.4] - 2026-06-10
 
 ### Added
+
 - Added shell contract coverage for the public `/` route versus authenticated
   `/home` (`evolayer.base.home`), command-palette mounting, and centralized
   navigation wiring.
 
 ### Changed
+
 - The authenticated shell now treats `/home` as the canonical Fortify landing
   path for successful login, registration, verification, password reset, and
   passkey fallback flows. Public `/` remains the logout/public landing route.
@@ -24,18 +39,21 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 - Added a semantic `brand-foreground` color token for brand-filled UI.
 
 ### Fixed
+
 - Mounted the global command-palette provider and dialog in the Inertia app shell
   and connected the header search affordance to the same palette.
 
 ## [0.1.3] - 2026-06-09
 
 ### Added
+
 - Added a hosted Nginx/PHP-FPM first-hour guide covering Laravel writable
   directories, the SQLite database file, `tempnam()` troubleshooting, and
   proxied Vite `--strictPort` usage.
 - Added a generic Nginx dev vhost example for PHP 8.4-FPM and Vite HMR.
 
 ### Changed
+
 - Refreshed public-state documentation now that the starter is public on GitHub
   and Packagist, CI is live, and the current public line is starter `v0.1.3`
   with base `v0.1.1`.
@@ -45,6 +63,7 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 ## [0.1.2] - 2026-06-09
 
 ### Fixed
+
 - Added an npm override for `shell-quote` 1.8.4 so fresh public installs no
   longer report the critical audit finding through `concurrently` during
   `npm install`.
@@ -52,6 +71,7 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 ## [0.1.1] - 2026-06-09
 
 ### Fixed
+
 - Corrected the starter PHP floor to `^8.4`, matching the package and Laravel 13
   dependency stack. Pairs with `xuple/evolayer-base` v0.1.1.
 - Public GitHub Actions now run on PHP 8.4 only, create `.env` before Composer
@@ -68,6 +88,7 @@ EvoLayer Base Starter — the Laravel React Inertia starter kit with the EvoLaye
 Base layer pre-wired. Part of the EvoDevOps starter-kit family.
 
 ### Added
+
 - `composer create-project xuple/evolayer-base-starter` scaffold, a thin fork of
   `laravel/react-starter-kit` requiring `xuple/evolayer-base`.
 - Kitchen-sink posture: every `EVOLAYER_BASE_EXAMPLE_*` flag enabled in
@@ -115,6 +136,7 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   the (otherwise informational, zero-exit) doctor command now fails the build.
 
 ### Changed
+
 - `composer evolayer:resync` now also publishes the `evolayer-base-ontology`
   tag, so `ontology.yaml` refreshes alongside the frontend and config when a
   newer `xuple/evolayer-base` release lands. Previously the ontology stub
@@ -169,6 +191,7 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   post-launch.
 
 ### Notes
+
 - Historical: during private pre-public staging, the package resolved from the
   Forge `vcs` repository at `dev-main` while `composer.lock` stayed uncommitted.
   The public line now resolves `^0.1` from Packagist. See `RELEASE.md`.
