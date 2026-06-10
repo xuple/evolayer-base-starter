@@ -118,6 +118,20 @@ npm run build                      # Vite client + SSR
 
 All eight gates green on HEAD before push. The public starter CI runs the same suite on push, pull request, and `workflow_dispatch` (see RELEASE.md).
 
+## Dev server handoff
+
+For one-off verification, stop `npm run dev` before handing back. Only leave Vite
+running when the user explicitly wants a live browser session, and then report
+the working directory, command, configured port, and process/session you left
+behind.
+
+When `VITE_DEV_SERVER_PORT` is set for a hosted local workflow, keep that value
+aligned with the Nginx `proxy_pass` port. Check the listener with
+`ss -ltnp | grep ':<port> '`. A 502 from `/@vite/`, `/@react-refresh`, or
+`/resources/` usually means Vite is stopped, bound to a different port, or the
+host proxy was not updated/reloaded. Host-level Nginx files and
+client-specific domains remain downstream concerns, not starter changes.
+
 ## Out of scope — do not invent
 
 - New starter-local example routes, pages, AI agents, or blocks (those belong in the package).

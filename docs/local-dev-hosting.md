@@ -141,6 +141,26 @@ behavior and may move to the next available port. When it is set, Vite binds to
 `127.0.0.1:<port>` and fails instead of falling forward if that port is already
 occupied. Host-level Nginx configuration remains outside the starter.
 
+This starter's generic example assumes Nginx and Vite run on the same machine,
+with Nginx proxying browser requests to Vite over loopback. If a downstream app
+serves a LAN or dev-domain URL from a different host, configure that app's
+host/HMR/origin policy locally instead of copying client-specific domains into
+the starter.
+
+For agent handoff, do not leave `npm run dev` running after a one-off check
+unless the user asks for a live browser session. If you intentionally leave it
+running, report the working directory, configured port, and process/session. To
+check the expected port, use:
+
+```bash
+ss -ltnp | grep ':5186 '
+```
+
+To restart, stop the existing Vite process, confirm `.env` and Nginx still use
+the same port, then run `npm run dev` again. A 502 on `/@vite/`,
+`/@react-refresh`, or `/resources/` usually means Vite is stopped, bound to a
+different port, or the host proxy was not updated/reloaded.
+
 If you host several local apps, find a free port before updating the Nginx
 example:
 

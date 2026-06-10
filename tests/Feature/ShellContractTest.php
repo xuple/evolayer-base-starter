@@ -48,6 +48,40 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString('onClick={open}', $header);
     }
 
+    public function test_inertia_title_callback_uses_the_app_name_suffix_contract(): void
+    {
+        $app = (string) file_get_contents(resource_path('js/app.tsx'));
+
+        $this->assertStringContainsString(
+            "const appName = import.meta.env.VITE_APP_NAME || 'EvoLayer Base';",
+            $app,
+        );
+        $this->assertStringContainsString(
+            'title: (title) => (title ? `${title} | ${appName}` : appName),',
+            $app,
+        );
+        $this->assertStringNotContainsString('`${title} - ${appName}`', $app);
+    }
+
+    public function test_inertia_layout_resolver_contract_stays_documented(): void
+    {
+        $app = (string) file_get_contents(resource_path('js/app.tsx'));
+        $agents = (string) file_get_contents(base_path('AGENTS.md'));
+        $claude = (string) file_get_contents(base_path('CLAUDE.md'));
+
+        $this->assertStringContainsString("case name === 'welcome':", $app);
+        $this->assertStringContainsString("case name.startsWith('auth/'):", $app);
+        $this->assertStringContainsString("case name.startsWith('settings/'):", $app);
+        $this->assertStringContainsString('return [AppLayout, SettingsLayout];', $app);
+        $this->assertStringContainsString('return AppLayout;', $app);
+        $this->assertStringContainsString(
+            'Page.layout = (page: ReactElement) => <>{page}</>;',
+            $agents,
+        );
+        $this->assertStringContainsString('Page.layout = (page) => page;', $agents);
+        $this->assertSame($agents, $claude);
+    }
+
     public function test_frontend_navigation_uses_the_authenticated_home_contract(): void
     {
         $navigation = (string) file_get_contents(resource_path('js/config/navigation.ts'));

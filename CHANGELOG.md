@@ -6,6 +6,16 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Documented agent handoff expectations for hosted Vite dev-server sessions and
+  clarified that LAN/dev-domain HMR/origin policy stays downstream-specific.
+
+### Tests
+
+- Added starter shell contract coverage for the Inertia title suffix callback,
+  layout resolver branches, and mirrored `AGENTS.md` / `CLAUDE.md` guidance.
+
 ## [0.1.5] - 2026-06-10
 
 ### Added
