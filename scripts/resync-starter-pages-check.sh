@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #
-# Verify that starter-owned landing pages were not overwritten by
-# composer evolayer:resync. The package publishes its defaults over
-# about.tsx and home.tsx; this script exists so the overwrite is
-# caught early rather than silently lost.
+# Verify that starter-owned landing pages were preserved by
+# composer evolayer:resync. The resync script uses the package's
+# preserve-overrides publish tag; this guard catches accidental use
+# of the legacy frontend tag or manual edits that remove the starter
+# sentinel.
 #
 # Usage:
 #   bash scripts/resync-starter-pages-check.sh
@@ -38,14 +39,11 @@ for page in "${STARTER_OWNED_PAGES[@]}"; do
         continue
     fi
 
-    # The package default is always overwritten by the starter
-    # override, so we check for content that only the starter version
-    # would contain. If the sentinel marker is absent, the file is
-    # likely the package default and needs the starter override
-    # re-applied.
+    # If the sentinel marker is absent, the safe publish path was
+    # likely bypassed or the starter override was edited incorrectly.
     if ! grep -q "$SENTINEL" "$page"; then
         echo "OVERWRITTEN: $page does not contain the starter sentinel ($SENTINEL)." >&2
-        echo "  The package default overwrote the starter override." >&2
+        echo "  The safe resync publish path was bypassed or the starter override was edited incorrectly." >&2
         errors=$((errors + 1))
     fi
 done

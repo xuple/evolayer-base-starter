@@ -63,7 +63,7 @@
             "npm run build"
         ],
         "evolayer:resync": [
-            "@php artisan vendor:publish --tag=evolayer-base-frontend --force",
+            "@php artisan vendor:publish --tag=evolayer-base-frontend-preserve-overrides --force",
             "@php artisan vendor:publish --tag=evolayer-base-config --force",
             "@php artisan vendor:publish --tag=evolayer-base-ontology --force",
             "@php artisan route:clear --ansi",

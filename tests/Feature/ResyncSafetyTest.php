@@ -22,8 +22,8 @@ class ResyncSafetyTest extends TestCase
                 '_STARTER_OWNED_PAGE_',
                 $content,
                 "Starter-owned landing page {$page} is missing the _STARTER_OWNED_PAGE_ sentinel. "
-                    .'This sentinel is required so `composer evolayer:resync` does not silently overwrite '
-                    .'the starter override with the package default. Re-apply the starter override and '
+                    .'This sentinel is required so `composer evolayer:resync` can verify the safe publish path '
+                    .'preserved the starter override. Re-apply the starter override and '
                     .'ensure the sentinel comment is present.',
             );
         }

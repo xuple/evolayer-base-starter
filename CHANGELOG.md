@@ -6,6 +6,13 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Updated `composer evolayer:resync` to use the package's
+  `evolayer-base-frontend-preserve-overrides` publish tag so package-owned
+  frontend stubs refresh without overwriting starter-owned landing pages. This
+  requires an installed `xuple/evolayer-base` version that provides the tag.
+
 ## [0.1.6] - 2026-06-11
 
 ### Added

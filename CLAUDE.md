@@ -51,7 +51,7 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `vendor/xuple/evolayer-base/**` — including all `resources/js/pages/evolayer/**`, `resources/js/blocks/**`, `resources/js/hooks/use-evolayer-*`, the ontology, agents, and every `evolayer:*` artisan command.
 - The `evolayer.base.*` config shape (`config/evolayer.php` keys + defaults are package-owned, values in `.env.example` are starter-owned).
 
-**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` overwrites them. Both files carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which fails loudly if the sentinel is missing (meaning the package default overwrote the starter override). If the check fails, recover with:
+**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` uses the package's `evolayer-base-frontend-preserve-overrides` tag to refresh package-owned frontend stubs without overwriting them. That tag must exist in the installed `xuple/evolayer-base` version, so land/tag the package change before relying on this starter script. Both files carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which fails loudly if the sentinel is missing (meaning the safe publish path was bypassed or the starter override was edited incorrectly). If the check fails, recover with:
 
 ```bash
 git checkout -- resources/js/pages/evolayer/about.tsx resources/js/pages/evolayer/home.tsx
@@ -71,7 +71,7 @@ Agents must not assume starter-owned landing pages survived a resync unless the 
 
 ## Frontend stub flow
 
-The package publishes React stubs into the starter via `vendor:publish --tag=evolayer-base-frontend` so the starter clones and builds without an install step. These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalise), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
+The package publishes React stubs into the starter via `vendor:publish --tag=evolayer-base-frontend-preserve-overrides` so the starter clones and builds without an install step while preserving starter-owned landing pages. These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalise), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
 
 ## Inertia layout resolver
 
