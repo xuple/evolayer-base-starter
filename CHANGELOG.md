@@ -6,6 +6,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-06-11
+
 ### Added
 
 - Added optional `VITE_DEV_SERVER_ORIGIN` support so hosted local development
