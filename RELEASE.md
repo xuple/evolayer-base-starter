@@ -91,7 +91,19 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
    for ThreadStudio runtime selection. **NVIDIA / OpenCode / OpenRouter** remain
    router-backed diagnostic-eligible probe candidates, not runtime-approved
    ThreadStudio providers.
-5. Move the relevant `CHANGELOG.md` `[Unreleased]` entries into the new patch
+5. **Manual runtime smoke** — the following checks exercise browser behaviour
+   that HTTP/string tests cannot verify. A human must perform them before
+   tagging a release; no agent may claim these passed without actually running
+   them in a browser.
+    - Public `/` loads the EvoLayer Base landing page (about).
+    - Login/register path renders Fortify auth forms.
+    - Authenticated `/home` loads the Home launcher with command bar visible.
+    - Command bar click (header search icon) opens the command palette.
+    - `Ctrl`/`Cmd`+`K` opens the command palette via keyboard shortcut.
+    - Settings navigation reaches Profile, Security, and Appearance tabs.
+    - Logout redirects back to the public landing page.
+    - `/dashboard` loads (retained scaffold route, not the primary post-auth destination).
+6. Move the relevant `CHANGELOG.md` `[Unreleased]` entries into the new patch
    version immediately before tagging.
 
 The first-hour install path has been rehearsed end-to-end from a clean

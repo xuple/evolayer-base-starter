@@ -1,3 +1,11 @@
+/**
+ * Inherited scaffold route — not the primary post-auth destination.
+ *
+ * The canonical authenticated landing page is /home (evayer.base.home).
+ * This dashboard page is retained as a secondary / replaceable scaffold
+ * route inherited from laravel/react-starter-kit. Downstream apps may
+ * remove, redirect, or replace it with domain-specific content.
+ */
 import { Head } from '@inertiajs/react';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import { dashboard } from '@/routes';

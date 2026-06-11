@@ -1,0 +1,42 @@
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+
+class ResyncSafetyTest extends TestCase
+{
+    public function test_starter_owned_landing_pages_contain_resync_sentinel(): void
+    {
+        $starterOwnedPages = [
+            'resources/js/pages/evolayer/about.tsx',
+            'resources/js/pages/evolayer/home.tsx',
+        ];
+
+        foreach ($starterOwnedPages as $page) {
+            $path = base_path($page);
+            $this->assertFileExists($path, "Starter-owned landing page {$page} is missing.");
+
+            $content = (string) file_get_contents($path);
+            $this->assertStringContainsString(
+                '_STARTER_OWNED_PAGE_',
+                $content,
+                "Starter-owned landing page {$page} is missing the _STARTER_OWNED_PAGE_ sentinel. "
+                    .'This sentinel is required so `composer evolayer:resync` does not silently overwrite '
+                    .'the starter override with the package default. Re-apply the starter override and '
+                    .'ensure the sentinel comment is present.',
+            );
+        }
+    }
+
+    public function test_resync_safety_script_exists_and_is_executable(): void
+    {
+        $scriptPath = base_path('scripts/resync-starter-pages-check.sh');
+
+        $this->assertFileExists($scriptPath);
+        $this->assertTrue(
+            is_executable($scriptPath),
+            'scripts/resync-starter-pages-check.sh must be executable.',
+        );
+    }
+}

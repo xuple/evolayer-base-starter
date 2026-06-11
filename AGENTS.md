@@ -4,7 +4,7 @@ For AI coding agents (Claude Code, Codex, OpenCode, Cursor, Aider, …) and any 
 
 This file is the short, prescriptive version of those documents tuned for agent decision-making. When in doubt about an architectural rule, the routing matrix in [`CONTRIBUTING.md`](CONTRIBUTING.md) is the source of truth.
 
-**Read order.** The project-specific guidance below is the authoritative section for *this* starter — package/starter boundaries, feature-flag conventions, patch policy, and out-of-scope rules. Generic Laravel / Inertia / React / Wayfinder / Pint guidelines from [Laravel Boost](https://laravel.com/docs/boost) follow in the second half of the file, in an auto-regenerated block at the bottom. When the two sections disagree, the project-specific guidance wins — Boost's framework rules are background, not foreground. The Boost-generated block is rewritten in place by `php artisan boost:update`; never edit content inside it (rules placed there are silently wiped on the next run). This file is mirrored byte-identically to `CLAUDE.md` so agents that look for either filename find the same content.
+**Read order.** The project-specific guidance below is the authoritative section for _this_ starter — package/starter boundaries, feature-flag conventions, patch policy, and out-of-scope rules. Generic Laravel / Inertia / React / Wayfinder / Pint guidelines from [Laravel Boost](https://laravel.com/docs/boost) follow in the second half of the file, in an auto-regenerated block at the bottom. When the two sections disagree, the project-specific guidance wins — Boost's framework rules are background, not foreground. The Boost-generated block is rewritten in place by `php artisan boost:update`; never edit content inside it (rules placed there are silently wiped on the next run). This file is mirrored byte-identically to `CLAUDE.md` so agents that look for either filename find the same content.
 
 **Agent tooling assumes dev dependencies are installed.** Boost itself is a `require-dev` dependency, and the multi-agent MCP layer (Claude Code `.mcp.json`, Codex `.codex/config.toml`, OpenCode `opencode.json`) all route to `php artisan boost:mcp`. If the app was installed with `composer install --no-dev` (typical for production deploys), Boost is absent and the MCP server is unavailable to agents — the committed skill directories under `.claude/skills/` and `.agents/skills/` still discover, but live doc lookup (`search-docs`), `tinker`, `database-query`, and `browser-logs` will not work. For agent-assisted development, install with dev dependencies (`composer install` or `composer create-project`, default mode).
 
@@ -14,10 +14,10 @@ This file is the short, prescriptive version of those documents tuned for agent 
 
 `xuple/evolayer-base-starter` is the public `composer create-project` host application for **EvoLayer Base** — Xuple's AI / ontology / blocks substrate for Laravel + React + Inertia. Two repos work together:
 
-| Repo | Role |
-| --- | --- |
-| [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) | The package. Owns examples, agents, blocks, ontology, `evolayer:*` artisan commands, and the `evolayer.base.*` config shape. Conservative — installs add no routes by default. |
-| `xuple/evolayer-base-starter` (this repo) | Thin Laravel host shell. Owns the integration files the package can't publish, the kitchen-sink `.env.example` defaults, the `laravel/ai` patch wiring, host-side migrations, and starter CI. Kitchen-sink — every demo surface enabled out of the box. |
+| Repo                                                            | Role                                                                                                                                                                                                                                                    |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) | The package. Owns examples, agents, blocks, ontology, `evolayer:*` artisan commands, and the `evolayer.base.*` config shape. Conservative — installs add no routes by default.                                                                          |
+| `xuple/evolayer-base-starter` (this repo)                       | Thin Laravel host shell. Owns the integration files the package can't publish, the kitchen-sink `.env.example` defaults, the `laravel/ai` patch wiring, host-side migrations, and starter CI. Kitchen-sink — every demo surface enabled out of the box. |
 
 The starter is a thin fork of [`laravel/react-starter-kit`](https://github.com/laravel/react-starter-kit). Inherited scaffolding that doesn't fit the EvoLayer story (e.g. `resources/js/pages/welcome.tsx`) is kept intentionally where it's wired into upstream flows like the chisel auth-trim.
 
@@ -43,6 +43,7 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `database/seeders/DatabaseSeeder.php`, `database/migrations/2026_05_24_*` — host-owned migrations (Spatie permission / activitylog / media / tags with ULID-compatible morph columns).
 - `.env.example`, `composer.json` scripts (`setup`, `dev`, `evolayer:resync`, `post-create-project-cmd`, etc.).
 - `patches/laravel-ai-structured-streaming.patch`, `patches.lock.json` (via `extra.patches` + `cweagans/composer-patches`).
+- `scripts/resync-starter-pages-check.sh` — post-resync guard that verifies `_STARTER_OWNED_PAGE_` sentinels.
 - `.github/workflows/*`, `tests/Feature/**`, `tests/Unit/**`.
 
 **Package (edit upstream, never here):**
@@ -50,7 +51,7 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `vendor/xuple/evolayer-base/**` — including all `resources/js/pages/evolayer/**`, `resources/js/blocks/**`, `resources/js/hooks/use-evolayer-*`, the ontology, agents, and every `evolayer:*` artisan command.
 - The `evolayer.base.*` config shape (`config/evolayer.php` keys + defaults are package-owned, values in `.env.example` are starter-owned).
 
-**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` overwrites them; re-apply the overrides after a resync. All other `resources/js/pages/evolayer/**` files are package-owned.
+**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` overwrites them; re-apply the overrides after a resync. Both files carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which fails loudly if the sentinel is missing (meaning the package default overwrote the starter override). Agents must not assume starter-owned landing pages survived a resync unless the check passes. All other `resources/js/pages/evolayer/**` files are package-owned.
 
 ## Hard rules
 
@@ -73,6 +74,18 @@ The package publishes React stubs into the starter via `vendor:publish --tag=evo
 - ❌ `Page.layout = (page) => page;` — Inertia does not recognise the bare ReactElement as a render function, falls back to the resolver, and re-wraps the page in `AppLayout` (sidebar visible on public pages).
 
 Use `|` as the title separator, not `-`. The resolver sets it via `title: (title) => (title ? \`${title} | ${appName}\` : appName)`.
+
+### Layout-prop typing policy
+
+Pages in this starter use three layout declaration patterns. The choice depends on what the page needs from its layout:
+
+1. **Static object layout** — `Page.layout = { breadcrumbs: [...] }` or `Page.layout = { title: '...', description: '...' }`. Use when the page uses the default layout resolver (AppLayout for non-auth non-settings, AuthLayout for auth, `[AppLayout, SettingsLayout]` for settings) and only needs to pass static props. Inertia merges these into the resolver's layout component. Used by auth pages, settings pages, dashboard, and submissions pages.
+
+2. **Callback layout** — `Page.layout = (page: ReactElement) => <AppLayout breadcrumbs={[...]}>{page}</AppLayout>`. Use when the page needs a non-default wrapper (PublicLayout for public marketing pages, or an explicit AppLayout with specific breadcrumbs). The callback must return a new JSX element, not the bare `page` — see the ❌ pattern above. Used by `about.tsx`, `home.tsx`, `contact.tsx`, `contact-thank-you.tsx`, `inbox/index.tsx`, `thread-studio.tsx`.
+
+3. **`setLayoutProps`** — `setLayoutProps({ title: '...' })`. Use from inside a page component when the layout title or other props depend on runtime state. Used by `two-factor-challenge.tsx`. Prefer static layout props or callback layouts when the values are known at module level.
+
+**`satisfies AppLayoutPageProps`** on static object layouts is encouraged but not mandatory. Package-owned pages (`SubmissionsIndex`, `SubmissionsShow`) use it; starter-owned pages do not yet. New starter-owned pages may adopt it, but existing pages should not be converted purely for the type annotation.
 
 ## Feature-flag rules
 
@@ -117,6 +130,14 @@ npm run build                      # Vite client + SSR
 ```
 
 All eight gates green on HEAD before push. The public starter CI runs the same suite on push, pull request, and `workflow_dispatch` (see RELEASE.md).
+
+### Verification categories
+
+Agents must distinguish between three verification categories:
+
+1. **Static verification** — type-check, lint, format, build. Fully automated; `npm run types:check && npm run lint:check && npm run format:check && npm run build` covers this.
+2. **Test-suite verification** — PHPUnit Feature/Unit tests, `php artisan evolayer:doctor`. Automated CI gates. `composer test` covers this. The resync-safety sentinel test (`ResyncSafetyTest`) is a test-suite gate, not a manual check.
+3. **Browser/manual runtime smoke** — loading pages, clicking UI elements, keyboard shortcuts. These cannot be verified by HTTP/string tests. No agent may claim a browser smoke passed without actually running it in a browser. See the runtime smoke checklist in RELEASE.md for the required manual checks before tagging a release.
 
 ## Dev server handoff
 
@@ -273,7 +294,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - Execute PHP in app context for debugging and testing code. Do not create models without user approval, prefer tests with factories instead. Prefer existing Artisan commands over custom tinker code.
 - Always use single quotes to prevent shell expansion: `php artisan tinker --execute 'Your::code();'`
-  - Double quotes for PHP strings inside: `php artisan tinker --execute 'User::where("active", true)->count();'`
+    - Double quotes for PHP strings inside: `php artisan tinker --execute 'User::where("active", true)->count();'`
 
 === php rules ===
 

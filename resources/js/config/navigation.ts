@@ -38,7 +38,7 @@ export const dashboardNavItem: EvoLayerNavItem = {
     title: 'Dashboard',
     href: dashboard(),
     icon: LayoutGrid,
-    description: 'View your activity',
+    description: 'Inherited scaffold — replace with domain content',
 };
 
 export const externalNavItems: EvoLayerNavItem[] = [

@@ -8,9 +8,13 @@
  * out of registration via `php artisan install:features`. The `welcome`
  * layout case in app.tsx also exists for that flow. Remove all three
  * together if the chisel auth-trim flow is dropped from this starter.
+ *
+ * The authenticated CTA links to /home (evolayer.base.home) rather than
+ * /dashboard, matching the canonical post-auth destination in this starter.
  */
 import { Head, Link, usePage } from '@inertiajs/react';
-import { dashboard, login } from '@/routes';
+import { home as evolayerHome } from '@/routes/evolayer/base';
+import { login } from '@/routes';
 /* @chisel-registration */
 import { register } from '@/routes';
 /* @end-chisel-registration */
@@ -26,10 +30,10 @@ export default function Welcome() {
                     <nav className="flex items-center justify-end gap-4">
                         {auth.user ? (
                             <Link
-                                href={dashboard()}
+                                href={evolayerHome()}
                                 className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                             >
-                                Dashboard
+                                Home
                             </Link>
                         ) : (
                             <>

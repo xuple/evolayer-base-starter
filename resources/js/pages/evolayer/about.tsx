@@ -1,3 +1,4 @@
+// _STARTER_OWNED_PAGE_ — do not remove; resync safety depends on it
 import { Head, Link } from '@inertiajs/react';
 import {
     Bot,

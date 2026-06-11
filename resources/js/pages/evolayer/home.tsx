@@ -1,3 +1,4 @@
+// _STARTER_OWNED_PAGE_ — do not remove; resync safety depends on it
 import { Head, Link, usePage } from '@inertiajs/react';
 import { Blocks, FileText, Route, ShieldCheck, Wrench } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
