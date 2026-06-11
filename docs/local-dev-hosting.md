@@ -128,6 +128,7 @@ starter enables `strictPort` and a collision fails loudly:
 ```env
 APP_URL=https://app.example.test
 VITE_DEV_SERVER_PORT=5186
+VITE_DEV_SERVER_ORIGIN=
 ```
 
 Then start Vite normally:
@@ -141,9 +142,26 @@ behavior and may move to the next available port. When it is set, Vite binds to
 `127.0.0.1:<port>` and fails instead of falling forward if that port is already
 occupied. Host-level Nginx configuration remains outside the starter.
 
+If the browser should load Vite assets through the same origin as the Laravel
+app instead of directly from `127.0.0.1:<port>`, set
+`VITE_DEV_SERVER_ORIGIN` to the app URL:
+
+```env
+APP_URL=https://app.example.test
+VITE_DEV_SERVER_PORT=5186
+VITE_DEV_SERVER_ORIGIN=https://app.example.test
+```
+
+Origin mode still binds Vite to `127.0.0.1:<port>`, but it makes Laravel's hot
+file point at the configured origin and tells Vite's HMR client to use
+`/vite-hmr` on that origin. Your Nginx vhost must proxy `/@vite/`,
+`/@react-refresh`, `/resources/`, and `/vite-hmr` to the same local Vite port.
+`VITE_DEV_SERVER_ORIGIN` must be an `http://` or `https://` origin only, with no
+path, query, fragment, or credentials, and it requires `VITE_DEV_SERVER_PORT`.
+
 This starter's generic example assumes Nginx and Vite run on the same machine,
 with Nginx proxying browser requests to Vite over loopback. If a downstream app
-serves a LAN or dev-domain URL from a different host, configure that app's
+serves a LAN or dev-domain URL with a different topology, configure that app's
 host/HMR/origin policy locally instead of copying client-specific domains into
 the starter.
 
@@ -158,8 +176,8 @@ ss -ltnp | grep ':5186 '
 
 To restart, stop the existing Vite process, confirm `.env` and Nginx still use
 the same port, then run `npm run dev` again. A 502 on `/@vite/`,
-`/@react-refresh`, or `/resources/` usually means Vite is stopped, bound to a
-different port, or the host proxy was not updated/reloaded.
+`/@react-refresh`, `/resources/`, or `/vite-hmr` usually means Vite is stopped,
+bound to a different port, or the host proxy was not updated/reloaded.
 
 If you host several local apps, find a free port before updating the Nginx
 example:
@@ -179,6 +197,7 @@ Then use the same port in both places:
 
 ```env
 VITE_DEV_SERVER_PORT=5186
+VITE_DEV_SERVER_ORIGIN=https://app.example.test
 ```
 
 ```nginx

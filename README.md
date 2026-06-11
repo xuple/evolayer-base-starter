@@ -55,7 +55,7 @@ commit its generated `composer.lock` for deterministic deploys.
 
 Hosting the created app behind Nginx/PHP-FPM? See
 [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) for the write-permission
-handoff, SQLite file notes, and env-driven fixed-port Vite HMR workflow.
+handoff, SQLite file notes, and env-driven Vite port/origin HMR workflow.
 
 ### Demo login
 
@@ -177,8 +177,8 @@ command in this starter — its work is already pre-applied.
 - `php artisan evolayer:doctor` — health-check the install.
 - `npm run types:check` / `npm run build` (client + SSR) / `composer lint` / `composer test`.
 - [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) — Nginx/PHP-FPM
-  hosted-dev checklist, `tempnam()` troubleshooting, and env-driven fixed-port
-  Vite HMR guidance.
+  hosted-dev checklist, `tempnam()` troubleshooting, and env-driven Vite
+  port/origin HMR guidance.
 
 The starter is also pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost): `AGENTS.md` / `CLAUDE.md` carry the starter-specific boundaries followed by Boost's framework guidelines, and `.mcp.json` / `.codex/config.toml` / `opencode.json` register `php artisan boost:mcp` so agents can call `search-docs`, `tinker`, `database-query`, etc. Skills live under `.claude/skills/` and `.agents/skills/`. **Boost is a `require-dev` dependency**; the MCP layer is only available when the app is installed with dev dependencies (the `composer install` / `composer create-project` default — `composer install --no-dev` skips it).
 

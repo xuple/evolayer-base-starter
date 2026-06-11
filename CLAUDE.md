@@ -132,6 +132,10 @@ aligned with the Nginx `proxy_pass` port. Check the listener with
 host proxy was not updated/reloaded. Host-level Nginx files and
 client-specific domains remain downstream concerns, not starter changes.
 
+If `VITE_DEV_SERVER_ORIGIN` is also set, it must match the browser-visible app
+origin and the vhost must proxy `/vite-hmr` to the same Vite port. Do not add a
+client's concrete hostname to this starter; document it in that downstream app.
+
 ## Out of scope — do not invent
 
 - New starter-local example routes, pages, AI agents, or blocks (those belong in the package).

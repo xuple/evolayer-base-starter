@@ -82,6 +82,32 @@ class ShellContractTest extends TestCase
         $this->assertSame($agents, $claude);
     }
 
+    public function test_vite_dev_server_proxy_contract_is_env_driven(): void
+    {
+        $env = (string) file_get_contents(base_path('.env.example'));
+        $vite = (string) file_get_contents(base_path('vite.config.ts'));
+        $nginx = (string) file_get_contents(base_path('docs/nginx-dev-vhost.example.conf'));
+
+        $this->assertStringContainsString('VITE_DEV_SERVER_PORT=', $env);
+        $this->assertStringContainsString('VITE_DEV_SERVER_ORIGIN=', $env);
+        $this->assertStringContainsString('function resolveDevServerOrigin(', $vite);
+        $this->assertStringContainsString(
+            "const devServer = command === 'serve' ? resolveDevServer(mode) : undefined;",
+            $vite,
+        );
+        $this->assertStringContainsString(
+            'VITE_DEV_SERVER_ORIGIN requires VITE_DEV_SERVER_PORT',
+            $vite,
+        );
+        $this->assertStringContainsString('origin: devServerOrigin.origin', $vite);
+        $this->assertStringContainsString(
+            'clientPort: resolveDevServerOriginPort(devServerOrigin)',
+            $vite,
+        );
+        $this->assertStringContainsString("path: '/vite-hmr'", $vite);
+        $this->assertStringContainsString('location = /vite-hmr', $nginx);
+    }
+
     public function test_frontend_navigation_uses_the_authenticated_home_contract(): void
     {
         $navigation = (string) file_get_contents(resource_path('js/config/navigation.ts'));

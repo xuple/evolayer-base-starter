@@ -6,6 +6,12 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Added optional `VITE_DEV_SERVER_ORIGIN` support so hosted local development
+  can publish Vite assets and HMR through the browser-visible app origin while
+  still binding Vite to the fixed loopback `VITE_DEV_SERVER_PORT`.
+
 ### Changed
 
 - Documented agent handoff expectations for hosted Vite dev-server sessions and
