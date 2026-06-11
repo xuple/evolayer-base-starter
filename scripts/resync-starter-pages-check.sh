@@ -45,8 +45,7 @@ for page in "${STARTER_OWNED_PAGES[@]}"; do
     # re-applied.
     if ! grep -q "$SENTINEL" "$page"; then
         echo "OVERWRITTEN: $page does not contain the starter sentinel ($SENTINEL)." >&2
-        echo "  The package default likely overwrote the starter override." >&2
-        echo "  Re-apply the starter override and ensure the sentinel comment is present." >&2
+        echo "  The package default overwrote the starter override." >&2
         errors=$((errors + 1))
     fi
 done
@@ -54,8 +53,10 @@ done
 if [ "$errors" -gt 0 ]; then
     echo "" >&2
     echo "Starter-owned landing page(s) failed the resync safety check." >&2
-    echo "Run 'composer evolayer:resync' then re-apply starter overrides," >&2
-    echo "or restore from git before proceeding." >&2
+    echo "Recover with:" >&2
+    echo "" >&2
+    echo "  git checkout -- resources/js/pages/evolayer/about.tsx resources/js/pages/evolayer/home.tsx" >&2
+    echo "  bash scripts/resync-starter-pages-check.sh" >&2
     exit 1
 fi
 

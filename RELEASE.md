@@ -97,12 +97,15 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
    them in a browser.
     - Public `/` loads the EvoLayer Base landing page (about).
     - Login/register path renders Fortify auth forms.
-    - Authenticated `/home` loads the Home launcher with command bar visible.
-    - Command bar click (header search icon) opens the command palette.
+
+- Authenticated `/home` loads the Home launcher with command bar visible.
+    - Home page command bar click opens the command palette.
+    - Header search button/search icon opens the command palette.
     - `Ctrl`/`Cmd`+`K` opens the command palette via keyboard shortcut.
     - Settings navigation reaches Profile, Security, and Appearance tabs.
     - Logout redirects back to the public landing page.
     - `/dashboard` loads (retained scaffold route, not the primary post-auth destination).
+
 6. Move the relevant `CHANGELOG.md` `[Unreleased]` entries into the new patch
    version immediately before tagging.
 

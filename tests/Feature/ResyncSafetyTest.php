@@ -39,4 +39,18 @@ class ResyncSafetyTest extends TestCase
             'scripts/resync-starter-pages-check.sh must be executable.',
         );
     }
+
+    public function test_resync_safety_script_passes_on_current_repo_state(): void
+    {
+        $scriptPath = base_path('scripts/resync-starter-pages-check.sh');
+
+        exec("bash {$scriptPath} 2>&1", $output, $exitCode);
+
+        $this->assertSame(
+            0,
+            $exitCode,
+            'scripts/resync-starter-pages-check.sh must exit 0 on a clean repo with starter-owned pages intact. '
+                .'Output: '.implode("\n", $output),
+        );
+    }
 }

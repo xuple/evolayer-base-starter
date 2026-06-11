@@ -51,7 +51,14 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `vendor/xuple/evolayer-base/**` — including all `resources/js/pages/evolayer/**`, `resources/js/blocks/**`, `resources/js/hooks/use-evolayer-*`, the ontology, agents, and every `evolayer:*` artisan command.
 - The `evolayer.base.*` config shape (`config/evolayer.php` keys + defaults are package-owned, values in `.env.example` are starter-owned).
 
-**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` overwrites them; re-apply the overrides after a resync. Both files carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which fails loudly if the sentinel is missing (meaning the package default overwrote the starter override). Agents must not assume starter-owned landing pages survived a resync unless the check passes. All other `resources/js/pages/evolayer/**` files are package-owned.
+**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` overwrites them. Both files carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which fails loudly if the sentinel is missing (meaning the package default overwrote the starter override). If the check fails, recover with:
+
+```bash
+git checkout -- resources/js/pages/evolayer/about.tsx resources/js/pages/evolayer/home.tsx
+bash scripts/resync-starter-pages-check.sh
+```
+
+Agents must not assume starter-owned landing pages survived a resync unless the check passes. All other `resources/js/pages/evolayer/**` files are package-owned.
 
 ## Hard rules
 
@@ -60,6 +67,7 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - **Do not introduce starter-local Dusk/Playwright/Cypress.** The starter ships PHPUnit Feature/HTTP tests only; browser/E2E coverage belongs in the package alongside the components it exercises.
 - **Do not change `config/evolayer.php` defaults to `true`** to make tests easier. The package keeps defaults `false`; `.env.example` is the kitchen-sink switch.
 - **Do not run `php artisan evolayer:install` in this starter.** That command is for adding Base to an existing Laravel app; its work is already pre-applied here. Use `composer evolayer:resync` to pull a newer package frontend instead.
+- **Do not push to any remote unless explicitly instructed.** Agents may create local commits only when asked. If asked to push, the agent must state which remote(s) and branch it will push to before running `git push`.
 
 ## Frontend stub flow
 
