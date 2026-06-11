@@ -69,7 +69,7 @@
             "@php artisan route:clear --ansi",
             "@php artisan wayfinder:generate --with-form --no-interaction",
             "@php artisan evolayer:ontology:compile --no-erd --no-interaction",
-            "@bash scripts/resync-starter-pages-check.sh"
+            "bash scripts/resync-starter-pages-check.sh"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
