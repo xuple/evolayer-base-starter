@@ -36,16 +36,7 @@ The EvoLayer React stubs listed in the first row are committed here so the start
 
 **Provider runtime approval and published EvoLayer surfaces are package-owned.** ThreadStudio provider approval (which providers are selectable, which are diagnostic/blocked) and the published stubs that carry it (`config/evolayer-ai.php`, `resources/js/pages/evolayer/**`, `ontology.yaml`) change in `xuple/evolayer-base` first — update the package, resync the starter, then update starter docs and release notes (`.env.example`, `README.md`, `CHANGELOG.md`, `RELEASE.md`). Do not hand-edit the runtime-approved roster into starter stubs or agent docs.
 
-**Exception — starter-owned landing pages.** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults (this starter is the public `composer create-project` entry point, so its landing surface lives here). Edit those in this repo. `composer evolayer:resync` uses the package's `evolayer-base-frontend-preserve-overrides` tag so package-owned frontend stubs refresh without overwriting these landing pages. That tag must exist in the installed `xuple/evolayer-base` version, so land/tag the package change before relying on this starter script. All other `resources/js/pages/evolayer/**` files remain package-owned.
-
-**Resync safety check.** Both starter-owned landing pages carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which verifies the sentinel is still present. If the check fails, the safe publish path was bypassed or the starter override was edited incorrectly. Recover with:
-
-```bash
-git checkout -- resources/js/pages/evolayer/about.tsx resources/js/pages/evolayer/home.tsx
-bash scripts/resync-starter-pages-check.sh
-```
-
-CI and agents must not assume starter-owned landing pages survived a resync unless the check passes.
+**Landing pages are package-owned, branded from config.** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` render from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example`. Rebrand them by changing config, not by editing the page files. `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe — it keeps host-modified stubs (`--force` to overwrite, `--dry-run` to preview) and skips ejected surfaces. To own the marketing surface outright, run `php artisan evolayer:eject marketing-pages` (forfeiting managed updates for it). All `resources/js/pages/evolayer/**` files are package-owned.
 
 If a change spans both repos (most commonly: a new `EVOLAYER_BASE_*` flag, or a host edit that requires a package change), land the package PR first against a resolvable ref the starter can pick up, then open the starter PR pointing at it.
 

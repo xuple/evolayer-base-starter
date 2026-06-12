@@ -44,7 +44,6 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `database/seeders/DatabaseSeeder.php`, `database/migrations/2026_05_24_*` — host-owned migrations (Spatie permission / activitylog / media / tags with ULID-compatible morph columns).
 - `.env.example`, `composer.json` scripts (`setup`, `dev`, `evolayer:resync`, `post-create-project-cmd`, etc.).
 - `patches/laravel-ai-structured-streaming.patch`, `patches.lock.json` (via `extra.patches` + `cweagans/composer-patches`).
-- `scripts/resync-starter-pages-check.sh` — post-resync guard that verifies `_STARTER_OWNED_PAGE_` sentinels.
 - `.github/workflows/*`, `tests/Feature/**`, `tests/Unit/**`.
 
 **Package (edit upstream, never here):**
@@ -52,14 +51,7 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `vendor/xuple/evolayer-base/**` — including all `resources/js/pages/evolayer/**`, `resources/js/blocks/**`, `resources/js/hooks/use-evolayer-*`, the ontology, agents, and every `evolayer:*` artisan command.
 - The `evolayer.base.*` config shape (`config/evolayer.php` keys + defaults are package-owned, values in `.env.example` are starter-owned).
 
-**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` uses the package's `evolayer-base-frontend-preserve-overrides` tag to refresh package-owned frontend stubs without overwriting them. That tag must exist in the installed `xuple/evolayer-base` version, so land/tag the package change before relying on this starter script. Both files carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which fails loudly if the sentinel is missing (meaning the safe publish path was bypassed or the starter override was edited incorrectly). If the check fails, recover with:
-
-```bash
-git checkout -- resources/js/pages/evolayer/about.tsx resources/js/pages/evolayer/home.tsx
-bash scripts/resync-starter-pages-check.sh
-```
-
-Agents must not assume starter-owned landing pages survived a resync unless the check passes. All other `resources/js/pages/evolayer/**` files are package-owned.
+**Landing pages (`about.tsx`, `home.tsx`) are package-owned, branded from config.** They render from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example` — so you rebrand them by changing config, not by editing the page files. There is no longer a `_STARTER_OWNED_PAGE_` sentinel or a preserve-overrides tag: `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe (skip-modified) and won't clobber host edits. To take full ownership of the marketing surface, run `php artisan evolayer:eject marketing-pages` (you then forfeit managed updates for it). All `resources/js/pages/evolayer/**` files are package-owned.
 
 ## Hard rules
 
@@ -73,7 +65,7 @@ Agents must not assume starter-owned landing pages survived a resync unless the 
 
 ## Frontend stub flow
 
-The package publishes React stubs into the starter via `vendor:publish --tag=evolayer-base-frontend-preserve-overrides` so the starter clones and builds without an install step while preserving starter-owned landing pages. These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalise), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
+The package's React stubs are committed in this repo so the starter clones and builds without an install step. Refresh them against a newer package with `composer evolayer:resync`, which runs `php artisan evolayer:resync` (manifest-safe: it updates pristine stubs, keeps host-modified ones, skips ejected surfaces; pass `--force` only to overwrite local edits, `--dry-run` to preview). Switch the example posture with `php artisan evolayer:profile lean` (demo-first kitchen-sink is the default). These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalise), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
 
 ## Inertia layout resolver
 
