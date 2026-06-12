@@ -65,13 +65,12 @@
             "npm run build"
         ],
         "evolayer:resync": [
-            "@php artisan vendor:publish --tag=evolayer-base-frontend-preserve-overrides --force",
+            "@php artisan evolayer:resync",
             "@php artisan vendor:publish --tag=evolayer-base-config --force",
             "@php artisan vendor:publish --tag=evolayer-base-ontology --force",
             "@php artisan route:clear --ansi",
             "@php artisan wayfinder:generate --with-form --no-interaction",
-            "@php artisan evolayer:ontology:compile --no-erd --no-interaction",
-            "bash scripts/resync-starter-pages-check.sh"
+            "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

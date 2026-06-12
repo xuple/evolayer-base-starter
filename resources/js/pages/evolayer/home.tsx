@@ -1,10 +1,10 @@
-// _STARTER_OWNED_PAGE_ — do not remove; resync safety depends on it
 import { Head, Link, usePage } from '@inertiajs/react';
 import { Blocks, FileText, Route, ShieldCheck, Wrench } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { ReactElement } from 'react';
 import { CommandBar } from '@/components/command-bar';
 import { docsBaseUrl } from '@/config/docs';
+import { useBrand } from '@/hooks/use-brand';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { edit as profileEdit } from '@/routes/profile';
@@ -75,6 +75,7 @@ const extensionPaths: ExtensionPath[] = [
 
 export default function Home() {
     const { auth } = usePage().props;
+    const brand = useBrand();
     const firstName = auth.user?.name.split(' ')[0] || 'there';
 
     const hour = new Date().getHours();
@@ -98,9 +99,9 @@ export default function Home() {
                         {greeting}, {firstName}
                     </h1>
                     <p className="mt-3 max-w-3xl text-sm leading-7 text-neutral-600 md:text-base dark:text-neutral-400">
-                        This root is here to orient you after install. Start
-                        with the docs, verify the baseline, and extend the
-                        starter through real routes and features.
+                        Welcome to {brand.name}. This root is here to orient you
+                        after install. Start with the docs, verify the baseline,
+                        and extend it through real routes and features.
                     </p>
                 </div>
 
