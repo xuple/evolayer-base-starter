@@ -35,6 +35,8 @@
         "laravel/pint": "^1.27",
         "laravel/sail": "^1.53",
         "mockery/mockery": "^1.6",
+        "pestphp/pest": "^4.7",
+        "pestphp/pest-plugin-laravel": "^4.1",
         "phpunit/phpunit": "^12.5.23"
     },
     "autoload": {
@@ -83,7 +85,7 @@
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "vendor/bin/phpunit"
+            "@php artisan test"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

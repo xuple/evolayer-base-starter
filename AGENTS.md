@@ -8,7 +8,7 @@ This file is the short, prescriptive version of those documents tuned for agent 
 
 **Agent tooling assumes dev dependencies are installed.** Boost itself is a `require-dev` dependency, and the multi-agent MCP layer (Claude Code `.mcp.json`, Codex `.codex/config.toml`, OpenCode `opencode.json`) all route to `php artisan boost:mcp`. If the app was installed with `composer install --no-dev` (typical for production deploys), Boost is absent and the MCP server is unavailable to agents — the committed skill directories under `.claude/skills/` and `.agents/skills/` still discover, but live doc lookup (`search-docs`), `tinker`, `database-query`, and `browser-logs` will not work. For agent-assisted development, install with dev dependencies (`composer install` or `composer create-project`, default mode).
 
-**Test runner is PHPUnit, not Pest.** This starter ships PHPUnit (`phpunit/phpunit ^12`) and `composer test` runs `vendor/bin/phpunit`. Tests under `tests/Feature/**` and `tests/Unit/**` extend `Tests\TestCase` with `public function test_*` methods, not Pest's `it()` / `test()` callable style. When generating or modifying tests, match that style. Boost's auto-detection dropped `pest-testing` from `boost.json` for this reason. PHPUnit is the `0.1` line contract. Whether the starter should migrate to Pest is a deliberate future architectural decision (not a pre-0.1 one) — see the [decision marker in README's Tooling section](README.md#tooling) — but until that decision lands, do not introduce Pest in PRs.
+**Test runner is Pest (Pest-first).** This starter ships Pest 4 (`pestphp/pest`) layered on PHPUnit 12; `composer test` runs `php artisan test` (Pest). Write new tests in Pest's `it()` / `test()` style and scaffold them with `php artisan make:test --pest {name}`. Existing PHPUnit `Tests\TestCase` classes still run under Pest, so conversion is opportunistic — do not mass-rewrite green tests. `php artisan test` stays the public command; `boost.json` carries the `pest-testing` skill.
 
 ## What this repo is
 
@@ -65,7 +65,7 @@ Agents must not assume starter-owned landing pages survived a resync unless the 
 
 - **Commit `composer.lock`.** The starter ships a tested, reproducible distribution: `composer create-project` installs the locked graph (Composer honors a committed lock — see `docs/migration/create-project-lock-behavior.md`). The lock must stay tracked and must not be `export-ignore`d (both CI workflows enforce this); `xuple/evolayer-base` is exact-pinned while `0.x`. Bump it via a release PR, not by letting installs drift. Generated apps commit their own lock too.
 - **Do not edit anything under `vendor/`.** Patches go via `patches/` + `cweagans/composer-patches`; package fixes go upstream.
-- **Do not introduce starter-local Dusk/Playwright/Cypress.** The starter ships PHPUnit Feature/HTTP tests only; browser/E2E coverage belongs in the package alongside the components it exercises.
+- **Do not introduce starter-local Dusk/Playwright/Cypress.** The starter ships Pest Feature/HTTP tests only; browser/E2E coverage belongs in the package alongside the components it exercises.
 - **Do not change `config/evolayer.php` defaults to `true`** to make tests easier. The package keeps defaults `false`; `.env.example` is the kitchen-sink switch.
 - **Do not run `php artisan evolayer:install` in this starter.** That command is for adding Base to an existing Laravel app; its work is already pre-applied here. Use `composer evolayer:resync` to pull a newer package frontend instead.
 - **Do not push to any remote unless explicitly instructed.** Agents may create local commits only when asked. If asked to push, the agent must state which remote(s) and branch it will push to before running `git push`.
@@ -130,7 +130,7 @@ Run before opening a PR:
 
 ```bash
 composer validate --strict
-composer test                      # PHPUnit Feature + Unit
+composer test                      # Pest Feature + Unit
 php artisan evolayer:doctor        # package's health check (informational; CI enforces strictness)
 npm run types:check                # tsc --noEmit
 composer lint:check                # Pint
@@ -146,7 +146,7 @@ All eight gates green on HEAD before push. The public starter CI runs the same s
 Agents must distinguish between three verification categories:
 
 1. **Static verification** — type-check, lint, format, build. Fully automated; `npm run types:check && npm run lint:check && npm run format:check && npm run build` covers this.
-2. **Test-suite verification** — PHPUnit Feature/Unit tests, `php artisan evolayer:doctor`. Automated CI gates. `composer test` covers this. The resync-safety sentinel test (`ResyncSafetyTest`) is a test-suite gate, not a manual check.
+2. **Test-suite verification** — Pest Feature/Unit tests, `php artisan evolayer:doctor`. Automated CI gates. `composer test` covers this. The resync-safety sentinel test (`ResyncSafetyTest`) is a test-suite gate, not a manual check.
 3. **Browser/manual runtime smoke** — loading pages, clicking UI elements, keyboard shortcuts. These cannot be verified by HTTP/string tests. No agent may claim a browser smoke passed without actually running it in a browser. See the runtime smoke checklist in RELEASE.md for the required manual checks before tagging a release.
 
 ## Dev server handoff
@@ -229,6 +229,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/pail (PAIL) - v1
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1
+- pestphp/pest (PEST) - v4
 - phpunit/phpunit (PHPUNIT) - v12
 - @inertiajs/react (INERTIA_REACT) - v3
 - react (REACT) - v19
@@ -323,6 +324,13 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - Laravel can be deployed using [Laravel Cloud](https://cloud.laravel.com/), which is the fastest way to deploy and scale production Laravel applications.
 
+=== tests rules ===
+
+# Test Enforcement
+
+- Every change must be programmatically tested. Write a new test or update an existing test, then run the affected tests to make sure they pass.
+- Run the minimum number of tests needed to ensure code quality and speed. Use `php artisan test --compact` with a specific filename or filter.
+
 === inertia-laravel/core rules ===
 
 # Inertia
@@ -389,23 +397,14 @@ Use Wayfinder to generate TypeScript functions for Laravel routes. Import from `
 - If you have modified any PHP files, you must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
 - Do not run `vendor/bin/pint --test --format agent`, simply run `vendor/bin/pint --format agent` to fix any formatting issues.
 
-=== phpunit/core rules ===
+=== pest/core rules ===
 
-# PHPUnit
+## Pest
 
-- This application uses PHPUnit for testing. All tests must be written as PHPUnit classes. Use `php artisan make:test --phpunit {name}` to create a new test.
-- If you see a test using "Pest", convert it to PHPUnit.
-- Every time a test has been updated, run that singular test.
-- When the tests relating to your feature are passing, ask the user if they would like to also run the entire test suite to make sure everything is still passing.
-- Tests should cover all happy paths, failure paths, and edge cases.
-- You must not remove any tests or test files from the tests directory without approval. These are not temporary or helper files; these are core to the application.
-
-## Running Tests
-
-- Run the minimal number of tests, using an appropriate filter, before finalizing.
-- To run all tests: `php artisan test --compact`.
-- To run all tests in a file: `php artisan test --compact tests/Feature/ExampleTest.php`.
-- To filter on a particular test name: `php artisan test --compact --filter=testName` (recommended after making a change to a related file).
+- This project uses Pest for testing. Create tests: `php artisan make:test --pest {name}`.
+- The `{name}` argument should not include the test suite directory. Use `php artisan make:test --pest SomeFeatureTest` instead of `php artisan make:test --pest Feature/SomeFeatureTest`.
+- Run tests: `php artisan test --compact` or filter: `php artisan test --compact --filter=testName`.
+- Do NOT delete tests without approval.
 
 === inertia-react/core rules ===
 
