@@ -1,10 +1,10 @@
 import {
+    BookOpen,
     FileText,
     FolderGit2,
     Home,
     Inbox,
     LayoutGrid,
-    BookOpen,
     Settings,
     Sparkles,
 } from 'lucide-react';
