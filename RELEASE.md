@@ -140,7 +140,8 @@ contract preparation, build, strict doctor, tests, lint, and format checks.
 
 The base and starter packages are tagged, public, Packagist-visible, and covered
 by public CI. Remaining launch polish: the minimum `docs.evodevops.com/base`
-page and announcement assets. The ThreadStudio provider roster is settled
+page and external announcement copy. (Starter-side social-preview metadata and
+the default OG image now ship in-repo.) The ThreadStudio provider roster is settled
 (Gemini + OpenAI runtime-approved;
 Anthropic diagnostic-eligible but blocked for ThreadStudio runtime / pending
 re-verification; routers are router-backed diagnostic-eligible probe

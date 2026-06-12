@@ -2,13 +2,13 @@
 
 ## Supported Versions
 
-EvoLayer Base Starter is pre-1.0. Security fixes target the current `main` branch until the first tagged release. After public tags exist, supported versions will be listed here.
+EvoLayer Base Starter is pre-1.0 and published as a developer preview. Security fixes target the current `main` branch and the latest `0.1.x` tag; there is no separate maintained back-version line while on the `0.1` series.
 
 ## Reporting a Vulnerability
 
 Do not open a public issue for suspected security vulnerabilities.
 
-When the public GitHub repository is available, use GitHub's private vulnerability reporting flow for `xuple/evolayer-base-starter`. During private pre-release, report issues through the existing private maintainer channel.
+Use GitHub's private vulnerability reporting flow for `xuple/evolayer-base-starter`.
 
 Please include:
 

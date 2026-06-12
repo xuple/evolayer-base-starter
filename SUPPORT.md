@@ -4,10 +4,9 @@ EvoLayer Base Starter is a free, public MIT starter. There is no paid support SL
 
 ## Where To Ask
 
-- Reproducible bugs: use GitHub issues once the repository is public.
+- Reproducible bugs: open a GitHub issue on `xuple/evolayer-base-starter`.
 - Security reports: follow [SECURITY.md](SECURITY.md); do not open public issues for vulnerabilities.
 - Usage questions and design discussion: use GitHub discussions if enabled, or the public issue tracker with a clear question.
-- Private pre-release feedback: use the existing maintainer/private channel.
 
 ## Before Opening An Issue
 
