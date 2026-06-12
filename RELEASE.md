@@ -4,7 +4,7 @@ The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
 free/public MIT projects on GitHub and Packagist. The current public release line
-is `xuple/evolayer-base-starter v0.1.6` consuming `xuple/evolayer-base v0.1.2`
+is `xuple/evolayer-base-starter v0.1.6` consuming `xuple/evolayer-base v0.1.3`
 through the `^0.1` constraint. GitHub is the public publication source; the
 self-hosted Forge remains an internal mirror.
 
@@ -105,13 +105,19 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
     - Settings navigation reaches Profile, Security, and Appearance tabs.
     - Logout redirects back to the public landing page.
     - `/dashboard` loads (retained scaffold route, not the primary post-auth destination).
+6. **Manual social preview smoke** — run on a staging/production URL with real
+   `APP_URL` / optional `SITE_URL` values. Verify at least Slack, Teams,
+   Discord, LinkedIn Post Inspector, Meta Sharing Debugger, WhatsApp, and
+   iMessage / Apple Messages when available. Check Google URL Inspection and
+   favicon recrawl where applicable. Do not claim platform preview support from
+   local HTTP tests alone; live unfurlers cache and crawl differently.
 
-6. Move the relevant `CHANGELOG.md` `[Unreleased]` entries into the new patch
+7. Move the relevant `CHANGELOG.md` `[Unreleased]` entries into the new patch
    version immediately before tagging.
 
 The first-hour install path has been rehearsed end-to-end from a clean
 directory: `composer create-project` resolved starter `v0.1.6` and base
-`v0.1.2`, applied the `laravel/ai` patch, migrated/seeded, generated Wayfinder
+`v0.1.3`, applied the `laravel/ai` patch, migrated/seeded, generated Wayfinder
 and ontology, then `npm install`, `npm audit`, `npm run build`,
 `evolayer:doctor --strict`, and `composer test` all passed.
 

@@ -12,7 +12,8 @@
  * The authenticated CTA links to /home (evolayer.base.home) rather than
  * /dashboard, matching the canonical post-auth destination in this starter.
  */
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { SiteHead } from '@/components/site-head';
 import { home as evolayerHome } from '@/routes/evolayer/base';
 import { login } from '@/routes';
 /* @chisel-registration */
@@ -24,7 +25,7 @@ export default function Welcome() {
 
     return (
         <>
-            <Head title="Welcome" />
+            <SiteHead title="Welcome" />
             <div className="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]">
                 <header className="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl">
                     <nav className="flex items-center justify-end gap-4">

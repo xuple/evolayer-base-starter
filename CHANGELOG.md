@@ -6,6 +6,12 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Added a starter-owned `config/site.php` metadata contract, shared Inertia
+  `site` prop, reusable `SiteHead` component, Blade fallback tags, and a default
+  social preview image for public link previews.
+
 ### Changed
 
 - Updated `composer evolayer:resync` to use the package's

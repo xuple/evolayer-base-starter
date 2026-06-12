@@ -40,6 +40,7 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `app/Models/User.php` — `HasRoles`, `PasskeyAuthenticatable`, `TwoFactorAuthenticatable`.
 - `routes/web.php`, `routes/settings.php` — host route shell.
 - `resources/js/app.tsx`, `resources/js/components/{app-sidebar,app-header}.tsx`, `resources/js/types/global.d.ts` — host wiring.
+- `config/site.php`, `app/Support/SiteMetadata.php`, `resources/js/components/site-head.tsx`, `resources/js/lib/site-meta.ts`, `public/social/og-default.png` — public site metadata and preview-card contract.
 - `database/seeders/DatabaseSeeder.php`, `database/migrations/2026_05_24_*` — host-owned migrations (Spatie permission / activitylog / media / tags with ULID-compatible morph columns).
 - `.env.example`, `composer.json` scripts (`setup`, `dev`, `evolayer:resync`, `post-create-project-cmd`, etc.).
 - `patches/laravel-ai-structured-streaming.patch`, `patches.lock.json` (via `extra.patches` + `cweagans/composer-patches`).
@@ -68,6 +69,7 @@ Agents must not assume starter-owned landing pages survived a resync unless the 
 - **Do not change `config/evolayer.php` defaults to `true`** to make tests easier. The package keeps defaults `false`; `.env.example` is the kitchen-sink switch.
 - **Do not run `php artisan evolayer:install` in this starter.** That command is for adding Base to an existing Laravel app; its work is already pre-applied here. Use `composer evolayer:resync` to pull a newer package frontend instead.
 - **Do not push to any remote unless explicitly instructed.** Agents may create local commits only when asked. If asked to push, the agent must state which remote(s) and branch it will push to before running `git push`.
+- **Do not scatter SEO/social-preview literals across pages.** Keep env reads in `config/site.php`; use `SiteHead` / `PublicLayout` for public pages, `SiteMetadata` for server fallback values, and keep `.env.example`, shared `site` types, tests, and docs aligned.
 
 ## Frontend stub flow
 

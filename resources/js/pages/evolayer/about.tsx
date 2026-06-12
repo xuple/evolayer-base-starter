@@ -1,5 +1,5 @@
 // _STARTER_OWNED_PAGE_ — do not remove; resync safety depends on it
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import {
     Bot,
     CheckCircle2,
@@ -98,8 +98,6 @@ const proof = [
 export default function About() {
     return (
         <>
-            <Head title="EvoLayer Base" />
-
             <main className="relative mx-auto flex w-full max-w-7xl flex-col gap-14 overflow-hidden py-8 sm:py-12">
                 <div className="pointer-events-none absolute inset-x-8 top-0 -z-10 h-80 rounded-full bg-brand/10 blur-3xl" />
 

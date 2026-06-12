@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\SiteMetadata;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -49,6 +50,21 @@ class HandleInertiaRequests extends Middleware
                     'features' => config('evolayer.base.features'),
                 ],
             ],
+        ];
+    }
+
+    /**
+     * Define the props that are shared once and remembered by the client.
+     *
+     * @see https://inertiajs.com/shared-data#sharing-once-props
+     *
+     * @return array<string, mixed>
+     */
+    public function shareOnce(Request $request): array
+    {
+        return [
+            ...parent::shareOnce($request),
+            'site' => fn () => SiteMetadata::inertiaDefaults(),
         ];
     }
 }

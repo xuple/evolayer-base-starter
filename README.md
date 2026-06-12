@@ -5,7 +5,7 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 - **Start here** when you want a full demo app with EvoLayer Base already wired in, every example surface visible.
 - **Use the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) package directly** when adding Base to an existing Laravel app.
 
-> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.6` with `xuple/evolayer-base` `v0.1.2`.
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.6` with `xuple/evolayer-base` `v0.1.3`.
 
 ## How the pieces fit
 
@@ -88,6 +88,29 @@ starter's default `/home` before removing that route.
 | `EVOLAYER_BASE_EXAMPLE_VOICE_INPUT`         | Voice-input block                                          |
 | `EVOLAYER_BASE_EXAMPLE_AI_TEXT_FIELD`       | `<AiTextField>` block — inline streaming suggestions       |
 | `EVOLAYER_BASE_FEATURE_CONTACT_ATTACHMENTS` | Contact-form attachment processing (uses medialibrary)     |
+
+## Social previews and site metadata
+
+Public link-preview defaults live in `config/site.php` and are documented in
+`.env.example` with `SITE_*` and `SOCIAL_*` variables. Keep environment reads in
+config files only; pages and components should consume `config('site.*')` on the
+server or the namespaced `site` Inertia prop on the client.
+
+The default canonical base is `APP_URL`. Set `SITE_URL` only when the public
+share/search origin differs from the runtime app origin. Social images may be an
+absolute URL or a leading-slash path resolved against that canonical base; they
+do not automatically inherit from `ASSET_URL`.
+
+Public pages should use `PublicLayout`, which renders `SiteHead` for title,
+description, canonical, robots, Open Graph, X/Twitter-compatible, theme-colour,
+and JSON-LD defaults. Page-level overrides belong in `SiteHead`/`PublicLayout`
+props, not scattered literal `<meta>` tags. Authenticated and auth layouts use a
+`noindex,nofollow` robots override and do not emit public preview metadata.
+
+The starter ships `public/social/og-default.png` as the default 1200x630 preview
+image. Replace it in downstream apps when their brand is ready, then update
+`SOCIAL_IMAGE_ALT` and optionally `SOCIAL_IMAGE_VERSION` to force preview-card
+refreshes.
 
 ## AI providers
 
