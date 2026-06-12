@@ -30,4 +30,3 @@ yarn-error.log
 /.zed
 /.claude/settings.local.json
 /.claude/scheduled_tasks.lock
-/composer.lock

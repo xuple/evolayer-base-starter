@@ -22,10 +22,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Ensure composer.lock is not committed
+      - name: Ensure composer.lock is committed and shippable
+        # The template ships a tested, reproducible distribution: create-project
+        # installs the locked graph (verified — Composer honors a committed lock,
+        # see docs/migration/create-project-lock-behavior.md). The lock must be
+        # tracked AND reach the Packagist dist, so it must not be export-ignored.
         run: |
-          if [ -f composer.lock ]; then
-            echo "::error file=composer.lock::composer.lock must not be committed (see CONTRIBUTING.md → Ground Rules and RELEASE.md). Each create-project install resolves the package fresh; a committed lock pins the package to a machine-local source."
+          if [ ! -f composer.lock ]; then
+            echo "::error file=composer.lock::composer.lock must be committed (framework-distribution contract — see PROMISE.md / RELEASE.md)."
+            exit 1
+          fi
+          if git check-ignore -q composer.lock; then
+            echo "::error file=.gitignore::composer.lock is gitignored but must be tracked."
+            exit 1
+          fi
+          if git check-attr export-ignore -- composer.lock | grep -q 'export-ignore: set'; then
+            echo "::error file=.gitattributes::composer.lock must not be export-ignored — it would be stripped from the dist and create-project would re-resolve."
             exit 1
           fi
 
