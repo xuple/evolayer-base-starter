@@ -63,7 +63,7 @@ Agents must not assume starter-owned landing pages survived a resync unless the 
 
 ## Hard rules
 
-- **Do not commit `composer.lock`.** It's in `.gitignore`; both CI workflows fail if it appears. `composer create-project` must resolve `xuple/evolayer-base` fresh per install.
+- **Commit `composer.lock`.** The starter ships a tested, reproducible distribution: `composer create-project` installs the locked graph (Composer honors a committed lock — see `docs/migration/create-project-lock-behavior.md`). The lock must stay tracked and must not be `export-ignore`d (both CI workflows enforce this); `xuple/evolayer-base` is exact-pinned while `0.x`. Bump it via a release PR, not by letting installs drift. Generated apps commit their own lock too.
 - **Do not edit anything under `vendor/`.** Patches go via `patches/` + `cweagans/composer-patches`; package fixes go upstream.
 - **Do not introduce starter-local Dusk/Playwright/Cypress.** The starter ships PHPUnit Feature/HTTP tests only; browser/E2E coverage belongs in the package alongside the components it exercises.
 - **Do not change `config/evolayer.php` defaults to `true`** to make tests easier. The package keeps defaults `false`; `.env.example` is the kitchen-sink switch.

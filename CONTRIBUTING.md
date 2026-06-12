@@ -9,7 +9,7 @@ The starter is the free public `composer create-project` entry point for EvoLaye
 - Do not commit secrets, `.env`, `auth.json`, credentials, API keys, generated private keys, or local Composer auth.
 - Keep pre-release private repository access explicit. Do not commit machine-local path repositories.
 - Preserve the public identity: starter `xuple/evolayer-base-starter`, package `xuple/evolayer-base`, route names `evolayer.base.*`.
-- Keep `composer.lock` uncommitted so `composer create-project` resolves the package fresh for each new app.
+- Commit `composer.lock`; the starter ships a tested, reproducible distribution and `composer create-project` installs the locked graph. Keep `xuple/evolayer-base` exact-pinned while `0.x`.
 - Prefer small, reviewable PRs with tests or a clear explanation of why tests are not applicable.
 
 ## Where does my change belong?
@@ -116,6 +116,6 @@ Update README, CHANGELOG, or RELEASE when changing install flow, route/page IA, 
 
 - Tests or verification notes included.
 - Public docs updated where needed.
-- `composer.lock` remains uncommitted.
+- `composer.lock` is committed and in sync (`composer validate --strict`), with `xuple/evolayer-base` exact-pinned while `0.x`.
 - No local path repository or private credential committed.
 - No stale `EvoDevOps Base` or old `evodevops/base` package naming introduced.

@@ -49,17 +49,18 @@ route. When changing this contract in a downstream app, review:
 The starter consumes the package from **Packagist** as a tagged release:
 
 ```jsonc
-"require": { "xuple/evolayer-base": "^0.1" }
+"require": { "xuple/evolayer-base": "0.1.3" }
 ```
 
 No custom `repositories` entry ships in the public starter — Composer resolves
-`xuple/evolayer-base` straight from Packagist. `composer.lock` is **not
-committed** (matches the `laravel/laravel` skeleton): each created project
-resolves fresh and commits its own lock.
+`xuple/evolayer-base` straight from Packagist, exact-pinned while `0.x`.
+`composer.lock` **is committed**: the starter is a tested, reproducible
+distribution and `composer create-project` installs the locked graph (Composer
+honors a committed lock). Bump the framework deliberately via a release PR
+rather than letting installs drift.
 
-The rule changes after creation: a real client application should normally
-commit its generated `composer.lock` so deployments resolve the same dependency
-graph that was tested.
+Created applications likewise commit their generated `composer.lock` so
+deployments resolve the same dependency graph that was tested.
 
 > **Pre-public staging (historical).** Before `xuple/evolayer-base` was
 > published to Packagist, the starter resolved it from a private Forge `vcs`

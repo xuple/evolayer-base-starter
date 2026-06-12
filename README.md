@@ -49,9 +49,10 @@ clone this repo directly instead, run the equivalent in one shot:
 composer setup
 ```
 
-The starter repository intentionally does **not** commit `composer.lock`, matching
-the Laravel application skeleton. A created client application should normally
-commit its generated `composer.lock` for deterministic deploys.
+The starter commits `composer.lock` and ships a tested, reproducible
+distribution: `composer create-project` installs the locked dependency graph
+rather than re-resolving it. Created applications likewise commit their
+`composer.lock` for deterministic deploys.
 
 Hosting the created app behind Nginx/PHP-FPM? See
 [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) for the write-permission
