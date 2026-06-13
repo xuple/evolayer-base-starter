@@ -49,7 +49,7 @@ export const externalNavItems: EvoLayerNavItem[] = [
     },
     {
         title: 'Documentation',
-        href: 'https://docs.evodevops.com/base',
+        href: 'https://evodevops.com/evolayer-base/docs',
         icon: BookOpen,
     },
 ];

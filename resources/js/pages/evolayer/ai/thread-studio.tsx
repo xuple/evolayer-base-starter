@@ -367,7 +367,7 @@ export default function ThreadStudioPage({
                                     the starter itself: setup, install, and
                                     nginx-aware local development support. The
                                     public reference path is
-                                    docs.evodevops.com/base.
+                                    evodevops.com/evolayer-base/docs.
                                 </p>
                             </div>
 
