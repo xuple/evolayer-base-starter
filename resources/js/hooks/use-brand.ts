@@ -23,7 +23,9 @@ const FALLBACK_BRAND: EvoLayerBrand = {
  * overwriting the page files.
  */
 export function useBrand(): EvoLayerBrand {
-    const props = usePage().props as unknown as { evolayer?: EvoLayerSharedProps };
+    const props = usePage().props as unknown as {
+        evolayer?: EvoLayerSharedProps;
+    };
 
     return props.evolayer?.base?.brand ?? FALLBACK_BRAND;
 }
