@@ -103,11 +103,11 @@ export default function About() {
             <Head title={brand.name} />
 
             <main className="relative mx-auto flex w-full max-w-7xl flex-col gap-14 overflow-hidden py-8 sm:py-12">
-                <div className="bg-brand/10 pointer-events-none absolute inset-x-8 top-0 -z-10 h-80 rounded-full blur-3xl" />
+                <div className="pointer-events-none absolute inset-x-8 top-0 -z-10 h-80 rounded-full bg-brand/10 blur-3xl" />
 
                 <section>
                     <div className="flex flex-col justify-center rounded-[2.5rem] border border-neutral-200 bg-white/85 p-7 shadow-[0_28px_90px_rgba(15,23,42,0.08)] backdrop-blur sm:p-10 lg:p-12 dark:border-neutral-800 dark:bg-neutral-950/85">
-                        <div className="border-brand/20 bg-brand/10 text-brand inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold tracking-[0.18em] uppercase">
+                        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-brand/20 bg-brand/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-brand uppercase">
                             <Sparkles className="size-3.5" />
                             {brand.name}
                         </div>
@@ -123,7 +123,7 @@ export default function About() {
                         <div className="mt-8 flex flex-wrap gap-3">
                             <Link
                                 href="/login"
-                                className="bg-brand hover:bg-brand-hover inline-flex items-center rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-sm transition"
+                                className="inline-flex items-center rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-hover"
                             >
                                 Explore the demo
                             </Link>
@@ -164,7 +164,7 @@ export default function About() {
                                             className="rounded-2xl border border-neutral-200 bg-neutral-50/80 p-4 dark:border-neutral-800 dark:bg-neutral-900/70"
                                         >
                                             <div className="flex items-center gap-3">
-                                                <span className="bg-brand/10 text-brand flex size-9 items-center justify-center rounded-xl">
+                                                <span className="flex size-9 items-center justify-center rounded-xl bg-brand/10 text-brand">
                                                     <Icon className="size-4" />
                                                 </span>
                                                 <h2 className="font-semibold text-neutral-950 dark:text-neutral-50">
@@ -201,7 +201,7 @@ export default function About() {
                                     key={item.title}
                                     className="rounded-[2rem] border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-950"
                                 >
-                                    <Icon className="text-brand size-6" />
+                                    <Icon className="size-6 text-brand" />
                                     <h3 className="mt-5 text-xl font-semibold text-neutral-950 dark:text-neutral-50">
                                         {item.title}
                                     </h3>
@@ -225,7 +225,7 @@ export default function About() {
                         <ol className="mt-7 space-y-4">
                             {walkthrough.map((step, index) => (
                                 <li key={step} className="flex gap-4">
-                                    <span className="bg-brand flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white">
+                                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">
                                         {index + 1}
                                     </span>
                                     <span className="pt-1 text-sm leading-6 text-neutral-700 dark:text-neutral-300">
@@ -238,7 +238,7 @@ export default function About() {
 
                     <div className="rounded-[2.25rem] border border-neutral-200 bg-white p-7 dark:border-neutral-800 dark:bg-neutral-950">
                         <div className="flex items-center gap-3">
-                            <Gauge className="text-brand size-6" />
+                            <Gauge className="size-6 text-brand" />
                             <div>
                                 <p className="text-xs font-semibold tracking-[0.18em] text-neutral-500 uppercase">
                                     Known-good baseline
@@ -255,7 +255,7 @@ export default function About() {
                                     key={item}
                                     className="flex items-center gap-3 rounded-2xl bg-neutral-50 px-4 py-3 text-sm text-neutral-700 dark:bg-neutral-900/70 dark:text-neutral-300"
                                 >
-                                    <CheckCircle2 className="text-brand size-4" />
+                                    <CheckCircle2 className="size-4 text-brand" />
                                     <span>{item}</span>
                                 </div>
                             ))}
