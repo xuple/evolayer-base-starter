@@ -16,7 +16,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "xuple/evolayer-base": "^0.1",
         "inertiajs/inertia-laravel": "^3.0",
         "laravel/chisel": "^0.1.0",
         "laravel/fortify": "^1.37.2",
@@ -24,7 +23,8 @@
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.14",
         "spatie/laravel-medialibrary": "^11.22",
-        "spatie/laravel-tags": "^4.11"
+        "spatie/laravel-tags": "^4.11",
+        "xuple/evolayer-base": "0.1.4"
     },
     "require-dev": {
         "cweagans/composer-patches": "^2.0",
@@ -35,6 +35,8 @@
         "laravel/pint": "^1.27",
         "laravel/sail": "^1.53",
         "mockery/mockery": "^1.6",
+        "pestphp/pest": "^4.7",
+        "pestphp/pest-plugin-laravel": "^4.1",
         "phpunit/phpunit": "^12.5.23"
     },
     "autoload": {
@@ -63,13 +65,12 @@
             "npm run build"
         ],
         "evolayer:resync": [
-            "@php artisan vendor:publish --tag=evolayer-base-frontend-preserve-overrides --force",
+            "@php artisan evolayer:resync",
             "@php artisan vendor:publish --tag=evolayer-base-config --force",
             "@php artisan vendor:publish --tag=evolayer-base-ontology --force",
             "@php artisan route:clear --ansi",
             "@php artisan wayfinder:generate --with-form --no-interaction",
-            "@php artisan evolayer:ontology:compile --no-erd --no-interaction",
-            "bash scripts/resync-starter-pages-check.sh"
+            "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
@@ -83,7 +84,7 @@
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "vendor/bin/phpunit"
+            "@php artisan test"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -101,7 +102,8 @@
             "@php artisan migrate --seed --force",
             "@php artisan route:clear --ansi",
             "@php artisan wayfinder:generate --with-form --no-interaction",
-            "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
+            "@php artisan evolayer:ontology:compile --no-erd --no-interaction",
+            "@php scripts/evolayer-finalize-install.php"
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"

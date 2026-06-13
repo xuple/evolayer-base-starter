@@ -8,7 +8,7 @@ This file is the short, prescriptive version of those documents tuned for agent 
 
 **Agent tooling assumes dev dependencies are installed.** Boost itself is a `require-dev` dependency, and the multi-agent MCP layer (Claude Code `.mcp.json`, Codex `.codex/config.toml`, OpenCode `opencode.json`) all route to `php artisan boost:mcp`. If the app was installed with `composer install --no-dev` (typical for production deploys), Boost is absent and the MCP server is unavailable to agents — the committed skill directories under `.claude/skills/` and `.agents/skills/` still discover, but live doc lookup (`search-docs`), `tinker`, `database-query`, and `browser-logs` will not work. For agent-assisted development, install with dev dependencies (`composer install` or `composer create-project`, default mode).
 
-**Test runner is PHPUnit, not Pest.** This starter ships PHPUnit (`phpunit/phpunit ^12`) and `composer test` runs `vendor/bin/phpunit`. Tests under `tests/Feature/**` and `tests/Unit/**` extend `Tests\TestCase` with `public function test_*` methods, not Pest's `it()` / `test()` callable style. When generating or modifying tests, match that style. Boost's auto-detection dropped `pest-testing` from `boost.json` for this reason. PHPUnit is the `0.1` line contract. Whether the starter should migrate to Pest is a deliberate future architectural decision (not a pre-0.1 one) — see the [decision marker in README's Tooling section](README.md#tooling) — but until that decision lands, do not introduce Pest in PRs.
+**Test runner is Pest (Pest-first).** This starter ships Pest 4 (`pestphp/pest`) layered on PHPUnit 12; `composer test` runs `php artisan test` (Pest). Write new tests in Pest's `it()` / `test()` style and scaffold them with `php artisan make:test --pest {name}`. Existing PHPUnit `Tests\TestCase` classes still run under Pest, so conversion is opportunistic — do not mass-rewrite green tests. `php artisan test` stays the public command; `boost.json` carries the `pest-testing` skill.
 
 ## What this repo is
 
@@ -44,7 +44,6 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `database/seeders/DatabaseSeeder.php`, `database/migrations/2026_05_24_*` — host-owned migrations (Spatie permission / activitylog / media / tags with ULID-compatible morph columns).
 - `.env.example`, `composer.json` scripts (`setup`, `dev`, `evolayer:resync`, `post-create-project-cmd`, etc.).
 - `patches/laravel-ai-structured-streaming.patch`, `patches.lock.json` (via `extra.patches` + `cweagans/composer-patches`).
-- `scripts/resync-starter-pages-check.sh` — post-resync guard that verifies `_STARTER_OWNED_PAGE_` sentinels.
 - `.github/workflows/*`, `tests/Feature/**`, `tests/Unit/**`.
 
 **Package (edit upstream, never here):**
@@ -52,20 +51,13 @@ Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belo
 - `vendor/xuple/evolayer-base/**` — including all `resources/js/pages/evolayer/**`, `resources/js/blocks/**`, `resources/js/hooks/use-evolayer-*`, the ontology, agents, and every `evolayer:*` artisan command.
 - The `evolayer.base.*` config shape (`config/evolayer.php` keys + defaults are package-owned, values in `.env.example` are starter-owned).
 
-**Exception — starter-owned landing pages:** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` are starter-owned brand overrides of the package's defaults. `composer evolayer:resync` uses the package's `evolayer-base-frontend-preserve-overrides` tag to refresh package-owned frontend stubs without overwriting them. That tag must exist in the installed `xuple/evolayer-base` version, so land/tag the package change before relying on this starter script. Both files carry a `_STARTER_OWNED_PAGE_` sentinel comment. `composer evolayer:resync` runs `scripts/resync-starter-pages-check.sh` after publishing, which fails loudly if the sentinel is missing (meaning the safe publish path was bypassed or the starter override was edited incorrectly). If the check fails, recover with:
-
-```bash
-git checkout -- resources/js/pages/evolayer/about.tsx resources/js/pages/evolayer/home.tsx
-bash scripts/resync-starter-pages-check.sh
-```
-
-Agents must not assume starter-owned landing pages survived a resync unless the check passes. All other `resources/js/pages/evolayer/**` files are package-owned.
+**Landing pages (`about.tsx`, `home.tsx`) are package-owned, branded from config.** They render from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example` — so you rebrand them by changing config, not by editing the page files. There is no longer a `_STARTER_OWNED_PAGE_` sentinel or a preserve-overrides tag: `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe (skip-modified) and won't clobber host edits. To take full ownership of the marketing surface, run `php artisan evolayer:eject marketing-pages` (you then forfeit managed updates for it). All `resources/js/pages/evolayer/**` files are package-owned.
 
 ## Hard rules
 
-- **Do not commit `composer.lock`.** It's in `.gitignore`; both CI workflows fail if it appears. `composer create-project` must resolve `xuple/evolayer-base` fresh per install.
+- **Commit `composer.lock`.** The starter ships a tested, reproducible distribution: `composer create-project` installs the locked graph (Composer honors a committed lock — see `docs/migration/create-project-lock-behavior.md`). The lock must stay tracked and must not be `export-ignore`d (both CI workflows enforce this); `xuple/evolayer-base` is exact-pinned while `0.x`. Bump it via a release PR, not by letting installs drift. Generated apps commit their own lock too.
 - **Do not edit anything under `vendor/`.** Patches go via `patches/` + `cweagans/composer-patches`; package fixes go upstream.
-- **Do not introduce starter-local Dusk/Playwright/Cypress.** The starter ships PHPUnit Feature/HTTP tests only; browser/E2E coverage belongs in the package alongside the components it exercises.
+- **Do not introduce starter-local Dusk/Playwright/Cypress.** The starter ships Pest Feature/HTTP tests only; browser/E2E coverage belongs in the package alongside the components it exercises.
 - **Do not change `config/evolayer.php` defaults to `true`** to make tests easier. The package keeps defaults `false`; `.env.example` is the kitchen-sink switch.
 - **Do not run `php artisan evolayer:install` in this starter.** That command is for adding Base to an existing Laravel app; its work is already pre-applied here. Use `composer evolayer:resync` to pull a newer package frontend instead.
 - **Do not push to any remote unless explicitly instructed.** Agents may create local commits only when asked. If asked to push, the agent must state which remote(s) and branch it will push to before running `git push`.
@@ -73,7 +65,7 @@ Agents must not assume starter-owned landing pages survived a resync unless the 
 
 ## Frontend stub flow
 
-The package publishes React stubs into the starter via `vendor:publish --tag=evolayer-base-frontend-preserve-overrides` so the starter clones and builds without an install step while preserving starter-owned landing pages. These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalise), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
+The package's React stubs are committed in this repo so the starter clones and builds without an install step. Refresh them against a newer package with `composer evolayer:resync`, which runs `php artisan evolayer:resync` (manifest-safe: it updates pristine stubs, keeps host-modified ones, skips ejected surfaces; pass `--force` only to overwrite local edits, `--dry-run` to preview). Switch the example posture with `php artisan evolayer:profile lean` (demo-first kitchen-sink is the default). These stubs are package-owned but live in this repo. When they regress format (Prettier's `prettier-plugin-tailwindcss` reorders Tailwind classes that the package doesn't pre-normalise), the mechanical fix is `npx prettier --write resources/ && eslint . --fix`. The kitchen-sink contract test does not depend on stub content; only the `EVOLAYER_BASE_*` flag shape.
 
 ## Inertia layout resolver
 
@@ -130,7 +122,7 @@ Run before opening a PR:
 
 ```bash
 composer validate --strict
-composer test                      # PHPUnit Feature + Unit
+composer test                      # Pest Feature + Unit
 php artisan evolayer:doctor        # package's health check (informational; CI enforces strictness)
 npm run types:check                # tsc --noEmit
 composer lint:check                # Pint
@@ -146,7 +138,7 @@ All eight gates green on HEAD before push. The public starter CI runs the same s
 Agents must distinguish between three verification categories:
 
 1. **Static verification** — type-check, lint, format, build. Fully automated; `npm run types:check && npm run lint:check && npm run format:check && npm run build` covers this.
-2. **Test-suite verification** — PHPUnit Feature/Unit tests, `php artisan evolayer:doctor`. Automated CI gates. `composer test` covers this. The resync-safety sentinel test (`ResyncSafetyTest`) is a test-suite gate, not a manual check.
+2. **Test-suite verification** — Pest Feature/Unit tests, `php artisan evolayer:doctor`. Automated CI gates. `composer test` covers this. The resync-safety sentinel test (`ResyncSafetyTest`) is a test-suite gate, not a manual check.
 3. **Browser/manual runtime smoke** — loading pages, clicking UI elements, keyboard shortcuts. These cannot be verified by HTTP/string tests. No agent may claim a browser smoke passed without actually running it in a browser. See the runtime smoke checklist in RELEASE.md for the required manual checks before tagging a release.
 
 ## Dev server handoff
@@ -229,6 +221,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/pail (PAIL) - v1
 - laravel/pint (PINT) - v1
 - laravel/sail (SAIL) - v1
+- pestphp/pest (PEST) - v4
 - phpunit/phpunit (PHPUNIT) - v12
 - @inertiajs/react (INERTIA_REACT) - v3
 - react (REACT) - v19
@@ -323,6 +316,13 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - Laravel can be deployed using [Laravel Cloud](https://cloud.laravel.com/), which is the fastest way to deploy and scale production Laravel applications.
 
+=== tests rules ===
+
+# Test Enforcement
+
+- Every change must be programmatically tested. Write a new test or update an existing test, then run the affected tests to make sure they pass.
+- Run the minimum number of tests needed to ensure code quality and speed. Use `php artisan test --compact` with a specific filename or filter.
+
 === inertia-laravel/core rules ===
 
 # Inertia
@@ -389,23 +389,14 @@ Use Wayfinder to generate TypeScript functions for Laravel routes. Import from `
 - If you have modified any PHP files, you must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
 - Do not run `vendor/bin/pint --test --format agent`, simply run `vendor/bin/pint --format agent` to fix any formatting issues.
 
-=== phpunit/core rules ===
+=== pest/core rules ===
 
-# PHPUnit
+## Pest
 
-- This application uses PHPUnit for testing. All tests must be written as PHPUnit classes. Use `php artisan make:test --phpunit {name}` to create a new test.
-- If you see a test using "Pest", convert it to PHPUnit.
-- Every time a test has been updated, run that singular test.
-- When the tests relating to your feature are passing, ask the user if they would like to also run the entire test suite to make sure everything is still passing.
-- Tests should cover all happy paths, failure paths, and edge cases.
-- You must not remove any tests or test files from the tests directory without approval. These are not temporary or helper files; these are core to the application.
-
-## Running Tests
-
-- Run the minimal number of tests, using an appropriate filter, before finalizing.
-- To run all tests: `php artisan test --compact`.
-- To run all tests in a file: `php artisan test --compact tests/Feature/ExampleTest.php`.
-- To filter on a particular test name: `php artisan test --compact --filter=testName` (recommended after making a change to a related file).
+- This project uses Pest for testing. Create tests: `php artisan make:test --pest {name}`.
+- The `{name}` argument should not include the test suite directory. Use `php artisan make:test --pest SomeFeatureTest` instead of `php artisan make:test --pest Feature/SomeFeatureTest`.
+- Run tests: `php artisan test --compact` or filter: `php artisan test --compact --filter=testName`.
+- Do NOT delete tests without approval.
 
 === inertia-react/core rules ===
 

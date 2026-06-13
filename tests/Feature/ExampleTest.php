@@ -1,20 +1,11 @@
 <?php
 
-namespace Tests\Feature;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
-class ExampleTest extends TestCase
-{
-    use RefreshDatabase;
+uses(RefreshDatabase::class);
 
-    public function test_returns_a_successful_response()
-    {
-        $response = $this->get(route('home'));
-
-        $response
-            ->assertOk()
-            ->assertSee('"component":"evolayer\/about"', false);
-    }
-}
+test('home page returns a successful response', function () {
+    $this->get(route('home'))
+        ->assertOk()
+        ->assertSee('"component":"evolayer\/about"', false);
+});

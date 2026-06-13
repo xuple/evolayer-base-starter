@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Support\SiteMetadata;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Xuple\EvoLayer\Base\Support\EvoLayerProps;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -43,12 +44,13 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-            // EvoLayer Base shared prop — consumed by published pages via useEvoLayerProps().
+            // EvoLayer Base shared prop — consumed by published pages via
+            // useEvoLayerProps() / useBrand(). EvoLayerProps::base() assembles
+            // examples + features + brand from config (one DRY source), so hosts
+            // rebrand home/about via config('evolayer.base.brand') / env instead
+            // of editing the page files.
             'evolayer' => [
-                'base' => [
-                    'examples' => config('evolayer.base.examples'),
-                    'features' => config('evolayer.base.features'),
-                ],
+                'base' => EvoLayerProps::base(),
             ],
         ];
     }

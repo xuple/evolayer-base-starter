@@ -49,9 +49,10 @@ clone this repo directly instead, run the equivalent in one shot:
 composer setup
 ```
 
-The starter repository intentionally does **not** commit `composer.lock`, matching
-the Laravel application skeleton. A created client application should normally
-commit its generated `composer.lock` for deterministic deploys.
+The starter commits `composer.lock` and ships a tested, reproducible
+distribution: `composer create-project` installs the locked dependency graph
+rather than re-resolving it. Created applications likewise commit their
+`composer.lock` for deterministic deploys.
 
 Hosting the created app behind Nginx/PHP-FPM? See
 [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) for the write-permission
@@ -205,7 +206,7 @@ command in this starter — its work is already pre-applied.
 
 The starter is also pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost): `AGENTS.md` / `CLAUDE.md` carry the starter-specific boundaries followed by Boost's framework guidelines, and `.mcp.json` / `.codex/config.toml` / `opencode.json` register `php artisan boost:mcp` so agents can call `search-docs`, `tinker`, `database-query`, etc. Skills live under `.claude/skills/` and `.agents/skills/`. **Boost is a `require-dev` dependency**; the MCP layer is only available when the app is installed with dev dependencies (the `composer install` / `composer create-project` default — `composer install --no-dev` skips it).
 
-The test runner is **PHPUnit** (`vendor/bin/phpunit`), not Pest. This is the inherited posture from `laravel/react-starter-kit` and has not yet been formally revisited for the EvoLayer pivot. PHPUnit is the `0.1` line contract — `composer test`, the kitchen-sink contract test, and CI all assume it. Whether to migrate to Pest is a deliberate future architectural decision, not a pre-0.1 one; until it lands, do not introduce Pest.
+The test runner is **Pest 4** (`php artisan test`), layered on PHPUnit 12. New tests use Pest's `it()` / `test()` style (`php artisan make:test --pest {name}`); existing PHPUnit `Tests\TestCase` classes still run under Pest, so migration is opportunistic. `composer test`, the kitchen-sink contract test, and CI all run the Pest suite.
 
 ## Where this sits in the EvoDevOps family
 

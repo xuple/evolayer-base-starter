@@ -39,9 +39,21 @@ export interface EvoLayerFeatures {
     contact_attachments: boolean;
 }
 
+export interface EvoLayerBrand {
+    name: string;
+    tagline: string;
+    description: string;
+}
+
 export interface EvoLayerBaseSharedProps {
     examples: EvoLayerExamples;
     features: EvoLayerFeatures;
+    /**
+     * Brand surface for published landing pages and head metadata. Optional so
+     * pages degrade to built-in defaults (see `useBrand()`) until the host
+     * shares it via `EvoLayerProps::base()`.
+     */
+    brand?: EvoLayerBrand;
 }
 
 /**

@@ -1,56 +1,39 @@
 <?php
 
-namespace Tests\Feature;
+/*
+| Regression guard for the non-destructive resync contract (Phase 5 adoption).
+| The starter must drive resync through the manifest-safe `evolayer:resync`
+| command (skip-modified by default) rather than the old force-publish path that
+| clobbered host-customized stubs, and the landing pages must be branded from
+| config rather than maintained as bespoke full-file overrides.
+*/
 
-use Tests\TestCase;
-
-class ResyncSafetyTest extends TestCase
+function resyncScript(): string
 {
-    public function test_starter_owned_landing_pages_contain_resync_sentinel(): void
-    {
-        $starterOwnedPages = [
-            'resources/js/pages/evolayer/about.tsx',
-            'resources/js/pages/evolayer/home.tsx',
-        ];
+    $composer = json_decode((string) file_get_contents(base_path('composer.json')), true);
 
-        foreach ($starterOwnedPages as $page) {
-            $path = base_path($page);
-            $this->assertFileExists($path, "Starter-owned landing page {$page} is missing.");
-
-            $content = (string) file_get_contents($path);
-            $this->assertStringContainsString(
-                '_STARTER_OWNED_PAGE_',
-                $content,
-                "Starter-owned landing page {$page} is missing the _STARTER_OWNED_PAGE_ sentinel. "
-                    .'This sentinel is required so `composer evolayer:resync` can verify the safe publish path '
-                    .'preserved the starter override. Re-apply the starter override and '
-                    .'ensure the sentinel comment is present.',
-            );
-        }
-    }
-
-    public function test_resync_safety_script_exists_and_is_executable(): void
-    {
-        $scriptPath = base_path('scripts/resync-starter-pages-check.sh');
-
-        $this->assertFileExists($scriptPath);
-        $this->assertTrue(
-            is_executable($scriptPath),
-            'scripts/resync-starter-pages-check.sh must be executable.',
-        );
-    }
-
-    public function test_resync_safety_script_passes_on_current_repo_state(): void
-    {
-        $scriptPath = base_path('scripts/resync-starter-pages-check.sh');
-
-        exec("bash {$scriptPath} 2>&1", $output, $exitCode);
-
-        $this->assertSame(
-            0,
-            $exitCode,
-            'scripts/resync-starter-pages-check.sh must exit 0 on a clean repo with starter-owned pages intact. '
-                .'Output: '.implode("\n", $output),
-        );
-    }
+    return implode("\n", $composer['scripts']['evolayer:resync'] ?? []);
 }
+
+test('the evolayer:resync composer script uses the safe artisan command', function () {
+    expect(resyncScript())->toContain('@php artisan evolayer:resync');
+});
+
+test('the evolayer:resync script does not force-publish frontend stubs', function () {
+    // vendor:publish of a frontend tag with --force clobbers host-customized
+    // stubs (e.g. config/navigation.ts); the manifest-safe command must own
+    // frontend resync instead.
+    expect(resyncScript())
+        ->not->toContain('evolayer-base-frontend')
+        ->not->toContain('preserve-overrides');
+});
+
+test('managed landing pages render from brand config, not a full-file override', function () {
+    foreach (['about.tsx', 'home.tsx'] as $page) {
+        $content = (string) file_get_contents(base_path("resources/js/pages/evolayer/{$page}"));
+
+        expect($content)
+            ->toContain('useBrand')                   // branded from config / shared props
+            ->not->toContain('_STARTER_OWNED_PAGE_');  // no bespoke override sentinel
+    }
+});

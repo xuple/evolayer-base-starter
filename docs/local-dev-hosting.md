@@ -100,11 +100,12 @@ stale compiled files.
 
 ## Created App Lockfile
 
-The starter repository intentionally does not commit `composer.lock`, so every
-`composer create-project` install resolves the current public package graph.
+The starter commits `composer.lock` and ships a tested, reproducible
+distribution, so every `composer create-project` install resolves the locked
+package graph rather than re-resolving it.
 
-A created client application is different: commit the generated
-`composer.lock` so deploys use the dependency graph you tested.
+Created applications likewise commit their `composer.lock` so deploys use the
+dependency graph you tested.
 
 Generated or environment-specific files should remain untracked:
 
