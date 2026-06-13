@@ -117,7 +117,7 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
 
 The first-hour install path has been rehearsed end-to-end from a clean
 directory: `composer create-project` resolved starter `v0.1.6` and base
-`v0.1.3`, applied the `laravel/ai` patch, migrated/seeded, generated Wayfinder
+`v0.1.4`, applied the `laravel/ai` patch, migrated/seeded, generated Wayfinder
 and ontology, then `npm install`, `npm audit`, `npm run build`,
 `evolayer:doctor --strict`, and `composer test` all passed.
 
