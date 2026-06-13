@@ -8,7 +8,7 @@ is `xuple/evolayer-base-starter v0.1.6` consuming `xuple/evolayer-base` (exact-p
 self-hosted Forge remains an internal mirror.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
-family, `docs.evodevops.com/base` is the canonical Base documentation root, `/`
+family, `evodevops.com/evolayer-base/docs` is the canonical Base documentation root, `/`
 mounts the EvoLayer Base demo/install explainer, and the package's opt-in
 marketing routes expose that same page at `/about`.
 
@@ -48,7 +48,7 @@ route. When changing this contract in a downstream app, review:
 The starter consumes the package from **Packagist** as a tagged release:
 
 ```jsonc
-"require": { "xuple/evolayer-base": "0.1.3" }
+"require": { "xuple/evolayer-base": "0.1.4" }
 ```
 
 No custom `repositories` entry ships in the public starter — Composer resolves
@@ -139,7 +139,7 @@ contract preparation, build, strict doctor, tests, lint, and format checks.
 ## Open decisions
 
 The base and starter packages are tagged, public, Packagist-visible, and covered
-by public CI. Remaining launch polish: the minimum `docs.evodevops.com/base`
+by public CI. Remaining launch polish: the minimum `evodevops.com/evolayer-base/docs`
 page and external announcement copy. (Starter-side social-preview metadata and
 the default OG image now ship in-repo.) The ThreadStudio provider roster is settled
 (Gemini + OpenAI runtime-approved;

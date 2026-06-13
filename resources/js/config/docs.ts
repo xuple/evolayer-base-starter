@@ -1,4 +1,4 @@
-export const docsBaseUrl = 'https://docs.evodevops.com/base';
+export const docsBaseUrl = 'https://evodevops.com/evolayer-base/docs';
 
 export const starterDocsCommands = [
     {
