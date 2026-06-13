@@ -28,17 +28,7 @@ managed surfaces actually work.
 
 ## What you own, what the framework manages
 
-| Surface | Owner | How it changes |
-| --- | --- | --- |
-| AI runtime, ontology compiler, `evolayer:*` commands, internal blocks | **Framework** | Updated by upgrading the package. Not edited in place. |
-| Branding, nav, product metadata, feature flags, social metadata | **You (config / shared props)** | Yours. Never overwritten by `resync`. |
-| Wayfinder routes/actions, ontology types | **Generated** | Rebuilt deterministically. Gitignored, not hand-edited. |
-| Example pages, demo workflows, optional blocks | **Framework, until you eject** | `resync` updates them while pristine; eject transfers them to you. |
-| Your routes, pages, business logic, ejected examples | **You** | Yours. Never overwritten. |
-
-The rule that governs all of it: **`php artisan evolayer:resync` may update
-framework-managed, unmodified surfaces and regenerate generated artifacts. It
-must never overwrite app-owned or ejected files.**
+For the strict definitions of what surfaces the framework manages, what you own, and how the `resync` and `eject` commands operate, see the canonical **[EvoLayer Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md)**.
 
 ## Reproducibility
 

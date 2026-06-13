@@ -4,8 +4,7 @@ The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
 free/public MIT projects on GitHub and Packagist. The current public release line
-is `xuple/evolayer-base-starter v0.1.6` consuming `xuple/evolayer-base v0.1.3`
-through the `^0.1` constraint. GitHub is the public publication source; the
+is `xuple/evolayer-base-starter v0.1.6` consuming `xuple/evolayer-base` (exact-pinned while `0.x`, currently `0.1.4`). GitHub is the public publication source; the
 self-hosted Forge remains an internal mirror.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
@@ -65,7 +64,7 @@ deployments resolve the same dependency graph that was tested.
 > **Pre-public staging (historical).** Before `xuple/evolayer-base` was
 > published to Packagist, the starter resolved it from a private Forge `vcs`
 > repository at `dev-main` (`ssh://git@<private-forge-host>/<owner>/evolayer-base.git`).
-> That `repositories` block was removed when the starter moved to `^0.1`; it is
+> That `repositories` block was removed when the starter moved to Packagist distribution; it is
 > retained here only as internal context.
 
 **Local side-by-side package dev (optional):** to edit the package locally and
@@ -79,7 +78,7 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
 ## Patch-release checklist
 
 1. Full verification suite green: `composer test`, `composer validate --strict`, `php artisan evolayer:doctor --strict --no-ansi`, `npm run types:check`, `npm run build` (client + SSR), `composer lint:check`, `npm run lint:check`, `npm run format:check`.
-2. The `^0.1` constraint resolves the published package from Packagist — `composer validate --strict` must stay clean.
+2. The exact-pinned dependency resolves the published package from Packagist — `composer validate --strict` must stay clean.
 3. A clean Packagist `composer create-project xuple/evolayer-base-starter <dir>` (no `--repository` / `--stability` flags) succeeds end to end.
 4. **Live AI** — add provider keys to `.env`, then run the relevant smoke
    commands. ThreadStudio's runtime-approved providers are **Gemini** (default) and
@@ -125,7 +124,7 @@ and ontology, then `npm install`, `npm audit`, `npm run build`,
 ## Distribution
 
 `xuple/evolayer-base` and `xuple/evolayer-base-starter` are **public on GitHub
-and published on Packagist**. The starter consumes the base package as `^0.1`
+and published on Packagist**. The starter consumes the base package exact-pinned while `0.x` (currently `0.1.4`)
 from Packagist. **GitHub is the public publication source**; the self-hosted
 Forge remains an internal mirror (`origin`). See the package `RELEASE.md` for
 the package-first release flow.

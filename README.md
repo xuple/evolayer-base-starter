@@ -14,7 +14,9 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 | [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) (package) | Examples, blocks, agents, ontology, `evolayer:*` commands, the `evolayer.base.*` config shape                     | Conservative — installs add no routes by default                |
 | `xuple/evolayer-base-starter` (this repo)                                 | The Laravel host shell: Inertia/auth wiring, host migrations, `laravel/ai` patch, kitchen-sink `.env.example`, CI | Kitchen-sink — every example feature switched on out of the box |
 
-The starter is a thin fork of `laravel/react-starter-kit`. It gives you a full Laravel application from day one — auth, host Inertia pages, React components, Tailwind styling, EvoLayer-published examples, config, seeders, and tests are all available to adapt. The examples are owned by the package and committed here so the starter clones and builds without an install step; see [Re-syncing the package frontend](#re-syncing-the-package-frontend) for how upstream changes flow in.
+The starter is a thin fork of `laravel/react-starter-kit`. It gives you a full Laravel application from day one — auth, host Inertia pages, React components, Tailwind styling, EvoLayer-published examples, config, seeders, and tests are all available to adapt.
+
+> **Framework Contract**: For the strict definition of what the framework manages versus what you own, see the [EvoLayer Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md) in the upstream package.
 
 Public web strategy (post-launch): `evodevops.com` will be the editorial / teaching home for the EvoDevOps starter-kit family, and `docs.evodevops.com/base` will be the canonical EvoLayer Base documentation path. In this starter, `/` mounts the EvoLayer Base demo/install explainer; the package's opt-in marketing routes expose that same page at `/about`.
 

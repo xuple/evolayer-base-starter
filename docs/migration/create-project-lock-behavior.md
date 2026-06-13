@@ -44,6 +44,7 @@ would have installed `1.1.4`. → **`create-project` honors a committed lock.**
 3. **Freshness is release-managed.** `xuple/evolayer-base` is exact-pinned while
    `0.x`; bump it through a deliberate release PR rather than letting installs
    drift.
+4. **Committed path repositories are strictly forbidden.** The template must resolve its packages from Packagist so downstream `create-project` users get a working install without missing local paths. Local path repo overrides are for uncommitted local development only.
 
 ## Re-verify when
 

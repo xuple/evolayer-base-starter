@@ -23,35 +23,12 @@ The starter is a thin fork of [`laravel/react-starter-kit`](https://github.com/l
 
 ## Where does my change belong?
 
-Decision rule before any edit:
+Decision rule before any edit: read the canonical **[EvoLayer Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md)**. It defines the strict boundary between the upstream package and this starter application.
 
-1. **Is the file under `vendor/xuple/evolayer-base/`?** Never edit it from this starter. Fix it in the package repo, tag, then `composer update xuple/evolayer-base && composer evolayer:resync` here.
-2. **Is the file a host integration file?** (See list in `README.md` → "What's pre-applied".) Starter-scoped.
-3. **Is the file an example UI, agent, block, ontology entry, or `evolayer:*` artisan command?** Package-scoped — open the PR in `xuple/evolayer-base`.
-4. **Cross-repo change** (e.g. new `EVOLAYER_BASE_*` flag): land the package PR first against a resolvable ref, then open the starter PR pointing at it.
+1. **Host-owned integration/config**: Edit here.
+2. **Framework features/commands**: Edit upstream (`xuple/evolayer-base`).
+3. **Ontology/Blocks**: Edit upstream (`xuple/evolayer-base`).
 
-Full matrix: [`CONTRIBUTING.md`](CONTRIBUTING.md) → "Where does my change belong?".
-
-## Starter-owned, package-owned, exceptions
-
-**Starter (edit here):**
-
-- `app/Http/Middleware/HandleInertiaRequests.php` — shares `evolayer.base.{examples,features}`.
-- `app/Models/User.php` — `HasRoles`, `PasskeyAuthenticatable`, `TwoFactorAuthenticatable`.
-- `routes/web.php`, `routes/settings.php` — host route shell.
-- `resources/js/app.tsx`, `resources/js/components/{app-sidebar,app-header}.tsx`, `resources/js/types/global.d.ts` — host wiring.
-- `config/site.php`, `app/Support/SiteMetadata.php`, `resources/js/components/site-head.tsx`, `resources/js/lib/site-meta.ts`, `public/social/og-default.png` — public site metadata and preview-card contract.
-- `database/seeders/DatabaseSeeder.php`, `database/migrations/2026_05_24_*` — host-owned migrations (Spatie permission / activitylog / media / tags with ULID-compatible morph columns).
-- `.env.example`, `composer.json` scripts (`setup`, `dev`, `evolayer:resync`, `post-create-project-cmd`, etc.).
-- `patches/laravel-ai-structured-streaming.patch`, `patches.lock.json` (via `extra.patches` + `cweagans/composer-patches`).
-- `.github/workflows/*`, `tests/Feature/**`, `tests/Unit/**`.
-
-**Package (edit upstream, never here):**
-
-- `vendor/xuple/evolayer-base/**` — including all `resources/js/pages/evolayer/**`, `resources/js/blocks/**`, `resources/js/hooks/use-evolayer-*`, the ontology, agents, and every `evolayer:*` artisan command.
-- The `evolayer.base.*` config shape (`config/evolayer.php` keys + defaults are package-owned, values in `.env.example` are starter-owned).
-
-**Landing pages (`about.tsx`, `home.tsx`) are package-owned, branded from config.** They render from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example` — so you rebrand them by changing config, not by editing the page files. There is no longer a `_STARTER_OWNED_PAGE_` sentinel or a preserve-overrides tag: `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe (skip-modified) and won't clobber host edits. To take full ownership of the marketing surface, run `php artisan evolayer:eject marketing-pages` (you then forfeit managed updates for it). All `resources/js/pages/evolayer/**` files are package-owned.
 
 ## Hard rules
 
