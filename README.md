@@ -5,7 +5,7 @@ A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base**
 - **Start here** when you want a full demo app with EvoLayer Base already wired in, every example surface visible.
 - **Use the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) package directly** when adding Base to an existing Laravel app.
 
-> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.6` with `xuple/evolayer-base` `v0.1.3`.
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.6` with `xuple/evolayer-base` `v0.1.4`.
 
 ## How the pieces fit
 
