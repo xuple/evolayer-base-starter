@@ -5,10 +5,6 @@ on it. It exists so there are no surprises about what you own, what the framewor
 manages, how updates work, and what is free. If anything below stops being true,
 that is a bug in the promise — open an issue.
 
-> **Draft.** Wording and commercial specifics are under review. The shape of the
-> contract (identity, ownership, reproducibility, eject, licensing) is settled;
-> the exact phrasing is not yet final.
-
 ## What EvoLayer Base is
 
 **EvoLayer Base is a Laravel + React application framework, delivered through a
@@ -64,11 +60,10 @@ You just can't have both "I edited it freely" and "it keeps auto-updating."
 **Today, everything that ships is MIT-licensed** — the framework package, the
 project template, and the bundled example surfaces and blocks.
 
-We may later offer **premium blocks or surfaces** as separately licensed
-packages. If and when that happens, the boundary will be stated explicitly here
-and in package metadata before anything ceases to be MIT. "Framework" will never
-be a euphemism for hidden paywalls: what is free will be named, and what is paid
-will be named.
+We plan to offer **premium blocks or surfaces** as separately licensed
+packages. When that happens, the boundary will be stated explicitly here
+and in package metadata before anything ceases to be MIT: what is free will
+be named, and what is paid will be named.
 
 ## Summary
 
