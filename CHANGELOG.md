@@ -14,10 +14,25 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- **Test runner is now Pest-first.** The starter ships Pest 4 layered on
+  PHPUnit 12, and `composer test` runs `php artisan test` (Pest). Write new
+  tests in Pest's `it()` / `test()` style; existing PHPUnit `Tests\TestCase`
+  classes still run under Pest, so conversion is opportunistic — green tests are
+  not mass-rewritten. (Reverses the earlier PHPUnit-only posture.)
+- **The starter now ships a committed, reproducible `composer.lock`.**
+  `xuple/evolayer-base` is exact-pinned (`0.x`) and `composer create-project`
+  installs the locked dependency graph rather than re-resolving to latest. The
+  CI lock guards are inverted accordingly — the lock must be tracked, not
+  `.gitignore`d, and not `export-ignore`d. Bump the pin via a release PR, not by
+  letting installs drift. (Reverses the earlier no-committed-lock policy.)
 - Updated `composer evolayer:resync` to use the package's
   `evolayer-base-frontend-preserve-overrides` publish tag so package-owned
   frontend stubs refresh without overwriting starter-owned landing pages. This
-  requires an installed `xuple/evolayer-base` version that provides the tag.
+  requires an installed `xuple/evolayer-base` version that provides the tag. The
+  wrapper additionally force-publishes the package-owned `config` and `ontology`
+  stubs (which intentionally track upstream) and regenerates Wayfinder + ontology
+  artifacts — steps outside the manifest-safe `php artisan evolayer:resync`,
+  which only refreshes pristine framework-managed frontend surfaces.
 
 ## [0.1.6] - 2026-06-11
 
