@@ -2,16 +2,7 @@
   <img src="public/social/thread-studio-preview.png" alt="ThreadStudio — structured AI streaming in EvoLayer Base" width="700">
 </p>
 
-<!-- Replace the screenshot above with the video embed once recorded:
-<a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank">
-  <p align="center">
-    <img src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg" alt="Watch: Zero to Streaming in 90 Seconds" width="700">
-  </p>
-</a>
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank">▶ Watch: Zero to Streaming in 90 Seconds</a>
-</p>
--->
+
 
 # EvoLayer Base AI Framework Starter
 
