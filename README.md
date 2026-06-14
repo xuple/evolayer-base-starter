@@ -117,14 +117,11 @@ refreshes.
 
 ## AI providers
 
-The AI features default to **Gemini**. Set a key for whichever provider you point
-`AI_DEFAULT_PROVIDER` at, then verify structured streaming works end to end:
+EvoLayer Base uses the `laravel/ai` SDK for structured-output streaming. It defaults to **Gemini**, but supports a vast ecosystem including OpenAI, Anthropic, DeepSeek, Groq, xAI, Mistral, and Ollama. To enable AI features, set your provider's API key in `.env` (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.), then verify structured streaming works end to end:
 
 ```bash
 php artisan evolayer:ai:stream-check gemini
 ```
-
-Keys live in `.env` (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, …).
 
 > **Provider status:** ThreadStudio's runtime-approved (directly-verified) providers are
 > **Gemini** (default) and **OpenAI** — both pass `evolayer:ai:stream-check` end to end
