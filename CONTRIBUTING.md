@@ -75,7 +75,7 @@ Disabled must mean inaccessible, not merely hidden — flipping a flag to `false
 
 ## Testing scope
 
-The starter tests are **Feature/HTTP only**, run via PHPUnit. They cover the host shell — auth, settings, dashboard, the kitchen-sink install contract, and any host integration that lives in this repo.
+The starter tests are **Feature/HTTP only**, run via Pest on top of PHPUnit. They cover the host shell — auth, settings, dashboard, the kitchen-sink install contract, and any host integration that lives in this repo.
 
 There is no browser/E2E tooling in this starter (no Dusk, no Playwright) and none planned for pre-1.0. The example UIs that would justify browser coverage live in [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base); if a browser harness is added, it lands there alongside the components it exercises, not here. Don't introduce starter-local Dusk/Playwright/Cypress configuration — open the discussion in the package repo first.
 
