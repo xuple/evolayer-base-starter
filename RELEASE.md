@@ -4,7 +4,7 @@ The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
 free/public MIT projects on GitHub and Packagist. The current public release line
-is `xuple/evolayer-base-starter v0.1.7` consuming `xuple/evolayer-base` (exact-pinned while `0.x`, currently `0.1.4`). GitHub is the public publication source; the
+is `xuple/evolayer-base-starter v0.1.7` consuming `xuple/evolayer-base` (exact-pinned while `0.x`, at `0.1.4`). The unreleased `main` branch currently tracks base `0.1.5`. GitHub is the public publication source; the
 self-hosted Forge remains an internal mirror.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
@@ -124,7 +124,7 @@ and ontology, then `npm install`, `npm audit`, `npm run build`,
 ## Distribution
 
 `xuple/evolayer-base` and `xuple/evolayer-base-starter` are **public on GitHub
-and published on Packagist**. The starter consumes the base package exact-pinned while `0.x` (currently `0.1.4`)
+and published on Packagist**. The published starter `v0.1.7` consumes the base package exact-pinned while `0.x` (at `0.1.4`); the unreleased `main` branch tracks `0.1.5`
 from Packagist. **GitHub is the public publication source**; the self-hosted
 Forge remains an internal mirror (`origin`). See the package `RELEASE.md` for
 the package-first release flow.

@@ -118,6 +118,18 @@ Agents must distinguish between three verification categories:
 2. **Test-suite verification** — Pest Feature/Unit tests, `php artisan evolayer:doctor`. Automated CI gates. `composer test` covers this. The resync-safety sentinel test (`ResyncSafetyTest`) is a test-suite gate, not a manual check.
 3. **Browser/manual runtime smoke** — loading pages, clicking UI elements, keyboard shortcuts. These cannot be verified by HTTP/string tests. No agent may claim a browser smoke passed without actually running it in a browser. See the runtime smoke checklist in RELEASE.md for the required manual checks before tagging a release.
 
+## Public docs touchpoints
+
+The public docs live at `evodevops.com/evolayer-base/docs` in the `xuple/evodevops` site repo. Keep this starter lean; do not move editorial content back into the starter. When a starter change affects one of these surfaces, update or explicitly check the matching site page in the same release window:
+
+| Starter change | Site page to check |
+| --- | --- |
+| `composer create-project`, setup hooks, or committed-lock policy | `tutorial/first-install`, `explanation/reproducible-installs` |
+| `composer evolayer:resync`, package bump workflow, or exact-pin policy | `how-to/update-the-framework`, `how-to/resync-the-frontend` |
+| `.env.example` `EVOLAYER_BASE_*` values | `reference/env-flags`, `how-to/enable-a-feature`, `how-to/disable-a-feature` |
+| `PROMISE.md` | `explanation/promise` |
+| Host integration files listed in the ownership matrix | `reference/host-integration-steps` |
+
 ## Dev server handoff
 
 For one-off verification, stop `npm run dev` before handing back. Only leave Vite

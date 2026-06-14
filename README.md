@@ -1,11 +1,74 @@
-# EvoLayer Base Starter
+<p align="center">
+  <img src="public/social/thread-studio-preview.png" alt="ThreadStudio — structured AI streaming in EvoLayer Base" width="700">
+</p>
 
-A kitchen-sink Laravel + React + Inertia starter for exploring **EvoLayer Base** — Xuple's AI, ontology, and blocks substrate for Laravel apps, built on the [`laravel/ai`](https://github.com/laravel/ai) SDK.
 
-- **Start here** when you want a full demo app with EvoLayer Base already wired in, every example surface visible.
-- **Use the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) package directly** when adding Base to an existing Laravel app.
 
-> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.7` with `xuple/evolayer-base` `v0.1.4`.
+# EvoLayer Base AI Framework Starter
+
+**An AI application framework for Laravel, delivered as a project template.**
+Structured-output streaming, ontology-driven events, and production-ready React surfaces — built on the official [`laravel/ai`](https://github.com/laravel/ai) SDK.
+
+<p align="center">
+  <a href="https://github.com/xuple/evolayer-base-starter/actions"><img src="https://img.shields.io/github/actions/workflow/status/xuple/evolayer-base-starter/tests.yml?branch=main&style=flat-square" alt="Tests"></a>
+  <a href="https://packagist.org/packages/xuple/evolayer-base-starter"><img src="https://img.shields.io/packagist/v/xuple/evolayer-base-starter?style=flat-square" alt="Version"></a>
+  <a href="https://packagist.org/packages/xuple/evolayer-base-starter"><img src="https://img.shields.io/packagist/php-v/xuple/evolayer-base-starter?style=flat-square" alt="PHP"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License"></a>
+</p>
+
+<p align="center">
+  <a href="https://evodevops.com/evolayer-base/docs">Documentation</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="https://github.com/xuple/evolayer-base">Package Repo</a> ·
+  <a href="https://www.youtube.com/@EvoDevOps">YouTube</a> ·
+  <a href="CHANGELOG.md">Changelog</a>
+</p>
+
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The published starter `v0.1.7` consumes `xuple/evolayer-base` `v0.1.4`. The unreleased `main` branch tracks base `v0.1.5`.
+
+## The Promise
+
+EvoLayer Base is not a conventional starter kit where every file becomes yours the moment you scaffold. It is a **framework delivered through a project template** — you own your app code, configuration, and branding; the framework manages the AI runtime, ontology compiler, and upgradeable example surfaces.
+
+- **You own** your routes, models, config, branding, and any surface you [eject](https://evodevops.com/evolayer-base/docs/how-to/eject-a-surface).
+- **The framework manages** the AI runtime, ontology, commands, and example surfaces — and keeps them updated via [`composer evolayer:resync`](https://evodevops.com/evolayer-base/docs/how-to/resync-the-frontend).
+- **Eject is the exit.** `php artisan evolayer:eject <surface>` gives you full control of any managed surface, at the cost of its automatic updates.
+
+> Read the full [Promise](PROMISE.md) and [Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md).
+
+## Quick Start
+
+```bash
+composer create-project xuple/evolayer-base-starter my-app
+cd my-app
+npm install && npm run build
+php artisan serve
+```
+
+`composer create-project` runs the post-create hook automatically — generating your app key, creating an SQLite database, running migrations and seeders, and compiling the Wayfinder and ontology caches. Log in with `test@example.com` / `password` to explore every surface immediately.
+
+> Cloned the repo directly? Run `composer setup` instead. Hosting behind Nginx? See [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md).
+
+## Why EvoLayer Base?
+
+- **[Structured AI Streaming](https://evodevops.com/evolayer-base/docs/how-to/configure-ai-provider)** — Real-time structured-output streaming via the `laravel/ai` SDK. Defaults to Gemini; the SDK also supports OpenAI, Anthropic, DeepSeek, Groq, xAI, Mistral, and Ollama. (ThreadStudio runtime-approves Gemini + OpenAI today — see [AI providers](#ai-providers).)
+
+- **[Working AI Surfaces, Not Stubs](https://evodevops.com/evolayer-base/docs/tutorial/first-install)** — ThreadStudio, PRD Studio, AI contact triage, voice input, and inline text assist ship functional — not as placeholder wireframes.
+
+- **[Ontology-Driven Events](https://evodevops.com/evolayer-base/docs/reference/sse-vocabulary)** — An `ontology.yaml` model compiles to typed SSE events and projections, giving your real-time UI a schema instead of ad-hoc event strings.
+
+- **[Feature Flags, Not Bloat](https://evodevops.com/evolayer-base/docs/reference/env-flags)** — Every example surface toggles independently via `EVOLAYER_BASE_EXAMPLE_*` env flags. Disable what you don't need; routes and sidebar entries disappear.
+
+- **[Reproducible Installs](PROMISE.md)** — Committed `composer.lock`, exact-pinned framework while `0.x`, deterministic `create-project`. Two installs of the same version are identical.
+
+- **[Agent-Ready Tooling](https://laravel.com/docs/boost)** — Pre-wired for Claude Code, Codex, OpenCode, and Cursor via Laravel Boost with MCP, skills, and `search-docs`.
+
+## Choose Your Path
+
+|                    | Command                                                              | Use when…                                                                  |
+| ------------------ | ------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 🚀 **New project** | `composer create-project xuple/evolayer-base-starter my-app`        | You want a fully configured app with every surface enabled from clone zero |
+| 📦 **Existing app** | `composer require xuple/evolayer-base` then `php artisan evolayer:install` | You want to add AI and ontology to a Laravel app you already have           |
 
 ## How the pieces fit
 
@@ -18,68 +81,9 @@ The starter is a thin fork of `laravel/react-starter-kit`. It gives you a full L
 
 > **Framework Contract**: For the strict definition of what the framework manages versus what you own, see the [EvoLayer Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md) in the upstream package.
 
-Public web strategy (post-launch): `evodevops.com` will be the editorial / teaching home for the EvoDevOps starter-kit family, and `evodevops.com/evolayer-base/docs` will be the canonical EvoLayer Base documentation path. In this starter, `/` mounts the EvoLayer Base demo/install explainer; the package's opt-in marketing routes expose that same page at `/about`.
-
-Authenticated users land on `/home` (`evolayer.base.home`) after login, registration, password reset, and passkey authentication. The public `/` route remains named `home` and is still the post-logout / public landing destination.
-
-## What ships
-
-- Laravel 13 + Fortify + React 19 + Inertia + TypeScript + Tailwind, following the official React starter structure.
-- EvoLayer Base examples: ThreadStudio, PRD Studio, admin inbox, contact AI, voice input, text assist, and marketing pages.
-- Structured-output streaming support through the committed `laravel/ai` patch.
-- Spatie permission/activitylog/medialibrary/tags config and migrations committed where the host app must own them, including ULID-compatible morph columns for EvoLayer models.
-- A seeded admin demo user plus AI capability ledger for immediate local exploration.
-
-## Quick start
-
-```bash
-composer create-project xuple/evolayer-base-starter my-app
-cd my-app
-
-# install + build the frontend, including SSR
-npm install
-npm run build        # or `npm run dev` for HMR
-
-php artisan serve
-```
-
-`composer create-project` runs the post-create hook automatically (`key:generate`, create
-the SQLite database, `migrate --seed`, `route:clear`, `wayfinder:generate`, `evolayer:ontology:compile`). If you
-clone this repo directly instead, run the equivalent in one shot:
-
-```bash
-composer setup
-```
-
-The starter commits `composer.lock` and ships a tested, reproducible
-distribution: `composer create-project` installs the locked dependency graph
-rather than re-resolving it. Created applications likewise commit their
-`composer.lock` for deterministic deploys.
-
-Hosting the created app behind Nginx/PHP-FPM? See
-[`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) for the write-permission
-handoff, SQLite file notes, and env-driven Vite port/origin HMR workflow.
-
-### Demo login
-
-The seeder creates an admin demo user so every example page (including the admin-only Inbox
-and PRD Studio) is reachable immediately:
-
-| Email              | Password   |
-| ------------------ | ---------- |
-| `test@example.com` | `password` |
-
 ## Features
 
-Each bundled example surface is gated by an `EVOLAYER_BASE_EXAMPLE_*` flag in `.env`;
-starter-level substrate features (medialibrary-backed attachments, etc.) use the
-`EVOLAYER_BASE_FEATURE_*` prefix instead. Set a flag to `false` to drop that feature's
-routes and hide its sidebar entry; the shared `evolayer.base.{examples,features}` Inertia
-prop still carries the key but reports it as `false`, so client code can branch on it.
-`.env.example` enables the kitchen-sink set explicitly so a fresh install shows the full
-surface. If a downstream app disables `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`, choose a
-replacement authenticated landing route and update `fortify.home` away from the
-starter's default `/home` before removing that route.
+Each bundled example surface is gated by an `EVOLAYER_BASE_EXAMPLE_*` flag in `.env`; substrate features use the `EVOLAYER_BASE_FEATURE_*` prefix. Set a flag to `false` to drop that surface's routes and sidebar entry.
 
 | Flag                                        | What it adds                                               |
 | ------------------------------------------- | ---------------------------------------------------------- |
@@ -91,29 +95,6 @@ starter's default `/home` before removing that route.
 | `EVOLAYER_BASE_EXAMPLE_VOICE_INPUT`         | Voice-input block                                          |
 | `EVOLAYER_BASE_EXAMPLE_AI_TEXT_FIELD`       | `<AiTextField>` block — inline streaming suggestions       |
 | `EVOLAYER_BASE_FEATURE_CONTACT_ATTACHMENTS` | Contact-form attachment processing (uses medialibrary)     |
-
-## Social previews and site metadata
-
-Public link-preview defaults live in `config/site.php` and are documented in
-`.env.example` with `SITE_*` and `SOCIAL_*` variables. Keep environment reads in
-config files only; pages and components should consume `config('site.*')` on the
-server or the namespaced `site` Inertia prop on the client.
-
-The default canonical base is `APP_URL`. Set `SITE_URL` only when the public
-share/search origin differs from the runtime app origin. Social images may be an
-absolute URL or a leading-slash path resolved against that canonical base; they
-do not automatically inherit from `ASSET_URL`.
-
-Public pages should use `PublicLayout`, which renders `SiteHead` for title,
-description, canonical, robots, Open Graph, X/Twitter-compatible, theme-colour,
-and JSON-LD defaults. Page-level overrides belong in `SiteHead`/`PublicLayout`
-props, not scattered literal `<meta>` tags. Authenticated and auth layouts use a
-`noindex,nofollow` robots override and do not emit public preview metadata.
-
-The starter ships `public/social/og-default.png` as the default 1200x630 preview
-image. Replace it in downstream apps when their brand is ready, then update
-`SOCIAL_IMAGE_ALT` and optionally `SOCIAL_IMAGE_VERSION` to force preview-card
-refreshes.
 
 ## AI providers
 
@@ -137,75 +118,48 @@ php artisan evolayer:ai:stream-check gemini
 
 ## The `laravel/ai` patch
 
-EvoLayer Base relies on structured-output **streaming**, which upstream `laravel/ai` does
-not yet support. The fix is shipped as a composer patch:
+The starter ships `patches/laravel-ai-structured-streaming.patch`, applied automatically via `cweagans/composer-patches` on `composer install`. It enables structured-output streaming until upstream `laravel/ai` ships the fix. See [`patches/README.md`](patches/README.md) for the rationale and upstream-PR tracking.
 
-- `patches/laravel-ai-structured-streaming.patch` is applied automatically on
-  `composer install` / `composer update` via
-  [`cweagans/composer-patches`](https://github.com/cweagans/composer-patches) (declared in
-  `composer.json` → `extra.patches`, and allowed in `config.allow-plugins`).
-- See `patches/README.md` for the rationale and the upstream-PR tracking note.
-
-If structured streaming ever misbehaves, run `php artisan evolayer:doctor` — it verifies the
-patch marker is present along with the rest of the install.
-
-## What's pre-applied (host-side integration)
-
-The `xuple/evolayer-base` package publishes most of its surface, but a few edits have to live in
-host files. These are already applied in this template:
-
-- `app/Http/Middleware/HandleInertiaRequests.php` — shares the `evolayer.base.{examples,features}` prop.
-- `app/Models/User.php` — adds Spatie's `HasRoles` so the admin gate resolves `hasRole('admin')`.
-- `resources/js/components/app-sidebar.tsx` — renders the enabled example pages via `useExampleNavItems()`.
-- `resources/js/types/global.d.ts` — types the `evolayer` shared prop.
-- `resources/js/app.tsx` — uses the `|` title separator.
-- `database/seeders/DatabaseSeeder.php` — seeds the AI capability ledger and the admin demo user.
-
-The Spatie packages (`laravel-permission`, `laravel-activitylog`, `laravel-medialibrary`,
-`laravel-tags`) have their config and migrations committed under `config/` and
-`database/migrations/`. EvoLayer Base's own migrations load from the package and run
-automatically — they are not copied into this repo.
-
-The committed activitylog, tags, and medialibrary migrations deliberately use ULID-compatible morph columns where they can point at EvoLayer models:
-
-- `activity_log.subject_id` via `nullableUlidMorphs('subject', 'subject')`
-- `taggables.taggable_id` via `ulidMorphs('taggable')`
-- `media.model_id` via `ulidMorphs('model')`
-
-Keep those edits if you regenerate Spatie migrations; PostgreSQL will reject EvoLayer ULIDs in default bigint morph columns.
+If streaming misbehaves, run `php artisan evolayer:doctor` — it verifies the patch marker along with the rest of the install.
 
 ## Re-syncing the package frontend
 
-The EvoLayer React stubs are committed to this repo so it clones and builds without any
-publish step. To pull a newer `xuple/evolayer-base` release's frontend over the top:
+The EvoLayer React stubs are committed so the repo clones and builds without a publish step. To pull a newer `xuple/evolayer-base` release:
 
 ```bash
 composer update xuple/evolayer-base
-composer evolayer:resync   # re-publishes frontend + config, regenerates wayfinder + ontology
+composer evolayer:resync
 ```
 
-**Do not edit files under `vendor/xuple/evolayer-base` in this starter.** Package
-internals belong in the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) repo;
-fix them there, tag a release (or update the local path override per
-[RELEASE.md](RELEASE.md)), then `composer update` + `composer evolayer:resync` here to
-pull the change.
+`evolayer:resync` is manifest-safe — it updates pristine stubs, keeps host-modified ones, and skips ejected surfaces (`--force` to overwrite local edits, `--dry-run` to preview). **Do not edit files under `vendor/xuple/evolayer-base`.** Fix package internals [upstream](https://github.com/xuple/evolayer-base), then `composer update` + `composer evolayer:resync` here.
 
-To **add** EvoLayer Base to an existing Laravel app instead (rather than starting here), use
-the package's own installer: `php artisan evolayer:install`. You don't need to run that
-command in this starter — its work is already pre-applied.
+To add Base to an existing app instead, use `php artisan evolayer:install` — you don't need that command in this starter, its work is already pre-applied.
+
+## What's pre-applied
+
+The package publishes most of its surface, but a few edits must live in host files. These are already applied:
+
+- **Middleware** — shares the `evolayer.base.{examples,features,brand}` Inertia prop via `EvoLayerProps::base()`.
+- **User model** — adds Spatie `HasRoles` for the admin gate.
+- **Sidebar** — renders enabled example pages via `useExampleNavItems()`.
+- **Types** — types the `evolayer` shared prop.
+- **Seeders** — seeds the AI capability ledger and admin demo user.
+- **Spatie migrations** — committed with ULID-compatible morph columns for EvoLayer models.
+
+## Social previews
+
+Public preview defaults live in `config/site.php`, controlled by `SITE_*` and `SOCIAL_*` variables in `.env`. Public pages use `PublicLayout` / `SiteHead` for title, canonical, robots, Open Graph, X/Twitter, and JSON-LD. See [`.env.example`](.env.example) for the full set.
 
 ## Tooling
 
 - `composer dev` — run server, queue, logs, and Vite together.
 - `php artisan evolayer:doctor` — health-check the install.
 - `npm run types:check` / `npm run build` (client + SSR) / `composer lint` / `composer test`.
-- [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) — Nginx/PHP-FPM
-  hosted-dev checklist, `tempnam()` troubleshooting, and env-driven Vite
-  port/origin HMR guidance.
+- [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md) — Nginx/PHP-FPM hosted-dev checklist, `tempnam()` troubleshooting, and env-driven Vite port/origin HMR guidance.
 
-The starter is also pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost): `AGENTS.md` / `CLAUDE.md` carry the starter-specific boundaries followed by Boost's framework guidelines, and `.mcp.json` / `.codex/config.toml` / `opencode.json` register `php artisan boost:mcp` so agents can call `search-docs`, `tinker`, `database-query`, etc. Skills live under `.claude/skills/` and `.agents/skills/`. **Boost is a `require-dev` dependency**; the MCP layer is only available when the app is installed with dev dependencies (the `composer install` / `composer create-project` default — `composer install --no-dev` skips it).
+The starter is pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost): `AGENTS.md` / `CLAUDE.md` carry the starter-specific boundaries followed by Boost's framework guidelines, and `.mcp.json` / `.codex/config.toml` / `opencode.json` register `php artisan boost:mcp`. Skills live under `.claude/skills/` and `.agents/skills/`. **Boost is a `require-dev` dependency**; the MCP layer is only available with dev dependencies installed.
 
-The test runner is **Pest 4** (`php artisan test`), layered on PHPUnit 12. New tests use Pest's `it()` / `test()` style (`php artisan make:test --pest {name}`); existing PHPUnit `Tests\TestCase` classes still run under Pest, so migration is opportunistic. `composer test`, the kitchen-sink contract test, and CI all run the Pest suite.
+The test runner is **Pest 4** (`php artisan test`), layered on PHPUnit 12. New tests use Pest's `it()` / `test()` style (`php artisan make:test --pest {name}`); existing PHPUnit `Tests\TestCase` classes still run under Pest, so migration is opportunistic.
 
 ## Where this sits in the EvoDevOps family
 
@@ -219,5 +173,6 @@ EvoLayer is pre-1.0. Base and the starter are free/public MIT projects published
 
 ---
 
-Built on the [Laravel React Starter Kit](https://laravel.com/docs/starter-kits). Licensed
-under the MIT license.
+<p align="center">
+  Built on the <a href="https://laravel.com/docs/starter-kits">Laravel React Starter Kit</a> · Licensed under <a href="LICENSE">MIT</a>
+</p>
