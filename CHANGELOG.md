@@ -6,6 +6,29 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.8] - 2026-06-15
+
+### Changed
+
+- Bumped `xuple/evolayer-base` `0.1.4` → `0.1.5` via the scheduled framework-bump
+  workflow, picking up the package's config-driven branding
+  (`evolayer.base.brand` + `useBrand()`), the manifest-safe
+  `evolayer:resync` / `evolayer:eject` commands, and `evolayer:profile`
+  demo/lean profiles.
+- Rewrote `README.md` as a public docs hub — hero, badges, nav links, The
+  Promise, Quick Start, "Why EvoLayer Base?", and "Choose Your Path" — with deep
+  links to the live Diátaxis docs at `evodevops.com/evolayer-base/docs`. The
+  long-form patch / resync / pre-applied / social sections were condensed.
+
+### Added
+
+- Documented "docs touchpoints" in `AGENTS.md`, `CLAUDE.md`, and
+  `CONTRIBUTING.md`: when repo behaviour changes (commands, flags, config, the
+  contract, the promise), update the matching page in the `evodevops.com` docs
+  site so the repos and the live docs stay in sync.
+- Added the ThreadStudio hero preview image
+  (`public/social/thread-studio-preview.png`).
+
 ## [0.1.7] - 2026-06-14
 
 ### Added
