@@ -103,6 +103,16 @@ npm run lint:check
 
 Update README, CHANGELOG, or RELEASE when changing install flow, route/page IA, feature flags, CI behaviour, package resolution, commands, or public release posture.
 
+The public documentation lives at [`evodevops.com/evolayer-base/docs`](https://evodevops.com/evolayer-base/docs) in the `xuple/evodevops` site repo. When starter changes alter any of these surfaces, update the matching site page in the same release window:
+
+| Starter change | Site page to check |
+| --- | --- |
+| `composer create-project`, setup hooks, or committed-lock policy | `tutorial/first-install`, `explanation/reproducible-installs` |
+| `composer evolayer:resync`, package bump workflow, or exact-pin policy | `how-to/update-the-framework`, `how-to/resync-the-frontend` |
+| `.env.example` `EVOLAYER_BASE_*` values | `reference/env-flags`, `how-to/enable-a-feature`, `how-to/disable-a-feature` |
+| `PROMISE.md` | `explanation/promise` |
+| Host integration files listed in the ownership matrix | `reference/host-integration-steps` |
+
 ## Pull Request Checklist
 
 - Tests or verification notes included.
