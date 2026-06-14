@@ -6,6 +6,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-06-14
+
 ### Added
 
 - Added a starter-owned `config/site.php` metadata contract, shared Inertia

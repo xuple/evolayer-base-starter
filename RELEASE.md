@@ -4,7 +4,7 @@ The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
 free/public MIT projects on GitHub and Packagist. The current public release line
-is `xuple/evolayer-base-starter v0.1.6` consuming `xuple/evolayer-base` (exact-pinned while `0.x`, currently `0.1.4`). GitHub is the public publication source; the
+is `xuple/evolayer-base-starter v0.1.7` consuming `xuple/evolayer-base` (exact-pinned while `0.x`, currently `0.1.4`). GitHub is the public publication source; the
 self-hosted Forge remains an internal mirror.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
@@ -14,7 +14,7 @@ marketing routes expose that same page at `/about`.
 
 ## Current public release
 
-Current starter release: **0.1.6** (pre-1.0 developer preview). Future fixes use
+Current starter release: **0.1.7** (pre-1.0 developer preview). Future fixes use
 new patch releases; do not move published tags.
 
 ## create-project flow (end users)
@@ -116,7 +116,7 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
    version immediately before tagging.
 
 The first-hour install path has been rehearsed end-to-end from a clean
-directory: `composer create-project` resolved starter `v0.1.6` and base
+directory: `composer create-project` resolved starter `v0.1.7` and base
 `v0.1.4`, applied the `laravel/ai` patch, migrated/seeded, generated Wayfinder
 and ontology, then `npm install`, `npm audit`, `npm run build`,
 `evolayer:doctor --strict`, and `composer test` all passed.
