@@ -103,7 +103,7 @@ jobs:
         if: steps.detect.outputs.needs_bump == 'true'
         run: |
           composer update xuple/evolayer-base --with-dependencies \
-            --no-interaction --prefer-dist --optimize-autoloader
+            --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
       - name: Validate Composer metadata
         if: steps.detect.outputs.needs_bump == 'true'
