@@ -6,7 +6,7 @@
 
 # EvoLayer Base
 
-**A runnable Laravel React application frame for the official Laravel AI SDK.**
+**A fully working AI application layer for the official Laravel AI SDK.**
 Structured-output streaming, ontology-driven events, and production-ready React surfaces — delivered as a project template.
 
 <p align="center">
@@ -28,11 +28,11 @@ Structured-output streaming, ontology-driven events, and production-ready React 
 
 ## The Promise
 
-EvoLayer Base is not a conventional boilerplate where every file becomes yours the moment you scaffold. It is a **working application frame delivered through a project template** — you own your app code, configuration, and branding; the application frame manages the AI runtime, ontology compiler, and upgradeable example surfaces.
+EvoLayer Base gives you the best of both worlds: a clean, manageable starting point with continuous upstream updates, and the freedom to take total control exactly when you need it. It is a **working AI application layer delivered through a project template**.
 
 - **You own** your routes, models, config, branding, and any surface you [eject](https://evodevops.com/evolayer-base/docs/how-to/eject-a-surface).
-- **The application frame manages** the AI runtime, ontology, commands, and example surfaces — and keeps them updated via [`composer evolayer:resync`](https://evodevops.com/evolayer-base/docs/how-to/resync-the-frontend).
-- **Eject is the exit.** `php artisan evolayer:eject <surface>` gives you full control of any managed surface, at the cost of its automatic updates.
+- **The application layer manages** the complex AI runtime, ontology, commands, and example surfaces behind the scenes. It keeps them updated automatically via [`composer evolayer:resync`](https://evodevops.com/evolayer-base/docs/how-to/resync-the-frontend) so your codebase stays clean.
+- **Ejecting empowers you.** Whenever you want to deeply customize a managed surface, simply run `php artisan evolayer:eject <surface>`. You take full ownership of the code, and we'll step out of the way.
 
 > Read the full [Promise](PROMISE.md) and [Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md).
 

@@ -7,15 +7,12 @@ that is a bug in the promise — open an issue.
 
 ## What EvoLayer Base is
 
-**EvoLayer Base is a working Laravel + React application frame, delivered through a
-project template.** It is *not* a conventional boilerplate where every file
-becomes yours to edit the moment you scaffold.
+**EvoLayer Base is a fully working AI application layer, delivered through a
+project template.**
 
 The install package is named `xuple/evolayer-base-starter` for historical and
 Packagist convenience, but the product contract is **framework + project
-template** — not "starter kit." We avoid "starter kit," "fully yours after
-create-project," and "edit anything," because they would misdescribe how the
-managed surfaces actually work.
+template**.
 
 - **`xuple/evolayer-base`** — the framework package. Owns the AI runtime,
   ontology, `evolayer:*` commands, and managed example surfaces and blocks.
@@ -24,7 +21,17 @@ managed surfaces actually work.
 
 ## What you own, what the framework manages
 
-For the strict definitions of what surfaces the framework manages, what you own, and how the `resync` and `eject` commands operate, see the canonical **[EvoLayer Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md)**.
+EvoLayer gives you the best of both worlds: a clean, manageable starting point 
+with continuous upstream updates, and the freedom to take total control exactly when you need it.
+
+| Surface | Owner | Lifecycle |
+| --- | --- | --- |
+| **Substrate** (AI runtime, ontology compiler, `evolayer:*` commands) | **Framework** | Updated by upgrading the `xuple/evolayer-base` package. |
+| **Generates** (Wayfinder routes, compiled ontology TS types) | **Generated** | Deterministically rebuilt by CLI commands. Not hand-edited. |
+| **Managed Surfaces** (Examples, Demo workflows, Optional blocks) | **Framework (until ejected)** | Updated safely by `php artisan evolayer:resync` as long as they are pristine. |
+| **App code** (Your routes, pages, logic, configuration, ejected examples) | **You (the App)** | Never overwritten by the framework. |
+
+For the strict technical definitions, see the canonical **[EvoLayer Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md)**.
 
 ## Reproducibility
 
@@ -36,24 +43,22 @@ through deliberate release PRs, not by silent install-time drift. Your generated
 app commits its own `composer.lock` too, for the same reason. (See
 [`docs/migration/create-project-lock-behavior.md`](docs/migration/create-project-lock-behavior.md).)
 
-## Updates, lock-in, and the exit
+## Updates, ownership, and the exit
 
-Because EvoLayer Base manages real surfaces, it creates an ongoing relationship a
-plain starter kit does not: you receive framework updates, and in exchange the
-managed surfaces are not arbitrary copies for you to fork freely. We think that
-is a fair trade — but only if the exit is honest:
+EvoLayer acts as a partner in your codebase. We handle the complex AI plumbing 
+and keep your example surfaces updated, so you can focus on building your actual product. 
 
-- **Eject is the exit.** `php artisan evolayer:eject <surface>` copies a managed
-  example or block into your application's ownership.
-- **What you gain:** full control of that surface — edit it however you like.
-- **What you give up:** managed updates for it. Once ejected, that surface no
-  longer receives framework changes; it is yours to maintain.
+- **The application layer manages** the heavy lifting safely out of sight. You receive 
+  framework updates for the underlying AI logic and example surfaces automatically.
+- **Ejecting empowers you.** Whenever you need to deeply customize a managed 
+  example or block, simply run `php artisan evolayer:eject <surface>`. 
+  You take full ownership of the code, and we'll step out of the way (ceasing updates for that specific surface).
 - **Scope:** eject applies to examples, demo workflows, and optional blocks — not
   to the AI runtime, ontology compiler, provider contracts, or core commands,
   which remain framework-managed.
 
-You are never trapped in a managed surface you dislike; you can always own it.
-You just can't have both "I edited it freely" and "it keeps auto-updating."
+You always maintain complete creative control. You get continuous improvements 
+out-of-the-box, with a built-in release valve the second you want to write the rules yourself.
 
 ## Licensing
 
@@ -67,11 +72,9 @@ be named, and what is paid will be named.
 
 ## Summary
 
-- It's a **working application frame delivered via a project template**, not a starter kit you
-  wholly own.
-- **You own** your app code, configuration, and branding. The **application frame
+- It is a **working AI application layer delivered via a project template**.
+- **You own** your app code, configuration, and branding. The **application layer
   manages** runtime, examples, and upgradeable surfaces.
 - Installs are **reproducible** (committed lock, exact pin while `0.x`).
-- **Eject** is the honest exit from any managed example — at the cost of its
-  updates.
+- **Ejecting** safely hands the keys over to you for any managed example.
 - **MIT today**, with any future premium boundary disclosed in advance.
