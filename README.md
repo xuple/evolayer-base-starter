@@ -4,10 +4,10 @@
 
 
 
-# EvoLayer Base AI Framework Starter
+# EvoLayer Base
 
-**An AI application framework for Laravel, delivered as a project template.**
-Structured-output streaming, ontology-driven events, and production-ready React surfaces — built on the official [`laravel/ai`](https://github.com/laravel/ai) SDK.
+**A runnable Laravel React application frame for the official Laravel AI SDK.**
+Structured-output streaming, ontology-driven events, and production-ready React surfaces — delivered as a project template.
 
 <p align="center">
   <a href="https://github.com/xuple/evolayer-base-starter/actions"><img src="https://img.shields.io/github/actions/workflow/status/xuple/evolayer-base-starter/tests.yml?branch=main&style=flat-square" alt="Tests"></a>
@@ -24,14 +24,14 @@ Structured-output streaming, ontology-driven events, and production-ready React 
   <a href="CHANGELOG.md">Changelog</a>
 </p>
 
-> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The published starter `v0.1.7` consumes `xuple/evolayer-base` `v0.1.4`. The unreleased `main` branch tracks base `v0.1.5`.
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.8` with `xuple/evolayer-base` `v0.1.5`.
 
 ## The Promise
 
-EvoLayer Base is not a conventional starter kit where every file becomes yours the moment you scaffold. It is a **framework delivered through a project template** — you own your app code, configuration, and branding; the framework manages the AI runtime, ontology compiler, and upgradeable example surfaces.
+EvoLayer Base is not a conventional boilerplate where every file becomes yours the moment you scaffold. It is a **working application frame delivered through a project template** — you own your app code, configuration, and branding; the application frame manages the AI runtime, ontology compiler, and upgradeable example surfaces.
 
 - **You own** your routes, models, config, branding, and any surface you [eject](https://evodevops.com/evolayer-base/docs/how-to/eject-a-surface).
-- **The framework manages** the AI runtime, ontology, commands, and example surfaces — and keeps them updated via [`composer evolayer:resync`](https://evodevops.com/evolayer-base/docs/how-to/resync-the-frontend).
+- **The application frame manages** the AI runtime, ontology, commands, and example surfaces — and keeps them updated via [`composer evolayer:resync`](https://evodevops.com/evolayer-base/docs/how-to/resync-the-frontend).
 - **Eject is the exit.** `php artisan evolayer:eject <surface>` gives you full control of any managed surface, at the cost of its automatic updates.
 
 > Read the full [Promise](PROMISE.md) and [Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md).
@@ -77,7 +77,7 @@ php artisan serve
 | [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) (package) | Examples, blocks, agents, ontology, `evolayer:*` commands, the `evolayer.base.*` config shape                     | Conservative — installs add no routes by default                |
 | `xuple/evolayer-base-starter` (this repo)                                 | The Laravel host shell: Inertia/auth wiring, host migrations, `laravel/ai` patch, kitchen-sink `.env.example`, CI | Kitchen-sink — every example feature switched on out of the box |
 
-The starter is a thin fork of `laravel/react-starter-kit`. It gives you a full Laravel application from day one — auth, host Inertia pages, React components, Tailwind styling, EvoLayer-published examples, config, seeders, and tests are all available to adapt.
+It gives you a full Laravel application from day one — auth, host Inertia pages, React components, Tailwind styling, EvoLayer-published examples, config, seeders, and tests are all available to adapt. (Note: The starter is built on the foundation of the official `laravel/react-starter-kit`.)
 
 > **Framework Contract**: For the strict definition of what the framework manages versus what you own, see the [EvoLayer Framework Contract](https://github.com/xuple/evolayer-base/blob/main/docs/contract.md) in the upstream package.
 
