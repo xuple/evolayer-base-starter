@@ -7,8 +7,8 @@ that is a bug in the promise — open an issue.
 
 ## What EvoLayer Base is
 
-**EvoLayer Base is a Laravel + React application framework, delivered through a
-project template.** It is *not* a conventional starter kit where every file
+**EvoLayer Base is a working Laravel + React application frame, delivered through a
+project template.** It is *not* a conventional boilerplate where every file
 becomes yours to edit the moment you scaffold.
 
 The install package is named `xuple/evolayer-base-starter` for historical and
@@ -67,9 +67,9 @@ be named, and what is paid will be named.
 
 ## Summary
 
-- It's a **framework delivered via a project template**, not a starter kit you
+- It's a **working application frame delivered via a project template**, not a starter kit you
   wholly own.
-- **You own** your app code, configuration, and branding. The **framework
+- **You own** your app code, configuration, and branding. The **application frame
   manages** runtime, examples, and upgradeable surfaces.
 - Installs are **reproducible** (committed lock, exact pin while `0.x`).
 - **Eject** is the honest exit from any managed example — at the cost of its
