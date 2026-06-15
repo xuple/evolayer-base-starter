@@ -8,7 +8,7 @@ import type { EvoLayerBrand, EvoLayerSharedProps } from '@/types/evolayer';
  */
 const FALLBACK_BRAND: EvoLayerBrand = {
     name: 'EvoLayer Base',
-    tagline: 'The free Laravel React base for AI-enabled product teams.',
+    tagline: 'A fully working AI application layer for the official Laravel AI SDK.',
     description:
         'Start from a working application: Laravel auth, typed routes, structured AI workflows, admin screens, ontology tooling, and local verification commands already wired together.',
 };

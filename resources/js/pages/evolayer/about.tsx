@@ -270,7 +270,7 @@ export default function About() {
 About.layout = (page: ReactElement) => (
     <PublicLayout
         title="EvoLayer Base"
-        description="A free Laravel React starter with structured AI workflows, typed routes, and product-shaped examples already wired in."
+        description="A fully working AI application layer for the official Laravel AI SDK, with structured AI workflows, typed routes, and product-shaped examples already wired in."
     >
         {page}
     </PublicLayout>
