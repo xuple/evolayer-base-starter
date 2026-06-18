@@ -103,3 +103,15 @@ test('post-create identity injection is idempotent', function () {
         removeGeneratedAppIdentityFixture($root);
     }
 });
+
+test('finalizer auto-run only brands during create-project (footgun guard)', function () {
+    $repoRoot = dirname(__DIR__, 2);
+    $composer = (string) file_get_contents($repoRoot.'/composer.json');
+    $script = (string) file_get_contents($repoRoot.'/scripts/evolayer-finalize-install.php');
+
+    // The create-project hook passes an explicit flag, and the script only
+    // auto-brands when that flag is present — so a bare manual run can never
+    // self-brand the starter source's own README/AGENTS/CLAUDE.
+    expect($composer)->toContain('scripts/evolayer-finalize-install.php --create-project')
+        ->and($script)->toContain("in_array('--create-project'");
+});

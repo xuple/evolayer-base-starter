@@ -198,5 +198,15 @@ TXT);
 }
 
 if (realpath((string) ($_SERVER['SCRIPT_FILENAME'] ?? '')) === realpath(__FILE__)) {
-    evolayer_finalize_install(dirname(__DIR__));
+    // Only brand during `composer create-project`, which passes --create-project.
+    // A bare manual run is refused so the starter source can never self-brand its
+    // own README/AGENTS/CLAUDE by accident.
+    if (in_array('--create-project', $argv ?? [], true)) {
+        evolayer_finalize_install(dirname(__DIR__));
+    } else {
+        fwrite(
+            STDERR,
+            "evolayer-finalize-install: skipped — this runs only during composer create-project (pass --create-project to force).\n"
+        );
+    }
 }
