@@ -29,7 +29,6 @@ Decision rule before any edit: read the canonical **[EvoLayer Framework Contract
 2. **Framework features/commands**: Edit upstream (`xuple/evolayer-base`).
 3. **Ontology/Blocks**: Edit upstream (`xuple/evolayer-base`).
 
-
 ## Hard rules
 
 - **Commit `composer.lock`.** The starter ships a tested, reproducible distribution: `composer create-project` installs the locked graph (Composer honors a committed lock — see `docs/migration/create-project-lock-behavior.md`). The lock must stay tracked and must not be `export-ignore`d (both CI workflows enforce this); `xuple/evolayer-base` is exact-pinned while `0.x`. Bump it via a release PR, not by letting installs drift. Generated apps commit their own lock too.

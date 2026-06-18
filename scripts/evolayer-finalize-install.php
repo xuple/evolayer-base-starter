@@ -55,11 +55,14 @@ function evolayer_install_insert_after_heading(string $content, string $block): 
 
     $headingEnd = $matches[0][1] + strlen($matches[0][0]);
 
-    return substr($content, 0, $headingEnd)
+    // Exactly one blank line on each side of the block — trimming the rest's
+    // leading newlines so the insertion is boost:update-idempotent (no double
+    // blank lines for boost to normalize → no spurious doc churn). [EDV-10]
+    return rtrim(substr($content, 0, $headingEnd))
         .PHP_EOL.PHP_EOL
         .$block
-        .PHP_EOL
-        .substr($content, $headingEnd);
+        .PHP_EOL.PHP_EOL
+        .ltrim(substr($content, $headingEnd));
 }
 
 function evolayer_install_agent_identity_block(string $suggestedPackageName): string

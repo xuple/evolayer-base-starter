@@ -6,6 +6,21 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.10] - 2026-06-18
+
+### Fixed
+
+- Generated-app identity insertion is now `boost:update`-idempotent: the banner is
+  surrounded by single blank lines (no double blanks for boost to normalize) and
+  the committed agent docs are boost-normalized — so a generated app's
+  `composer update` no longer churns `AGENTS.md`/`CLAUDE.md`. [EDV-10]
+
+### Notes
+
+- `boost:update` detects JS-provided skills (e.g. `inertia-react-development`)
+  from installed packages. Run `npm install` before `composer update` so those
+  skills are not pruned for lack of `node_modules`.
+
 ## [0.1.9] - 2026-06-18
 
 ### Added
