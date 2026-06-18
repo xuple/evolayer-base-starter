@@ -6,6 +6,14 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Added generated-app identity finalization to the `post-create-project-cmd`
+  installer: new apps keep the inherited Composer package name for lock
+  stability, receive generated-app notes in `README.md`, `AGENTS.md`, and
+  `CLAUDE.md`, and record the suggested private app package name in
+  `.evolayer/project.json`.
+
 ## [0.1.8] - 2026-06-15
 
 ### Changed

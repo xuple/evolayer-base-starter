@@ -45,9 +45,9 @@ npm install && npm run build
 php artisan serve
 ```
 
-`composer create-project` runs the post-create hook automatically — generating your app key, creating an SQLite database, running migrations and seeders, and compiling the Wayfinder and ontology caches. Log in with `test@example.com` / `password` to explore every surface immediately.
+`composer create-project` runs the post-create hook automatically — generating your app key, creating an SQLite database, running migrations and seeders, compiling the Wayfinder and ontology caches, and adding generated-app identity notes for humans and agents. Log in with `test@example.com` / `password` to explore every surface immediately.
 
-> Cloned the repo directly? Run `composer setup` instead. Hosting behind Nginx? See [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md).
+> Cloned the repo directly? Run `composer setup` instead. Hosting behind Nginx? See [`docs/local-dev-hosting.md`](docs/local-dev-hosting.md). For generated-app identity behavior, see [`docs/migration/generated-app-identity.md`](docs/migration/generated-app-identity.md).
 
 ## Why EvoLayer Base?
 
