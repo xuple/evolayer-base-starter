@@ -89,6 +89,40 @@ function evolayer_install_readme_identity_note(string $suggestedPackageName): st
 MD;
 }
 
+/**
+ * A fresh, app-appropriate README for generated apps. The starter's own README is
+ * `export-ignore`d from the Composer dist, so `create-project` apps ship without
+ * one — write a relevant one rather than leaving the app README-less. [EDV-11]
+ */
+function evolayer_install_generated_readme(string $appRoot, string $suggestedPackageName): string
+{
+    $app = basename($appRoot);
+
+    return <<<MD
+# {$app}
+
+> Generated from `xuple/evolayer-base-starter` — **this is your application, not the public starter.** See `AGENTS.md` / `CLAUDE.md` for agent guidance and the starter→app boundary.
+
+A Laravel + React + Inertia application built on **EvoLayer Base**.
+
+## Getting started
+
+```bash
+composer install
+npm install
+php artisan key:generate
+php artisan migrate --seed
+npm run dev
+```
+
+## Notes
+
+- Commit `composer.lock` for reproducible installs (team / CI / production).
+- Framework features (AI runtime, ontology, `evolayer:*`) come from the `xuple/evolayer-base` package — update via `php artisan evolayer:resync`, never by editing `vendor/`.
+- Optional: claim your own Composer package name with `composer config name {$suggestedPackageName}`.
+MD;
+}
+
 function evolayer_install_apply_generated_identity(string $appRoot, string $suggestedPackageName): void
 {
     $agentBlock = evolayer_install_agent_identity_block($suggestedPackageName);
@@ -128,6 +162,13 @@ function evolayer_install_apply_generated_identity(string $appRoot, string $sugg
                 evolayer_install_readme_identity_note($suggestedPackageName),
                 fn (string $existing, string $block): string => $block.PHP_EOL.PHP_EOL.ltrim($existing),
             ),
+        );
+    } else {
+        // No README shipped (export-ignored from the dist) → write a fresh one so
+        // the generated app is never README-less.
+        file_put_contents(
+            $readmePath,
+            evolayer_install_generated_readme($appRoot, $suggestedPackageName).PHP_EOL,
         );
     }
 }

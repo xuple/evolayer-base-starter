@@ -6,6 +6,15 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.11] - 2026-06-19
+
+### Fixed
+
+- Generated apps now always get a README. The starter's `README.md` is
+  `export-ignore`d from the Composer dist, so `create-project` apps shipped
+  **without one** (and the finaliser's README branding silently no-op'd). The
+  finaliser now writes a fresh, app-appropriate README when none is present. [EDV-11]
+
 ## [0.1.10] - 2026-06-18
 
 ### Fixed

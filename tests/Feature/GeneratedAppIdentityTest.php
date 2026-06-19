@@ -104,6 +104,23 @@ test('post-create identity injection is idempotent', function () {
     }
 });
 
+test('finalizer writes a fresh README when none was shipped (export-ignore case)', function () {
+    $root = generatedAppIdentityFixture('Acme Portal');
+    unlink($root.'/README.md'); // simulate README export-ignored from the dist
+
+    try {
+        evolayer_finalize_generated_app_identity($root);
+
+        expect(is_file($root.'/README.md'))->toBeTrue();
+        $readme = (string) file_get_contents($root.'/README.md');
+        expect($readme)->toContain('# Acme Portal')
+            ->and($readme)->toContain('not the public starter')
+            ->and($readme)->toContain('composer config name app/acme-portal');
+    } finally {
+        removeGeneratedAppIdentityFixture($root);
+    }
+});
+
 test('finalizer auto-run only brands during create-project (footgun guard)', function () {
     $repoRoot = dirname(__DIR__, 2);
     $composer = (string) file_get_contents($repoRoot.'/composer.json');
