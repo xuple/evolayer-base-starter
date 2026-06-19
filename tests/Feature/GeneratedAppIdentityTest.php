@@ -115,7 +115,11 @@ test('finalizer writes a fresh README when none was shipped (export-ignore case)
         $readme = (string) file_get_contents($root.'/README.md');
         expect($readme)->toContain('# Acme Portal')
             ->and($readme)->toContain('not the public starter')
-            ->and($readme)->toContain('composer config name app/acme-portal');
+            ->and($readme)->toContain('composer config name app/acme-portal')
+            // Must carry the genuinely useful operational content, not a thin stub.
+            ->and($readme)->toContain('EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO')
+            ->and($readme)->toContain('evolayer:ai:stream-check')
+            ->and($readme)->toContain('composer evolayer:resync');
     } finally {
         removeGeneratedAppIdentityFixture($root);
     }

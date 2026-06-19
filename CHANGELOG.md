@@ -6,6 +6,17 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.13] - 2026-06-19
+
+### Changed
+
+- The generated-app README is now genuinely useful, not a thin stub. It ports the
+  operational content developers actually need — example surfaces + feature flags,
+  AI providers + `evolayer:ai:stream-check`, `evolayer:resync`, tooling/verification
+  — in an *app-voiced* form, while dropping the starter's marketing/distribution
+  chrome (badges, social image, `create-project` Quick Start, developer-preview)
+  that is wrong inside a generated app. [EDV-11]
+
 ## [0.1.12] - 2026-06-19
 
 ### Fixed

@@ -92,7 +92,10 @@ MD;
 /**
  * A fresh, app-appropriate README for generated apps. The starter's own README is
  * `export-ignore`d from the Composer dist, so `create-project` apps ship without
- * one — write a relevant one rather than leaving the app README-less. [EDV-11]
+ * one. Rather than a thin stub, port the genuinely useful operational content
+ * (surfaces, flags, AI providers, resync, tooling) into an *app-voiced* README —
+ * dropping the starter's marketing/distribution chrome (badges, create-project
+ * Quick Start, developer-preview) that is wrong inside a generated app. [EDV-11]
  */
 function evolayer_install_generated_readme(string $appRoot, string $suggestedPackageName): string
 {
@@ -101,24 +104,83 @@ function evolayer_install_generated_readme(string $appRoot, string $suggestedPac
     return <<<MD
 # {$app}
 
-> Generated from `xuple/evolayer-base-starter` — **this is your application, not the public starter.** See `AGENTS.md` / `CLAUDE.md` for agent guidance and the starter→app boundary.
+> **Your application** — created from [`xuple/evolayer-base-starter`](https://github.com/xuple/evolayer-base-starter), **not the public starter.** See `AGENTS.md` / `CLAUDE.md` for agent guidance and the starter→app boundary.
 
-A Laravel + React + Inertia application built on **EvoLayer Base**.
+A Laravel · React · Inertia application built on **EvoLayer Base** — the AI / ontology / blocks substrate for the `laravel/ai` SDK.
 
 ## Getting started
+
+The `create-project` hook already generated an app key, an SQLite database, ran migrations + seeders, and compiled the Wayfinder/ontology caches. To run it locally:
 
 ```bash
 composer install
 npm install
-php artisan key:generate
-php artisan migrate --seed
-npm run dev
+composer dev          # server + queue + logs + Vite together
 ```
+
+Log in with `test@example.com` / `password` to explore the seeded surfaces. (Cloned a fresh copy with no `.env`? Run `composer setup` first.)
+
+## How the pieces fit
+
+- **You own** your routes, models, config, branding, and any surface you eject.
+- **EvoLayer Base manages** the AI runtime, ontology, `evolayer:*` commands, and example surfaces — kept current via `composer evolayer:resync` so your tree stays clean. **Never edit `vendor/`.**
+- **Ejecting empowers you:** `php artisan evolayer:eject <surface>` hands you full ownership of a managed surface's code.
+
+| Layer | Owns |
+| --- | --- |
+| `xuple/evolayer-base` (package) | Examples, blocks, agents, ontology, `evolayer:*` commands, the `evolayer.base.*` config shape |
+| **this app** | Your routes, pages, models, config, branding, migrations, deployment |
+
+## Example surfaces & feature flags
+
+Every bundled surface toggles independently via an `EVOLAYER_BASE_EXAMPLE_*` flag in `.env` (substrate capabilities use `EVOLAYER_BASE_FEATURE_*`). Set a flag to `false` to drop that surface's routes and sidebar entry.
+
+| Flag | What it adds |
+| --- | --- |
+| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES` | Public About + authenticated Home launcher |
+| `EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO` | ThreadStudio — streaming AI compose with structured output |
+| `EVOLAYER_BASE_EXAMPLE_PRD_STUDIO` | PRD Studio — turn notes into scoped requirements |
+| `EVOLAYER_BASE_EXAMPLE_ADMIN_INBOX` | Admin inbox for contact-form submissions |
+| `EVOLAYER_BASE_EXAMPLE_CONTACT_AI` | AI-assisted contact form (triage, auto-tagging) |
+| `EVOLAYER_BASE_EXAMPLE_VOICE_INPUT` | Voice-input block |
+| `EVOLAYER_BASE_EXAMPLE_AI_TEXT_FIELD` | `<AiTextField>` — inline streaming suggestions |
+| `EVOLAYER_BASE_FEATURE_CONTACT_ATTACHMENTS` | Contact-form attachments (medialibrary) |
+
+## AI providers
+
+EvoLayer Base streams structured output via the `laravel/ai` SDK (defaults to **Gemini**; also supports OpenAI, Anthropic, DeepSeek, Groq, xAI, Mistral, Ollama). Set your provider key in `.env` (`GEMINI_API_KEY`, `OPENAI_API_KEY`, …) then verify end to end:
+
+```bash
+php artisan evolayer:ai:stream-check gemini
+```
+
+If streaming misbehaves, run `php artisan evolayer:doctor` — it health-checks the install (including the committed `laravel/ai` structured-streaming patch).
+
+## Updating the framework
+
+```bash
+composer update xuple/evolayer-base
+composer evolayer:resync
+```
+
+`evolayer:resync` is manifest-safe — it updates pristine stubs, keeps your edits, and skips ejected surfaces (`--force` to overwrite local edits, `--dry-run` to preview). Fix package internals [upstream](https://github.com/xuple/evolayer-base), then resync here — never by editing `vendor/`.
+
+## Tooling & verification
+
+```bash
+composer dev          # server + queue + logs + Vite
+php artisan evolayer:doctor
+composer test         # Pest 4
+composer lint         # Pint
+npm run types:check   # tsc --noEmit
+npm run build         # Vite client + SSR
+```
+
+This app is pre-wired for AI coding agents (Claude Code, Codex, OpenCode, Cursor) via [Laravel Boost](https://laravel.com/docs/boost) — see `AGENTS.md` / `CLAUDE.md`. Boost is a `require-dev` dependency, so the MCP layer needs dev dependencies installed.
 
 ## Notes
 
 - Commit `composer.lock` for reproducible installs (team / CI / production).
-- Framework features (AI runtime, ontology, `evolayer:*`) come from the `xuple/evolayer-base` package — update via `php artisan evolayer:resync`, never by editing `vendor/`.
 - Optional: claim your own Composer package name with `composer config name {$suggestedPackageName}`.
 MD;
 }
