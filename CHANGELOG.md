@@ -6,6 +6,14 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.12] - 2026-06-19
+
+### Fixed
+
+- Generated apps no longer inherit the *starter's* `CONTRIBUTING.md` (shipped in
+  the dist, describing contributing to the public starter). The finaliser now
+  replaces it with app-appropriate guidance. [EDV-11]
+
 ## [0.1.11] - 2026-06-19
 
 ### Fixed

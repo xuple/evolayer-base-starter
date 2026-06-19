@@ -121,6 +121,22 @@ test('finalizer writes a fresh README when none was shipped (export-ignore case)
     }
 });
 
+test('finalizer replaces the starter CONTRIBUTING with app-appropriate guidance', function () {
+    $root = generatedAppIdentityFixture('Acme Portal');
+    file_put_contents($root.'/CONTRIBUTING.md', "# Contributing to evolayer-base-starter\n\nStarter contribution rules.\n");
+
+    try {
+        evolayer_finalize_generated_app_identity($root);
+
+        $contributing = (string) file_get_contents($root.'/CONTRIBUTING.md');
+        expect($contributing)->toContain('# Contributing to Acme Portal')
+            ->and($contributing)->toContain('not on the public starter')
+            ->and($contributing)->not->toContain('Starter contribution rules');
+    } finally {
+        removeGeneratedAppIdentityFixture($root);
+    }
+});
+
 test('finalizer auto-run only brands during create-project (footgun guard)', function () {
     $repoRoot = dirname(__DIR__, 2);
     $composer = (string) file_get_contents($repoRoot.'/composer.json');

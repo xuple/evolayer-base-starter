@@ -123,6 +123,43 @@ npm run dev
 MD;
 }
 
+/**
+ * App-appropriate CONTRIBUTING. The starter's own CONTRIBUTING.md *is* shipped in
+ * the dist (not export-ignored), so generated apps inherit guidance about
+ * contributing to the public starter — wrong for an app. Replace it. [EDV-11]
+ */
+function evolayer_install_generated_contributing(string $appRoot): string
+{
+    $app = basename($appRoot);
+
+    return <<<MD
+# Contributing to {$app}
+
+This is a private application generated from `xuple/evolayer-base-starter`. These
+notes are for people working on **this app** — not on the public starter.
+
+## Boundaries
+
+- **Don't edit `vendor/`.** Framework features, ontology, and `evolayer:*` commands
+  live in the `xuple/evolayer-base` package — change them upstream, then pull with
+  `php artisan evolayer:resync`.
+- App-owned code (your pages, routes, config, marketing) is yours to change freely.
+
+## Before you push
+
+```bash
+composer test
+npm run types:check
+composer lint:check && npm run lint:check
+npm run build
+```
+
+## Agent guidance
+
+See `AGENTS.md` / `CLAUDE.md` for the full starter→app boundary and conventions.
+MD;
+}
+
 function evolayer_install_apply_generated_identity(string $appRoot, string $suggestedPackageName): void
 {
     $agentBlock = evolayer_install_agent_identity_block($suggestedPackageName);
@@ -171,6 +208,13 @@ function evolayer_install_apply_generated_identity(string $appRoot, string $sugg
             evolayer_install_generated_readme($appRoot, $suggestedPackageName).PHP_EOL,
         );
     }
+
+    // Replace the shipped starter CONTRIBUTING (about contributing to the public
+    // starter) with app-appropriate guidance. Deterministic content → idempotent.
+    file_put_contents(
+        $appRoot.'/CONTRIBUTING.md',
+        evolayer_install_generated_contributing($appRoot).PHP_EOL,
+    );
 }
 
 /**
