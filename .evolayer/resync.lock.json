@@ -1,0 +1,102 @@
+{
+    "surfaces": [],
+    "files": {
+        "resources/js/blocks/ai-triage/index.tsx": {
+            "surface": "core",
+            "source_sha": "65a398969024ec8048e1b9ce0b60434cff35101fa78ab141e53c8fb887e9d776",
+            "installed_sha": "65a398969024ec8048e1b9ce0b60434cff35101fa78ab141e53c8fb887e9d776"
+        },
+        "resources/js/blocks/semantic-search/index.tsx": {
+            "surface": "core",
+            "source_sha": "1c894406316b6c1cf1792f0c41a267368b7b2ec2e2f037f9210c4b365e9e3e5f",
+            "installed_sha": "1c894406316b6c1cf1792f0c41a267368b7b2ec2e2f037f9210c4b365e9e3e5f"
+        },
+        "resources/js/blocks/streaming-card/index.tsx": {
+            "surface": "core",
+            "source_sha": "d6dd65d391dd857a96b740eefc509745f5014a4a0fb4038b0e6b4e72486b47f2",
+            "installed_sha": "d6dd65d391dd857a96b740eefc509745f5014a4a0fb4038b0e6b4e72486b47f2"
+        },
+        "resources/js/blocks/voice-input/index.tsx": {
+            "surface": "core",
+            "source_sha": "7939abe83433acd42c4e25a9beae3133c546d7f1826e8a8ac3dd51efd0ac82b7",
+            "installed_sha": "7939abe83433acd42c4e25a9beae3133c546d7f1826e8a8ac3dd51efd0ac82b7"
+        },
+        "resources/js/components/command-bar.tsx": {
+            "surface": "core",
+            "source_sha": "dc1fc9b75cb75cd92075965f3765528d9d5f488dc79b7fc299d007d66714bb47",
+            "installed_sha": "dc1fc9b75cb75cd92075965f3765528d9d5f488dc79b7fc299d007d66714bb47"
+        },
+        "resources/js/components/command-palette-dialog.tsx": {
+            "surface": "core",
+            "source_sha": "73c59d390267106810ee605231b9884a75461822b73e65905f4b4518a9ab1d5a",
+            "installed_sha": "73c59d390267106810ee605231b9884a75461822b73e65905f4b4518a9ab1d5a"
+        },
+        "resources/js/components/error-boundary.tsx": {
+            "surface": "core",
+            "source_sha": "32d253f5fc6e805be3b5d0f896fa640ac3e76df11afbbdd7aa559135bd951e13",
+            "installed_sha": "32d253f5fc6e805be3b5d0f896fa640ac3e76df11afbbdd7aa559135bd951e13"
+        },
+        "resources/js/components/ui/command.tsx": {
+            "surface": "core",
+            "source_sha": "f39e6736cfcec30397ee1f484ecf1022fcd9245a50cdb189f50dcc0a4c6ed1f0",
+            "installed_sha": "f39e6736cfcec30397ee1f484ecf1022fcd9245a50cdb189f50dcc0a4c6ed1f0"
+        },
+        "resources/js/config/command-palette.ts": {
+            "surface": "core",
+            "source_sha": "79db17f416686a5caf9118a755c0136e33086964914298fdfe00b30668c3e055",
+            "installed_sha": "79db17f416686a5caf9118a755c0136e33086964914298fdfe00b30668c3e055"
+        },
+        "resources/js/config/docs.ts": {
+            "surface": "core",
+            "source_sha": "ff9e3c90335877a7f064cd6577293f5368570f68fe501a2641566323bfa84d14",
+            "installed_sha": "ff9e3c90335877a7f064cd6577293f5368570f68fe501a2641566323bfa84d14"
+        },
+        "resources/js/hooks/use-example-nav-items.ts": {
+            "surface": "core",
+            "source_sha": "ed31f478774aac69580aa6c8de168a879fa0596e47cb87c5ac8b1d919a023a6d",
+            "installed_sha": "ed31f478774aac69580aa6c8de168a879fa0596e47cb87c5ac8b1d919a023a6d"
+        },
+        "resources/js/hooks/use-thread-studio-stream.ts": {
+            "surface": "thread-studio",
+            "source_sha": "b2e86ab6e296287b3d0d9a8d95c45c903901196c93c95dfc742be5b55ea9ed60",
+            "installed_sha": "b2e86ab6e296287b3d0d9a8d95c45c903901196c93c95dfc742be5b55ea9ed60"
+        },
+        "resources/js/hooks/use-typewriter.ts": {
+            "surface": "thread-studio",
+            "source_sha": "00cb63d80aa87bde567d80f31fb200563e3bc2da633d4fa01be844e99b8f329e",
+            "installed_sha": "00cb63d80aa87bde567d80f31fb200563e3bc2da633d4fa01be844e99b8f329e"
+        },
+        "resources/js/lib/appearance.ts": {
+            "surface": "core",
+            "source_sha": "99102eb70e4086565c037a8c3ded4b74b9ac6a9a0f1a729607b4f71a2f2465fd",
+            "installed_sha": "99102eb70e4086565c037a8c3ded4b74b9ac6a9a0f1a729607b4f71a2f2465fd"
+        },
+        "resources/js/lib/platform.ts": {
+            "surface": "core",
+            "source_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c",
+            "installed_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c"
+        },
+        "resources/js/pages/evolayer/home.tsx": {
+            "surface": "marketing-pages",
+            "source_sha": "769234226f12e6f78416127fe13e8aee6282483e82a6910e1c6f1463853d7251",
+            "installed_sha": "769234226f12e6f78416127fe13e8aee6282483e82a6910e1c6f1463853d7251"
+        },
+        "resources/js/providers/command-palette-provider.tsx": {
+            "surface": "core",
+            "source_sha": "97e6ed338e36576a51520610a96a7607cfab6de418abe91b4733998614e1d320",
+            "installed_sha": "97e6ed338e36576a51520610a96a7607cfab6de418abe91b4733998614e1d320"
+        },
+        "resources/js/types/evolayer.d.ts": {
+            "surface": "core",
+            "source_sha": "3494a51de7c27efc7832b84dce6768851e1da9e7016ff70c08b0b2797146aba5",
+            "installed_sha": "3494a51de7c27efc7832b84dce6768851e1da9e7016ff70c08b0b2797146aba5"
+        },
+        "resources/js/types/layout.ts": {
+            "surface": "core",
+            "source_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8",
+            "installed_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8"
+        }
+    },
+    "package_version": "v0.1.5",
+    "generated_at": "2026-06-23T06:28:38+00:00"
+}

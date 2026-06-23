@@ -10,12 +10,13 @@ use Tests\TestCase;
 /**
  * Locks the documented kitchen-sink install posture.
  *
- * The canonical list of EVOLAYER_BASE_* flags lives in config/evolayer.php
- * (package-owned). This starter promises every one of them is enabled by
- * default in .env.example, and that the same set surfaces on the shared
- * Inertia prop. Disabling a flag must propagate to that prop as `false`
- * (the key stays, the value flips) — not merely hide a nav entry — so
- * client code can branch on it. See CONTRIBUTING.md for the contract.
+ * The canonical list of EVOLAYER_BASE_EXAMPLE_* and EVOLAYER_BASE_FEATURE_*
+ * flags lives in config/evolayer.php (package-owned). This starter promises
+ * every boolean flag is enabled by default in .env.example, and that the same
+ * set surfaces on the shared Inertia prop. Disabling a flag must propagate to
+ * that prop as `false` (the key stays, the value flips) — not merely hide a
+ * nav entry — so client code can branch on it. See CONTRIBUTING.md for the
+ * contract.
  */
 class KitchenSinkContractTest extends TestCase
 {
@@ -24,10 +25,7 @@ class KitchenSinkContractTest extends TestCase
         $envKeys = $this->envKeysReadByConfig();
         $envExample = (string) file_get_contents(base_path('.env.example'));
 
-        $this->assertNotEmpty(
-            $envKeys,
-            'Expected config/evolayer.php to read at least one EVOLAYER_BASE_* env key.',
-        );
+        $this->assertNotEmpty($envKeys, 'Expected config/evolayer.php to read at least one boolean EvoLayer flag.');
 
         foreach ($envKeys as $envKey) {
             $this->assertMatchesRegularExpression(
@@ -89,10 +87,10 @@ class KitchenSinkContractTest extends TestCase
     }
 
     /**
-     * Parse config/evolayer.php for the EVOLAYER_BASE_* keys it actually
-     * reads, so the contract anchors on the package-owned config rather
-     * than a hand-maintained list. Snake-case → SCREAMING_SNAKE_CASE
-     * mapping is enforced by what env() is actually called with.
+     * Parse config/evolayer.php for the boolean EVOLAYER_BASE_* keys it actually
+     * reads, so the contract anchors on the package-owned config rather than a
+     * hand-maintained list. Branding keys share the prefix but are string values,
+     * not kitchen-sink enablement flags.
      *
      * @return list<string>
      */
@@ -103,7 +101,7 @@ class KitchenSinkContractTest extends TestCase
 
         $configText = (string) file_get_contents($configPath);
 
-        preg_match_all("/env\(['\"](EVOLAYER_BASE_[A-Z_]+)['\"]/", $configText, $matches);
+        preg_match_all("/env\(['\"](EVOLAYER_BASE_(?:EXAMPLE|FEATURE)_[A-Z_]+)['\"]/", $configText, $matches);
 
         return array_values(array_unique($matches[1] ?? []));
     }
