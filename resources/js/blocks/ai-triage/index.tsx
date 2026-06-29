@@ -7,8 +7,7 @@ export type AiTriageUrgency = 'low' | 'medium' | 'high';
 export type AiTriageSentiment = 'positive' | 'neutral' | 'negative';
 
 export type AiTriageTag =
-    | string
-    | { name: string | { en?: string; [locale: string]: unknown } };
+    string | { name: string | { en?: string; [locale: string]: unknown } };
 
 export interface AiTriageProps {
     urgency?: AiTriageUrgency | null;

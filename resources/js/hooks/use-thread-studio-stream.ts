@@ -11,9 +11,7 @@ export type ThreadStudioResult = {
 };
 
 export type ThreadStudioFailureType =
-    | 'agent_exception'
-    | 'malformed_response'
-    | 'incomplete_response';
+    'agent_exception' | 'malformed_response' | 'incomplete_response';
 
 export type ThreadStudioInvalidField = { field: string; reason: string };
 

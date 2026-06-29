@@ -34,7 +34,7 @@ return [
         // so resync never needs to overwrite the page files to rebrand them.
         'brand' => [
             'name' => env('EVOLAYER_BASE_BRAND_NAME', 'EvoLayer Base'),
-            'tagline' => env('EVOLAYER_BASE_BRAND_TAGLINE', 'The free Laravel React base for AI-enabled product teams.'),
+            'tagline' => env('EVOLAYER_BASE_BRAND_TAGLINE', 'A fully working AI application layer for the official Laravel AI SDK.'),
             'description' => env('EVOLAYER_BASE_BRAND_DESCRIPTION', 'Start from a working application: Laravel auth, typed routes, structured AI workflows, admin screens, ontology tooling, and local verification commands already wired together.'),
         ],
 
