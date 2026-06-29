@@ -6,6 +6,25 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.14] - 2026-06-29
+
+### Changed
+
+- Bumped the exact-pinned base package from `xuple/evolayer-base` `0.1.5` to
+  `0.1.6`, picking up the package's Laravel AI SDK alignment and refreshed
+  framework stubs.
+- Refreshed the committed Composer and npm lockfiles, including Laravel AI
+  `0.8.1`, Laravel Framework `13.17.0`, and current in-range frontend tooling
+  updates.
+- Updated the EvoLayer brand defaults and resync lock metadata generated from
+  the refreshed base package.
+
+### Tests
+
+- Tightened the kitchen-sink contract test so it only treats
+  `EVOLAYER_BASE_EXAMPLE_*` and `EVOLAYER_BASE_FEATURE_*` keys as boolean
+  enablement flags; string-valued brand keys are intentionally excluded.
+
 ## [0.1.13] - 2026-06-19
 
 ### Changed

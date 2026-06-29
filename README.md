@@ -24,7 +24,7 @@ Structured-output streaming, ontology-driven events, and production-ready React 
   <a href="CHANGELOG.md">Changelog</a>
 </p>
 
-> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.8` with `xuple/evolayer-base` `v0.1.5`.
+> **Developer preview:** Both `xuple/evolayer-base` and `xuple/evolayer-base-starter` are public, MIT-licensed, pre-1.0 packages on GitHub and Packagist. The current public install line is starter `v0.1.14` with `xuple/evolayer-base` `v0.1.6`.
 
 ## The Promise
 
