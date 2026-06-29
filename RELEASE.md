@@ -4,7 +4,7 @@ The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
 free/public MIT projects on GitHub and Packagist. The current public release line
-is `xuple/evolayer-base-starter v0.1.14` consuming `xuple/evolayer-base` (exact-pinned while `0.x`, at `0.1.6`). GitHub is the public publication source; the
+is `xuple/evolayer-base-starter v0.1.15` consuming `xuple/evolayer-base` (exact-pinned while `0.x`, at `0.1.7`). GitHub is the public publication source; the
 self-hosted Forge remains an internal mirror.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
@@ -14,7 +14,7 @@ marketing routes expose that same page at `/about`.
 
 ## Current public release
 
-Current starter release: **0.1.14** (pre-1.0 developer preview). Future fixes use
+Current starter release: **0.1.15** (pre-1.0 developer preview). Future fixes use
 new patch releases; do not move published tags.
 
 ## create-project flow (end users)
@@ -48,7 +48,7 @@ route. When changing this contract in a downstream app, review:
 The starter consumes the package from **Packagist** as a tagged release:
 
 ```jsonc
-"require": { "xuple/evolayer-base": "0.1.6" }
+"require": { "xuple/evolayer-base": "0.1.7" }
 ```
 
 No custom `repositories` entry ships in the public starter — Composer resolves
@@ -124,7 +124,7 @@ migrate/seed, generate Wayfinder and ontology, and then pass `npm install`,
 ## Distribution
 
 `xuple/evolayer-base` and `xuple/evolayer-base-starter` are **public on GitHub
-and published on Packagist**. The published starter `v0.1.14` consumes the base package exact-pinned while `0.x` (at `0.1.6`)
+and published on Packagist**. The published starter `v0.1.15` consumes the base package exact-pinned while `0.x` (at `0.1.7`)
 from Packagist. **GitHub is the public publication source**; the self-hosted
 Forge remains an internal mirror (`origin`). See the package `RELEASE.md` for
 the package-first release flow.

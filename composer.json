@@ -24,7 +24,7 @@
     "laravel/wayfinder": "^0.1.14",
     "spatie/laravel-medialibrary": "^11.22",
     "spatie/laravel-tags": "^4.11",
-    "xuple/evolayer-base": "0.1.6"
+    "xuple/evolayer-base": "0.1.7"
   },
   "require-dev": {
     "cweagans/composer-patches": "^2.0",

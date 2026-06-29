@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "096e205e5b6c580c390b4b395f8d7a33",
+    "content-hash": "2b55b9df7f107648625b53c1ca8be065",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1023,16 +1023,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.12.3",
+            "version": "7.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "9aa17bcdd777ee31df9fc83c337ca4ca2340def3"
+                "reference": "a4decaa9745dc567467970e43f183e260cfa51fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/9aa17bcdd777ee31df9fc83c337ca4ca2340def3",
-                "reference": "9aa17bcdd777ee31df9fc83c337ca4ca2340def3",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/a4decaa9745dc567467970e43f183e260cfa51fd",
+                "reference": "a4decaa9745dc567467970e43f183e260cfa51fd",
                 "shasum": ""
             },
             "require": {
@@ -1051,7 +1051,7 @@
                 "bamarni/composer-bin-plugin": "^1.8.2",
                 "ext-curl": "*",
                 "guzzle/client-integration-tests": "3.0.2",
-                "guzzlehttp/test-server": "^0.5.1",
+                "guzzlehttp/test-server": "^0.6",
                 "php-http/message-factory": "^1.1",
                 "phpunit/phpunit": "^8.5.52 || ^9.6.34",
                 "psr/log": "^1.1 || ^2.0 || ^3.0"
@@ -1131,7 +1131,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.12.3"
+                "source": "https://github.com/guzzle/guzzle/tree/7.13.0"
             },
             "funding": [
                 {
@@ -1147,7 +1147,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-23T15:29:02+00:00"
+            "time": "2026-06-29T13:31:06+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -8929,16 +8929,16 @@
         },
         {
             "name": "xuple/evolayer-base",
-            "version": "v0.1.6",
+            "version": "v0.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xuple/evolayer-base.git",
-                "reference": "fb631a060b65c795e9412a2305058ea92d2e173d"
+                "reference": "5aad97639b6f0213c31ad654e4d19cfc677309b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xuple/evolayer-base/zipball/fb631a060b65c795e9412a2305058ea92d2e173d",
-                "reference": "fb631a060b65c795e9412a2305058ea92d2e173d",
+                "url": "https://api.github.com/repos/xuple/evolayer-base/zipball/5aad97639b6f0213c31ad654e4d19cfc677309b1",
+                "reference": "5aad97639b6f0213c31ad654e4d19cfc677309b1",
                 "shasum": ""
             },
             "require": {
@@ -8972,35 +8972,16 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Xuple\\EvoLayer\\Base\\": "src/",
-                    "Xuple\\EvoLayer\\Base\\Database\\Factories\\": "database/factories/",
-                    "Xuple\\EvoLayer\\Base\\Database\\Seeders\\": "database/seeders/"
-                },
                 "files": [
                     "src/Compat/bootstrap.php"
-                ]
-            },
-            "autoload-dev": {
+                ],
                 "psr-4": {
-                    "Xuple\\EvoLayer\\Base\\Tests\\": "tests/",
-                    "Xuple\\EvoLayer\\Base\\Tests\\Fixtures\\": "tests/Fixtures/"
+                    "Xuple\\EvoLayer\\Base\\": "src/",
+                    "Xuple\\EvoLayer\\Base\\Database\\Seeders\\": "database/seeders/",
+                    "Xuple\\EvoLayer\\Base\\Database\\Factories\\": "database/factories/"
                 }
             },
-            "scripts": {
-                "apply-patches": [
-                    "@php scripts/apply-patches.php"
-                ],
-                "post-install-cmd": [
-                    "@apply-patches"
-                ],
-                "post-update-cmd": [
-                    "@apply-patches"
-                ],
-                "test": [
-                    "vendor/bin/pest"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -9016,10 +8997,10 @@
                 "xuple"
             ],
             "support": {
-                "source": "https://github.com/xuple/evolayer-base/tree/v0.1.6",
-                "issues": "https://github.com/xuple/evolayer-base/issues"
+                "issues": "https://github.com/xuple/evolayer-base/issues",
+                "source": "https://github.com/xuple/evolayer-base/tree/v0.1.7"
             },
-            "time": "2026-06-23T11:39:15+00:00"
+            "time": "2026-06-29T13:59:48+00:00"
         }
     ],
     "packages-dev": [

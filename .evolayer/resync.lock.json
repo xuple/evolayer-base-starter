@@ -1,10 +1,15 @@
 {
     "surfaces": [],
     "files": {
+        "resources/js/blocks/ai-text-field/index.tsx": {
+            "surface": "core",
+            "source_sha": "1da3c95f1df6083a6216bd12aadae0704451b01051982879e34ae05412961f66",
+            "installed_sha": "1da3c95f1df6083a6216bd12aadae0704451b01051982879e34ae05412961f66"
+        },
         "resources/js/blocks/ai-triage/index.tsx": {
             "surface": "core",
-            "source_sha": "65a398969024ec8048e1b9ce0b60434cff35101fa78ab141e53c8fb887e9d776",
-            "installed_sha": "65a398969024ec8048e1b9ce0b60434cff35101fa78ab141e53c8fb887e9d776"
+            "source_sha": "77e1605b5e9adf6d8c9400fa70c46f38de09a6c8d678b110fd103fa77358286d",
+            "installed_sha": "77e1605b5e9adf6d8c9400fa70c46f38de09a6c8d678b110fd103fa77358286d"
         },
         "resources/js/blocks/semantic-search/index.tsx": {
             "surface": "core",
@@ -38,8 +43,8 @@
         },
         "resources/js/components/ui/command.tsx": {
             "surface": "core",
-            "source_sha": "f39e6736cfcec30397ee1f484ecf1022fcd9245a50cdb189f50dcc0a4c6ed1f0",
-            "installed_sha": "f39e6736cfcec30397ee1f484ecf1022fcd9245a50cdb189f50dcc0a4c6ed1f0"
+            "source_sha": "2227288f2a849d4792718455693b07f9e1470d362d85cdf4a4048ad10359868b",
+            "installed_sha": "2227288f2a849d4792718455693b07f9e1470d362d85cdf4a4048ad10359868b"
         },
         "resources/js/config/command-palette.ts": {
             "surface": "core",
@@ -51,6 +56,11 @@
             "source_sha": "ff9e3c90335877a7f064cd6577293f5368570f68fe501a2641566323bfa84d14",
             "installed_sha": "ff9e3c90335877a7f064cd6577293f5368570f68fe501a2641566323bfa84d14"
         },
+        "resources/js/hooks/use-evolayer-props.ts": {
+            "surface": "core",
+            "source_sha": "014da8ac10fc93223529e04ae797391a349bcacaa614f4c68f0c3628396cd9d8",
+            "installed_sha": "014da8ac10fc93223529e04ae797391a349bcacaa614f4c68f0c3628396cd9d8"
+        },
         "resources/js/hooks/use-example-nav-items.ts": {
             "surface": "core",
             "source_sha": "ed31f478774aac69580aa6c8de168a879fa0596e47cb87c5ac8b1d919a023a6d",
@@ -58,8 +68,8 @@
         },
         "resources/js/hooks/use-thread-studio-stream.ts": {
             "surface": "thread-studio",
-            "source_sha": "b2e86ab6e296287b3d0d9a8d95c45c903901196c93c95dfc742be5b55ea9ed60",
-            "installed_sha": "b2e86ab6e296287b3d0d9a8d95c45c903901196c93c95dfc742be5b55ea9ed60"
+            "source_sha": "db6c3e8a620a40d3567bf3216ce265dc064478f3dc3448e9d0b7bee871e2b48d",
+            "installed_sha": "db6c3e8a620a40d3567bf3216ce265dc064478f3dc3448e9d0b7bee871e2b48d"
         },
         "resources/js/hooks/use-typewriter.ts": {
             "surface": "thread-studio",
@@ -75,6 +85,36 @@
             "surface": "core",
             "source_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c",
             "installed_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c"
+        },
+        "resources/js/pages/evolayer/admin/inbox/index.tsx": {
+            "surface": "admin-inbox",
+            "source_sha": "3d84e11828664d65be4953da0dd9cbc2394d64f84f62731da6891a340b35074c",
+            "installed_sha": "3d84e11828664d65be4953da0dd9cbc2394d64f84f62731da6891a340b35074c"
+        },
+        "resources/js/pages/evolayer/admin/prd.tsx": {
+            "surface": "prd-studio",
+            "source_sha": "1e979acd9ce2849f4765f235bf46c391bacb209c173aa8bc21344180e40be11c",
+            "installed_sha": "1e979acd9ce2849f4765f235bf46c391bacb209c173aa8bc21344180e40be11c"
+        },
+        "resources/js/pages/evolayer/admin/submissions/index.tsx": {
+            "surface": "admin-inbox",
+            "source_sha": "118d4de814113676de25746dab85ee41bb08b1c02410b966430104f9606114a0",
+            "installed_sha": "118d4de814113676de25746dab85ee41bb08b1c02410b966430104f9606114a0"
+        },
+        "resources/js/pages/evolayer/admin/submissions/show.tsx": {
+            "surface": "admin-inbox",
+            "source_sha": "8736f2d35b3f9c2febf1434ae5d5b72477e1a8cf3a262889f71894506b618ed6",
+            "installed_sha": "8736f2d35b3f9c2febf1434ae5d5b72477e1a8cf3a262889f71894506b618ed6"
+        },
+        "resources/js/pages/evolayer/ai/thread-studio.tsx": {
+            "surface": "thread-studio",
+            "source_sha": "cf717431975261c4fbbd05b9c63666555bfe9140115a5a9a65bccde831773289",
+            "installed_sha": "cf717431975261c4fbbd05b9c63666555bfe9140115a5a9a65bccde831773289"
+        },
+        "resources/js/pages/evolayer/contact-thank-you.tsx": {
+            "surface": "contact-ai",
+            "source_sha": "561fa8d2e815870d0d50fdf81e9315ee43b7141ff0f6e49d676d63fd1b4a7be1",
+            "installed_sha": "561fa8d2e815870d0d50fdf81e9315ee43b7141ff0f6e49d676d63fd1b4a7be1"
         },
         "resources/js/pages/evolayer/home.tsx": {
             "surface": "marketing-pages",
@@ -97,6 +137,6 @@
             "installed_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8"
         }
     },
-    "package_version": "v0.1.6",
-    "generated_at": "2026-06-29T06:14:57+00:00"
+    "package_version": "v0.1.7",
+    "generated_at": "2026-06-29T14:02:47+00:00"
 }

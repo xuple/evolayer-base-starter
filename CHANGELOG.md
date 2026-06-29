@@ -6,11 +6,17 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.15] - 2026-06-29
+
 ### Changed
 
 - Switched the Vite font pipeline from build-time Bunny CDN fetching to the
   local `@fontsource/instrument-sans` package so fresh installs do not fail when
   remote font fetches time out during `npm run build`.
+- Bumped the exact-pinned base package from `xuple/evolayer-base` `0.1.6` to
+  `0.1.7`, picking up the package-normalized frontend stubs.
+- Refreshed the Composer lockfile and EvoLayer resync manifest against the
+  published base `v0.1.7` release.
 
 ## [0.1.14] - 2026-06-29
 
