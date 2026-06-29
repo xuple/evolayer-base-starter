@@ -6,6 +6,12 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Switched the Vite font pipeline from build-time Bunny CDN fetching to the
+  local `@fontsource/instrument-sans` package so fresh installs do not fail when
+  remote font fetches time out during `npm run build`.
+
 ## [0.1.14] - 2026-06-29
 
 ### Changed
