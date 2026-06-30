@@ -25,6 +25,12 @@ type ExtensionPath = {
     href?: string;
 };
 
+type HomeProps = {
+    // Server-provided so SSR and hydration agree. Optional for resilience
+    // against package versions that predate the greetingHour prop.
+    greetingHour?: number;
+};
+
 const gettingStartedLinks: StarterLink[] = [
     {
         title: 'Open base docs',
@@ -73,12 +79,12 @@ const extensionPaths: ExtensionPath[] = [
     },
 ] as const;
 
-export default function Home() {
+export default function Home({ greetingHour }: HomeProps) {
     const { auth } = usePage().props;
     const brand = useBrand();
     const firstName = auth.user?.name.split(' ')[0] || 'there';
 
-    const hour = new Date().getHours();
+    const hour = greetingHour ?? new Date().getHours();
     const greeting =
         hour < 12
             ? 'Good morning'
