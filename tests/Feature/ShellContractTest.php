@@ -18,6 +18,15 @@ class ShellContractTest extends TestCase
         $this->assertSame('/home', config('fortify.home'));
     }
 
+    public function test_public_home_renders_the_evolayer_about_explainer(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('evolayer/about'),
+            );
+    }
+
     public function test_authenticated_home_requires_authentication(): void
     {
         $this->get(route('evolayer.base.home'))
@@ -57,10 +66,55 @@ class ShellContractTest extends TestCase
             $app,
         );
         $this->assertStringContainsString(
-            'title: (title) => (title ? `${title} | ${appName}` : appName),',
+            'const site = page.props.site as { name?: string } | undefined;',
             $app,
         );
+        $this->assertStringContainsString('const siteName = site?.name?.trim() || appName;', $app);
+        $this->assertStringContainsString('title: formatInertiaTitle,', $app);
+        $this->assertStringContainsString('cleanTitle.endsWith(` | ${siteName}`)', $app);
         $this->assertStringNotContainsString('`${title} - ${appName}`', $app);
+    }
+
+    public function test_public_landing_chrome_uses_the_evolayer_brand_contract(): void
+    {
+        $layout = (string) file_get_contents(resource_path('js/layouts/public-layout.tsx'));
+        $about = (string) file_get_contents(resource_path('js/pages/evolayer/about.tsx'));
+        $config = (string) file_get_contents(config_path('site.php'));
+        $env = (string) file_get_contents(base_path('.env.example'));
+
+        $this->assertStringContainsString("import { useBrand } from '@/hooks/use-brand';", $layout);
+        $this->assertStringContainsString('const brand = useBrand();', $layout);
+        $this->assertStringContainsString('const resolvedTitle = title ?? brand.name;', $layout);
+        $this->assertStringContainsString('const resolvedDescription = description ?? brand.description;', $layout);
+        $this->assertStringContainsString('{brand.name}', $layout);
+        $this->assertStringNotContainsString('const { auth, name } = usePage().props;', $layout);
+        $this->assertStringNotContainsString('<Head title={brand.name} />', $about);
+        $this->assertStringNotContainsString('title="EvoLayer Base"', $about);
+        $this->assertStringContainsString("\$brandName = \$value('EVOLAYER_BASE_BRAND_NAME', \$appName);", $config);
+        $this->assertStringContainsString("\$siteName = \$value('SITE_NAME', \$brandName);", $config);
+        $this->assertStringContainsString('SITE_TITLE_TEMPLATE=', $env);
+    }
+
+    public function test_public_layout_registration_link_is_chisel_guarded(): void
+    {
+        $layout = (string) file_get_contents(resource_path('js/layouts/public-layout.tsx'));
+        $paths = (string) file_get_contents(base_path('chisel-paths.php'));
+        $chisel = (string) file_get_contents(base_path('chisel.php'));
+
+        // The register import and link must sit inside chisel-registration
+        // markers so an auth-trimmed app removes them instead of leaving a
+        // dangling register() reference once the route helper is gone.
+        $this->assertSame(2, substr_count($layout, '@chisel-registration'));
+        $this->assertSame(2, substr_count($layout, '@end-chisel-registration'));
+        $this->assertStringNotContainsString("import { login, register } from '@/routes';", $layout);
+
+        // Chisel must know about the public layout in both the keep (markers
+        // stripped) and remove (section deleted) registration branches.
+        $this->assertStringContainsString(
+            "'public_layout' => 'resources/js/layouts/public-layout.tsx',",
+            $paths,
+        );
+        $this->assertSame(2, substr_count($chisel, "\$paths['public_layout']"));
     }
 
     public function test_inertia_layout_resolver_contract_stays_documented(): void

@@ -23,6 +23,7 @@ final class SiteMetadata
     public static function inertiaDefaults(): array
     {
         $name = self::filledString(config('site.identity.name'))
+            ?? self::filledString(config('evolayer.base.brand.name'))
             ?? self::filledString(config('app.name'))
             ?? 'EvoLayer Base';
         $baseUrl = self::normaliseBaseUrl(

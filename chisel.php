@@ -48,6 +48,7 @@ function chiselRun(array $command, string $label): void
  *     login: string,
  *     register: string,
  *     welcome: string,
+ *     public_layout: string,
  *     profile: string,
  *     security: string,
  *     verify_email: string,
@@ -86,6 +87,7 @@ return Chisel::script(__DIR__)
                 'app/Providers/FortifyServiceProvider.php',
                 $paths['login'],
                 $paths['welcome'],
+                $paths['public_layout'],
             )->removeSectionMarkers('registration');
         },
         else: function (Chisel $c) use ($paths) {
@@ -95,6 +97,7 @@ return Chisel::script(__DIR__)
                 'app/Providers/FortifyServiceProvider.php',
                 $paths['login'],
                 $paths['welcome'],
+                $paths['public_layout'],
             )->removeSection('registration');
 
             $c->files(

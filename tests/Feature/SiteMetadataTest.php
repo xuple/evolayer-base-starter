@@ -16,7 +16,7 @@ class SiteMetadataTest extends TestCase
         $requiredKeys = [
             'SITE_NAME=',
             'SITE_URL=',
-            'SITE_TITLE_TEMPLATE="%s | EvoLayer Base"',
+            'SITE_TITLE_TEMPLATE=',
             'SITE_DESCRIPTION=',
             'SITE_OG_LOCALE=en_GB',
             'SITE_THEME_COLOR="#064e3b"',
@@ -48,6 +48,7 @@ class SiteMetadataTest extends TestCase
     {
         Config::set('app.name', 'Fallback App');
         Config::set('app.url', 'https://app.example');
+        Config::set('evolayer.base.brand.name', '');
         Config::set('site.identity.name', '');
         Config::set('site.identity.title_template', '');
         Config::set('site.canonical.base_url', '');
@@ -57,6 +58,19 @@ class SiteMetadataTest extends TestCase
         $this->assertSame('Fallback App', $site['name']);
         $this->assertSame('https://app.example', $site['url']);
         $this->assertSame('%s | Fallback App', $site['titleTemplate']);
+    }
+
+    public function test_blank_site_identity_falls_back_to_the_public_brand_before_app_name(): void
+    {
+        Config::set('app.name', 'Fallback App');
+        Config::set('evolayer.base.brand.name', 'Example Brand');
+        Config::set('site.identity.name', '');
+        Config::set('site.identity.title_template', '');
+
+        $site = SiteMetadata::inertiaDefaults();
+
+        $this->assertSame('Example Brand', $site['name']);
+        $this->assertSame('%s | Example Brand', $site['titleTemplate']);
     }
 
     public function test_site_url_overrides_the_canonical_base(): void
@@ -228,6 +242,7 @@ class SiteMetadataTest extends TestCase
     private function useStarterSiteDefaults(): void
     {
         Config::set('app.name', 'EvoLayer Base');
+        Config::set('evolayer.base.brand.name', 'EvoLayer Base');
         Config::set('site.identity.name', 'EvoLayer Base');
         Config::set('site.identity.title_template', '%s | EvoLayer Base');
     }

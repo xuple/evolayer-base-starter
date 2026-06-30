@@ -19,7 +19,7 @@ This file is the short, prescriptive version of those documents tuned for agent 
 | [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) | The package. Owns examples, agents, blocks, ontology, `evolayer:*` artisan commands, and the `evolayer.base.*` config shape. Conservative — installs add no routes by default.                                                                          |
 | `xuple/evolayer-base-starter` (this repo)                       | Thin Laravel host shell. Owns the integration files the package can't publish, the kitchen-sink `.env.example` defaults, the `laravel/ai` patch wiring, host-side migrations, and starter CI. Kitchen-sink — every demo surface enabled out of the box. |
 
-The starter is a thin fork of [`laravel/react-starter-kit`](https://github.com/laravel/react-starter-kit). Inherited scaffolding that doesn't fit the EvoLayer story (e.g. `resources/js/pages/welcome.tsx`) is kept intentionally where it's wired into upstream flows like the chisel auth-trim.
+The starter is a thin fork of [`laravel/react-starter-kit`](https://github.com/laravel/react-starter-kit). Inherited scaffolding that doesn't fit the EvoLayer story (e.g. `resources/js/pages/welcome.tsx`) is kept intentionally where it's wired into upstream flows like the chisel auth-trim. Public `/` is named `home` and renders the package-owned `evolayer/about` starter explainer; authenticated `/home` is named `evolayer.base.home` and is the launcher.
 
 ## Where does my change belong?
 
@@ -38,6 +38,7 @@ Decision rule before any edit: read the canonical **[EvoLayer Framework Contract
 - **Do not run `php artisan evolayer:install` in this starter.** That command is for adding Base to an existing Laravel app; its work is already pre-applied here. Use `composer evolayer:resync` to pull a newer package frontend instead.
 - **Do not push to any remote unless explicitly instructed.** Agents may create local commits only when asked. If asked to push, the agent must state which remote(s) and branch it will push to before running `git push`.
 - **Do not scatter SEO/social-preview literals across pages.** Keep env reads in `config/site.php`; use `SiteHead` / `PublicLayout` for public pages, `SiteMetadata` for server fallback values, and keep `.env.example`, shared `site` types, tests, and docs aligned.
+- **Keep public landing branding on one source.** Managed landing-page chrome/copy uses `EVOLAYER_BASE_BRAND_*` via `useBrand()`; `SITE_*` controls canonical/social overrides and inherits the brand when blank. Do not render public landing chrome from `usePage().props.name`.
 
 ## Frontend stub flow
 

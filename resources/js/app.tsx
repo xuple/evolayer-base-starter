@@ -1,4 +1,5 @@
 import { createInertiaApp } from '@inertiajs/react';
+import type { HeadManagerTitleCallback } from '@inertiajs/core';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
@@ -9,8 +10,24 @@ import { CommandPaletteProvider } from '@/providers/command-palette-provider';
 
 const appName = import.meta.env.VITE_APP_NAME || 'EvoLayer Base';
 
+const formatInertiaTitle: HeadManagerTitleCallback = (title, page) => {
+    const site = page.props.site as { name?: string } | undefined;
+    const siteName = site?.name?.trim() || appName;
+    const cleanTitle = title.trim();
+
+    if (
+        !cleanTitle ||
+        cleanTitle === siteName ||
+        cleanTitle.endsWith(` | ${siteName}`)
+    ) {
+        return cleanTitle || siteName;
+    }
+
+    return `${cleanTitle} | ${siteName}`;
+};
+
 createInertiaApp({
-    title: (title) => (title ? `${title} | ${appName}` : appName),
+    title: formatInertiaTitle,
     layout: (name) => {
         switch (true) {
             case name === 'welcome':

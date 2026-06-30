@@ -2,8 +2,12 @@ import { Link, usePage } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { SiteHead } from '@/components/site-head';
+import { useBrand } from '@/hooks/use-brand';
 import type { JsonLdPayload, SiteSocialImage } from '@/types/site';
-import { login, register } from '@/routes';
+import { login } from '@/routes';
+/* @chisel-registration */
+import { register } from '@/routes';
+/* @end-chisel-registration */
 
 interface Props {
     title?: string;
@@ -26,13 +30,16 @@ export default function PublicLayout({
     jsonLd,
     children,
 }: Props) {
-    const { auth, name } = usePage().props;
+    const { auth } = usePage().props;
+    const brand = useBrand();
+    const resolvedTitle = title ?? brand.name;
+    const resolvedDescription = description ?? brand.description;
 
     return (
         <>
             <SiteHead
-                title={title}
-                description={description}
+                title={resolvedTitle}
+                description={resolvedDescription}
                 canonical={canonical}
                 robots={robots}
                 ogType={ogType}
@@ -48,7 +55,7 @@ export default function PublicLayout({
                         >
                             <AppLogoIcon className="h-6 w-6 fill-current text-brand" />
                             <span className="text-lg font-semibold tracking-tight">
-                                {name}
+                                {brand.name}
                             </span>
                         </Link>
 
@@ -61,12 +68,14 @@ export default function PublicLayout({
                                     >
                                         Log in
                                     </Link>
+                                    {/* @chisel-registration */}
                                     <Link
                                         href={register()}
                                         className="inline-block rounded-sm border border-border px-5 py-1.5 text-sm leading-normal text-foreground hover:border-foreground/20"
                                     >
                                         Register
                                     </Link>
+                                    {/* @end-chisel-registration */}
                                 </>
                             )}
                         </div>

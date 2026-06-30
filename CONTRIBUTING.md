@@ -12,6 +12,14 @@ The starter is the free public `composer create-project` entry point for EvoLaye
 - Commit `composer.lock`; the starter ships a tested, reproducible distribution and `composer create-project` installs the locked graph. Keep `xuple/evolayer-base` exact-pinned while `0.x`.
 - Prefer small, reviewable PRs with tests or a clear explanation of why tests are not applicable.
 
+## Accepted asymmetries (starter ↔ package)
+
+These differences between this starter and the upstream `xuple/evolayer-base` package are **deliberate, not drift** — don't "fix" them to match:
+
+- **Patch mechanism.** Both repos carry the same `patches/laravel-ai-structured-streaming.patch` and its `patches/README.md` dossier, but apply it differently: the starter uses the `cweagans/composer-patches` plugin (`extra.patches` in `composer.json`), which a root application can carry as a dev dependency, while the package uses a hand-rolled `apply-patches.php` composer script (kept dependency-free, as befits a library). Same patch, mechanism chosen to fit each repo's role.
+
+(The former test-runner asymmetry is gone: both repos are now Pest-first.)
+
 ## Where does my change belong?
 
 This starter is a thin host over the [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) package. Most product surface lives upstream; the starter owns the Laravel host shell that wires it in. Use this matrix before opening a PR:
@@ -36,13 +44,16 @@ The EvoLayer React stubs listed in the first row are committed here so the start
 
 **Provider runtime approval and published EvoLayer surfaces are package-owned.** ThreadStudio provider approval (which providers are selectable, which are diagnostic/blocked) and the published stubs that carry it (`config/evolayer-ai.php`, `resources/js/pages/evolayer/**`, `ontology.yaml`) change in `xuple/evolayer-base` first — update the package, resync the starter, then update starter docs and release notes (`.env.example`, `README.md`, `CHANGELOG.md`, `RELEASE.md`). Do not hand-edit the runtime-approved roster into starter stubs or agent docs.
 
-**Landing pages are package-owned, branded from config.** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` render from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example`. Rebrand them by changing config, not by editing the page files. `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe — it keeps host-modified stubs (`--force` to overwrite, `--dry-run` to preview) and skips ejected surfaces. To own the marketing surface outright, run `php artisan evolayer:eject marketing-pages` (forfeiting managed updates for it). All `resources/js/pages/evolayer/**` files are package-owned.
+**Landing pages are package-owned, branded from config.** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` render from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example`. Public landing chrome also reads `useBrand()`, and blank `SITE_NAME` / `SITE_TITLE_TEMPLATE` values inherit that brand before falling back to `APP_NAME`. Rebrand them by changing config, not by editing the page files. `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe — it keeps host-modified stubs (`--force` to overwrite, `--dry-run` to preview) and skips ejected surfaces. To own the marketing surface outright, run `php artisan evolayer:eject marketing-pages` (forfeiting managed updates for it). All `resources/js/pages/evolayer/**` files are package-owned.
 
 If a change spans both repos (most commonly: a new `EVOLAYER_BASE_*` flag, or a host edit that requires a package change), land the package PR first against a resolvable ref the starter can pick up, then open the starter PR pointing at it.
 
 ### Adding starter routes or pages safely
 
 - Use the public `home` route (`/`) only for public landing/logout flows.
+- Public `/` intentionally renders the package-owned `evolayer/about` starter
+  explainer; `welcome.tsx` is only a retained Laravel-kit / chisel compatibility
+  artefact, not the active public IA.
 - Use `evolayer.base.home` (`/home`) for the authenticated starter launcher. If a downstream app disables `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`, it must choose a replacement authenticated landing route and update `config/fortify.php`.
 - Put host shell pages/routes in starter-owned files. Put new EvoLayer examples, blocks, agents, or package routes in `xuple/evolayer-base` first, then resync here.
 - Public pages should use `PublicLayout` / `SiteHead` for title, canonical, robots, Open Graph, X/Twitter-compatible, and JSON-LD tags. Do not scatter page-local SEO/social literals across page components.

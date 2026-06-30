@@ -23,12 +23,14 @@ $integer = static function (string $key, int $default) use ($value): int {
 };
 
 $appName = $value('APP_NAME', 'EvoLayer Base');
+$brandName = $value('EVOLAYER_BASE_BRAND_NAME', $appName);
+$siteName = $value('SITE_NAME', $brandName);
 $appUrl = rtrim((string) $value('APP_URL', 'http://localhost'), '/');
 
 return [
     'identity' => [
-        'name' => $value('SITE_NAME', $appName),
-        'title_template' => $value('SITE_TITLE_TEMPLATE', "%s | {$appName}"),
+        'name' => $siteName,
+        'title_template' => $value('SITE_TITLE_TEMPLATE', "%s | {$siteName}"),
         'description' => $value(
             'SITE_DESCRIPTION',
             'AI, ontology, and block-first Laravel starter for modern product teams.',
