@@ -6,6 +6,36 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.16] - 2026-06-30
+
+### Added
+
+- Single-source public landing branding: the Inertia title callback derives its
+  separator from the shared `site.name`, `PublicLayout`/`about.tsx` render from
+  the brand contract (`useBrand()`), and blank `SITE_NAME` now inherits
+  `EVOLAYER_BASE_BRAND_NAME` (then `APP_NAME`) while blank `SITE_TITLE_TEMPLATE`
+  derives from the resolved site name — so a brand change no longer leaves stale
+  public nav or title text.
+- CONTRIBUTING note recording the accepted starter↔package patch-mechanism
+  asymmetry (starter `cweagans/composer-patches` vs package `apply-patches.php`).
+
+### Fixed
+
+- The `PublicLayout` registration link is now wrapped in `@chisel-registration`
+  markers and registered in `chisel-paths.php` / `chisel.php`, so an
+  `install:features` auth-trim that drops registration no longer leaves a
+  dangling `register()` reference (previously only `welcome.tsx` was guarded).
+- The `about.tsx` CTA uses the `login()` Wayfinder route helper instead of a
+  hardcoded `/login`, so it tracks any Fortify route prefix/domain.
+- The authenticated `/home` greeting reads the server-provided `greetingHour`
+  prop from base 0.1.8 instead of `new Date()` in render, removing an
+  SSR/hydration mismatch under server/client timezone differences.
+
+### Changed
+
+- Consume `xuple/evolayer-base` 0.1.8 (exact-pinned), refreshing `composer.lock`
+  and the `.evolayer/resync.lock.json` manifest.
+
 ## [0.1.15] - 2026-06-29
 
 ### Changed

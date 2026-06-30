@@ -56,6 +56,11 @@
             "source_sha": "ff9e3c90335877a7f064cd6577293f5368570f68fe501a2641566323bfa84d14",
             "installed_sha": "ff9e3c90335877a7f064cd6577293f5368570f68fe501a2641566323bfa84d14"
         },
+        "resources/js/hooks/use-brand.ts": {
+            "surface": "core",
+            "source_sha": "54f200fc38a390023e985d363976f24fd70c48493fd98abd77c6daacf2a6cf48",
+            "installed_sha": "54f200fc38a390023e985d363976f24fd70c48493fd98abd77c6daacf2a6cf48"
+        },
         "resources/js/hooks/use-evolayer-props.ts": {
             "surface": "core",
             "source_sha": "014da8ac10fc93223529e04ae797391a349bcacaa614f4c68f0c3628396cd9d8",
@@ -85,6 +90,11 @@
             "surface": "core",
             "source_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c",
             "installed_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c"
+        },
+        "resources/js/pages/evolayer/about.tsx": {
+            "surface": "marketing-pages",
+            "source_sha": "805edb272b5cf6cd602ac191a5ca89f426995017ba37f36aa84d4d3c085a19f1",
+            "installed_sha": "805edb272b5cf6cd602ac191a5ca89f426995017ba37f36aa84d4d3c085a19f1"
         },
         "resources/js/pages/evolayer/admin/inbox/index.tsx": {
             "surface": "admin-inbox",
@@ -118,8 +128,8 @@
         },
         "resources/js/pages/evolayer/home.tsx": {
             "surface": "marketing-pages",
-            "source_sha": "769234226f12e6f78416127fe13e8aee6282483e82a6910e1c6f1463853d7251",
-            "installed_sha": "769234226f12e6f78416127fe13e8aee6282483e82a6910e1c6f1463853d7251"
+            "source_sha": "7bf6d6acf154d69a649edfe4f28f5d9c12bfad13fdc87f6bc67cec26c7aad803",
+            "installed_sha": "7bf6d6acf154d69a649edfe4f28f5d9c12bfad13fdc87f6bc67cec26c7aad803"
         },
         "resources/js/providers/command-palette-provider.tsx": {
             "surface": "core",
@@ -137,6 +147,6 @@
             "installed_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8"
         }
     },
-    "package_version": "v0.1.7",
-    "generated_at": "2026-06-29T14:02:47+00:00"
+    "package_version": "v0.1.8",
+    "generated_at": "2026-06-30T03:55:06+00:00"
 }
