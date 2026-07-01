@@ -6,6 +6,18 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- `SiteMetadataTest::useStarterSiteDefaults()` is now a hermetic fixture: it pins
+  the full set of host-overridable fields the starter-default preview assertions
+  check (theme colour, robots, OG locale, social image URL/alt/dimensions/type/
+  version, Twitter handles, structured-data toggle) instead of only four. A
+  generated app that brands its own social preview (custom `SOCIAL_IMAGE_ALT`,
+  `SOCIAL_IMAGE_VERSION`, `SITE_THEME_COLOR`, …) no longer inherits false
+  failures from `test_public_landing_initial_html_contains_default_preview_metadata`.
+  That test now also injects hostile `.env`-style overrides before the fixture
+  runs, so it doubles as a neutralisation guard.
+
 ## [0.1.16] - 2026-06-30
 
 ### Added

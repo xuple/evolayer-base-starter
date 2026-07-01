@@ -141,6 +141,17 @@ class SiteMetadataTest extends TestCase
 
     public function test_public_landing_initial_html_contains_default_preview_metadata(): void
     {
+        // Simulate a generated app whose .env has customised these fields;
+        // useStarterSiteDefaults() must neutralise them so the starter-default
+        // assertions below stay valid. This doubles as a hermeticity guard.
+        Config::set('site.identity.theme_color', '#ff0000');
+        Config::set('site.identity.og_locale', 'fr_FR');
+        Config::set('site.robots.default', 'noindex,nofollow');
+        Config::set('site.social.image_alt', 'Custom app preview');
+        Config::set('site.social.image_version', 'app-v9');
+        Config::set('site.social.twitter_site', '@customapp');
+        Config::set('site.structured_data.enabled', false);
+
         $this->useStarterSiteDefaults();
         Config::set('site.canonical.base_url', 'https://starter.example');
 
@@ -239,11 +250,31 @@ class SiteMetadataTest extends TestCase
         $this->assertSame(IMAGETYPE_PNG, $type);
     }
 
+    /**
+     * Pin every host-overridable field that the starter-default preview
+     * assertions check, so this fixture stays hermetic even inside a generated
+     * app whose .env customises the theme colour, social image, robots, locale,
+     * Twitter handles or structured-data toggle. Values mirror config/site.php
+     * and the .env.example starter defaults; without this pinning a downstream
+     * app inherits false failures the moment it brands its own social preview.
+     */
     private function useStarterSiteDefaults(): void
     {
         Config::set('app.name', 'EvoLayer Base');
         Config::set('evolayer.base.brand.name', 'EvoLayer Base');
         Config::set('site.identity.name', 'EvoLayer Base');
         Config::set('site.identity.title_template', '%s | EvoLayer Base');
+        Config::set('site.identity.og_locale', 'en_GB');
+        Config::set('site.identity.theme_color', '#064e3b');
+        Config::set('site.robots.default', 'index,follow');
+        Config::set('site.social.image', '/social/og-default.png');
+        Config::set('site.social.image_alt', 'EvoLayer Base preview image');
+        Config::set('site.social.image_width', 1200);
+        Config::set('site.social.image_height', 630);
+        Config::set('site.social.image_type', 'image/png');
+        Config::set('site.social.image_version', null);
+        Config::set('site.social.twitter_site', null);
+        Config::set('site.social.twitter_creator', null);
+        Config::set('site.structured_data.enabled', true);
     }
 }
