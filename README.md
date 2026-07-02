@@ -150,6 +150,11 @@ The package publishes most of its surface, but a few edits must live in host fil
 
 Public preview defaults live in `config/site.php`, controlled by `SITE_*` and `SOCIAL_*` variables in `.env`. Public pages use `PublicLayout` / `SiteHead` for title, canonical, robots, Open Graph, X/Twitter, and JSON-LD. See [`.env.example`](.env.example) for the full set.
 
+Two opt-in knobs (blank by default, so output is unchanged until set):
+
+- **Local-business structured data** — set `SITE_JSONLD_TYPE` (one or more schema.org types, comma-separated) with optional `SITE_JSONLD_TELEPHONE` / `_EMAIL` / `_AREA_SERVED` / `_PRICE_RANGE` / `_SAME_AS` to emit a server-rendered business node in the JSON-LD graph.
+- **Asset cache-busting** — set `SITE_ASSET_VERSION` and wrap public asset paths with the `useVersionedAsset()` hook to append a global `?v=` token, so replaced images are picked up past a CDN.
+
 ## Tooling
 
 - `composer dev` — run server, queue, logs, and Vite together.

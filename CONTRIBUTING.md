@@ -58,6 +58,7 @@ If a change spans both repos (most commonly: a new `EVOLAYER_BASE_*` flag, or a 
 - Put host shell pages/routes in starter-owned files. Put new EvoLayer examples, blocks, agents, or package routes in `xuple/evolayer-base` first, then resync here.
 - Public pages should use `PublicLayout` / `SiteHead` for title, canonical, robots, Open Graph, X/Twitter-compatible, and JSON-LD tags. Do not scatter page-local SEO/social literals across page components.
 - Read social/metadata env values only in `config/site.php`. Runtime code should use `config('site.*')`, `App\Support\SiteMetadata`, or the shared `site` Inertia prop.
+- Prefer the opt-in, off-by-default SEO/asset knobs over hand-rolling: `SITE_JSONLD_TYPE` (+ optional contact fields) emits a server-rendered local-business JSON-LD node via `SiteMetadata::defaultJsonLd()`; `SITE_ASSET_VERSION` + the `useVersionedAsset()` hook cache-bust public asset URLs. Reach for a page-level `SiteHead` `jsonLd` override or a bespoke version constant only when these config paths genuinely don't fit.
 - After route changes, clear stale route caches before regenerating typed frontend contracts:
 
 ```bash
