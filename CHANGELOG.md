@@ -6,6 +6,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.17] - 2026-07-02
+
 ### Added
 
 - Config-driven local-business structured data. Setting `SITE_JSONLD_TYPE` (one or
