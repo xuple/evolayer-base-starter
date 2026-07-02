@@ -12,6 +12,7 @@ export type SiteSharedProps = {
     titleTemplate: string;
     description: string;
     url: string;
+    assetVersion: string | null;
     ogLocale: string;
     themeColor: string | null;
     robots: {
@@ -27,6 +28,12 @@ export type SiteSharedProps = {
     structuredData: {
         enabled: boolean;
         logo: string | null;
+        businessType: string[];
+        telephone: string | null;
+        email: string | null;
+        areaServed: string | null;
+        priceRange: string | null;
+        sameAs: string[];
     };
 };
 

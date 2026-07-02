@@ -10,6 +10,7 @@ final class SiteMetadata
      *     titleTemplate: string,
      *     description: string,
      *     url: string,
+     *     assetVersion: string|null,
      *     ogLocale: string,
      *     themeColor: string|null,
      *     robots: array{default: string},
@@ -17,7 +18,16 @@ final class SiteMetadata
      *         image: array{url: string|null, alt: string|null, width: int|null, height: int|null, type: string|null, version: string|null},
      *         twitter: array{site: string|null, creator: string|null}
      *     },
-     *     structuredData: array{enabled: bool, logo: string|null}
+     *     structuredData: array{
+     *         enabled: bool,
+     *         logo: string|null,
+     *         businessType: list<string>,
+     *         telephone: string|null,
+     *         email: string|null,
+     *         areaServed: string|null,
+     *         priceRange: string|null,
+     *         sameAs: list<string>
+     *     }
      * }
      */
     public static function inertiaDefaults(): array
@@ -37,6 +47,7 @@ final class SiteMetadata
             'titleTemplate' => self::filledString(config('site.identity.title_template')) ?? "%s | {$name}",
             'description' => self::filledString(config('site.identity.description')) ?? '',
             'url' => $baseUrl,
+            'assetVersion' => self::filledString(config('site.assets.version')),
             'ogLocale' => self::filledString(config('site.identity.og_locale')) ?? 'en_GB',
             'themeColor' => self::filledString(config('site.identity.theme_color')),
             'robots' => [
@@ -59,6 +70,12 @@ final class SiteMetadata
             'structuredData' => [
                 'enabled' => (bool) config('site.structured_data.enabled', true),
                 'logo' => self::filledString(config('site.structured_data.logo')),
+                'businessType' => self::csvList(config('site.structured_data.business_type')),
+                'telephone' => self::filledString(config('site.structured_data.telephone')),
+                'email' => self::filledString(config('site.structured_data.email')),
+                'areaServed' => self::filledString(config('site.structured_data.area_served')),
+                'priceRange' => self::filledString(config('site.structured_data.price_range')),
+                'sameAs' => self::csvList(config('site.structured_data.same_as')),
             ],
         ];
     }
@@ -104,6 +121,7 @@ final class SiteMetadata
             return null;
         }
 
+        $structured = $site['structuredData'];
         $graph = [
             [
                 '@type' => 'WebSite',
@@ -113,15 +131,44 @@ final class SiteMetadata
             ],
         ];
 
-        $logo = self::absoluteUrl($site['structuredData']['logo'], $site['url']);
+        $logo = self::absoluteUrl($structured['logo'], $site['url']);
+        $image = self::absoluteUrl(
+            $site['social']['image']['url'],
+            $site['url'],
+            $site['social']['image']['version'],
+        );
+        $sameAs = $structured['sameAs'];
 
-        if ($logo !== null) {
-            $graph[] = [
+        if ($structured['businessType'] !== []) {
+            // A configured business node folds the logo in and supersedes the
+            // plain Organization-from-logo node to avoid duplicate entities.
+            $graph[] = array_filter([
+                '@type' => count($structured['businessType']) === 1
+                    ? $structured['businessType'][0]
+                    : $structured['businessType'],
+                'name' => $site['name'],
+                'url' => $site['url'],
+                'logo' => $logo,
+                'image' => $image,
+                'telephone' => $structured['telephone'],
+                'email' => $structured['email'],
+                'areaServed' => $structured['areaServed'],
+                'priceRange' => $structured['priceRange'],
+                'sameAs' => $sameAs !== [] ? $sameAs : null,
+            ], static fn (mixed $field): bool => $field !== null && $field !== []);
+        } elseif ($logo !== null) {
+            $organization = [
                 '@type' => 'Organization',
                 'name' => $site['name'],
                 'url' => $site['url'],
                 'logo' => $logo,
             ];
+
+            if ($sameAs !== []) {
+                $organization['sameAs'] = $sameAs;
+            }
+
+            $graph[] = $organization;
         }
 
         return [
@@ -160,6 +207,25 @@ final class SiteMetadata
         $separator = str_contains($urlWithoutFragment, '?') ? '&' : '?';
 
         return $urlWithoutFragment.$separator.'v='.rawurlencode($cleanVersion).$fragment;
+    }
+
+    /**
+     * Split a comma-separated env value into a trimmed, non-empty list.
+     *
+     * @return list<string>
+     */
+    private static function csvList(mixed $value): array
+    {
+        $string = self::filledString($value);
+
+        if ($string === null) {
+            return [];
+        }
+
+        return array_values(array_filter(
+            array_map(static fn (string $part): string => trim($part), explode(',', $string)),
+            static fn (string $part): bool => $part !== '',
+        ));
     }
 
     private static function filledString(mixed $value): ?string

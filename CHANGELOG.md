@@ -6,6 +6,21 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Config-driven local-business structured data. Setting `SITE_JSONLD_TYPE` (one or
+  more schema.org types, comma-separated) emits a business node in the JSON-LD
+  `@graph` with any of `SITE_JSONLD_TELEPHONE`, `SITE_JSONLD_EMAIL`,
+  `SITE_JSONLD_AREA_SERVED`, `SITE_JSONLD_PRICE_RANGE` and `SITE_JSONLD_SAME_AS`
+  (comma-separated URLs), plus the site logo/OG image folded in. Rendered
+  server-side in the initial HTML and mirrored client-side by `SiteHead`; a blank
+  `SITE_JSONLD_TYPE` leaves output unchanged (WebSite + optional Organization).
+  `SITE_JSONLD_SAME_AS` also enriches the existing Organization-from-logo node.
+- `SITE_ASSET_VERSION` + the `useVersionedAsset()` hook: append a global `?v=`
+  cache-buster to public asset paths referenced from React (relative-preserving,
+  CDN-safe), so replacing an image in place is picked up past a CDN cache. Blank
+  (off) by default; exposed on the shared `site.assetVersion` prop.
+
 ### Fixed
 
 - `SiteMetadataTest::useStarterSiteDefaults()` is now a hermetic fixture: it pins

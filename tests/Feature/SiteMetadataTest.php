@@ -31,6 +31,13 @@ class SiteMetadataTest extends TestCase
             'SOCIAL_TWITTER_CREATOR=',
             'SITE_JSONLD_ENABLED=true',
             'SITE_LOGO=',
+            'SITE_JSONLD_TYPE=',
+            'SITE_JSONLD_TELEPHONE=',
+            'SITE_JSONLD_EMAIL=',
+            'SITE_JSONLD_AREA_SERVED=',
+            'SITE_JSONLD_PRICE_RANGE=',
+            'SITE_JSONLD_SAME_AS=',
+            'SITE_ASSET_VERSION=',
         ];
 
         foreach ($requiredKeys as $key) {
@@ -121,6 +128,15 @@ class SiteMetadataTest extends TestCase
         );
     }
 
+    public function test_asset_version_is_exposed_on_site_defaults_when_configured(): void
+    {
+        $this->assertNull(SiteMetadata::inertiaDefaults()['assetVersion']);
+
+        Config::set('site.assets.version', 'assets-7');
+
+        $this->assertSame('assets-7', SiteMetadata::inertiaDefaults()['assetVersion']);
+    }
+
     public function test_site_defaults_are_shared_once_under_a_namespaced_public_prop(): void
     {
         $this->useStarterSiteDefaults();
@@ -200,6 +216,25 @@ class SiteMetadataTest extends TestCase
             );
     }
 
+    public function test_configured_business_node_renders_server_side_in_initial_html(): void
+    {
+        $this->useStarterSiteDefaults();
+        Config::set('site.canonical.base_url', 'https://starter.example');
+        Config::set('site.structured_data.business_type', 'LocalBusiness,HomeAndConstructionBusiness');
+        Config::set('site.structured_data.telephone', '+10000000000');
+        Config::set('site.structured_data.email', 'hello@example.com');
+        Config::set('site.structured_data.area_served', 'Example Region');
+        Config::set('site.structured_data.same_as', 'https://example.com/a, https://example.com/b');
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('"@type":["LocalBusiness","HomeAndConstructionBusiness"]', false)
+            ->assertSee('"telephone":"+10000000000"', false)
+            ->assertSee('"email":"hello@example.com"', false)
+            ->assertSee('"areaServed":"Example Region"', false)
+            ->assertSee('"sameAs":["https://example.com/a","https://example.com/b"]', false);
+    }
+
     public function test_private_layouts_use_a_noindex_robots_override_without_public_preview_tags(): void
     {
         $appLayout = (string) file_get_contents(resource_path('js/layouts/app-layout.tsx'));
@@ -276,5 +311,11 @@ class SiteMetadataTest extends TestCase
         Config::set('site.social.twitter_site', null);
         Config::set('site.social.twitter_creator', null);
         Config::set('site.structured_data.enabled', true);
+        Config::set('site.structured_data.business_type', null);
+        Config::set('site.structured_data.telephone', null);
+        Config::set('site.structured_data.email', null);
+        Config::set('site.structured_data.area_served', null);
+        Config::set('site.structured_data.price_range', null);
+        Config::set('site.structured_data.same_as', null);
     }
 }

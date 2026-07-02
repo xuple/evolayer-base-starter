@@ -64,6 +64,36 @@ export function resolveVersionedUrl(
     return appendVersion(resolveAbsoluteUrl(value, baseUrl), version);
 }
 
+/**
+ * Append a `?v=` cache-buster to a **relative** asset path, preserving the
+ * path, any existing query string, and any hash. No-ops when the version is
+ * blank or a `v` param is already present. Unlike {@link resolveVersionedUrl}
+ * this does not absolutise against the site URL, so asset `src`s stay
+ * same-origin even when `SITE_URL` points at a different host.
+ */
+export function appendPathVersion(
+    path: string,
+    version: string | null | undefined,
+): string {
+    const cleanVersion = filled(version);
+
+    if (!cleanVersion) {
+        return path;
+    }
+
+    const hashIndex = path.indexOf('#');
+    const hash = hashIndex === -1 ? '' : path.slice(hashIndex);
+    const base = hashIndex === -1 ? path : path.slice(0, hashIndex);
+
+    if (/[?&]v=/.test(base)) {
+        return path;
+    }
+
+    const separator = base.includes('?') ? '&' : '?';
+
+    return `${base}${separator}v=${encodeURIComponent(cleanVersion)}${hash}`;
+}
+
 export function safeJsonLd(payload: unknown): string {
     return JSON.stringify(payload).replace(/</g, '\\u003c');
 }

@@ -274,6 +274,7 @@ function buildDefaultJsonLd(
         return undefined;
     }
 
+    const structured = site.structuredData;
     const graph: Record<string, unknown>[] = [
         {
             '@type': 'WebSite',
@@ -282,15 +283,69 @@ function buildDefaultJsonLd(
             description,
         },
     ];
-    const logo = resolveAbsoluteUrl(site.structuredData.logo, site.url);
 
-    if (logo) {
-        graph.push({
+    // Mirror of SiteMetadata::defaultJsonLd() — keep key order identical so the
+    // client node stays byte-equivalent to the server-rendered one it replaces.
+    const logo = resolveAbsoluteUrl(structured.logo, site.url);
+    const image = resolveVersionedUrl(
+        site.social.image.url,
+        site.url,
+        site.social.image.version,
+    );
+    const sameAs = structured.sameAs;
+
+    if (structured.businessType.length > 0) {
+        const node: Record<string, unknown> = {
+            '@type':
+                structured.businessType.length === 1
+                    ? structured.businessType[0]
+                    : structured.businessType,
+            name: site.name,
+            url: site.url,
+        };
+
+        if (logo) {
+            node.logo = logo;
+        }
+
+        if (image) {
+            node.image = image;
+        }
+
+        if (structured.telephone) {
+            node.telephone = structured.telephone;
+        }
+
+        if (structured.email) {
+            node.email = structured.email;
+        }
+
+        if (structured.areaServed) {
+            node.areaServed = structured.areaServed;
+        }
+
+        if (structured.priceRange) {
+            node.priceRange = structured.priceRange;
+        }
+
+        if (sameAs.length > 0) {
+            node.sameAs = sameAs;
+        }
+
+        graph.push(node);
+    } else if (logo) {
+        const organization: Record<string, unknown> = {
             '@type': 'Organization',
             name: site.name,
             url: site.url,
             logo,
-        });
+        };
+
+        if (sameAs.length > 0) {
+            organization.sameAs = sameAs;
+        }
+
+        graph.push(organization);
     }
 
     return {

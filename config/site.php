@@ -58,8 +58,23 @@ return [
         'twitter_creator' => $value('SOCIAL_TWITTER_CREATOR'),
     ],
 
+    'assets' => [
+        // Optional global cache-busting token appended (`?v=`) to public asset
+        // URLs built via the frontend `useVersionedAsset()` helper.
+        'version' => $value('SITE_ASSET_VERSION'),
+    ],
+
     'structured_data' => [
         'enabled' => $boolean('SITE_JSONLD_ENABLED', true),
         'logo' => $value('SITE_LOGO'),
+        // Optional local-business node. Blank `business_type` keeps output as
+        // WebSite (+ Organization when a logo is set); setting it emits a node
+        // of that schema.org @type (comma-separate for multiple types).
+        'business_type' => $value('SITE_JSONLD_TYPE'),
+        'telephone' => $value('SITE_JSONLD_TELEPHONE'),
+        'email' => $value('SITE_JSONLD_EMAIL'),
+        'area_served' => $value('SITE_JSONLD_AREA_SERVED'),
+        'price_range' => $value('SITE_JSONLD_PRICE_RANGE'),
+        'same_as' => $value('SITE_JSONLD_SAME_AS'),
     ],
 ];
