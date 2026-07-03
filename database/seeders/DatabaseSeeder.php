@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
         // firstOrCreate keeps the seeder idempotent across re-runs.
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
+        // The name feeds the launcher greeting ("Good afternoon, Ada"), so use
+        // one that reads like a person rather than a QA artifact.
         $user = User::firstOrCreate(
             ['email' => 'test@example.com'],
-            User::factory()->raw(['name' => 'Test User', 'email' => 'test@example.com']),
+            User::factory()->raw(['name' => 'Ada Lovelace', 'email' => 'test@example.com']),
         );
 
         $user->assignRole($adminRole);
