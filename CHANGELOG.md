@@ -6,6 +6,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.18] - 2026-07-03
+
 ### Changed
 
 - **BREAKING (pre-1.0 route-contract cleanup).** The authenticated Home is now

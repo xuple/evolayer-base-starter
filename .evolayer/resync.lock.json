@@ -58,8 +58,8 @@
         },
         "resources/js/hooks/use-brand.ts": {
             "surface": "core",
-            "source_sha": "54f200fc38a390023e985d363976f24fd70c48493fd98abd77c6daacf2a6cf48",
-            "installed_sha": "54f200fc38a390023e985d363976f24fd70c48493fd98abd77c6daacf2a6cf48"
+            "source_sha": "d715ea058240c4e7618cc55fe9f2a6ae34e3138cc9e01001309519d8ec7ee76e",
+            "installed_sha": "d715ea058240c4e7618cc55fe9f2a6ae34e3138cc9e01001309519d8ec7ee76e"
         },
         "resources/js/hooks/use-evolayer-props.ts": {
             "surface": "core",
@@ -142,6 +142,6 @@
             "installed_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8"
         }
     },
-    "package_version": "v0.1.8",
-    "generated_at": "2026-06-30T03:55:06+00:00"
+    "package_version": "v0.1.9",
+    "generated_at": "2026-07-03T16:08:04+00:00"
 }
