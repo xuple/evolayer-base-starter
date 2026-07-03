@@ -6,6 +6,21 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING (pre-1.0 route-contract cleanup).** The authenticated Home is now
+  **host-owned** by the starter. Public `/` is renamed to route `welcome`
+  (component `evolayer/base`); the authenticated launcher `/home` is a
+  starter-owned route named `home` rendering a new host-owned
+  `resources/js/pages/home.tsx`. This removes a hidden Wayfinder compile-time
+  coupling — the shell no longer imports a feature-gated package route
+  (`@/routes/evolayer/base`) for canonical Home, so type-checking/building with
+  `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES=false` no longer fails. Route names now
+  match developer expectations: `welcome` = public root, `home` = authenticated
+  launcher, and public chrome links move from `home()` to `welcome()`. Requires
+  `xuple/evolayer-base` `0.1.9`, which drops the package `evolayer.base.home`
+  route and renames the public explainer `evolayer/about` → `evolayer/base`.
+
 ## [0.1.17] - 2026-07-02
 
 ### Added

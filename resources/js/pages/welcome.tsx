@@ -14,7 +14,7 @@
  */
 import { Link, usePage } from '@inertiajs/react';
 import { SiteHead } from '@/components/site-head';
-import { home as evolayerHome } from '@/routes/evolayer/base';
+import { home } from '@/routes';
 import { login } from '@/routes';
 /* @chisel-registration */
 import { register } from '@/routes';
@@ -31,7 +31,7 @@ export default function Welcome() {
                     <nav className="flex items-center justify-end gap-4">
                         {auth.user ? (
                             <Link
-                                href={evolayerHome()}
+                                href={home()}
                                 className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                             >
                                 Home

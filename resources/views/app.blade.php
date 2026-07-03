@@ -41,7 +41,7 @@
             $siteTitle = \App\Support\SiteMetadata::formatTitle();
             $siteDescription = $site['description'];
             $publicPreviewComponents = [
-                'evolayer/about',
+                'evolayer/base',
                 'evolayer/contact',
                 'evolayer/contact-thank-you',
                 'welcome',

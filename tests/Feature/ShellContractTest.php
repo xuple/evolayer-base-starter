@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Route;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
@@ -11,25 +12,28 @@ class ShellContractTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_public_and_authenticated_home_routes_are_distinct(): void
+    public function test_authenticated_home_is_host_owned_and_package_home_is_absent(): void
     {
-        $this->assertSame('/', route('home', absolute: false));
-        $this->assertSame('/home', route('evolayer.base.home', absolute: false));
+        $this->assertSame('/', route('welcome', absolute: false));
+        $this->assertSame('/home', route('home', absolute: false));
         $this->assertSame('/home', config('fortify.home'));
+
+        // /home is host-owned; the package must not register an auth landing route.
+        $this->assertNull(Route::getRoutes()->getByName('evolayer.base.home'));
     }
 
-    public function test_public_home_renders_the_evolayer_about_explainer(): void
+    public function test_public_landing_renders_the_evolayer_base_explainer(): void
     {
-        $this->get(route('home'))
+        $this->get(route('welcome'))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->component('evolayer/about'),
+                ->component('evolayer/base'),
             );
     }
 
     public function test_authenticated_home_requires_authentication(): void
     {
-        $this->get(route('evolayer.base.home'))
+        $this->get(route('home'))
             ->assertRedirect(route('login'));
     }
 
@@ -38,10 +42,10 @@ class ShellContractTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->get(route('evolayer.base.home'))
+            ->get(route('home'))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->component('evolayer/home'),
+                ->component('home'),
             );
     }
 
@@ -78,7 +82,7 @@ class ShellContractTest extends TestCase
     public function test_public_landing_chrome_uses_the_evolayer_brand_contract(): void
     {
         $layout = (string) file_get_contents(resource_path('js/layouts/public-layout.tsx'));
-        $about = (string) file_get_contents(resource_path('js/pages/evolayer/about.tsx'));
+        $base = (string) file_get_contents(resource_path('js/pages/evolayer/base.tsx'));
         $config = (string) file_get_contents(config_path('site.php'));
         $env = (string) file_get_contents(base_path('.env.example'));
 
@@ -88,8 +92,8 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString('const resolvedDescription = description ?? brand.description;', $layout);
         $this->assertStringContainsString('{brand.name}', $layout);
         $this->assertStringNotContainsString('const { auth, name } = usePage().props;', $layout);
-        $this->assertStringNotContainsString('<Head title={brand.name} />', $about);
-        $this->assertStringNotContainsString('title="EvoLayer Base"', $about);
+        $this->assertStringNotContainsString('<Head title={brand.name} />', $base);
+        $this->assertStringNotContainsString('title="EvoLayer Base"', $base);
         $this->assertStringContainsString("\$brandName = \$value('EVOLAYER_BASE_BRAND_NAME', \$appName);", $config);
         $this->assertStringContainsString("\$siteName = \$value('SITE_NAME', \$brandName);", $config);
         $this->assertStringContainsString('SITE_TITLE_TEMPLATE=', $env);
@@ -174,8 +178,9 @@ class ShellContractTest extends TestCase
         $this->assertIsInt($homePosition);
         $this->assertIsInt($dashboardPosition);
         $this->assertLessThan($dashboardPosition, $homePosition);
-        $this->assertStringContainsString('import { home as evolayerHome }', $navigation);
-        $this->assertStringContainsString('href: evolayerHome()', $navigation);
+        $this->assertStringContainsString("import { dashboard, home } from '@/routes';", $navigation);
+        $this->assertStringNotContainsString('@/routes/evolayer/base', $navigation);
+        $this->assertStringContainsString('href: home()', $navigation);
         $this->assertStringContainsString('export const settingsSectionNavItems', $navigation);
         $this->assertStringContainsString('settingsSectionNavItems', $settingsLayout);
         $this->assertStringContainsString('configuredMainNavItems', $header);

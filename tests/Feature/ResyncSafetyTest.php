@@ -29,7 +29,7 @@ test('the evolayer:resync script does not force-publish frontend stubs', functio
 });
 
 test('managed landing pages render from brand config, not a full-file override', function () {
-    foreach (['about.tsx', 'home.tsx'] as $page) {
+    foreach (['base.tsx'] as $page) {
         $content = (string) file_get_contents(base_path("resources/js/pages/evolayer/{$page}"));
 
         expect($content)

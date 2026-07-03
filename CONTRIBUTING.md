@@ -44,17 +44,21 @@ The EvoLayer React stubs listed in the first row are committed here so the start
 
 **Provider runtime approval and published EvoLayer surfaces are package-owned.** ThreadStudio provider approval (which providers are selectable, which are diagnostic/blocked) and the published stubs that carry it (`config/evolayer-ai.php`, `resources/js/pages/evolayer/**`, `ontology.yaml`) change in `xuple/evolayer-base` first — update the package, resync the starter, then update starter docs and release notes (`.env.example`, `README.md`, `CHANGELOG.md`, `RELEASE.md`). Do not hand-edit the runtime-approved roster into starter stubs or agent docs.
 
-**Landing pages are package-owned, branded from config.** `resources/js/pages/evolayer/about.tsx` and `resources/js/pages/evolayer/home.tsx` render from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example`. Public landing chrome also reads `useBrand()`, and blank `SITE_NAME` / `SITE_TITLE_TEMPLATE` values inherit that brand before falling back to `APP_NAME`. Rebrand them by changing config, not by editing the page files. `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe — it keeps host-modified stubs (`--force` to overwrite, `--dry-run` to preview) and skips ejected surfaces. To own the marketing surface outright, run `php artisan evolayer:eject marketing-pages` (forfeiting managed updates for it). All `resources/js/pages/evolayer/**` files are package-owned.
+**The public explainer is package-owned and branded from config; the authenticated Home is host-owned.** `resources/js/pages/evolayer/base.tsx` (the public explainer at `/`) renders from `useBrand()` — `config('evolayer.base.brand')`, shared via `EvoLayerProps::base()` and surfaced from `EVOLAYER_BASE_BRAND_*` in `.env.example`. Public landing chrome also reads `useBrand()`, and blank `SITE_NAME` / `SITE_TITLE_TEMPLATE` values inherit that brand before falling back to `APP_NAME`. Rebrand it by changing config, not by editing the page file. `composer evolayer:resync` runs `php artisan evolayer:resync`, which is manifest-safe — it keeps host-modified stubs (`--force` to overwrite, `--dry-run` to preview) and skips ejected surfaces. To own the marketing surface outright, run `php artisan evolayer:eject marketing-pages` (forfeiting managed updates for it). The authenticated launcher `resources/js/pages/home.tsx` is **starter-owned** (not under `evolayer/**`); all other `resources/js/pages/evolayer/**` files are package-owned.
 
 If a change spans both repos (most commonly: a new `EVOLAYER_BASE_*` flag, or a host edit that requires a package change), land the package PR first against a resolvable ref the starter can pick up, then open the starter PR pointing at it.
 
 ### Adding starter routes or pages safely
 
-- Use the public `home` route (`/`) only for public landing/logout flows.
-- Public `/` intentionally renders the package-owned `evolayer/about` starter
+- Use the public `welcome` route (`/`) for public landing/logout flows.
+- Public `/` (route `welcome`) renders the package-owned `evolayer/base` starter
   explainer; `welcome.tsx` is only a retained Laravel-kit / chisel compatibility
   artefact, not the active public IA.
-- Use `evolayer.base.home` (`/home`) for the authenticated starter launcher. If a downstream app disables `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`, it must choose a replacement authenticated landing route and update `config/fortify.php`.
+- The authenticated launcher `/home` (route `home`) is **host-owned** by the starter
+  and always present — it is not gated by `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`, so
+  disabling marketing pages never breaks the shell build. `config/fortify.php`
+  redirects to `/home`. Never use `home()` in public chrome — it now means the
+  authenticated launcher.
 - Put host shell pages/routes in starter-owned files. Put new EvoLayer examples, blocks, agents, or package routes in `xuple/evolayer-base` first, then resync here.
 - Public pages should use `PublicLayout` / `SiteHead` for title, canonical, robots, Open Graph, X/Twitter-compatible, and JSON-LD tags. Do not scatter page-local SEO/social literals across page components.
 - Read social/metadata env values only in `config/site.php`. Runtime code should use `config('site.*')`, `App\Support\SiteMetadata`, or the shared `site` Inertia prop.

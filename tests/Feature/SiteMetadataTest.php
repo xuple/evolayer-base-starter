@@ -171,7 +171,7 @@ class SiteMetadataTest extends TestCase
         $this->useStarterSiteDefaults();
         Config::set('site.canonical.base_url', 'https://starter.example');
 
-        $response = $this->get(route('home'));
+        $response = $this->get(route('welcome'));
 
         $response
             ->assertOk()
@@ -208,7 +208,7 @@ class SiteMetadataTest extends TestCase
         Config::set('site.canonical.base_url', 'https://starter.example');
         Config::set('site.social.image_version', 'preview-2');
 
-        $this->get(route('home'))
+        $this->get(route('welcome'))
             ->assertOk()
             ->assertSee(
                 'property="og:image" content="https://starter.example/social/og-default.png?v=preview-2"',
@@ -226,7 +226,7 @@ class SiteMetadataTest extends TestCase
         Config::set('site.structured_data.area_served', 'Example Region');
         Config::set('site.structured_data.same_as', 'https://example.com/a, https://example.com/b');
 
-        $this->get(route('home'))
+        $this->get(route('welcome'))
             ->assertOk()
             ->assertSee('"@type":["LocalBusiness","HomeAndConstructionBusiness"]', false)
             ->assertSee('"telephone":"+10000000000"', false)

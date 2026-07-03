@@ -8,8 +8,7 @@ import {
     Settings,
     Sparkles,
 } from 'lucide-react';
-import { dashboard } from '@/routes';
-import { home as evolayerHome } from '@/routes/evolayer/base';
+import { dashboard, home } from '@/routes';
 import { edit as editAppearance } from '@/routes/appearance/index';
 import { edit as profileEdit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security/index';
@@ -26,12 +25,13 @@ import type { EvoLayerNavItem } from '@/types/evolayer';
  * imports since the starter always ships them.
  */
 export const authenticatedHomeNavItem: EvoLayerNavItem = {
+    // /home is the host-owned authenticated launcher (starter route `home`),
+    // always present — not a gated example.
     title: 'Home',
-    href: evolayerHome(),
+    href: home(),
     icon: Home,
     isAccent: true,
     description: 'Go to the launcher',
-    exampleKey: 'marketing_pages',
 };
 
 export const dashboardNavItem: EvoLayerNavItem = {

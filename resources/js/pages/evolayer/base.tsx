@@ -96,7 +96,7 @@ const proof = [
     'Doctor checks green',
 ] as const;
 
-export default function About() {
+export default function Base() {
     const brand = useBrand();
 
     return (
@@ -264,4 +264,4 @@ export default function About() {
     );
 }
 
-About.layout = (page: ReactElement) => <PublicLayout>{page}</PublicLayout>;
+Base.layout = (page: ReactElement) => <PublicLayout>{page}</PublicLayout>;
