@@ -91,11 +91,6 @@
             "source_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c",
             "installed_sha": "3cb3496fb568a0ed7b41ef7304072012860c2cc1a596e48a88a5f62706103d2c"
         },
-        "resources/js/pages/evolayer/about.tsx": {
-            "surface": "marketing-pages",
-            "source_sha": "805edb272b5cf6cd602ac191a5ca89f426995017ba37f36aa84d4d3c085a19f1",
-            "installed_sha": "805edb272b5cf6cd602ac191a5ca89f426995017ba37f36aa84d4d3c085a19f1"
-        },
         "resources/js/pages/evolayer/admin/inbox/index.tsx": {
             "surface": "admin-inbox",
             "source_sha": "3d84e11828664d65be4953da0dd9cbc2394d64f84f62731da6891a340b35074c",
@@ -121,15 +116,15 @@
             "source_sha": "cf717431975261c4fbbd05b9c63666555bfe9140115a5a9a65bccde831773289",
             "installed_sha": "cf717431975261c4fbbd05b9c63666555bfe9140115a5a9a65bccde831773289"
         },
+        "resources/js/pages/evolayer/base.tsx": {
+            "surface": "marketing-pages",
+            "source_sha": "88e8af982d978bc0b072c2e3353c53b36de3dd41e8decd4bf252125a2c386c44",
+            "installed_sha": "88e8af982d978bc0b072c2e3353c53b36de3dd41e8decd4bf252125a2c386c44"
+        },
         "resources/js/pages/evolayer/contact-thank-you.tsx": {
             "surface": "contact-ai",
             "source_sha": "561fa8d2e815870d0d50fdf81e9315ee43b7141ff0f6e49d676d63fd1b4a7be1",
             "installed_sha": "561fa8d2e815870d0d50fdf81e9315ee43b7141ff0f6e49d676d63fd1b4a7be1"
-        },
-        "resources/js/pages/evolayer/home.tsx": {
-            "surface": "marketing-pages",
-            "source_sha": "7bf6d6acf154d69a649edfe4f28f5d9c12bfad13fdc87f6bc67cec26c7aad803",
-            "installed_sha": "7bf6d6acf154d69a649edfe4f28f5d9c12bfad13fdc87f6bc67cec26c7aad803"
         },
         "resources/js/providers/command-palette-provider.tsx": {
             "surface": "core",

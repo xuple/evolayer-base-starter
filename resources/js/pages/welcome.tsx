@@ -1,15 +1,15 @@
 /**
  * Inherited laravel/react-starter-kit welcome page.
  *
- * Not routed by routes/web.php — the public home in this starter is
- * `evolayer/about`. This file is kept intentionally as a fallback for
+ * Not routed by routes/web.php — the public landing in this starter is
+ * `evolayer/base` (route `welcome`). This file is kept intentionally as a fallback for
  * the upstream chisel auth-trim flow (see chisel.php / chisel-paths.php),
  * which manipulates the registration-block markers below if a user opts
  * out of registration via `php artisan install:features`. The `welcome`
  * layout case in app.tsx also exists for that flow. Remove all three
  * together if the chisel auth-trim flow is dropped from this starter.
  *
- * The authenticated CTA links to /home (evolayer.base.home) rather than
+ * The authenticated CTA links to /home (host-owned route `home`) rather than
  * /dashboard, matching the canonical post-auth destination in this starter.
  */
 import { Link, usePage } from '@inertiajs/react';

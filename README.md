@@ -87,7 +87,7 @@ Each bundled example surface is gated by an `EVOLAYER_BASE_EXAMPLE_*` flag in `.
 
 | Flag                                        | What it adds                                               |
 | ------------------------------------------- | ---------------------------------------------------------- |
-| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`     | Public About and authenticated Home launcher pages         |
+| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES`     | Public `/about` explainer alias (authenticated `/home` is host-owned, always on) |
 | `EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO`       | ThreadStudio — streaming AI compose with structured output |
 | `EVOLAYER_BASE_EXAMPLE_PRD_STUDIO`          | PRD Studio — turn notes into scoped requirements           |
 | `EVOLAYER_BASE_EXAMPLE_ADMIN_INBOX`         | Admin inbox for contact-form submissions                   |

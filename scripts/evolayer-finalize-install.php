@@ -137,7 +137,7 @@ Every bundled surface toggles independently via an `EVOLAYER_BASE_EXAMPLE_*` fla
 
 | Flag | What it adds |
 | --- | --- |
-| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES` | Public About + authenticated Home launcher |
+| `EVOLAYER_BASE_EXAMPLE_MARKETING_PAGES` | Public `/about` explainer alias (authenticated `/home` is host-owned, always on) |
 | `EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO` | ThreadStudio — streaming AI compose with structured output |
 | `EVOLAYER_BASE_EXAMPLE_PRD_STUDIO` | PRD Studio — turn notes into scoped requirements |
 | `EVOLAYER_BASE_EXAMPLE_ADMIN_INBOX` | Admin inbox for contact-form submissions |

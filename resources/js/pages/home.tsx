@@ -7,7 +7,7 @@ import { docsBaseUrl } from '@/config/docs';
 import { useBrand } from '@/hooks/use-brand';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
-import { home } from '@/routes';
+import { home, welcome } from '@/routes';
 import { edit as profileEdit } from '@/routes/profile';
 
 type StarterLink = {
@@ -60,8 +60,10 @@ const extensionPaths: ExtensionPath[] = [
     {
         title: 'Public pages and docs',
         description:
-            'Use the about page to review the public pages, docs, and first app areas before extending.',
-        href: '/about',
+            'Use the public explainer to review the public pages, docs, and first app areas before extending.',
+        // The host `welcome` route (/) always renders the explainer; /about is
+        // only a package alias that vanishes when marketing pages are disabled.
+        href: welcome().url,
         icon: Blocks,
     },
     {

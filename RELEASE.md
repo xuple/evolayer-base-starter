@@ -33,9 +33,10 @@ bundle and the SSR bundle.
 
 ## Route identity migration notes
 
-The starter treats `/home` (`evolayer.base.home`) as the canonical authenticated
-entry point. Public `/` remains named `home` and remains the logout/public landing
-route. When changing this contract in a downstream app, review:
+The starter treats `/home` (host-owned route named `home`) as the canonical
+authenticated entry point. Public `/` is named `welcome` and is the
+logout/public landing route rendering the `evolayer/base` explainer. When
+changing this contract in a downstream app, review:
 
 - `config/fortify.php` `home`.
 - Shell logo links, passkey success fallbacks, and any hard-coded `/dashboard`

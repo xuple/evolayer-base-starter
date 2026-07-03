@@ -19,7 +19,7 @@ This file is the short, prescriptive version of those documents tuned for agent 
 | [`xuple/evolayer-base`](https://github.com/xuple/evolayer-base) | The package. Owns examples, agents, blocks, ontology, `evolayer:*` artisan commands, and the `evolayer.base.*` config shape. Conservative — installs add no routes by default.                                                                          |
 | `xuple/evolayer-base-starter` (this repo)                       | Thin Laravel host shell. Owns the integration files the package can't publish, the kitchen-sink `.env.example` defaults, the `laravel/ai` patch wiring, host-side migrations, and starter CI. Kitchen-sink — every demo surface enabled out of the box. |
 
-The starter is a thin fork of [`laravel/react-starter-kit`](https://github.com/laravel/react-starter-kit). Inherited scaffolding that doesn't fit the EvoLayer story (e.g. `resources/js/pages/welcome.tsx`) is kept intentionally where it's wired into upstream flows like the chisel auth-trim. Public `/` is named `home` and renders the package-owned `evolayer/about` starter explainer; authenticated `/home` is named `evolayer.base.home` and is the launcher.
+The starter is a thin fork of [`laravel/react-starter-kit`](https://github.com/laravel/react-starter-kit). Inherited scaffolding that doesn't fit the EvoLayer story (e.g. `resources/js/pages/welcome.tsx`) is kept intentionally where it's wired into upstream flows like the chisel auth-trim. Public `/` is named `welcome` and renders the package-owned `evolayer/base` starter explainer; authenticated `/home` is the **host-owned** route named `home` rendering the starter-owned `home` launcher page.
 
 ## Where does my change belong?
 
