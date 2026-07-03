@@ -96,7 +96,7 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
    that HTTP/string tests cannot verify. A human must perform them before
    tagging a release; no agent may claim these passed without actually running
    them in a browser.
-    - Public `/` loads the EvoLayer Base landing page (about).
+    - Public `/` (route `welcome`) loads the EvoLayer Base explainer (`evolayer/base`).
     - Login/register path renders Fortify auth forms.
 
 - Authenticated `/home` loads the Home launcher with command bar visible.
