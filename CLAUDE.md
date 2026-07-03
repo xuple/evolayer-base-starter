@@ -60,7 +60,7 @@ Pages in this starter use three layout declaration patterns. The choice depends 
 
 1. **Static object layout** — `Page.layout = { breadcrumbs: [...] }` or `Page.layout = { title: '...', description: '...' }`. Use when the page uses the default layout resolver (AppLayout for non-auth non-settings, AuthLayout for auth, `[AppLayout, SettingsLayout]` for settings) and only needs to pass static props. Inertia merges these into the resolver's layout component. Used by auth pages, settings pages, dashboard, and submissions pages.
 
-2. **Callback layout** — `Page.layout = (page: ReactElement) => <AppLayout breadcrumbs={[...]}>{page}</AppLayout>`. Use when the page needs a non-default wrapper (PublicLayout for public marketing pages, or an explicit AppLayout with specific breadcrumbs). The callback must return a new JSX element, not the bare `page` — see the ❌ pattern above. Used by `about.tsx`, `home.tsx`, `contact.tsx`, `contact-thank-you.tsx`, `inbox/index.tsx`, `thread-studio.tsx`.
+2. **Callback layout** — `Page.layout = (page: ReactElement) => <AppLayout breadcrumbs={[...]}>{page}</AppLayout>`. Use when the page needs a non-default wrapper (PublicLayout for public marketing pages, or an explicit AppLayout with specific breadcrumbs). The callback must return a new JSX element, not the bare `page` — see the ❌ pattern above. Used by `base.tsx`, `home.tsx`, `contact.tsx`, `contact-thank-you.tsx`, `inbox/index.tsx`, `thread-studio.tsx`.
 
 3. **`setLayoutProps`** — `setLayoutProps({ title: '...' })`. Use from inside a page component when the layout title or other props depend on runtime state. Used by `two-factor-challenge.tsx`. Prefer static layout props or callback layouts when the values are known at module level.
 
