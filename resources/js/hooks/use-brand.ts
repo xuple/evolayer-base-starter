@@ -20,8 +20,8 @@ const FALLBACK_BRAND: EvoLayerBrand = {
  * Unlike `useEvoLayerProps()`, this never throws: it falls back to the package
  * defaults when the host has not shared `evolayer.base.brand`. Wire
  * `EvoLayerProps::base()` into HandleInertiaRequests to make brand
- * host-controlled — so home/about can be rebranded without ejecting or
- * overwriting the page files.
+ * host-controlled — so the public explainer (evolayer/base) can be rebranded
+ * without ejecting or overwriting the page file.
  */
 export function useBrand(): EvoLayerBrand {
     const props = usePage().props as unknown as {

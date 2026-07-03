@@ -28,10 +28,10 @@ return [
             'contact_attachments' => env('EVOLAYER_BASE_FEATURE_CONTACT_ATTACHMENTS', false),
         ],
 
-        // Brand surface for the published landing pages (home/about) and head
-        // metadata. Hosts rebrand by overriding these via env or by sharing
+        // Brand surface for the published public explainer (evolayer/base) and
+        // head metadata. Hosts rebrand by overriding these via env or by sharing
         // evolayer.base.brand on the Inertia props (see Support\EvoLayerProps) —
-        // so resync never needs to overwrite the page files to rebrand them.
+        // so resync never needs to overwrite the page file to rebrand it.
         'brand' => [
             'name' => env('EVOLAYER_BASE_BRAND_NAME', 'EvoLayer Base'),
             'tagline' => env('EVOLAYER_BASE_BRAND_TAGLINE', 'A fully working AI application layer for the official Laravel AI SDK.'),

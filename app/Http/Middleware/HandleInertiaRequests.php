@@ -47,8 +47,8 @@ class HandleInertiaRequests extends Middleware
             // EvoLayer Base shared prop — consumed by published pages via
             // useEvoLayerProps() / useBrand(). EvoLayerProps::base() assembles
             // examples + features + brand from config (one DRY source), so hosts
-            // rebrand home/about via config('evolayer.base.brand') / env instead
-            // of editing the page files.
+            // rebrand the public explainer (evolayer/base) via
+            // config('evolayer.base.brand') / env instead of editing the page file.
             'evolayer' => [
                 'base' => EvoLayerProps::base(),
             ],
