@@ -3,6 +3,7 @@
   "name": "xuple/evolayer-base-starter",
   "type": "project",
   "description": "EvoLayer Base starter — the Laravel React Inertia starter kit with the EvoLayer AI / ontology / blocks layer pre-wired. Part of the EvoDevOps starter-kit family.",
+  "homepage": "https://evodevops.com/evolayer-base",
   "keywords": [
     "evolayer",
     "evodevops",
