@@ -6,6 +6,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.19] - 2026-07-04
+
 ### Fixed
 
 - The Vite config now bundles all SSR dependencies (`ssr: { noExternal: true }`),
