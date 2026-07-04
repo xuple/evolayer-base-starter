@@ -6,6 +6,16 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- The Vite config now bundles all SSR dependencies (`ssr: { noExternal: true }`),
+  so the built `bootstrap/ssr` server is self-contained. Slim deployment images
+  that ship the SSR build without `node_modules` previously FATAL'd on boot
+  (`ERR_MODULE_NOT_FOUND: react`) and Inertia silently fell back to client-side
+  rendering. Harmless for classic deploys where `node_modules` is present.
+  Existing generated apps don't receive `vite.config.ts` via resync — apply the
+  one-liner by hand (see the hosting guide) if you containerize.
+
 ## [0.1.18] - 2026-07-03
 
 ### Changed

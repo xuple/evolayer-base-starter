@@ -143,6 +143,12 @@ export default defineConfig(({ command, mode }) => {
                 },
             },
         },
+        // Bundle all SSR dependencies into bootstrap/ssr so the built SSR
+        // server is self-contained. Slim deployment images that copy
+        // bootstrap/ssr WITHOUT node_modules otherwise FATAL on boot
+        // (ERR_MODULE_NOT_FOUND: react) and Inertia silently falls back to
+        // client-side rendering. Harmless when node_modules is present.
+        ssr: { noExternal: true },
         ...(devServer === undefined ? {} : { server: devServer }),
         plugins: [
             laravel({
