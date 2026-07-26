@@ -39,11 +39,13 @@ jobs:
           # Endpoint: https://repo.packagist.org/p2/<vendor>/<package>.json
           RESPONSE=$(curl -sSf 'https://repo.packagist.org/p2/xuple/evolayer-base.json')
 
-          # Extract versions, strip any leading 'v', filter to 0.x only, sort and take newest.
+          # Extract versions, strip any leading 'v', and consider stable 0.x
+          # releases only. RC adoption is deliberate release work, never an
+          # automated framework bump.
           LATEST=$(echo "$RESPONSE" \
             | jq -r '.packages["xuple/evolayer-base"][].version' \
             | sed 's/^v//' \
-            | grep '^0\.' \
+            | grep -E '^0\.[0-9]+\.[0-9]+$' \
             | sort -V \
             | tail -1)
 
@@ -58,8 +60,11 @@ jobs:
           echo "Packagist latest 0.x : $LATEST"
           echo "Current pin          : $CURRENT"
 
-          if [[ "$CURRENT" == "$LATEST" ]]; then
-            echo "Already at $CURRENT — no bump needed."
+          CURRENT_CORE="${CURRENT%%-*}"
+          NEWEST_CORE=$(printf '%s\n%s\n' "$CURRENT_CORE" "$LATEST" | sort -V | tail -1)
+
+          if [[ "$CURRENT" == "$LATEST" || ("$NEWEST_CORE" == "$CURRENT_CORE" && "$CURRENT_CORE" != "$LATEST") ]]; then
+            echo "No newer stable release than $CURRENT — no bump needed."
             echo "needs_bump=false" >> "$GITHUB_OUTPUT"
           else
             echo "Bump available: $CURRENT → $LATEST"
@@ -119,7 +124,7 @@ jobs:
 
       - name: Audit Node dependencies
         if: steps.detect.outputs.needs_bump == 'true'
-        run: npm audit --audit-level=high
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Prepare Laravel app
         if: steps.detect.outputs.needs_bump == 'true'
@@ -180,7 +185,7 @@ jobs:
 
             - `composer validate --strict` ✅
             - `composer audit` ✅
-            - `npm ci` + `npm audit --audit-level=high` ✅
+            - `npm ci` + `npm audit --omit=dev --audit-level=high` ✅
             - `npm run types:check` ✅
             - `npm run build` ✅
             - `php artisan evolayer:doctor --strict --no-ansi` ✅

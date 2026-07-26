@@ -17,6 +17,27 @@ marketing routes expose that same page at `/about`.
 Current starter release: **0.1.19** (pre-1.0 developer preview). Future fixes use
 new patch releases; do not move published tags.
 
+## 0.2 RC dependency-audit boundary
+
+The `0.2.0-rc.1` candidate has a clean production dependency audit:
+
+```bash
+npm audit --omit=dev --audit-level=high
+```
+
+Compatible patch updates remediate the reported `postcss`, `js-yaml`,
+`concurrently`, and `shell-quote` advisories. The remaining high-severity
+report is confined to the development-only ESLint toolchain:
+`eslint` / `eslint-plugin-import` / `eslint-plugin-react` depend on
+`minimatch@3`, which depends on the affected `brace-expansion@1` line. The
+reviewed lint command supplies repository-owned paths and does not expose this
+parser to application requests or production input.
+
+npm currently proposes only incompatible major upgrades or downgrades for that
+chain. Do not use `npm audit fix --force` to hide it. Re-evaluate the ESLint
+chain before stable `v0.2.0`, and no later than 2026-08-31. Production
+dependencies remain a blocking CI audit gate throughout the deferral.
+
 ## create-project flow (end users)
 
 ```bash

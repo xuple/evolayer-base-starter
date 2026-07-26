@@ -190,4 +190,25 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString('settingsSectionNavItems', $settingsLayout);
         $this->assertStringContainsString('configuredMainNavItems', $header);
     }
+
+    public function test_framework_bumps_ignore_prereleases_and_ci_blocks_production_advisories(): void
+    {
+        $frameworkBump = (string) file_get_contents(base_path('.github/workflows/framework-bump.yml'));
+
+        $this->assertStringContainsString("grep -E '^0\\.[0-9]+\\.[0-9]+$'", $frameworkBump);
+        $this->assertStringContainsString('CURRENT_CORE="${CURRENT%%-*}"', $frameworkBump);
+        $this->assertStringContainsString(
+            'npm audit --omit=dev --audit-level=high',
+            $frameworkBump,
+        );
+
+        foreach (['lint.yml', 'tests.yml'] as $workflow) {
+            $contents = (string) file_get_contents(base_path('.github/workflows/'.$workflow));
+
+            $this->assertStringContainsString(
+                'npm audit --omit=dev --audit-level=high',
+                $contents,
+            );
+        }
+    }
 }
