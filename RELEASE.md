@@ -39,8 +39,9 @@ chain before stable `v0.2.0`, and no later than 2026-08-31. Production
 dependencies remain a blocking CI audit gate throughout the deferral.
 CI also runs `npm run audit:full`, which accepts only the exact reviewed ESLint
 package chain and advisory, fails when a compatible fix appears, rejects any
-new high-severity package or advisory, and stops accepting the exception after
-its expiry.
+new high- or critical-severity package or advisory, and stops accepting the
+exception after its expiry. Low- and moderate-severity findings remain visible
+in npm's full report but do not block this bounded exception check.
 
 ## create-project flow (end users)
 

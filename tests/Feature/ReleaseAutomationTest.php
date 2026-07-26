@@ -81,7 +81,7 @@ test('the full npm audit accepts only the unexpired reviewed ESLint chain', func
         ->and(file_get_contents($fixture))->toBe($contents);
 });
 
-test('the full npm audit fails for a new high advisory or an expired exception', function () {
+test('the full npm audit enforces the documented high and critical policy', function () {
     $fixture = base_path('tests/Fixtures/release/npm-audit-eslint-deferred.json');
     $report = json_decode((string) file_get_contents($fixture), true, flags: JSON_THROW_ON_ERROR);
     $report['vulnerabilities']['new-build-tool'] = [
@@ -99,6 +99,19 @@ test('the full npm audit fails for a new high advisory or an expired exception',
     $report['vulnerabilities']['brace-expansion']['fixAvailable'] = true;
     $compatibleFixPath = $this->releaseAutomationRoot.'/compatible-fix-audit.json';
     file_put_contents($compatibleFixPath, json_encode($report, JSON_THROW_ON_ERROR));
+    $report = json_decode((string) file_get_contents($fixture), true, flags: JSON_THROW_ON_ERROR);
+    $report['vulnerabilities']['brace-expansion']['severity'] = 'critical';
+    $criticalPath = $this->releaseAutomationRoot.'/critical-audit.json';
+    file_put_contents($criticalPath, json_encode($report, JSON_THROW_ON_ERROR));
+    $report = json_decode((string) file_get_contents($fixture), true, flags: JSON_THROW_ON_ERROR);
+    $report['vulnerabilities']['new-low-build-tool'] = [
+        'severity' => 'low',
+        'via' => [],
+        'effects' => [],
+        'fixAvailable' => false,
+    ];
+    $lowPath = $this->releaseAutomationRoot.'/low-audit.json';
+    file_put_contents($lowPath, json_encode($report, JSON_THROW_ON_ERROR));
 
     $unexpected = runReleaseAutomationProcess([
         'node',
@@ -116,6 +129,22 @@ test('the full npm audit fails for a new high advisory or an expired exception',
         '--date',
         '2026-07-26',
     ]);
+    $critical = runReleaseAutomationProcess([
+        'node',
+        base_path('scripts/check-npm-audit.mjs'),
+        '--input',
+        $criticalPath,
+        '--date',
+        '2026-07-26',
+    ]);
+    $low = runReleaseAutomationProcess([
+        'node',
+        base_path('scripts/check-npm-audit.mjs'),
+        '--input',
+        $lowPath,
+        '--date',
+        '2026-07-26',
+    ]);
     $expired = runReleaseAutomationProcess([
         'node',
         base_path('scripts/check-npm-audit.mjs'),
@@ -129,6 +158,10 @@ test('the full npm audit fails for a new high advisory or an expired exception',
         ->and($unexpected->getErrorOutput())->toContain('npm-audit-unexpected-package')
         ->and($compatibleFix->isSuccessful())->toBeFalse()
         ->and($compatibleFix->getErrorOutput())->toContain('npm-audit-compatible-fix-available')
+        ->and($critical->isSuccessful())->toBeFalse()
+        ->and($critical->getErrorOutput())->toContain('npm-audit-severity-changed')
+        ->and($low->isSuccessful())->toBeTrue()
+        ->and($low->getOutput())->toContain('matches the reviewed allowlist')
         ->and($expired->isSuccessful())->toBeFalse()
         ->and($expired->getErrorOutput())->toContain('npm-audit-exception-expired');
 });
