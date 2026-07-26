@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.388.9",
+            "version": "3.387.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d537c1143942ba8b7a0203a20c223127b9ba7108"
+                "reference": "dac6a19ffc71e6d100f06098e7df58f2e27103f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d537c1143942ba8b7a0203a20c223127b9ba7108",
-                "reference": "d537c1143942ba8b7a0203a20c223127b9ba7108",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/dac6a19ffc71e6d100f06098e7df58f2e27103f9",
+                "reference": "dac6a19ffc71e6d100f06098e7df58f2e27103f9",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.388.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.387.2"
             },
-            "time": "2026-07-17T18:11:29+00:00"
+            "time": "2026-07-02T18:06:18+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -2986,16 +2986,16 @@
         },
         {
             "name": "mtdowling/jmespath.php",
-            "version": "2.9.2",
+            "version": "2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jmespath/jmespath.php.git",
-                "reference": "2157c5e50e813ec6a96c1eed3be7f64a20fb32a8"
+                "reference": "9c208ba27ae7d90853c288b3795d6702eb251d34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/2157c5e50e813ec6a96c1eed3be7f64a20fb32a8",
-                "reference": "2157c5e50e813ec6a96c1eed3be7f64a20fb32a8",
+                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/9c208ba27ae7d90853c288b3795d6702eb251d34",
+                "reference": "9c208ba27ae7d90853c288b3795d6702eb251d34",
                 "shasum": ""
             },
             "require": {
@@ -3046,9 +3046,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jmespath/jmespath.php/issues",
-                "source": "https://github.com/jmespath/jmespath.php/tree/2.9.2"
+                "source": "https://github.com/jmespath/jmespath.php/tree/2.9.1"
             },
-            "time": "2026-07-06T18:56:19+00:00"
+            "time": "2026-06-11T10:43:56+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -8932,7 +8932,7 @@
             "dist": {
                 "type": "path",
                 "url": "../evodevops-base-pkg",
-                "reference": "ccc84259770cec3396eeecaade31268d888bf6f7"
+                "reference": "b77e96618ea8b8eec7cde648604af3b117ca9f7c"
             },
             "require": {
                 "inertiajs/inertia-laravel": "^3.0",
