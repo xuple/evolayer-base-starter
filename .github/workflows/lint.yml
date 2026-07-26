@@ -59,7 +59,8 @@ jobs:
       - name: Audit dependencies
         run: |
           composer audit
-          npm audit --omit=dev --audit-level=high
+          npm run audit:production
+          npm run audit:full
 
       - name: Prepare generated frontend contracts
         # ESLint resolves imports from gitignored Wayfinder/ontology outputs.

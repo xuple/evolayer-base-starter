@@ -4,6 +4,8 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "audit:full": "node scripts/check-npm-audit.mjs",
+        "audit:production": "npm audit --omit=dev --audit-level=high",
         "build": "npm run build:ssr",
         "build:ssr": "vite build && vite build --ssr",
         "dev": "vite",
