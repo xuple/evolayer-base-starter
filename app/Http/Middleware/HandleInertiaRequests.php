@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Support\SiteMetadata;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Middleware;
 use Xuple\EvoLayer\Base\Support\EvoLayerProps;
 
@@ -42,6 +43,7 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+                'registrationUrl' => Route::has('register') ? route('register', absolute: false) : null,
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             // EvoLayer Base shared prop — consumed by published pages via

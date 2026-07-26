@@ -77,6 +77,7 @@ class FortifyServiceProvider extends ServiceProvider
         /* @chisel-registration */
         Fortify::registerView(fn () => Inertia::render('auth/register', [
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
+            'registrationUrl' => route('register', absolute: false),
         ]));
         /* @end-chisel-registration */
 

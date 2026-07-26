@@ -1,4 +1,7 @@
 {
+    "schema_version": 1,
+    "package_version": "0.2.0-rc.1",
+    "package_reference": "60ec9a4b89ce7c1796b07dbfef26096dcba81330",
     "surfaces": [],
     "files": {
         "resources/js/blocks/ai-text-field/index.tsx": {
@@ -126,6 +129,11 @@
             "source_sha": "561fa8d2e815870d0d50fdf81e9315ee43b7141ff0f6e49d676d63fd1b4a7be1",
             "installed_sha": "561fa8d2e815870d0d50fdf81e9315ee43b7141ff0f6e49d676d63fd1b4a7be1"
         },
+        "resources/js/pages/evolayer/contact.tsx": {
+            "surface": "contact-ai",
+            "source_sha": "f0f1e6bc09931c1ca1ba0422dfe2c75c0d5bc37792880f212c49e6efb8d5f88d",
+            "installed_sha": "f0f1e6bc09931c1ca1ba0422dfe2c75c0d5bc37792880f212c49e6efb8d5f88d"
+        },
         "resources/js/providers/command-palette-provider.tsx": {
             "surface": "core",
             "source_sha": "97e6ed338e36576a51520610a96a7607cfab6de418abe91b4733998614e1d320",
@@ -142,6 +150,5 @@
             "installed_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8"
         }
     },
-    "package_version": "v0.1.9",
-    "generated_at": "2026-07-03T16:08:04+00:00"
+    "generated_at": "2026-07-26T12:41:22+00:00"
 }

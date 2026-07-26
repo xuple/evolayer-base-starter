@@ -17,6 +17,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Composer\InstalledVersions;
+use Illuminate\Contracts\Console\Kernel;
 
 function evolayer_install_slug(string $value): string
 {
@@ -89,6 +90,23 @@ function evolayer_install_readme_identity_note(string $suggestedPackageName): st
 MD;
 }
 
+function evolayer_install_profile_guidance(string $profile = 'demo'): string
+{
+    if ($profile === 'application') {
+        return <<<'MD'
+<!-- evolayer-application-profile:start -->
+> **Operational profile: application.** Public registration, known demo credentials, and bundled example surfaces are disabled. Regenerate Wayfinder and ontology contracts, run the Starter verification gates, and deliberately update the exact Base pin when adopting a reviewed release.
+<!-- evolayer-application-profile:end -->
+MD;
+    }
+
+    return <<<'MD'
+<!-- evolayer-application-profile:start -->
+> **Operational profile: demo.** Public registration and bundled examples are enabled for local exploration. The seeded test@example.com / password account is demonstration-only. Apply the application profile before treating this repository as an application deployment.
+<!-- evolayer-application-profile:end -->
+MD;
+}
+
 /**
  * A fresh, app-appropriate README for generated apps. The starter's own README is
  * `export-ignore`d from the Composer dist, so `create-project` apps ship without
@@ -100,6 +118,7 @@ MD;
 function evolayer_install_generated_readme(string $appRoot, string $suggestedPackageName): string
 {
     $app = basename($appRoot);
+    $profileGuidance = evolayer_install_profile_guidance();
 
     return <<<MD
 # {$app}
@@ -107,6 +126,8 @@ function evolayer_install_generated_readme(string $appRoot, string $suggestedPac
 > **Your application** — created from [`xuple/evolayer-base-starter`](https://github.com/xuple/evolayer-base-starter), **not the public starter.** See `AGENTS.md` / `CLAUDE.md` for agent guidance and the starter→app boundary.
 
 A Laravel · React · Inertia application built on **EvoLayer Base** — the AI / ontology / blocks substrate for the `laravel/ai` SDK.
+
+{$profileGuidance}
 
 ## Getting started
 
@@ -117,8 +138,6 @@ composer install
 npm install
 composer dev          # server + queue + logs + Vite together
 ```
-
-Log in with `test@example.com` / `password` to explore the seeded surfaces. (Cloned a fresh copy with no `.env`? Run `composer setup` first.)
 
 ## How the pieces fit
 
@@ -225,6 +244,7 @@ MD;
 function evolayer_install_apply_generated_identity(string $appRoot, string $suggestedPackageName): void
 {
     $agentBlock = evolayer_install_agent_identity_block($suggestedPackageName);
+    $profileBlock = evolayer_install_profile_guidance();
 
     foreach (['AGENTS.md', 'CLAUDE.md'] as $agentDoc) {
         $path = $appRoot.'/'.$agentDoc;
@@ -235,16 +255,22 @@ function evolayer_install_apply_generated_identity(string $appRoot, string $sugg
 
         $content = (string) file_get_contents($path);
 
-        file_put_contents(
-            $path,
-            evolayer_install_marked_block(
-                $content,
-                '<!-- evolayer-generated-app-identity:start -->',
-                '<!-- evolayer-generated-app-identity:end -->',
-                $agentBlock,
-                fn (string $existing, string $block): string => evolayer_install_insert_after_heading($existing, $block),
-            ),
+        $content = evolayer_install_marked_block(
+            $content,
+            '<!-- evolayer-generated-app-identity:start -->',
+            '<!-- evolayer-generated-app-identity:end -->',
+            $agentBlock,
+            fn (string $existing, string $block): string => evolayer_install_insert_after_heading($existing, $block),
         );
+        $content = evolayer_install_marked_block(
+            $content,
+            '<!-- evolayer-application-profile:start -->',
+            '<!-- evolayer-application-profile:end -->',
+            $profileBlock,
+            fn (string $existing, string $block): string => evolayer_install_insert_after_heading($existing, $block),
+        );
+
+        file_put_contents($path, $content);
     }
 
     $readmePath = $appRoot.'/README.md';
@@ -252,16 +278,22 @@ function evolayer_install_apply_generated_identity(string $appRoot, string $sugg
     if (is_file($readmePath)) {
         $content = (string) file_get_contents($readmePath);
 
-        file_put_contents(
-            $readmePath,
-            evolayer_install_marked_block(
-                $content,
-                '<!-- evolayer-generated-app-readme:start -->',
-                '<!-- evolayer-generated-app-readme:end -->',
-                evolayer_install_readme_identity_note($suggestedPackageName),
-                fn (string $existing, string $block): string => $block.PHP_EOL.PHP_EOL.ltrim($existing),
-            ),
+        $content = evolayer_install_marked_block(
+            $content,
+            '<!-- evolayer-generated-app-readme:start -->',
+            '<!-- evolayer-generated-app-readme:end -->',
+            evolayer_install_readme_identity_note($suggestedPackageName),
+            fn (string $existing, string $block): string => $block.PHP_EOL.PHP_EOL.ltrim($existing),
         );
+        $content = evolayer_install_marked_block(
+            $content,
+            '<!-- evolayer-application-profile:start -->',
+            '<!-- evolayer-application-profile:end -->',
+            $profileBlock,
+            fn (string $existing, string $block): string => evolayer_install_insert_after_heading($existing, $block),
+        );
+
+        file_put_contents($readmePath, $content);
     } else {
         // No README shipped (export-ignored from the dist) → write a fresh one so
         // the generated app is never README-less.
@@ -292,11 +324,21 @@ function evolayer_finalize_generated_app_identity(
     $suggestedPackageName = evolayer_install_suggested_package_name($appRoot);
 
     $meta = [
+        'schema_version' => 2,
+        'kind' => 'generated-application',
+        'profile' => 'demo',
+        'overrides' => [
+            'examples' => [],
+            'features' => [],
+        ],
+        'applied_with' => array_filter([
+            'base' => $frameworkVersion,
+            'starter' => $rootPackage['pretty_version'] ?? null,
+        ], fn (?string $version): bool => $version !== null),
         'distribution' => $rootPackage['name'] ?? 'xuple/evolayer-base-starter',
         'distribution_version' => $rootPackage['pretty_version'] ?? null,
         'framework' => $framework,
         'framework_version' => $frameworkVersion,
-        'mode' => 'application',
         'lock_policy' => 'commit',
         'generated_app' => [
             'identity_finalized' => true,
@@ -327,8 +369,32 @@ function evolayer_finalize_install(string $appRoot): void
         ? InstalledVersions::getPrettyVersion($framework)
         : null;
 
+    $requestedProfile = getenv('EVOLAYER_BASE_INSTALL_PROFILE');
+    $requestedProfile = is_string($requestedProfile) && $requestedProfile !== ''
+        ? $requestedProfile
+        : 'demo';
+
+    if (! in_array($requestedProfile, ['demo', 'application'], true)) {
+        throw new RuntimeException('EVOLAYER_BASE_INSTALL_PROFILE must be demo or application.');
+    }
+
     $root = InstalledVersions::getRootPackage();
     $meta = evolayer_finalize_generated_app_identity($appRoot, $root, $frameworkVersion);
+
+    if ($requestedProfile === 'application') {
+        $app = require $appRoot.'/bootstrap/app.php';
+        $kernel = $app->make(Kernel::class);
+        $kernel->bootstrap();
+        $exitCode = $kernel->call('evolayer:profile', [
+            'profile' => 'application',
+            '--no-interaction' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            throw new RuntimeException('Unable to apply application posture before seeding.');
+        }
+    }
+
     $version = $frameworkVersion ?? 'unknown';
     $suggestedPackageName = $meta['generated_app']['suggested_package_name'];
 

@@ -14,6 +14,8 @@
 
 return [
     'base' => [
+        'profile' => env('EVOLAYER_BASE_PROFILE', 'demo'),
+
         'examples' => [
             'thread_studio' => env('EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO', false),
             'prd_studio' => env('EVOLAYER_BASE_EXAMPLE_PRD_STUDIO', false),
@@ -40,6 +42,7 @@ return [
 
         'route' => [
             'middleware' => ['web'],
+            'collision_allowlist' => [],
         ],
     ],
 ];

@@ -74,13 +74,19 @@ test('post-create finalizer injects generated app identity without renaming comp
         expect($meta['generated_app']['suggested_package_name'])->toBe('app/client-portal-2026')
             ->and($project['generated_app']['suggested_package_name'])->toBe('app/client-portal-2026')
             ->and($project['generated_app']['identity_finalized'])->toBeTrue()
+            ->and($project['schema_version'])->toBe(2)
+            ->and($project['kind'])->toBe('generated-application')
+            ->and($project['profile'])->toBe('demo')
+            ->and($project)->not->toHaveKey('mode')
             ->and($composer['name'])->toBe('xuple/evolayer-base-starter')
             ->and($agents)->toBe($claude)
             ->and($agents)->toContain('Generated application identity')
             ->and($agents)->toContain('not maintaining the public starter distribution')
             ->and($agents)->toContain('you may own marketing surfaces, add browser/E2E tests')
             ->and($agents)->toContain('composer config name app/client-portal-2026')
+            ->and($agents)->toContain('Operational profile: demo')
             ->and($readme)->toContain('Generated app identity')
+            ->and($readme)->toContain('Operational profile: demo')
             ->and($readme)->toContain('composer config name app/client-portal-2026');
     } finally {
         removeGeneratedAppIdentityFixture($root);
@@ -98,7 +104,9 @@ test('post-create identity injection is idempotent', function () {
         $readme = (string) file_get_contents($root.'/README.md');
 
         expect(substr_count($agents, '<!-- evolayer-generated-app-identity:start -->'))->toBe(1)
-            ->and(substr_count($readme, '<!-- evolayer-generated-app-readme:start -->'))->toBe(1);
+            ->and(substr_count($agents, '<!-- evolayer-application-profile:start -->'))->toBe(1)
+            ->and(substr_count($readme, '<!-- evolayer-generated-app-readme:start -->'))->toBe(1)
+            ->and(substr_count($readme, '<!-- evolayer-application-profile:start -->'))->toBe(1);
     } finally {
         removeGeneratedAppIdentityFixture($root);
     }
@@ -150,5 +158,15 @@ test('finalizer auto-run only brands during create-project (footgun guard)', fun
     // auto-brands when that flag is present — so a bare manual run can never
     // self-brand the starter source's own README/AGENTS/CLAUDE.
     expect($composer)->toContain('scripts/evolayer-finalize-install.php --create-project')
-        ->and($script)->toContain("in_array('--create-project'");
+        ->and($script)->toContain("in_array('--create-project'")
+        ->and($script)->toContain("getenv('EVOLAYER_BASE_INSTALL_PROFILE')")
+        ->and($script)->toContain("'profile' => 'application'");
+
+    $scripts = json_decode($composer, true, flags: JSON_THROW_ON_ERROR)['scripts']['post-create-project-cmd'];
+    $finalize = array_search('@php scripts/evolayer-finalize-install.php --create-project', $scripts, true);
+    $seed = array_search('@php artisan migrate --seed --force', $scripts, true);
+
+    expect($finalize)->toBeInt()
+        ->and($seed)->toBeInt()
+        ->and($finalize)->toBeLessThan($seed);
 });
