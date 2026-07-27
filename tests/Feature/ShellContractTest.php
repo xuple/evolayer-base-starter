@@ -202,4 +202,25 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString('if (isMobile) {', $navigation);
         $this->assertStringContainsString('setOpenMobile(false);', $navigation);
     }
+
+    public function test_command_palette_restores_focus_to_its_opener(): void
+    {
+        $provider = (string) file_get_contents(
+            resource_path('js/providers/command-palette-provider.tsx'),
+        );
+        $palette = (string) file_get_contents(
+            resource_path('js/components/command-palette-dialog.tsx'),
+        );
+
+        $this->assertStringContainsString(
+            'previouslyFocusedElement.current =',
+            $provider,
+        );
+        $this->assertStringContainsString(
+            'previouslyFocusedElement.current?.isConnected',
+            $provider,
+        );
+        $this->assertStringContainsString('onCloseAutoFocus={(event) => {', $palette);
+        $this->assertStringContainsString('restoreFocus();', $palette);
+    }
 }
