@@ -14,7 +14,7 @@
 
 return [
     'base' => [
-        'profile' => env('EVOLAYER_BASE_PROFILE', 'demo'),
+        'profile' => env('EVOLAYER_BASE_PROFILE'),
 
         'examples' => [
             'thread_studio' => env('EVOLAYER_BASE_EXAMPLE_THREAD_STUDIO', false),

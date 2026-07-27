@@ -199,8 +199,8 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
     - Login/register path renders Fortify auth forms.
 
 - Authenticated `/home` loads the Home launcher with command bar visible.
-    - Home page command bar click opens the command palette.
-    - Header search button/search icon opens the command palette.
+    - Home page command bar click opens the command palette (the default `AppLayout` → `app-sidebar-layout` header has no search-icon opener; the header search button in `resources/js/components/app-header.tsx` only belongs to the unused `app-header-layout` variant, which no routed page currently selects).
+    - Home page command bar opens the command palette from a mobile viewport.
     - `Ctrl`/`Cmd`+`K` opens the command palette via keyboard shortcut.
     - Settings navigation reaches Profile, Security, and Appearance tabs.
     - Logout redirects back to the public landing page.

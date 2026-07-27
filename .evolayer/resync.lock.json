@@ -1,7 +1,7 @@
 {
     "schema_version": 1,
-    "package_version": "v0.2.0-rc.1",
-    "package_reference": "2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad",
+    "package_version": "v0.2.0-rc.2",
+    "package_reference": "73f30df35a1a416d07e65044257c7c1a11ce9455",
     "surfaces": [],
     "files": {
         "resources/js/blocks/ai-text-field/index.tsx": {
@@ -36,8 +36,8 @@
         },
         "resources/js/components/command-palette-dialog.tsx": {
             "surface": "core",
-            "source_sha": "73c59d390267106810ee605231b9884a75461822b73e65905f4b4518a9ab1d5a",
-            "installed_sha": "73c59d390267106810ee605231b9884a75461822b73e65905f4b4518a9ab1d5a"
+            "source_sha": "29a449a1f7aeac5721acae8dfffc193c98a3e0ce7f38547f7d573e22780bb99b",
+            "installed_sha": "29a449a1f7aeac5721acae8dfffc193c98a3e0ce7f38547f7d573e22780bb99b"
         },
         "resources/js/components/error-boundary.tsx": {
             "surface": "core",
@@ -46,8 +46,8 @@
         },
         "resources/js/components/ui/command.tsx": {
             "surface": "core",
-            "source_sha": "2227288f2a849d4792718455693b07f9e1470d362d85cdf4a4048ad10359868b",
-            "installed_sha": "2227288f2a849d4792718455693b07f9e1470d362d85cdf4a4048ad10359868b"
+            "source_sha": "b98761f171ab760463da59829da3256061523d57c6475030e2a11fcd48ac60ca",
+            "installed_sha": "b98761f171ab760463da59829da3256061523d57c6475030e2a11fcd48ac60ca"
         },
         "resources/js/config/command-palette.ts": {
             "surface": "core",
@@ -136,8 +136,8 @@
         },
         "resources/js/providers/command-palette-provider.tsx": {
             "surface": "core",
-            "source_sha": "97e6ed338e36576a51520610a96a7607cfab6de418abe91b4733998614e1d320",
-            "installed_sha": "97e6ed338e36576a51520610a96a7607cfab6de418abe91b4733998614e1d320"
+            "source_sha": "c31c1f4a26d77a07ea90d13a34d422176a452e2fd03c05c22109a0a8684df1c1",
+            "installed_sha": "c31c1f4a26d77a07ea90d13a34d422176a452e2fd03c05c22109a0a8684df1c1"
         },
         "resources/js/types/evolayer.d.ts": {
             "surface": "core",
@@ -150,5 +150,5 @@
             "installed_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8"
         }
     },
-    "generated_at": "2026-07-27T00:38:27+00:00"
+    "generated_at": "2026-07-27T21:32:33+00:00"
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62694ce9cf93a2b3fc2b188c46d9eb4c",
+    "content-hash": "f25c2b43bcaf7c3799edca844edf869d",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -8928,16 +8928,16 @@
         },
         {
             "name": "xuple/evolayer-base",
-            "version": "v0.2.0-rc.1",
+            "version": "v0.2.0-rc.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xuple/evolayer-base.git",
-                "reference": "2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad"
+                "reference": "73f30df35a1a416d07e65044257c7c1a11ce9455"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xuple/evolayer-base/zipball/2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad",
-                "reference": "2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad",
+                "url": "https://api.github.com/repos/xuple/evolayer-base/zipball/73f30df35a1a416d07e65044257c7c1a11ce9455",
+                "reference": "73f30df35a1a416d07e65044257c7c1a11ce9455",
                 "shasum": ""
             },
             "require": {
@@ -8998,9 +8998,9 @@
             ],
             "support": {
                 "issues": "https://github.com/xuple/evolayer-base/issues",
-                "source": "https://github.com/xuple/evolayer-base/tree/v0.2.0-rc.1"
+                "source": "https://github.com/xuple/evolayer-base/tree/v0.2.0-rc.2"
             },
-            "time": "2026-07-27T00:28:07+00:00"
+            "time": "2026-07-27T18:56:17+00:00"
         }
     ],
     "packages-dev": [

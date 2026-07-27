@@ -175,7 +175,7 @@ class SiteMetadataTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSee('head-key="description"', false)
+            ->assertSee('data-inertia="description"', false)
             ->assertSee('rel="canonical"', false)
             ->assertSee('href="https://starter.example/"', false)
             ->assertSee('name="robots" content="index,follow"', false)
