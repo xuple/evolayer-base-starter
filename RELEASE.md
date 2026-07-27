@@ -17,6 +17,64 @@ marketing routes expose that same page at `/about`.
 Current starter release: **0.1.19** (pre-1.0 developer preview). Future fixes use
 new patch releases; do not move published tags.
 
+## 0.2.0-rc.1 review candidate
+
+The unpublished Starter `0.2.0-rc.1` candidate exact-pins the public
+`xuple/evolayer-base:v0.2.0-rc.1` ZIP distribution at source and dist reference
+`2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad`. The distribution manifest must be
+refreshed from those installed package bytes and pass its check-only mode before
+the Starter candidate is reviewed or tagged:
+
+```bash
+composer evolayer:manifest:refresh
+composer evolayer:manifest:check
+```
+
+No path repository, local package definition, version alias, sibling checkout,
+or `file://` archive belongs in the release candidate or its lock.
+
+### Generated-application profile lifecycle
+
+Fresh application installations select posture before migrations and seeding:
+
+```bash
+EVOLAYER_BASE_INSTALL_PROFILE=application \
+  composer create-project xuple/evolayer-base-starter app
+cd app
+npm run profile:prepare
+php artisan evolayer:profile:verify --json
+```
+
+The supported sequence is:
+
+```text
+select application posture
+→ migrate and seed
+→ prepare generated contracts and reviewed frontend gates
+→ verify without mutating managed source or profile intent
+```
+
+A normal fresh application install does not require `migrate:fresh`. Application
+posture disables public registration and prevents the known demonstration
+account from being seeded. When an existing demo installation is transitioned,
+an existing `test@example.com` account is preserved and reported for manual
+resolution; the Starter does not infer ownership or delete application data from
+weak identity heuristics.
+
+`npm run profile:prepare` clears configuration and route caches in fresh
+processes, regenerates Wayfinder and ontology output, runs the reviewed frontend
+gates, and writes ignored local preparation evidence bound to current inputs and
+outputs. That preparation receipt is non-authoritative workflow evidence.
+`evolayer:profile:verify` is non-mutating and delegates stable capability results
+to Base, which records bounded verification state.
+
+The supported legacy proof begins with exact Starter `v0.1.19` and Base `v0.1.9`.
+It updates through public Composer metadata, adopts only recognised pristine
+legacy provenance, explicitly selects application posture, preserves and reports
+any legacy demo-user conflict, reconciles Starter-owned source, prepares, and
+verifies. Modified, ejected, malformed, unknown, stale, missing, or unreadable
+inputs fail closed.
+
 ## 0.2 RC dependency-audit boundary
 
 The `0.2.0-rc.1` candidate has a clean production dependency audit:
@@ -75,7 +133,7 @@ changing this contract in a downstream app, review:
 The starter consumes the package from **Packagist** as a tagged release:
 
 ```jsonc
-"require": { "xuple/evolayer-base": "0.1.9" }
+"require": { "xuple/evolayer-base": "0.2.0-rc.1" }
 ```
 
 No custom `repositories` entry ships in the public starter — Composer resolves
