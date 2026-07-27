@@ -28,7 +28,7 @@ const docsCommandIcons = {
 } as const;
 
 export function CommandPaletteDialog() {
-    const { isOpen, open, close, restoreFocus } = useCommandPalette();
+    const { isOpen, open, close } = useCommandPalette();
 
     const filteredMainItems = useExampleNavItems(mainNavItems);
     const navItems = [...filteredMainItems, ...settingsNavItems];
@@ -71,10 +71,6 @@ export function CommandPaletteDialog() {
         <CommandDialog
             open={isOpen}
             onOpenChange={(nextOpen) => (nextOpen ? open() : close())}
-            onCloseAutoFocus={(event) => {
-                event.preventDefault();
-                restoreFocus();
-            }}
         >
             <CommandInput autoFocus placeholder={commandPalettePlaceholder} />
             <CommandList>
