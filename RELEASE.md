@@ -75,6 +75,21 @@ any legacy demo-user conflict, reconciles Starter-owned source, prepares, and
 verifies. Modified, ejected, malformed, unknown, stale, missing, or unreadable
 inputs fail closed.
 
+### Private contact attachment storage
+
+Contact attachments are evidence and must use private storage. New Starter
+installations set `MEDIA_DISK=local`, independently of the disk used for ordinary
+public assets. The `local` disk stores attachment bytes under
+`storage/app/private`; production deployments must place that path on persistent,
+appropriately backed-up storage when attachment retention is required.
+
+Attachment links are served through the Starter's authenticated, verified-admin
+route rather than through `/storage` or another public static-file path. Existing
+deployments must set `MEDIA_DISK` to a private disk explicitly. Changing the
+default does not move existing Media Library files or rewrite their recorded disk;
+review and migrate any legacy records stored on a public disk as a separate,
+operator-controlled data operation.
+
 ## 0.2 RC dependency-audit boundary
 
 The `0.2.0-rc.1` candidate has a clean production dependency audit:

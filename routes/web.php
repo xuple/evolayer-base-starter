@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EvoLayerAttachmentController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,6 +20,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]))->defaults('component', 'home')->name('home');
 
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    Route::get('evolayer/contact-attachments/{media}', EvoLayerAttachmentController::class)
+        ->middleware('evolayer.admin')
+        ->name('evolayer.starter.contact-attachments.show');
 });
 
 require __DIR__.'/settings.php';
