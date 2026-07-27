@@ -190,4 +190,16 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString('settingsSectionNavItems', $settingsLayout);
         $this->assertStringContainsString('configuredMainNavItems', $header);
     }
+
+    public function test_primary_navigation_closes_the_mobile_sidebar(): void
+    {
+        $navigation = (string) file_get_contents(resource_path('js/components/nav-main.tsx'));
+
+        $this->assertStringContainsString(
+            'const { isMobile, setOpenMobile } = useSidebar();',
+            $navigation,
+        );
+        $this->assertStringContainsString('if (isMobile) {', $navigation);
+        $this->assertStringContainsString('setOpenMobile(false);', $navigation);
+    }
 }
