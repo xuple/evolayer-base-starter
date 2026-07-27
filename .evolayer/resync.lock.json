@@ -1,7 +1,7 @@
 {
     "schema_version": 1,
-    "package_version": "0.2.0-rc.1",
-    "package_reference": "60ec9a4b89ce7c1796b07dbfef26096dcba81330",
+    "package_version": "v0.2.0-rc.1",
+    "package_reference": "2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad",
     "surfaces": [],
     "files": {
         "resources/js/blocks/ai-text-field/index.tsx": {
@@ -150,5 +150,5 @@
             "installed_sha": "a158d3ebd9d1de647a422a5931dff0cc3a47a37b3474048222bd0dd14279c0e8"
         }
     },
-    "generated_at": "2026-07-26T12:41:22+00:00"
+    "generated_at": "2026-07-27T00:38:27+00:00"
 }

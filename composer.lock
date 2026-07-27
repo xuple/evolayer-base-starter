@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "515bf591385e8dbf75a0f0cfadff0cca",
+    "content-hash": "62694ce9cf93a2b3fc2b188c46d9eb4c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -8928,11 +8928,17 @@
         },
         {
             "name": "xuple/evolayer-base",
-            "version": "0.2.0-rc.1",
+            "version": "v0.2.0-rc.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xuple/evolayer-base.git",
+                "reference": "2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad"
+            },
             "dist": {
-                "type": "path",
-                "url": "../evodevops-base-pkg",
-                "reference": "b77e96618ea8b8eec7cde648604af3b117ca9f7c"
+                "type": "zip",
+                "url": "https://api.github.com/repos/xuple/evolayer-base/zipball/2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad",
+                "reference": "2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad",
+                "shasum": ""
             },
             "require": {
                 "inertiajs/inertia-laravel": "^3.0",
@@ -8965,35 +8971,16 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Xuple\\EvoLayer\\Base\\": "src/",
-                    "Xuple\\EvoLayer\\Base\\Database\\Factories\\": "database/factories/",
-                    "Xuple\\EvoLayer\\Base\\Database\\Seeders\\": "database/seeders/"
-                },
                 "files": [
                     "src/Compat/bootstrap.php"
-                ]
-            },
-            "autoload-dev": {
+                ],
                 "psr-4": {
-                    "Xuple\\EvoLayer\\Base\\Tests\\": "tests/",
-                    "Xuple\\EvoLayer\\Base\\Tests\\Fixtures\\": "tests/Fixtures/"
+                    "Xuple\\EvoLayer\\Base\\": "src/",
+                    "Xuple\\EvoLayer\\Base\\Database\\Seeders\\": "database/seeders/",
+                    "Xuple\\EvoLayer\\Base\\Database\\Factories\\": "database/factories/"
                 }
             },
-            "scripts": {
-                "apply-patches": [
-                    "@php scripts/apply-patches.php"
-                ],
-                "post-install-cmd": [
-                    "@apply-patches"
-                ],
-                "post-update-cmd": [
-                    "@apply-patches"
-                ],
-                "test": [
-                    "vendor/bin/pest"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -9009,10 +8996,11 @@
                 "react",
                 "xuple"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/xuple/evolayer-base/issues",
+                "source": "https://github.com/xuple/evolayer-base/tree/v0.2.0-rc.1"
+            },
+            "time": "2026-07-27T00:28:07+00:00"
         }
     ],
     "packages-dev": [

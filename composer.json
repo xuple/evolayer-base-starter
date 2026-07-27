@@ -15,18 +15,6 @@
     "starter-kit"
   ],
   "license": "MIT",
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../evodevops-base-pkg",
-      "options": {
-        "symlink": true,
-        "versions": {
-          "xuple/evolayer-base": "0.2.0-rc.1"
-        }
-      }
-    }
-  ],
   "require": {
     "php": "^8.4",
     "inertiajs/inertia-laravel": "^3.0",
