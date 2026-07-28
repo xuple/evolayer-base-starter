@@ -17,13 +17,49 @@ marketing routes expose that same page at `/about`.
 Current starter release: **0.1.19** (pre-1.0 developer preview). Future fixes use
 new patch releases; do not move published tags.
 
-## 0.2.0-rc.1 review candidate
+## Prerelease numbering policy (0.2.0 train)
 
-The unpublished Starter `0.2.0-rc.1` candidate exact-pins the public
-`xuple/evolayer-base:v0.2.0-rc.1` ZIP distribution at source and dist reference
-`2d7ab42b2f990a1dfd1af6f5c259eb166f8459ad`. The distribution manifest must be
-refreshed from those installed package bytes and pass its check-only mode before
-the Starter candidate is reviewed or tagged:
+For the EvoLayer 0.2.0 prerelease train, Base and Starter releases that are
+validated and published together use the same RC ordinal. A component may skip
+an ordinal when no public artefact was released for that train. This policy
+applies to the 0.2.0 prerelease only; stable and later package-version policy
+will be decided separately.
+
+Accordingly, Starter `0.2.0-rc.1` was an internal candidate label only. No
+immutable Starter `v0.2.0-rc.1` package release was ever published, so the
+Starter skips that ordinal and publishes `v0.2.0-rc.2` alongside Base
+`v0.2.0-rc.2`.
+
+## 0.2.0-rc.2 release candidate
+
+The Starter release under preparation is `v0.2.0-rc.2`. It exact-pins the
+public `xuple/evolayer-base:v0.2.0-rc.2` ZIP distribution:
+
+| Evidence | Bound value |
+| --- | --- |
+| Starter release | `v0.2.0-rc.2` (**tag not yet created**) |
+| Base dependency | `xuple/evolayer-base:v0.2.0-rc.2` |
+| Base annotated tag object | `2d59b03b053dbe80e2347c198fcc41bacb319e87` |
+| Base source and dist reference | `73f30df35a1a416d07e65044257c7c1a11ce9455` |
+| Base release tree | `760f228b6f4d8f45ab4ce9cba52216fc84557d1a` |
+
+Do not confuse the two: the Starter release version and the Base dependency
+version share the `v0.2.0-rc.2` ordinal under the policy above, but they are
+separate artefacts with separate references.
+
+Release-step status:
+
+```text
+candidate prepared                      — done
+human browser runtime smoke             — passed 2026-07-28 (see checklist item 5)
+Starter tag v0.2.0-rc.2 created         — pending
+Packagist verification                  — pending
+fresh public create-project proof       — pending
+public social-preview verification      — pending (no suitable public URL)
+```
+
+The distribution manifest must be refreshed from those installed package bytes
+and pass its check-only mode before the Starter candidate is reviewed or tagged:
 
 ```bash
 composer evolayer:manifest:refresh
@@ -92,7 +128,7 @@ operator-controlled data operation.
 
 ## 0.2 RC dependency-audit boundary
 
-The `0.2.0-rc.1` candidate has a clean production dependency audit:
+The `0.2.0-rc.2` candidate has a clean production dependency audit:
 
 ```bash
 npm audit --omit=dev --audit-level=high
@@ -148,7 +184,7 @@ changing this contract in a downstream app, review:
 The starter consumes the package from **Packagist** as a tagged release:
 
 ```jsonc
-"require": { "xuple/evolayer-base": "0.2.0-rc.1" }
+"require": { "xuple/evolayer-base": "0.2.0-rc.2" }
 ```
 
 No custom `repositories` entry ships in the public starter — Composer resolves
@@ -205,12 +241,52 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
     - Settings navigation reaches Profile, Security, and Appearance tabs.
     - Logout redirects back to the public landing page.
     - `/dashboard` loads (retained scaffold route, not the primary post-auth destination).
+
+    **`v0.2.0-rc.2` status — Human browser smoke: PASSED.**
+
+    | Field | Value |
+    | --- | --- |
+    | Tester | Edward Yeboah |
+    | Date | 2026-07-28 |
+    | Browser | Chrome 150.0.7871.182 (64-bit) on Windows 11 x64; spot-checked in Brave |
+    | Runtime host | Ubuntu 24.04.2 LTS x64 headless, kernel `6.8.0-136-generic` |
+    | Runtime commit | `9d03af75f9cfbf26f22f9503e3826ba4a83387f3` |
+    | Runtime tree | `6eb5f49af1bca1c671fc6d38efda1aa1864eb828` |
+
+    Every documented checklist item passed. `Cmd+K` was not applicable on
+    Windows 11, which intercepts `Win+K`; `Ctrl+K` passed and exercises the same
+    `metaKey || ctrlKey` handler. No release-attributable errors or warnings were
+    observed in a clean Chrome Incognito profile with extensions disabled.
+
+    Environment caveats are recorded with the attestation: the smoke ran against
+    built assets served by `php artisan serve` rather than a Vite dev server,
+    under `EVOLAYER_BASE_PROFILE=demo`, over a plain-HTTP LAN origin, and with an
+    unrelated Inertia SSR renderer reachable on the configured SSR port. That
+    renderer was disclosed and assessed immaterial on recorded evidence: it
+    differs from the tested runtime only in the three command-palette source
+    files, and the palette emits no server-rendered markup.
+
+    Release-documentation successors do not change the runtime surface, so this
+    attestation carries forward to the commit that ultimately receives the tag
+    provided no runtime file differs.
+
 6. **Manual social preview smoke** — run on a staging/production URL with real
    `APP_URL` / optional `SITE_URL` values. Verify at least Slack, Teams,
    Discord, LinkedIn Post Inspector, Meta Sharing Debugger, WhatsApp, and
    iMessage / Apple Messages when available. Check Google URL Inspection and
    favicon recrawl where applicable. Do not claim platform preview support from
    local HTTP tests alone; live unfurlers cache and crawl differently.
+
+    **Classification: post-publication verification, required before the
+    release is declared complete — not a pre-tag gate.** Unlike item 5, this
+    step carries no "before tagging" requirement, and it depends on a deployed
+    public URL that does not exist until the release is published and hosted.
+    This records the existing strictness rather than relaxing it: the release
+    is not complete until the check is performed with real evidence, and a
+    missing public URL is reported as an outstanding verification rather than
+    treated as a pass.
+
+    **`v0.2.0-rc.2` status — pending; no suitable public URL is available.**
 
 7. Move the relevant `CHANGELOG.md` `[Unreleased]` entries into the new patch
    version immediately before tagging.

@@ -6,7 +6,7 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [0.2.0-rc.1]
+## [0.2.0-rc.2]
 
 ### Added
 
@@ -27,7 +27,14 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
-- The Starter now exact-pins public `xuple/evolayer-base:v0.2.0-rc.1`.
+- The Starter now exact-pins public `xuple/evolayer-base:v0.2.0-rc.2`, which
+  resolves to commit `73f30df35a1a416d07e65044257c7c1a11ce9455` at both the
+  source and dist reference.
+- Command-palette focus restoration is consumed from Base's package source
+  rather than implemented locally. The corrected `command-palette-dialog.tsx`,
+  `ui/command.tsx`, and `command-palette-provider.tsx` bytes arrive through the
+  supported resync and manifest-refresh process, so the Starter keeps no
+  parallel fix for a package-owned surface.
 - Generated repository metadata separates `kind: generated-application` from
   operational profile intent. Fresh kitchen-sink installations remain in
   `demo`; legacy `mode: application` identifies origin only and does not
@@ -44,8 +51,24 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   target profile, reconciles Starter-owned source, prepares generated contracts,
   and verifies the resulting state.
 
+### Fixed
+
+- Mobile sidebar navigation now closes after a selection, so the chosen page is
+  visible instead of remaining behind the open navigation sheet.
+- The public metadata response test explicitly disables Inertia SSR before
+  issuing its request. It previously asserted whichever markup happened to be
+  produced, so an unrelated SSR process reachable on the configured SSR port
+  could change the rendering path and the assertion outcome. The test now pins
+  the deterministic Blade fallback regardless of ambient SSR availability.
+
 ### Security
 
+- Contact attachments now default to private storage. New installations set
+  `MEDIA_DISK=local`, attachment bytes live under `storage/app/private`, and
+  links are served through an authenticated, verified-admin Starter route
+  instead of a public static path. Existing deployments must set `MEDIA_DISK`
+  to a private disk explicitly; changing the default neither moves existing
+  Media Library files nor rewrites their recorded disk.
 - CI blocks production npm advisories and separately checks the full npm audit
   against a bounded, expiring exception for the reviewed development-only
   ESLint dependency chain.
@@ -487,3 +510,6 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
 - Historical: during private pre-public staging, the package resolved from the
   Forge `vcs` repository at `dev-main` while `composer.lock` stayed uncommitted.
   The public line now resolves `^0.1` from Packagist. See `RELEASE.md`.
+
+[Unreleased]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0-rc.2...HEAD
+[0.2.0-rc.2]: https://github.com/xuple/evolayer-base-starter/compare/v0.1.19...v0.2.0-rc.2
