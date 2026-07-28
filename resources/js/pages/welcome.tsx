@@ -16,9 +16,6 @@ import { Link, usePage } from '@inertiajs/react';
 import { SiteHead } from '@/components/site-head';
 import { home } from '@/routes';
 import { login } from '@/routes';
-/* @chisel-registration */
-import { register } from '@/routes';
-/* @end-chisel-registration */
 
 export default function Welcome() {
     const { auth } = usePage().props;
@@ -44,14 +41,14 @@ export default function Welcome() {
                                 >
                                     Log in
                                 </Link>
-                                {/* @chisel-registration */}
-                                <Link
-                                    href={register()}
-                                    className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                                >
-                                    Register
-                                </Link>
-                                {/* @end-chisel-registration */}
+                                {auth.registrationUrl && (
+                                    <Link
+                                        href={auth.registrationUrl}
+                                        className="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+                                    >
+                                        Register
+                                    </Link>
+                                )}
                             </>
                         )}
                     </nav>

@@ -168,7 +168,7 @@ return [
 
     'features' => [
         /* @chisel-registration */
-        Features::registration(),
+        ...(env('EVOLAYER_BASE_PROFILE', 'demo') === 'application' ? [] : [Features::registration()]),
         /* @end-chisel-registration */
         Features::resetPasswords(),
         /* @chisel-email-verification */

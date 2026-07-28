@@ -30,7 +30,15 @@ test('the evolayer:resync script does not force-publish frontend stubs', functio
 
 test('managed landing pages render from brand config, not a full-file override', function () {
     foreach (['base.tsx'] as $page) {
-        $content = (string) file_get_contents(base_path("resources/js/pages/evolayer/{$page}"));
+        $path = base_path("resources/js/pages/evolayer/{$page}");
+
+        if (! config('evolayer.base.examples.marketing_pages')) {
+            expect($path)->not->toBeFile();
+
+            continue;
+        }
+
+        $content = (string) file_get_contents($path);
 
         expect($content)
             ->toContain('useBrand')                   // branded from config / shared props

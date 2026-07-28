@@ -11,10 +11,23 @@ import {
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
-function CommandDialog({ children, ...props }: DialogProps) {
+type CommandDialogProps = DialogProps & {
+    onCloseAutoFocus?: React.ComponentProps<
+        typeof DialogContent
+    >['onCloseAutoFocus'];
+};
+
+function CommandDialog({
+    children,
+    onCloseAutoFocus,
+    ...props
+}: CommandDialogProps) {
     return (
         <Dialog {...props}>
-            <DialogContent className="top-[80px] max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-0 overflow-hidden p-0 shadow-2xl sm:max-w-[460px] [&>button]:hidden">
+            <DialogContent
+                onCloseAutoFocus={onCloseAutoFocus}
+                className="top-[80px] max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-0 overflow-hidden p-0 shadow-2xl sm:max-w-[460px] [&>button]:hidden"
+            >
                 <DialogTitle className="sr-only">Command palette</DialogTitle>
                 <DialogDescription className="sr-only">
                     Search app navigation and documentation links.

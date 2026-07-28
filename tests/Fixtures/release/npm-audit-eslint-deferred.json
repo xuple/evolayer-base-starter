@@ -1,0 +1,66 @@
+{
+    "auditReportVersion": 2,
+    "vulnerabilities": {
+        "@eslint/config-array": {
+            "severity": "high",
+            "via": ["minimatch"],
+            "effects": ["eslint"],
+            "fixAvailable": {"isSemVerMajor": true}
+        },
+        "@eslint/eslintrc": {
+            "severity": "high",
+            "via": ["minimatch"],
+            "effects": ["eslint"],
+            "fixAvailable": {"isSemVerMajor": true}
+        },
+        "brace-expansion": {
+            "severity": "high",
+            "via": [
+                {
+                    "name": "brace-expansion",
+                    "url": "https://github.com/advisories/GHSA-mh99-v99m-4gvg",
+                    "severity": "high"
+                }
+            ],
+            "effects": ["minimatch"],
+            "fixAvailable": {"isSemVerMajor": true}
+        },
+        "eslint": {
+            "severity": "high",
+            "via": ["@eslint/config-array", "@eslint/eslintrc", "minimatch"],
+            "effects": [],
+            "fixAvailable": {"isSemVerMajor": true}
+        },
+        "eslint-plugin-import": {
+            "severity": "high",
+            "via": ["minimatch"],
+            "effects": [],
+            "fixAvailable": {"isSemVerMajor": true}
+        },
+        "eslint-plugin-react": {
+            "severity": "high",
+            "via": ["minimatch"],
+            "effects": [],
+            "fixAvailable": {"isSemVerMajor": true}
+        },
+        "minimatch": {
+            "severity": "high",
+            "via": ["brace-expansion"],
+            "effects": [
+                "@eslint/config-array",
+                "@eslint/eslintrc",
+                "eslint",
+                "eslint-plugin-import",
+                "eslint-plugin-react"
+            ],
+            "fixAvailable": {"isSemVerMajor": true}
+        }
+    },
+    "metadata": {
+        "vulnerabilities": {
+            "high": 7,
+            "critical": 0,
+            "total": 7
+        }
+    }
+}

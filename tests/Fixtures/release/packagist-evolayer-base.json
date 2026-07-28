@@ -1,0 +1,18 @@
+{
+    "packages": {
+        "xuple/evolayer-base": [
+            {
+                "version": "v0.2.0-rc.2"
+            },
+            {
+                "version": "0.2.0"
+            },
+            {
+                "version": "v0.1.9"
+            },
+            {
+                "version": "dev-main"
+            }
+        ]
+    }
+}

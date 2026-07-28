@@ -5,9 +5,6 @@ import { SiteHead } from '@/components/site-head';
 import { useBrand } from '@/hooks/use-brand';
 import type { JsonLdPayload, SiteSocialImage } from '@/types/site';
 import { login } from '@/routes';
-/* @chisel-registration */
-import { register } from '@/routes';
-/* @end-chisel-registration */
 
 interface Props {
     title?: string;
@@ -68,14 +65,14 @@ export default function PublicLayout({
                                     >
                                         Log in
                                     </Link>
-                                    {/* @chisel-registration */}
-                                    <Link
-                                        href={register()}
-                                        className="inline-block rounded-sm border border-border px-5 py-1.5 text-sm leading-normal text-foreground hover:border-foreground/20"
-                                    >
-                                        Register
-                                    </Link>
-                                    {/* @end-chisel-registration */}
+                                    {auth.registrationUrl && (
+                                        <Link
+                                            href={auth.registrationUrl}
+                                            className="inline-block rounded-sm border border-border px-5 py-1.5 text-sm leading-normal text-foreground hover:border-foreground/20"
+                                        >
+                                            Register
+                                        </Link>
+                                    )}
                                 </>
                             )}
                         </div>

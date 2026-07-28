@@ -14,7 +14,12 @@ class RegistrationTest extends TestCase
     {
         parent::setUp();
 
-        $this->skipUnlessFortifyHas(Features::registration());
+        $this->skipUnlessFortifyHas(
+            Features::registration(),
+            config('evolayer.base.profile') === 'application'
+                ? 'Registration is disabled by the application profile.'
+                : null,
+        );
     }
 
     public function test_registration_screen_can_be_rendered()

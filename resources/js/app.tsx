@@ -6,6 +6,7 @@ import { initializeTheme } from '@/hooks/use-appearance';
 import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import { classifyPageSurface } from '@/lib/page-surfaces';
 import { CommandPaletteProvider } from '@/providers/command-palette-provider';
 
 const appName = import.meta.env.VITE_APP_NAME || 'EvoLayer Base';
@@ -29,15 +30,16 @@ const formatInertiaTitle: HeadManagerTitleCallback = (title, page) => {
 createInertiaApp({
     title: formatInertiaTitle,
     layout: (name) => {
-        switch (true) {
-            case name === 'welcome':
-                return null;
-            case name.startsWith('auth/'):
+        switch (classifyPageSurface(name)) {
+            case 'authentication':
                 return AuthLayout;
-            case name.startsWith('settings/'):
+            case 'settings':
                 return [AppLayout, SettingsLayout];
-            default:
+            case 'application':
+            case 'administration':
                 return AppLayout;
+            case 'public':
+                return null;
         }
     },
     strictMode: true,

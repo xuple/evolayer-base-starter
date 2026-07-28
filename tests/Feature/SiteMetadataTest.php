@@ -6,6 +6,7 @@ use App\Http\Middleware\HandleInertiaRequests;
 use App\Support\SiteMetadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Inertia\Inertia;
 use Tests\TestCase;
 
 class SiteMetadataTest extends TestCase
@@ -170,6 +171,12 @@ class SiteMetadataTest extends TestCase
 
         $this->useStarterSiteDefaults();
         Config::set('site.canonical.base_url', 'https://starter.example');
+
+        // Force the deterministic Blade fallback path (resources/views/app.blade.php)
+        // instead of the SSR-rendered path. Without this, the result depends on
+        // whether an SSR server happens to be reachable at config('inertia.ssr.url'),
+        // which is never true in CI and is not guaranteed in any other environment.
+        Inertia::disableSsr();
 
         $response = $this->get(route('welcome'));
 

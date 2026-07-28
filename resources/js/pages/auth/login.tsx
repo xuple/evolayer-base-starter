@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, usePage } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
@@ -7,9 +7,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-/* @chisel-registration */
-import { register } from '@/routes';
-/* @end-chisel-registration */
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 /* @chisel-passkeys */
@@ -22,6 +19,8 @@ type Props = {
 };
 
 export default function Login({ status, canResetPassword }: Props) {
+    const { auth } = usePage().props;
+
     return (
         <>
             <Head title="Log in" />
@@ -98,14 +97,17 @@ export default function Login({ status, canResetPassword }: Props) {
                             </Button>
                         </div>
 
-                        {/* @chisel-registration */}
-                        <div className="text-center text-sm text-muted-foreground">
-                            Don't have an account?{' '}
-                            <TextLink href={register()} tabIndex={5}>
-                                Sign up
-                            </TextLink>
-                        </div>
-                        {/* @end-chisel-registration */}
+                        {auth.registrationUrl && (
+                            <div className="text-center text-sm text-muted-foreground">
+                                Don't have an account?{' '}
+                                <TextLink
+                                    href={auth.registrationUrl}
+                                    tabIndex={5}
+                                >
+                                    Sign up
+                                </TextLink>
+                            </div>
+                        )}
                     </>
                 )}
             </Form>

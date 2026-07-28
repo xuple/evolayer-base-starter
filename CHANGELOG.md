@@ -6,6 +6,50 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.0-rc.1]
+
+### Added
+
+- Integrated the official Starter-owned `application` profile with EvoLayer
+  Base's profile lifecycle. Fresh generated applications can select application
+  posture before migrations and seeding, so public registration and the known
+  demonstration account are never enabled or created during a normal
+  application install.
+- Added reviewed profile preparation and non-mutating verification checks for
+  generated Wayfinder and ontology contracts, Starter-owned authentication,
+  navigation, guidance, seeding, frontend inputs, and page-surface
+  classification. The ignored preparation receipt is local workflow evidence,
+  not an attestation.
+- Added distribution-strict manifest refresh and check commands. The tracked
+  manifest is bound to the exact public Base ZIP reference and canonical managed
+  descriptors while keeping Starter-owned navigation and public layout source
+  outside Base ownership.
+
+### Changed
+
+- The Starter now exact-pins public `xuple/evolayer-base:v0.2.0-rc.1`.
+- Generated repository metadata separates `kind: generated-application` from
+  operational profile intent. Fresh kitchen-sink installations remain in
+  `demo`; legacy `mode: application` identifies origin only and does not
+  silently select application posture.
+- Existing legacy `test@example.com` accounts are preserved and reported for
+  deliberate operator resolution during demo-to-application transitions. They
+  are never deleted or adopted using weak identity heuristics.
+- Public, authentication, application, settings, and administration pages now
+  resolve through explicit Starter-owned page-surface rules. Public pages do
+  not inherit the authenticated application shell merely because a user is
+  signed in.
+- The exact supported upgrade path starts from Starter `v0.1.19` with Base
+  `v0.1.9`, adopts only recognised pristine provenance, explicitly selects the
+  target profile, reconciles Starter-owned source, prepares generated contracts,
+  and verifies the resulting state.
+
+### Security
+
+- CI blocks production npm advisories and separately checks the full npm audit
+  against a bounded, expiring exception for the reviewed development-only
+  ESLint dependency chain.
+
 ## [0.1.19] - 2026-07-04
 
 ### Fixed

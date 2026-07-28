@@ -39,34 +39,11 @@ jobs:
           # Endpoint: https://repo.packagist.org/p2/<vendor>/<package>.json
           RESPONSE=$(curl -sSf 'https://repo.packagist.org/p2/xuple/evolayer-base.json')
 
-          # Extract versions, strip any leading 'v', filter to 0.x only, sort and take newest.
-          LATEST=$(echo "$RESPONSE" \
-            | jq -r '.packages["xuple/evolayer-base"][].version' \
-            | sed 's/^v//' \
-            | grep '^0\.' \
-            | sort -V \
-            | tail -1)
-
-          if [[ -z "$LATEST" ]]; then
-            echo "::error::No 0.x version found on Packagist for xuple/evolayer-base."
-            exit 1
-          fi
-
           # Current exact pin in composer.json (stored without a v-prefix).
           CURRENT=$(jq -r '.require["xuple/evolayer-base"]' composer.json)
-
-          echo "Packagist latest 0.x : $LATEST"
-          echo "Current pin          : $CURRENT"
-
-          if [[ "$CURRENT" == "$LATEST" ]]; then
-            echo "Already at $CURRENT — no bump needed."
-            echo "needs_bump=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "Bump available: $CURRENT → $LATEST"
-            echo "needs_bump=true"  >> "$GITHUB_OUTPUT"
-            echo "latest=$LATEST"   >> "$GITHUB_OUTPUT"
-            echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
-          fi
+          printf '%s' "$RESPONSE" \
+            | bash scripts/detect-evolayer-base-update.sh "$CURRENT" \
+            >> "$GITHUB_OUTPUT"
 
       # ── Everything below runs only when a newer 0.x release is available ────
       # ── No-op runs (needs_bump=false) skip all remaining steps cleanly. ──────
@@ -119,7 +96,9 @@ jobs:
 
       - name: Audit Node dependencies
         if: steps.detect.outputs.needs_bump == 'true'
-        run: npm audit --audit-level=high
+        run: |
+          npm run audit:production
+          npm run audit:full
 
       - name: Prepare Laravel app
         if: steps.detect.outputs.needs_bump == 'true'
@@ -180,7 +159,7 @@ jobs:
 
             - `composer validate --strict` ✅
             - `composer audit` ✅
-            - `npm ci` + `npm audit --audit-level=high` ✅
+            - `npm ci` + `npm run audit:production` + `npm run audit:full` ✅
             - `npm run types:check` ✅
             - `npm run build` ✅
             - `php artisan evolayer:doctor --strict --no-ansi` ✅

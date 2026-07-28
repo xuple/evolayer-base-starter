@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\EvoLayerAttachmentController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Public "/" is the starter install/demo explainer (route `welcome`, component
-// `evolayer/base`). The authenticated launcher "/home" (route `home`) is
-// host-owned here — the package no longer registers an auth landing route.
-Route::inertia('/', 'evolayer/base')->name('welcome');
+// Public "/" uses the package explainer while that managed surface is enabled,
+// then falls back to the host-owned Laravel welcome page when the application
+// profile removes package examples.
+Route::inertia(
+    '/',
+    config('evolayer.base.examples.marketing_pages') ? 'evolayer/base' : 'welcome',
+)->name('welcome');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Greeting hour is computed server-side and passed as a prop so the SSR
@@ -16,6 +20,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]))->defaults('component', 'home')->name('home');
 
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    Route::get('evolayer/contact-attachments/{media}', EvoLayerAttachmentController::class)
+        ->middleware('evolayer.admin')
+        ->name('evolayer.starter.contact-attachments.show');
 });
 
 require __DIR__.'/settings.php';

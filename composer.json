@@ -25,7 +25,7 @@
     "laravel/wayfinder": "^0.1.14",
     "spatie/laravel-medialibrary": "^11.22",
     "spatie/laravel-tags": "^4.11",
-    "xuple/evolayer-base": "0.1.9"
+    "xuple/evolayer-base": "0.2.0-rc.2"
   },
   "require-dev": {
     "cweagans/composer-patches": "^2.0",
@@ -73,6 +73,12 @@
       "@php artisan wayfinder:generate --with-form --no-interaction",
       "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
     ],
+    "evolayer:manifest:refresh": [
+      "@php artisan evolayer:manifest:refresh"
+    ],
+    "evolayer:manifest:check": [
+      "@php artisan evolayer:manifest:refresh --check"
+    ],
     "dev": [
       "Composer\\Config::disableProcessTimeout",
       "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve --host=localhost\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
@@ -100,11 +106,11 @@
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi",
       "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+      "@php scripts/evolayer-finalize-install.php --create-project",
       "@php artisan migrate --seed --force",
       "@php artisan route:clear --ansi",
       "@php artisan wayfinder:generate --with-form --no-interaction",
-      "@php artisan evolayer:ontology:compile --no-erd --no-interaction",
-      "@php scripts/evolayer-finalize-install.php --create-project"
+      "@php artisan evolayer:ontology:compile --no-erd --no-interaction"
     ],
     "pre-package-uninstall": [
       "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"

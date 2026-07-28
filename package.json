@@ -4,6 +4,8 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "audit:full": "node scripts/check-npm-audit.mjs",
+        "audit:production": "npm audit --omit=dev --audit-level=high",
         "build": "npm run build:ssr",
         "build:ssr": "vite build && vite build --ssr",
         "dev": "vite",
@@ -11,6 +13,8 @@
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
+        "profile:prepare": "php artisan evolayer:starter:prepare",
+        "profile:quality": "npm run types:check && npm run lint:check && npm run format:check && npm run build",
         "types:check": "tsc --noEmit"
     },
     "devDependencies": {
@@ -78,6 +82,6 @@
         "lightningcss-win32-x64-msvc": "^1.29.1"
     },
     "overrides": {
-        "shell-quote": "1.8.4"
+        "shell-quote": "1.9.0"
     }
 }

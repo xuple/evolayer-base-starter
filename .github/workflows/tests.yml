@@ -70,7 +70,9 @@ jobs:
         run: npm ci
 
       - name: Audit Node dependencies
-        run: npm audit --audit-level=high
+        run: |
+          npm run audit:production
+          npm run audit:full
 
       - name: Generate application key
         run: php artisan key:generate
