@@ -47,14 +47,14 @@ Do not confuse the two: the Starter release version and the Base dependency
 version share the `v0.2.0-rc.2` ordinal under the policy above, but they are
 separate artefacts with separate references.
 
-Remaining steps, none of which have been performed:
+Release-step status:
 
 ```text
 candidate prepared                      — done
+human browser runtime smoke             — passed 2026-07-28 (see checklist item 5)
 Starter tag v0.2.0-rc.2 created         — pending
 Packagist verification                  — pending
 fresh public create-project proof       — pending
-human browser runtime smoke             — pending (see checklist item 5)
 public social-preview verification      — pending (no suitable public URL)
 ```
 
@@ -242,13 +242,33 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
     - Logout redirects back to the public landing page.
     - `/dashboard` loads (retained scaffold route, not the primary post-auth destination).
 
-    **`v0.2.0-rc.2` status — Human browser smoke: pending.** It must be
-    performed against the runtime surface published as
-    `9d03af75f9cfbf26f22f9503e3826ba4a83387f3` (tree
-    `6eb5f49af1bca1c671fc6d38efda1aa1864eb828`) and attested by a human before
-    the tag is created. Release-documentation successors do not change that
-    runtime surface, so the attestation carries forward to the commit that
-    ultimately receives the tag provided no runtime file differs.
+    **`v0.2.0-rc.2` status — Human browser smoke: PASSED.**
+
+    | Field | Value |
+    | --- | --- |
+    | Tester | Edward Yeboah |
+    | Date | 2026-07-28 |
+    | Browser | Chrome 150.0.7871.182 (64-bit) on Windows 11 x64; spot-checked in Brave |
+    | Runtime host | Ubuntu 24.04.2 LTS x64 headless, kernel `6.8.0-136-generic` |
+    | Runtime commit | `9d03af75f9cfbf26f22f9503e3826ba4a83387f3` |
+    | Runtime tree | `6eb5f49af1bca1c671fc6d38efda1aa1864eb828` |
+
+    Every documented checklist item passed. `Cmd+K` was not applicable on
+    Windows 11, which intercepts `Win+K`; `Ctrl+K` passed and exercises the same
+    `metaKey || ctrlKey` handler. No release-attributable errors or warnings were
+    observed in a clean Chrome Incognito profile with extensions disabled.
+
+    Environment caveats are recorded with the attestation: the smoke ran against
+    built assets served by `php artisan serve` rather than a Vite dev server,
+    under `EVOLAYER_BASE_PROFILE=demo`, over a plain-HTTP LAN origin, and with an
+    unrelated Inertia SSR renderer reachable on the configured SSR port. That
+    renderer was disclosed and assessed immaterial on recorded evidence: it
+    differs from the tested runtime only in the three command-palette source
+    files, and the palette emits no server-rendered markup.
+
+    Release-documentation successors do not change the runtime surface, so this
+    attestation carries forward to the commit that ultimately receives the tag
+    provided no runtime file differs.
 
 6. **Manual social preview smoke** — run on a staging/production URL with real
    `APP_URL` / optional `SITE_URL` values. Verify at least Slack, Teams,
