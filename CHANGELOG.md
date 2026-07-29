@@ -14,7 +14,7 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   → 1.37.3, `laravel/pint` 1.29.3 → 1.30.0, `laravel/sail` 1.63.0
   → 1.64.0, and `spatie/laravel-medialibrary` 11.23.1 → 11.23.3.
   Inertia Laravel 3.2.0 includes configurable SSR hot-URL support through
-  `INERTIA_SSR_HOT_URL`; this branch does not change the Starter's Inertia
+  `INERTIA_SSR_HOT_URL`; this update does not change the Starter's Inertia
   configuration.
 - Updated `@inertiajs/react` and `@inertiajs/vite` 3.5.0 → 3.6.1,
   `@fontsource/instrument-sans` 5.2.8 → 5.3.0, and the approved Radix UI
@@ -31,8 +31,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 - Production npm dependencies continue to audit cleanly. The full audit still
   reports the same seven high-severity findings in the reviewed
-  development-only ESLint chain. ESLint 10.8.0 compatibility was evaluated,
-  but the latest stable `eslint-plugin-import@2.32.0` and
+  development-only ESLint chain. ESLint 10.8.0 compatibility was evaluated.
+  As verified on 2026-07-29, the stable `eslint-plugin-import@2.32.0` and
   `eslint-plugin-react@7.37.5` peer ranges do not admit ESLint 10. Forced
   installation, peer suppression, plugin downgrade, and plugin removal were
   rejected.

@@ -142,9 +142,9 @@ development-only chain comprising `@eslint/config-array`, `@eslint/eslintrc`,
 not expose this toolchain to application requests or production input.
 
 ESLint `10.8.0` is available, and current `@eslint/js` and
-`typescript-eslint` releases admit ESLint 10. The latest stable
-`eslint-plugin-import@2.32.0` peer range admits ESLint only through 9, while
-the latest stable `eslint-plugin-react@7.37.5` range admits it only through
+`typescript-eslint` releases admit ESLint 10. As verified on 2026-07-29, the
+stable `eslint-plugin-import@2.32.0` peer range admits ESLint only through 9,
+while the stable `eslint-plugin-react@7.37.5` range admits it only through
 `^9.7`. The compatibility preflight therefore stopped without installing an
 invalid peer graph. No forced install, `--legacy-peer-deps`, override, plugin
 downgrade, or plugin removal was accepted.
@@ -157,14 +157,14 @@ critical, or any unrecognised high finding appears. Low- and moderate-severity
 findings remain visible in npm's full report but do not block this bounded
 exception check.
 
-## Current unreleased dependency branch
+## Current unreleased dependency updates
 
-The next unreleased branch currently contains the seven reviewed PHP dependency
+The current unreleased state includes the seven reviewed PHP dependency
 updates, the Inertia/Fontsource/Radix frontend updates, and the revalidated npm
 audit exception described above. It does not change the exact Base
 `v0.2.0-rc.2` pin, application source, or any EvoLayer-managed surface, and the
 non-mutating resync inspection proposed no changes. No release version has been
-assigned to this branch.
+assigned to these updates.
 
 ## create-project flow (end users)
 
@@ -281,7 +281,7 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
     files, and the palette emits no server-rendered markup.
 
     This human browser smoke applies to the published `v0.2.0-rc.2` runtime
-    only. The current unreleased dependency branch changes Inertia and Radix
+    only. The current unreleased state changes Inertia and Radix
     frontend dependencies, so a new human browser smoke is required against the
     final upgraded runtime before any future tag.
 
