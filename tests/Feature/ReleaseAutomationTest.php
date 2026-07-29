@@ -73,7 +73,7 @@ test('the full npm audit accepts only the unexpired reviewed ESLint chain', func
         '--input',
         $fixture,
         '--date',
-        '2026-07-26',
+        '2026-11-30',
     ]);
 
     expect($process->isSuccessful())->toBeTrue()
@@ -151,7 +151,7 @@ test('the full npm audit enforces the documented high and critical policy', func
         '--input',
         $fixture,
         '--date',
-        '2026-09-01',
+        '2026-12-01',
     ]);
 
     expect($unexpected->isSuccessful())->toBeFalse()

@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import process from 'node:process';
 
-const expiry = '2026-08-31';
+const expiry = '2026-11-30';
 const allowedPackages = new Set([
     '@eslint/config-array',
     '@eslint/eslintrc',
