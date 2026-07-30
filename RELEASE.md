@@ -280,10 +280,61 @@ composer config repositories.evolayer-base path ../evolayer-base   # do not comm
     differs from the tested runtime only in the three command-palette source
     files, and the palette emits no server-rendered markup.
 
-    This human browser smoke applies to the published `v0.2.0-rc.2` runtime
-    only. The current unreleased state changes Inertia and Radix
-    frontend dependencies, so a new human browser smoke is required against the
-    final upgraded runtime before any future tag.
+    This 2026-07-28 human browser smoke applies only to the published
+    `v0.2.0-rc.2` runtime.
+
+    **Dependency-upgraded PR head status — Human browser smoke: PASSED.**
+
+    | Field | Value |
+    | --- | --- |
+    | Tester | Ed Yeboah |
+    | Date | 2026-07-30 |
+    | Operating system | Windows 11 Pro x64 |
+    | Primary browser | Google Chrome 151.0.7922.72 (Official Build) (64-bit) |
+    | Secondary browser | Brave 1.92.143 (Official Build) (64-bit), Chromium 150.0.7871.182 |
+    | Runtime commit | `3b3200ff98bbad1de546e27700f75561c4637dd0` |
+    | Runtime tree | `523556096ed6ff474bb632f8ab509e348942a615` |
+
+    Chrome was updated, relaunched, and used for the final primary spot check.
+    The tested dependency-upgraded runtime passed public landing-page rendering;
+    login with the existing local test account; command-palette opening from its
+    visible opener and with `Ctrl+K`; repeated opening; Escape closure and focus
+    restoration; command search and execution; avatar/dropdown arrow-key
+    navigation, Escape closure, and focus return; expanded-sidebar navigation;
+    collapsed-sidebar tooltips; mouse and keyboard operation of the login
+    checkbox; Thread Studio select interaction; the profile deletion dialog
+    without destructive confirmation; appearance controls; responsive/mobile
+    layout; and first-party Network requests. Chrome and Brave behaved
+    consistently.
+
+    Command execution was verified by navigating successfully to Thread Studio
+    and by searching for `inb` and pressing Enter, which navigated to Inbox.
+
+    No application exception, React hydration failure, or failed Inertia
+    behaviour was observed. The only Console message was the expected
+    development-only Laravel Boost browser logger:
+
+    ```text
+    Browser logger active (MCP server detected).
+    Posting to: /_boost/browser-logs
+    ```
+
+    First-party document, JavaScript, CSS, font, favicon, and Inertia requests
+    succeeded. No unexpected application `500` response was observed. The
+    runtime used production-built assets; no Vite development or HMR endpoint
+    was active.
+
+    Registration was not separately exercised because the existing local test
+    account was used. Standalone Radix Collapsible, Toggle, and ToggleGroup
+    components have no live route and were not manually exercised. The header
+    NavigationMenu exists only in an inactive layout and was not manually
+    exercised. The exact-checkout SSR bundle and production-built assets were
+    used, while PHP was served temporarily through Artisan over LAN HTTP rather
+    than Nginx/PHP-FPM. Social-preview verification remains outstanding.
+
+    This 2026-07-30 attestation applies to the exact dependency-upgraded commit
+    and runtime tree recorded above. It does not automatically cover a later
+    commit or a changed runtime tree.
 
 6. **Manual social preview smoke** — run on a staging/production URL with real
    `APP_URL` / optional `SITE_URL` values. Verify at least Slack, Teams,
