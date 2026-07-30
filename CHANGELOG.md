@@ -6,7 +6,42 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [0.2.0-rc.2]
+### Changed
+
+- Updated the PHP dependency graph without changing the exact Base pin:
+  `inertiajs/inertia-laravel` 3.1.1 → 3.2.0, `laravel/framework` 13.18.1
+  → 13.23.0, `laravel/boost` 2.4.10 → 2.4.13, `laravel/fortify` 1.37.2
+  → 1.37.3, `laravel/pint` 1.29.3 → 1.30.0, `laravel/sail` 1.63.0
+  → 1.64.0, and `spatie/laravel-medialibrary` 11.23.1 → 11.23.3.
+  Inertia Laravel 3.2.0 includes configurable SSR hot-URL support through
+  `INERTIA_SSR_HOT_URL`; this update does not change the Starter's Inertia
+  configuration.
+- Updated `@inertiajs/react` and `@inertiajs/vite` 3.5.0 → 3.6.1,
+  `@fontsource/instrument-sans` 5.2.8 → 5.3.0, and the approved Radix UI
+  packages: avatar 1.2.0 → 1.2.6, checkbox 1.3.5 → 1.3.11, collapsible
+  1.1.14 → 1.1.20, dialog 1.1.17 → 1.1.23, dropdown menu 2.1.18 →
+  2.1.24, label 2.1.10 → 2.1.15, navigation menu 1.2.16 → 1.2.22,
+  select 2.3.1 → 2.3.7, separator 1.1.10 → 1.1.15, slot 1.3.0 →
+  1.3.3, toggle 1.1.12 → 1.1.18, toggle group 1.1.13 → 1.1.19, and
+  tooltip 1.2.10 → 1.2.16. The unchanged Base package proposed no
+  EvoLayer resync changes, and no rendered-output assertion required
+  alteration.
+
+### Security
+
+- Production npm dependencies continue to audit cleanly. The full audit still
+  reports the same seven high-severity findings in the reviewed
+  development-only ESLint chain. ESLint 10.8.0 compatibility was evaluated.
+  As verified on 2026-07-29, the stable `eslint-plugin-import@2.32.0` and
+  `eslint-plugin-react@7.37.5` peer ranges do not admit ESLint 10. Forced
+  installation, peer suppression, plugin downgrade, and plugin removal were
+  rejected.
+- Revalidated the narrow ESLint-chain exception and extended its expiry from
+  2026-08-31 to 2026-11-30. This is a compatibility deferral, not
+  remediation: new advisories or packages, critical escalation, compatible
+  fixes, and dates after expiry continue to fail closed.
+
+## [0.2.0-rc.2] - 2026-07-28
 
 ### Added
 
