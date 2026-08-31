@@ -6,6 +6,21 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- `post-update-cmd` no longer prunes Boost skills it merely cannot detect.
+  `boost:update` derives part of its applicable skill set from installed
+  JavaScript packages, so running it while `node_modules/` is absent deleted
+  `.claude/skills/**` and `.agents/skills/**` entries and dropped them from
+  `boost.json`, while the guidelines block in `AGENTS.md` / `CLAUDE.md`
+  continued to instruct agents to activate them. This was reachable on a normal
+  workflow, because `post-create-project-cmd` does not install npm dependencies:
+  a generated application running `composer update` before `npm install` lost
+  JS-detected skills silently, inside a commit about something else entirely
+  (observed downstream: `inertia-react-development`). The hook now runs through
+  `scripts/boost-update.php`, which passes `--ignore-skills` when JS dependency
+  detection is impossible.
+
 ### Changed
 
 - Updated the PHP dependency graph without changing the exact Base pin:
