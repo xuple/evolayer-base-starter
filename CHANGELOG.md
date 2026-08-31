@@ -12,7 +12,12 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   `inertiajs/inertia-laravel` 3.1.1 → 3.2.0, `laravel/framework` 13.18.1
   → 13.23.0, `laravel/boost` 2.4.10 → 2.4.13, `laravel/fortify` 1.37.2
   → 1.37.3, `laravel/pint` 1.29.3 → 1.30.0, `laravel/sail` 1.63.0
-  → 1.64.0, and `spatie/laravel-medialibrary` 11.23.1 → 11.23.3.
+  → 1.64.0, `spatie/laravel-medialibrary` 11.23.1 → 11.23.3,
+  `guzzlehttp/guzzle` 7.15.1 → 7.15.5, `guzzlehttp/promises` 2.5.1 →
+  2.5.3, `guzzlehttp/psr7` 2.13.0 → 2.13.1, `league/commonmark` 2.8.2 →
+  2.10.0, `nette/schema` 1.3.5 → 1.3.6, and `nette/utils` 4.1.4 →
+  4.1.5. The Guzzle and CommonMark updates resolve the Composer advisories
+  published after the previous lock refresh.
   Inertia Laravel 3.2.0 includes configurable SSR hot-URL support through
   `INERTIA_SSR_HOT_URL`; this update does not change the Starter's Inertia
   configuration.
@@ -25,7 +30,9 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   1.3.3, toggle 1.1.12 → 1.1.18, toggle group 1.1.13 → 1.1.19, and
   tooltip 1.2.10 → 1.2.16. The unchanged Base package proposed no
   EvoLayer resync changes, and no rendered-output assertion required
-  alteration.
+  alteration. Compatible transitive security updates also move `nanoid`
+  3.3.16 → 3.3.18, `js-yaml` 4.3.0 → 4.3.2, and the affected
+  `brace-expansion` lines from 1.1.16 → 1.1.18 and 5.0.8 → 5.0.9.
 
 ### Fixed
 
@@ -40,17 +47,10 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ### Security
 
-- Production npm dependencies continue to audit cleanly. The full audit still
-  reports the same seven high-severity findings in the reviewed
-  development-only ESLint chain. ESLint 10.8.0 compatibility was evaluated.
-  As verified on 2026-07-29, the stable `eslint-plugin-import@2.32.0` and
-  `eslint-plugin-react@7.37.5` peer ranges do not admit ESLint 10. Forced
-  installation, peer suppression, plugin downgrade, and plugin removal were
-  rejected.
-- Revalidated the narrow ESLint-chain exception and extended its expiry from
-  2026-08-31 to 2026-11-30. This is a compatibility deferral, not
-  remediation: new advisories or packages, critical escalation, compatible
-  fixes, and dates after expiry continue to fail closed.
+- Composer and npm production/full audits are clean. Compatible lockfile
+  updates resolve the newly published Guzzle, CommonMark, Nano ID, JS-YAML,
+  and brace-expansion advisories, so the former development-only ESLint-chain
+  exception is no longer exercised.
 
 ## [0.2.0-rc.2] - 2026-07-28
 
