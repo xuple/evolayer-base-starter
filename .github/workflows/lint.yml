@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Ensure composer.lock is committed and shippable
+      - name: Ensure distribution files are shippable
         run: |
           if [ ! -f composer.lock ]; then
             echo "::error file=composer.lock::composer.lock must be committed (framework-distribution contract — see PROMISE.md / RELEASE.md)."
@@ -28,6 +28,18 @@ jobs:
           fi
           if git check-attr export-ignore -- composer.lock | grep -q 'export-ignore: set'; then
             echo "::error file=.gitattributes::composer.lock must not be export-ignored — it would be stripped from the dist and create-project would re-resolve."
+            exit 1
+          fi
+          if git check-attr export-ignore -- README.md CHANGELOG.md | grep -qv 'export-ignore: set'; then
+            echo "::error file=.gitattributes::The root README and changelog must remain export-ignored."
+            exit 1
+          fi
+          if git check-attr export-ignore -- patches/README.md | grep -q 'export-ignore: set'; then
+            echo "::error file=.gitattributes::patches/README.md must ship with the vendor patch it documents."
+            exit 1
+          fi
+          if ! git archive HEAD patches/README.md | tar -tf - | grep -qx 'patches/README.md'; then
+            echo "::error file=.gitattributes::patches/README.md is missing from the distribution archive."
             exit 1
           fi
 

@@ -17,6 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         php-version: ['8.4']
+        install-profile: ['demo', 'application']
 
     steps:
       - name: Checkout
@@ -76,6 +77,11 @@ jobs:
 
       - name: Generate application key
         run: php artisan key:generate
+
+      - name: Apply install profile
+        env:
+          EVOLAYER_BASE_INSTALL_PROFILE: ${{ matrix.install-profile }}
+        run: php scripts/evolayer-finalize-install.php --create-project
 
       - name: Prepare Laravel app
         # resources/js/{actions,routes,wayfinder} and resources/js/types/ontology.ts

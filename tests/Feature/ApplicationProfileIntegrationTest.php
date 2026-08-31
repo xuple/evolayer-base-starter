@@ -352,9 +352,9 @@ test('application verification accepts the package landing when marketing pages 
     $this->profileRoot = applicationProfileFixture();
     copyApplicationVerificationSource($this->profileRoot);
     File::ensureDirectoryExists($this->profileRoot.'/resources/js/pages/evolayer');
-    File::copy(
-        base_path('resources/js/pages/evolayer/base.tsx'),
+    File::put(
         $this->profileRoot.'/resources/js/pages/evolayer/base.tsx',
+        "export default function Base() { return null; }\n",
     );
     $contributor = new StarterApplicationProfileContributor(new StarterProfilePaths($this->profileRoot));
     $plan = new ProfileTransitionPlan;
