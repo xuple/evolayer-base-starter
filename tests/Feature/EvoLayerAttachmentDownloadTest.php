@@ -98,6 +98,8 @@ test('production doctor still rejects an explicitly public attachment disk', fun
 });
 
 test('contact uploads are stored on the private disk and use the authorised route', function () {
+    $this->skipUnlessExample('contact_ai');
+
     $media = uploadContactAttachment();
 
     Storage::disk('local')->assertExists($media->getPathRelativeToRoot());
@@ -110,6 +112,8 @@ test('contact uploads are stored on the private disk and use the authorised rout
 });
 
 test('administrators can retrieve private contact attachments', function () {
+    $this->skipUnlessExample('contact_ai');
+
     $media = uploadContactAttachment();
 
     $response = $this->actingAs(attachmentAdmin())->get($media->getUrl());
@@ -138,6 +142,8 @@ test('contact attachment delivery preserves each existing media disk', function 
 });
 
 test('guests and ordinary users cannot retrieve private contact attachments', function () {
+    $this->skipUnlessExample('contact_ai');
+
     $media = uploadContactAttachment();
     $url = $media->getUrl();
 
@@ -152,6 +158,8 @@ test('guests and ordinary users cannot retrieve private contact attachments', fu
 });
 
 test('private contact attachments are not exposed through a public storage URL', function () {
+    $this->skipUnlessExample('contact_ai');
+
     $media = uploadContactAttachment();
 
     $response = $this->get('/storage/'.$media->getPathRelativeToRoot());
@@ -161,6 +169,8 @@ test('private contact attachments are not exposed through a public storage URL',
 });
 
 test('missing attachment bytes fail safely', function () {
+    $this->skipUnlessExample('contact_ai');
+
     $media = uploadContactAttachment();
     Storage::disk($media->disk)->delete($media->getPathRelativeToRoot());
 

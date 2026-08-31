@@ -27,6 +27,17 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   EvoLayer resync changes, and no rendered-output assertion required
   alteration.
 
+### Fixed
+
+- Made the Starter test suite profile-aware: application-profile CI now builds
+  and tests the same boot-time posture as a fresh application install, the
+  landing verification fixture no longer depends on live profile-owned source,
+  and contact upload tests skip only when their boot-time example route is
+  disabled.
+- Anchored the root README and changelog export rules so generated application
+  distributions retain `patches/README.md` alongside the Laravel AI vendor
+  patch it documents.
+
 ### Security
 
 - Production npm dependencies continue to audit cleanly. The full audit still
