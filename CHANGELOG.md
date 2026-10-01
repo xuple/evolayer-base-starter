@@ -23,6 +23,14 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Moved the exact Base pin to stable `xuple/evolayer-base` `0.2.0` and refreshed
+  the locked PHP graph. Laravel Framework is now `13.33.0`, Inertia Laravel
+  `3.3.0`, League CommonMark `2.10.3`, and Flysystem `3.36.0` (`flysystem-local`
+  `3.35.3`). The update resolves the current Composer advisories for Laravel,
+  CommonMark, and Flysystem; `composer audit --locked` passes. The npm lock also
+  updates `baseline-browser-mapping` to `2.11.26`, `browserslist` to `4.29.3`,
+  and `brace-expansion` to `1.1.21` / `5.0.12`; production and full npm audits
+  pass.
 - Updated the PHP dependency graph without changing the exact Base pin:
   `inertiajs/inertia-laravel` 3.1.1 → 3.2.0, `laravel/framework` 13.18.1
   → 13.23.0, `laravel/boost` 2.4.10 → 2.4.13, `laravel/fortify` 1.37.2
