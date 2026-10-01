@@ -3,10 +3,9 @@
 The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
-free/public MIT projects on GitHub and Packagist. The current public release line
-is `xuple/evolayer-base-starter v0.2.0-rc.2` consuming the exact-pinned
-`xuple/evolayer-base v0.2.0-rc.2`. GitHub is the public publication source; the
-self-hosted Forge remains an internal mirror.
+free/public MIT projects on GitHub and Packagist. The current public release is
+`xuple/evolayer-base-starter v0.2.0`, consuming the exact-pinned
+`xuple/evolayer-base v0.2.0`. GitHub is the public publication source.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
 family, `evodevops.com/evolayer-base/docs` is the canonical Base documentation root, `/`
@@ -15,8 +14,8 @@ marketing routes expose that same page at `/about`.
 
 ## Current public release
 
-Current starter release: **v0.2.0-rc.2**. It exact-pins
-**xuple/evolayer-base v0.2.0-rc.2**. Future fixes use new releases; do not move
+Current starter release: **v0.2.0**. It exact-pins
+**xuple/evolayer-base v0.2.0**. Future fixes use new releases; do not move
 published tags.
 
 ## Prerelease history (0.2.0 train)
@@ -157,14 +156,13 @@ critical, or any unrecognised high finding appears. Low- and moderate-severity
 findings remain visible in npm's full report but do not block this bounded
 exception check.
 
-## Current unreleased dependency updates
+## Stable v0.2.0 dependency state
 
-The current unreleased state includes the seven reviewed PHP dependency
-updates, the Inertia/Fontsource/Radix frontend updates, and the revalidated npm
-audit exception described above. It does not change the exact Base
-`v0.2.0-rc.2` pin, application source, or any EvoLayer-managed surface, and the
-non-mutating resync inspection proposed no changes. No release version has been
-assigned to these updates.
+The stable release exact-pins Base `v0.2.0` and includes the reviewed PHP and
+frontend dependency updates. The committed PHP and JavaScript lockfiles pass
+their Composer and npm security audit checks. The release also includes the
+Inertia SSR environment settings and Vite development proxy defaults documented
+in `CHANGELOG.md`.
 
 ## create-project flow (end users)
 
@@ -198,7 +196,7 @@ changing this contract in a downstream app, review:
 The starter consumes the package from **Packagist** as a tagged release:
 
 ```jsonc
-"require": { "xuple/evolayer-base": "0.2.0-rc.2" }
+"require": { "xuple/evolayer-base": "0.2.0" }
 ```
 
 No custom `repositories` entry ships in the public starter — Composer resolves
@@ -366,10 +364,10 @@ migrate/seed, generate Wayfinder and ontology, and then pass `npm install`,
 ## Distribution
 
 `xuple/evolayer-base` and `xuple/evolayer-base-starter` are **public on GitHub
-and published on Packagist**. The published Starter `v0.2.0-rc.2` consumes Base
-`v0.2.0-rc.2`, exact-pinned while `0.x`, from Packagist. **GitHub is the public
-publication source**; the self-hosted Forge remains an internal mirror
-(`origin`). See the package `RELEASE.md` for the package-first release flow.
+and published on Packagist**. The published Starter `v0.2.0` consumes Base
+`v0.2.0`, exact-pinned while `0.x`, from Packagist. **GitHub is the public
+publication source**. See the package `RELEASE.md` for the package-first release
+flow.
 
 ## CI access note
 
