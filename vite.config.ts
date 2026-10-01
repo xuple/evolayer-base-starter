@@ -90,8 +90,57 @@ function resolveDevServerOriginPort(devServerOrigin: URL): number {
     return devServerOrigin.protocol === 'https:' ? 443 : 80;
 }
 
-function resolveDevServer(mode: string): ServerOptions | undefined {
-    const env = loadEnv(mode, process.cwd(), '');
+function resolveInertiaSsrListener(rawUrl: string | undefined): {
+    host: string;
+    port: number;
+} {
+    const ssrUrlValue = rawUrl?.trim() || 'http://127.0.0.1:13714';
+    let ssrUrl: URL;
+
+    try {
+        ssrUrl = new URL(ssrUrlValue);
+    } catch {
+        throw new Error(
+            `INERTIA_SSR_URL must be an absolute http URL when set; received "${rawUrl}".`,
+        );
+    }
+
+    const hasExtraParts =
+        ssrUrl.username !== '' ||
+        ssrUrl.password !== '' ||
+        ssrUrl.pathname !== '/' ||
+        ssrUrl.search !== '' ||
+        ssrUrl.hash !== '';
+
+    if (
+        ssrUrl.protocol !== 'http:' ||
+        ssrUrl.hostname === '' ||
+        hasExtraParts
+    ) {
+        throw new Error(
+            `INERTIA_SSR_URL must be an http URL without credentials, path, query, or fragment; received "${rawUrl}".`,
+        );
+    }
+
+    const port = ssrUrl.port === '' ? 80 : Number(ssrUrl.port);
+
+    if (!Number.isInteger(port) || port < 1 || port > 65535) {
+        throw new Error(
+            `INERTIA_SSR_URL must resolve to a port between 1 and 65535; received "${rawUrl}".`,
+        );
+    }
+
+    const host =
+        ssrUrl.hostname.startsWith('[') && ssrUrl.hostname.endsWith(']')
+            ? ssrUrl.hostname.slice(1, -1)
+            : ssrUrl.hostname;
+
+    return { host, port };
+}
+
+function resolveDevServer(
+    env: Record<string, string>,
+): ServerOptions | undefined {
     const devServerPort = resolveDevServerPort(env.VITE_DEV_SERVER_PORT);
     const devServerOrigin = resolveDevServerOrigin(env.VITE_DEV_SERVER_ORIGIN);
 
@@ -128,7 +177,9 @@ function resolveDevServer(mode: string): ServerOptions | undefined {
 }
 
 export default defineConfig(({ command, mode }) => {
-    const devServer = command === 'serve' ? resolveDevServer(mode) : undefined;
+    const env = loadEnv(mode, process.cwd(), '');
+    const devServer = command === 'serve' ? resolveDevServer(env) : undefined;
+    const inertiaSsrListener = resolveInertiaSsrListener(env.INERTIA_SSR_URL);
 
     return {
         build: {
@@ -161,7 +212,7 @@ export default defineConfig(({ command, mode }) => {
                     }),
                 ],
             }),
-            inertia(),
+            inertia({ ssr: inertiaSsrListener }),
             react({
                 babel: {
                     plugins: ['babel-plugin-react-compiler'],
