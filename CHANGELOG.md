@@ -4,81 +4,35 @@ All notable changes to `xuple/evolayer-base-starter` are documented here. The
 format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project aims to follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.2.0] - 2026-10-01
 
-### Fixed
+### Added
 
-- The Starter's Inertia config now reads its SSR enabled flag, server URL, and
-  hot URL from the supported `INERTIA_SSR_*` environment settings. The Vite
-  development defaults now use port `5186` and follow `APP_URL` for the browser
-  origin, matching the generic Nginx proxy example.
-
-- `post-update-cmd` no longer prunes Boost skills it merely cannot detect.
-  `boost:update` derives part of its applicable skill set from installed
-  JavaScript packages, so running it while `node_modules/` is absent deleted
-  `.claude/skills/**` and `.agents/skills/**` entries and dropped them from
-  `boost.json`, while the guidelines block in `AGENTS.md` / `CLAUDE.md`
-  continued to instruct agents to activate them. This was reachable on a normal
-  workflow, because `post-create-project-cmd` does not install npm dependencies:
-  a generated application running `composer update` before `npm install` lost
-  JS-detected skills silently, inside a commit about something else entirely
-  (observed downstream: `inertia-react-development`). The hook now runs through
-  `scripts/boost-update.php`, which passes `--ignore-skills` when JS dependency
-  detection is impossible.
+- Added an application install profile with explicit preparation and
+  verification for generated application contracts.
+- Added private contact attachment storage and authenticated downloads.
 
 ### Changed
 
-- Moved the exact Base pin to stable `xuple/evolayer-base` `0.2.0` and refreshed
-  the locked PHP graph. Laravel Framework is now `13.33.0`, Inertia Laravel
-  `3.3.0`, League CommonMark `2.10.3`, and Flysystem `3.36.0` (`flysystem-local`
-  `3.35.3`). The update resolves the current Composer advisories for Laravel,
-  CommonMark, and Flysystem; `composer audit --locked` passes. The npm lock also
-  updates `baseline-browser-mapping` to `2.11.26`, `browserslist` to `4.29.3`,
-  and `brace-expansion` to `1.1.21` / `5.0.12`; production and full npm audits
-  pass.
-- Updated the PHP dependency graph without changing the exact Base pin:
-  `inertiajs/inertia-laravel` 3.1.1 → 3.2.0, `laravel/framework` 13.18.1
-  → 13.23.0, `laravel/boost` 2.4.10 → 2.4.13, `laravel/fortify` 1.37.2
-  → 1.37.3, `laravel/pint` 1.29.3 → 1.30.0, `laravel/sail` 1.63.0
-  → 1.64.0, `spatie/laravel-medialibrary` 11.23.1 → 11.23.3,
-  `guzzlehttp/guzzle` 7.15.1 → 7.15.5, `guzzlehttp/promises` 2.5.1 →
-  2.5.3, `guzzlehttp/psr7` 2.13.0 → 2.13.1, `league/commonmark` 2.8.2 →
-  2.10.0, `nette/schema` 1.3.5 → 1.3.6, and `nette/utils` 4.1.4 →
-  4.1.5. The Guzzle and CommonMark updates resolve the Composer advisories
-  published after the previous lock refresh.
-  Inertia Laravel 3.2.0 includes configurable SSR hot-URL support through
-  `INERTIA_SSR_HOT_URL`; this update does not change the Starter's Inertia
-  configuration.
-- Updated `@inertiajs/react` and `@inertiajs/vite` 3.5.0 → 3.6.1,
-  `@fontsource/instrument-sans` 5.2.8 → 5.3.0, and the approved Radix UI
-  packages: avatar 1.2.0 → 1.2.6, checkbox 1.3.5 → 1.3.11, collapsible
-  1.1.14 → 1.1.20, dialog 1.1.17 → 1.1.23, dropdown menu 2.1.18 →
-  2.1.24, label 2.1.10 → 2.1.15, navigation menu 1.2.16 → 1.2.22,
-  select 2.3.1 → 2.3.7, separator 1.1.10 → 1.1.15, slot 1.3.0 →
-  1.3.3, toggle 1.1.12 → 1.1.18, toggle group 1.1.13 → 1.1.19, and
-  tooltip 1.2.10 → 1.2.16. The unchanged Base package proposed no
-  EvoLayer resync changes, and no rendered-output assertion required
-  alteration. Compatible transitive security updates also move `nanoid`
-  3.3.16 → 3.3.18, `js-yaml` 4.3.0 → 4.3.2, and the affected
-  `brace-expansion` lines from 1.1.16 → 1.1.18 and 5.0.8 → 5.0.9.
+- Updated the exact Base dependency pin to stable `xuple/evolayer-base` `0.2.0`.
+- Updated the Laravel and frontend dependency graphs, including Laravel
+  Framework `13.33.0`, Inertia Laravel `3.3.0`, CommonMark `2.10.3`, and
+  Flysystem `3.36.0`.
+- Made Inertia SSR endpoints configurable through `INERTIA_SSR_*` settings and
+  aligned the Vite development defaults with `APP_URL` and the example proxy.
 
 ### Fixed
 
-- Made the Starter test suite profile-aware: application-profile CI now builds
-  and tests the same boot-time posture as a fresh application install, the
-  landing verification fixture no longer depends on live profile-owned source,
-  and contact upload tests skip only when their boot-time example route is
-  disabled.
-- Anchored the root README and changelog export rules so generated application
-  distributions retain `patches/README.md` alongside the Laravel AI vendor
-  patch it documents.
+- Preserved Boost skills during Composer updates when JavaScript dependencies
+  are not installed.
+- Expanded CI coverage for application and demo profiles and kept generated
+  distributions' patch documentation intact.
 
 ### Security
 
-- Composer and npm production/full audits are clean. Compatible lockfile
-  updates resolve the newly published Guzzle, CommonMark, Nano ID, JS-YAML,
-  and brace-expansion advisories, so the former development-only ESLint-chain
-  exception is no longer exercised.
+- Updated locked PHP and JavaScript dependencies to resolve current Composer
+  and npm advisories. `composer audit --locked` and the production and full npm
+  audit checks pass.
 
 ## [0.2.0-rc.2] - 2026-07-28
 
