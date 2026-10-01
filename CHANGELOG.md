@@ -8,6 +8,11 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- The Starter's Inertia config now reads its SSR enabled flag, server URL, and
+  hot URL from the supported `INERTIA_SSR_*` environment settings. The Vite
+  development defaults now use port `5186` and follow `APP_URL` for the browser
+  origin, matching the generic Nginx proxy example.
+
 - `post-update-cmd` no longer prunes Boost skills it merely cannot detect.
   `boost:update` derives part of its applicable skill set from installed
   JavaScript packages, so running it while `node_modules/` is absent deleted

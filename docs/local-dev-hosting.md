@@ -129,7 +129,7 @@ starter enables `strictPort` and a collision fails loudly:
 ```env
 APP_URL=https://app.example.test
 VITE_DEV_SERVER_PORT=5186
-VITE_DEV_SERVER_ORIGIN=
+VITE_DEV_SERVER_ORIGIN=https://app.example.test
 ```
 
 Then start Vite normally:
@@ -138,14 +138,16 @@ Then start Vite normally:
 npm run dev
 ```
 
-When `VITE_DEV_SERVER_PORT` is empty, Vite keeps its normal flexible dev-server
-behavior and may move to the next available port. When it is set, Vite binds to
+The starter's `.env.example` uses port `5186` to match the generic Nginx
+example, and defaults the Vite origin to `APP_URL`. Vite binds to
 `127.0.0.1:<port>` and fails instead of falling forward if that port is already
-occupied. Host-level Nginx configuration remains outside the starter.
+occupied. To use Vite's normal flexible port selection, clear both
+`VITE_DEV_SERVER_PORT` and `VITE_DEV_SERVER_ORIGIN`. Host-level Nginx
+configuration remains outside the starter.
 
 If the browser should load Vite assets through the same origin as the Laravel
-app instead of directly from `127.0.0.1:<port>`, set
-`VITE_DEV_SERVER_ORIGIN` to the app URL:
+app instead of directly from `127.0.0.1:<port>`, `VITE_DEV_SERVER_ORIGIN`
+should match `APP_URL`:
 
 ```env
 APP_URL=https://app.example.test

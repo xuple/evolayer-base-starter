@@ -148,11 +148,18 @@ class ShellContractTest extends TestCase
     public function test_vite_dev_server_proxy_contract_is_env_driven(): void
     {
         $env = (string) file_get_contents(base_path('.env.example'));
+        $inertia = (string) file_get_contents(base_path('config/inertia.php'));
         $vite = (string) file_get_contents(base_path('vite.config.ts'));
         $nginx = (string) file_get_contents(base_path('docs/nginx-dev-vhost.example.conf'));
 
-        $this->assertStringContainsString('VITE_DEV_SERVER_PORT=', $env);
-        $this->assertStringContainsString('VITE_DEV_SERVER_ORIGIN=', $env);
+        $this->assertStringContainsString('INERTIA_SSR_ENABLED=true', $env);
+        $this->assertStringContainsString('INERTIA_SSR_URL=http://127.0.0.1:13714', $env);
+        $this->assertStringContainsString('INERTIA_SSR_HOT_URL=', $env);
+        $this->assertStringContainsString("env('INERTIA_SSR_ENABLED', true)", $inertia);
+        $this->assertStringContainsString("env('INERTIA_SSR_URL', 'http://127.0.0.1:13714')", $inertia);
+        $this->assertStringContainsString("env('INERTIA_SSR_HOT_URL')", $inertia);
+        $this->assertStringContainsString('VITE_DEV_SERVER_PORT=5186', $env);
+        $this->assertStringContainsString('VITE_DEV_SERVER_ORIGIN="${APP_URL}"', $env);
         $this->assertStringContainsString('function resolveDevServerOrigin(', $vite);
         $this->assertStringContainsString(
             "const devServer = command === 'serve' ? resolveDevServer(mode) : undefined;",
