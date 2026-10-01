@@ -165,7 +165,7 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString('VITE_DEV_SERVER_ORIGIN="${APP_URL}"', $env);
         $this->assertStringContainsString('function resolveDevServerOrigin(', $vite);
         $this->assertStringContainsString(
-            "const devServer = command === 'serve' ? resolveDevServer(mode) : undefined;",
+            "const devServer = command === 'serve' ? resolveDevServer(env) : undefined;",
             $vite,
         );
         $this->assertStringContainsString(
