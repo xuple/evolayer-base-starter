@@ -1,7 +1,7 @@
 {
     "schema_version": 1,
-    "package_version": "v0.2.0-rc.2",
-    "package_reference": "73f30df35a1a416d07e65044257c7c1a11ce9455",
+    "package_version": "v0.2.0",
+    "package_reference": "df00dfd85538fe2d2426bb80a06a52683190fa1b",
     "surfaces": [],
     "files": {
         "resources/js/blocks/ai-text-field/index.tsx": {
