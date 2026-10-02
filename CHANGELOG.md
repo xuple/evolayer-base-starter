@@ -4,6 +4,32 @@ All notable changes to `xuple/evolayer-base-starter` are documented here. The
 format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project aims to follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- The production Inertia SSR server now listens on the host and port given by
+  `INERTIA_SSR_URL` instead of the `@inertiajs/react` default of
+  `0.0.0.0:13714`. The address is compiled into `bootstrap/ssr/` by
+  `npm run build`, so rebuild after changing it. With the shipped default the
+  renderer is loopback-only (`127.0.0.1:13714`); a renderer that must accept
+  connections from another host or container needs an `INERTIA_SSR_URL` whose
+  host is an address the renderer can bind. The build rejects non-`http` URLs
+  and URLs carrying credentials, a path, a query, or a fragment.
+- Refreshed the `laravel/ai` vendor patch dossier (`patches/README.md`) to the
+  locked `v0.8.1` target and recorded the 2026-10-02 upstream check: the
+  structured-streaming guard is still present through `laravel/ai` `v1.0.1`,
+  and the patch stops applying from `v0.10.0`.
+
+## [0.2.1] - 2026-10-01
+
+### Fixed
+
+- Corrected the tracked resync manifest (`.evolayer/resync.lock.json`) to
+  record the stable Base dependency already pinned by Composer:
+  `xuple/evolayer-base` `v0.2.0` at `df00dfd85538fe2d2426bb80a06a52683190fa1b`.
+  Package-managed files and their hashes are unchanged.
+
 ## [0.2.0] - 2026-10-01
 
 ### Added
@@ -539,5 +565,7 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   Forge `vcs` repository at `dev-main` while `composer.lock` stayed uncommitted.
   The public line now resolves `^0.1` from Packagist. See `RELEASE.md`.
 
-[Unreleased]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0-rc.2...HEAD
+[Unreleased]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0-rc.2...v0.2.0
 [0.2.0-rc.2]: https://github.com/xuple/evolayer-base-starter/compare/v0.1.19...v0.2.0-rc.2
