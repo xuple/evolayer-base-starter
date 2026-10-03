@@ -117,6 +117,32 @@ public/build/
 bootstrap/ssr/
 ```
 
+## Trusted Proxies
+
+When Nginx (or a cloud load balancer) terminates TLS in front of the app,
+Laravel only sees a plain-HTTP connection from the proxy. Unless the proxy is
+trusted, generated URLs use `http://`, `request()->isSecure()` is false, and
+`request()->ip()` is the proxy's address rather than the visitor's.
+
+The starter ships with trusted proxies **off**. Enable them in `.env` by
+listing the proxy addresses, or use `*` to trust whichever proxy connects:
+
+```env
+# Nginx on the same host
+TRUSTED_PROXIES=127.0.0.1,::1
+
+# A load balancer whose address changes (only behind a proxy you control)
+TRUSTED_PROXIES=*
+```
+
+The value is read through `config/trustedproxy.php` on every request, so it
+works with `php artisan config:cache`. Do not move it into
+`bootstrap/app.php` as `$middleware->trustProxies(at: env(...))`: that closure
+runs before `.env` is loaded, so the value is silently empty unless the variable
+is set in the process environment. Trusting `*` on a host that is reachable
+without a proxy lets any client forge `X-Forwarded-*` headers, so prefer the
+explicit list where the proxy address is fixed.
+
 ## Vite Behind Nginx
 
 For a direct browser workflow, Vite's default behavior is convenient: if the

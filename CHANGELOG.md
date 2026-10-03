@@ -4,6 +4,16 @@ All notable changes to `xuple/evolayer-base-starter` are documented here. The
 format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project aims to follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Configurable trusted proxies, off by default. Set `TRUSTED_PROXIES` in `.env`
+  to a comma-separated list of proxy IPs/CIDR ranges, or `*`, so generated
+  URLs, `request()->isSecure()`, and `request()->ip()` are correct behind Nginx
+  or a load balancer. Read through `config/trustedproxy.php` on every request,
+  so it works with `config:cache`. See `docs/local-dev-hosting.md`.
+
 ## [0.2.0] - 2026-10-01
 
 ### Added
