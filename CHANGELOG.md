@@ -8,11 +8,14 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- Configurable trusted proxies, off by default. Set `TRUSTED_PROXIES` in `.env`
-  to a comma-separated list of proxy IPs/CIDR ranges, or `*`, so generated
-  URLs, `request()->isSecure()`, and `request()->ip()` are correct behind Nginx
-  or a load balancer. Read through `config/trustedproxy.php` on every request,
-  so it works with `config:cache`. See `docs/local-dev-hosting.md`.
+- Configurable trusted proxies. Set `TRUSTED_PROXIES` in `.env` to a
+  comma-separated list of proxy IPs/CIDR ranges, or `*`, so generated URLs,
+  `request()->isSecure()`, and `request()->ip()` are correct behind Nginx or a
+  load balancer. Blank trusts no proxy, except that the framework's automatic
+  trust of the platform proxy on Laravel Cloud, Forge and Vapor hosts is
+  unchanged; an explicit value overrides it. Read through
+  `config/trustedproxy.php` on every request, so it works with `config:cache`.
+  See `docs/local-dev-hosting.md`.
 
 ## [0.2.0] - 2026-10-01
 

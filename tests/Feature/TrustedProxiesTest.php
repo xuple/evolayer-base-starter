@@ -15,7 +15,7 @@ beforeEach(function (): void {
  * Hit the probe route from REMOTE_ADDR 127.0.0.1 with forwarded headers that
  * claim an https client at 203.0.113.9, under the given trusted-proxy value.
  */
-function trustedProxiesProbe(?string $proxies): TestResponse
+function trustedProxiesProbe(?string $proxies, string $host = 'localhost'): TestResponse
 {
     config(['trustedproxy.proxies' => $proxies]);
 
@@ -28,7 +28,7 @@ function trustedProxiesProbe(?string $proxies): TestResponse
             'X-Forwarded-Proto' => 'https',
             'X-Forwarded-For' => '203.0.113.9',
         ])
-        ->getJson('http://localhost/_trusted-proxies-probe');
+        ->getJson("http://{$host}/_trusted-proxies-probe");
 }
 
 it('ignores forwarded headers when no proxy is trusted', function (): void {
@@ -57,6 +57,21 @@ it('accepts a comma-separated list with surrounding whitespace', function (): vo
     trustedProxiesProbe(' 10.0.0.1 , 127.0.0.1 ')
         ->assertOk()
         ->assertJson(['secure' => true, 'ip' => '203.0.113.9']);
+});
+
+it('keeps the framework auto-trust on managed hosts when nothing is configured', function (): void {
+    // A null value is the framework default, which still trusts the platform
+    // proxy on Laravel Cloud, Forge and Vapor hosts. The docs say so; this
+    // pins it so "blank" is never mistaken for "off everywhere".
+    trustedProxiesProbe(null, 'app.on-forge.com')
+        ->assertOk()
+        ->assertJson(['secure' => true, 'ip' => '203.0.113.9']);
+});
+
+it('lets an explicit value override the managed-host auto-trust', function (): void {
+    trustedProxiesProbe('10.0.0.0/8', 'app.on-forge.com')
+        ->assertOk()
+        ->assertJson(['secure' => false, 'ip' => '127.0.0.1']);
 });
 
 it('ships off by default and is read through config, not env() in bootstrap', function (): void {

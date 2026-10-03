@@ -124,8 +124,11 @@ Laravel only sees a plain-HTTP connection from the proxy. Unless the proxy is
 trusted, generated URLs use `http://`, `request()->isSecure()` is false, and
 `request()->ip()` is the proxy's address rather than the visitor's.
 
-The starter ships with trusted proxies **off**. Enable them in `.env` by
-listing the proxy addresses, or use `*` to trust whichever proxy connects:
+The starter trusts **no proxy by default**, with one framework-level exception:
+on Laravel Cloud, Forge and Vapor hosts Laravel auto-trusts the platform proxy,
+as it does for any Laravel app, and the starter leaves that intact. Setting any
+explicit value overrides it. Enable proxies in `.env` by listing their
+addresses, or use `*` to trust whichever proxy connects:
 
 ```env
 # Nginx on the same host
