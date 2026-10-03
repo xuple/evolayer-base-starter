@@ -4,6 +4,25 @@ All notable changes to `xuple/evolayer-base-starter` are documented here. The
 format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project aims to follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Refreshed the committed PHP dependency lock within the existing constraints,
+  resolved on PHP 8.4 (the declared floor) and verified on PHP 8.4 and 8.5:
+  Laravel Framework `13.34.0`, Fortify `1.40.0`, Pint `1.32.1`, Pest `4.7.8`,
+  PHPUnit `12.5.33`, Media Library `11.23.8`, Pao `1.1.5`, and transitive
+  updates (notably `brick/math` `1.0.0` and `laravel/mcp` `0.9.6`).
+  `composer audit --locked` is clean. `laravel/boost` is deliberately held at
+  `2.4.13`: its upgrade regenerates the agent guidance and skills, so it gets
+  its own review, and Inertia Laravel `3.5` and Wayfinder `0.1.21` conflict
+  with `laravel/boost <2.5.0`, so they stay at `3.3.0` and `0.1.20` until then.
+
+### Removed
+
+- `laravel/sail` from `require-dev`. The starter ships no Sail compose file and
+  documents no Sail workflow; the Boost guidelines block drops its Sail line.
+
 ## [0.2.0] - 2026-10-01
 
 ### Added
