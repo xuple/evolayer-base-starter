@@ -17,6 +17,19 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   `2.4.13`: its upgrade regenerates the agent guidance and skills, so it gets
   its own review, and Inertia Laravel `3.5` and Wayfinder `0.1.21` conflict
   with `laravel/boost <2.5.0`, so they stay at `3.3.0` and `0.1.20` until then.
+- Upgraded `laravel/boost` to `2.10.1`, lifting the hold above, and with it
+  Inertia Laravel `3.5.1`, Wayfinder `0.1.21`, and Boost's own dependencies
+  (`laravel/mcp` `1.0.1`, `laravel/roster` `1.0.0`, Guzzle `8.2.0`). The lock
+  was resolved on PHP 8.4 and verified on 8.4 and 8.5. `boost:update`
+  regenerated the agent guidelines block and skills: Boost 2.10 replaces the
+  Pest-only `pest-testing` skill with `testing-best-practices` (whose browser
+  guidance renders only when a browser testing package is installed, matching
+  this starter's HTTP-tests-only rule) and adds `infer-conventions`;
+  `boost.json` follows. `AGENTS.md`/`CLAUDE.md` now say the block is
+  regenerated on PHP 8.4, because Boost writes the running PHP version into
+  it, and `scripts/boost-update.php` skips regeneration on any other PHP
+  minor (`BOOST_UPDATE_ANY_PHP=1` overrides), so a `composer update` on a
+  newer runtime cannot rewrite the committed guidance.
 
 ### Removed
 

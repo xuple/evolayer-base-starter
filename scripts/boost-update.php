@@ -17,8 +17,36 @@
  *
  * When JS dependency detection is impossible, update guidelines but leave the
  * skills directory alone rather than pruning on incomplete information.
+ *
+ * Boost 2.10+ also writes the running PHP version into the generated block, and
+ * the bundled skills differ between Boost releases. Regenerated output is only
+ * canonical when produced on the PHP minor that composer.json declares as the
+ * floor (currently 8.4), so on any other runtime this wrapper skips
+ * regeneration and says so, instead of rewriting AGENTS.md / CLAUDE.md and the
+ * skills with a misstated version. Set BOOST_UPDATE_ANY_PHP=1 to override.
  */
 $root = dirname(__DIR__);
+
+$composer = json_decode((string) file_get_contents($root.'/composer.json'), true);
+$floor = null;
+
+if (preg_match('/(\d+)\.(\d+)/', (string) ($composer['require']['php'] ?? ''), $matches) === 1) {
+    $floor = $matches[1].'.'.$matches[2];
+}
+
+$running = PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;
+
+if ($floor !== null && $running !== $floor && getenv('BOOST_UPDATE_ANY_PHP') !== '1') {
+    fwrite(STDOUT, sprintf(
+        "  - boost:update skipped: running PHP %s, but the generated guidelines and skills are canonical on PHP %s (composer.json floor).\n".
+        "    Regenerate on PHP %s, or set BOOST_UPDATE_ANY_PHP=1 to override.\n",
+        $running,
+        $floor,
+        $floor,
+    ));
+
+    exit(0);
+}
 
 $command = [PHP_BINARY, 'artisan', 'boost:update', '--ansi'];
 
