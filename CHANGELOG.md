@@ -26,7 +26,10 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   guidance renders only when a browser testing package is installed, matching
   this starter's HTTP-tests-only rule) and adds `infer-conventions`;
   `boost.json` follows. `AGENTS.md`/`CLAUDE.md` now say the block is
-  regenerated on PHP 8.4, because Boost writes the running PHP version into it.
+  regenerated on PHP 8.4, because Boost writes the running PHP version into
+  it, and `scripts/boost-update.php` skips regeneration on any other PHP
+  minor (`BOOST_UPDATE_ANY_PHP=1` overrides), so a `composer update` on a
+  newer runtime cannot rewrite the committed guidance.
 
 ### Removed
 
