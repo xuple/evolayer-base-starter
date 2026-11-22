@@ -13,11 +13,30 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   Laravel Framework `13.33.0` → `13.43.0` (CVE-2026-128083, task output
   injection in `Concurrency`), and `symfony/filesystem`, `http-foundation`,
   `http-kernel`, `mime`, `routing`, `serializer` and `yaml` to their `8.1.10`/
-  `8.1.11` patch releases, with the transitive updates those require. Resolved
-  on PHP 8.4 (the declared floor) with `--with-dependencies`; the eight flagged
-  packages alone do not resolve because Laravel `13.40+` needs the newer
-  transitive constraints. `composer audit --locked` is clean. Guidance files
-  and skills were not regenerated (Composer ran with `--no-scripts`).
+  `8.1.11` patch releases, with the transitive updates those require.
+  `composer audit --locked` is clean.
+- Updated the npm lock to clear the high-severity advisories in `vite`,
+  `source-map-js`, `launch-editor` and `shell-quote`. The `shell-quote`
+  override in `package.json` moves from `1.9.0`, which is now itself a
+  vulnerable release, to `1.12.0`. `npm audit` reports no vulnerabilities.
+
+### Changed
+
+- Moved the locked Laravel tooling line together with the security update,
+  because Laravel `13.40+` adds the `QUERY` HTTP verb and the generated
+  Wayfinder routes only type-check from Wayfinder `0.1.22`, which requires
+  Boost `2.5` or newer: Boost `2.4.13` → `2.10.4`, Wayfinder `0.1.20` →
+  `0.1.23`, Inertia Laravel `3.3.0` → `3.7.0`, Laravel MCP `0.8.1` → `1.2.1`,
+  Roster `0.5.1` → `1.0.0` and Guzzle `7.16.5` → `8.6.0` (with
+  `guzzlehttp/psr7` `3.6.0` and `guzzlehttp/promises` `3.2.0`). This is a
+  lock-only change: Composer ran with `--no-scripts`, so the Boost guidance
+  block and skills in `AGENTS.md`/`CLAUDE.md` are still the `2.4.13` output
+  until they are regenerated in a follow-up change.
+- Raised the declared PHP floor from `^8.4` to `^8.4.1`, the lowest version
+  the locked Symfony packages accept.
+- `doctrine/deprecations` (`1.2.0`) and `webmozart/assert` (`2.5.1`) also
+  moved. They are development-only dependencies of the phpDocumentor chain and
+  were picked up by `--with-dependencies`.
 
 ## [0.2.0] - 2026-10-01
 
