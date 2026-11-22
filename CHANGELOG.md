@@ -4,6 +4,21 @@ All notable changes to `xuple/evolayer-base-starter` are documented here. The
 format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project aims to follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Security
+
+- Updated the locked PHP dependencies to clear the thirteen Composer advisories
+  reported between 2026-10-28 and 2026-11-13 against the previous lock:
+  Laravel Framework `13.33.0` → `13.43.0` (CVE-2026-128083, task output
+  injection in `Concurrency`), and `symfony/filesystem`, `http-foundation`,
+  `http-kernel`, `mime`, `routing`, `serializer` and `yaml` to their `8.1.10`/
+  `8.1.11` patch releases, with the transitive updates those require. Resolved
+  on PHP 8.4 (the declared floor) with `--with-dependencies`; the eight flagged
+  packages alone do not resolve because Laravel `13.40+` needs the newer
+  transitive constraints. `composer audit --locked` is clean. Guidance files
+  and skills were not regenerated (Composer ran with `--no-scripts`).
+
 ## [0.2.0] - 2026-10-01
 
 ### Added
