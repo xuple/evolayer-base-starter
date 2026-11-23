@@ -1,3 +1,6 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { parseEnv } from 'node:util';
 import inertia from '@inertiajs/vite';
 import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
@@ -90,6 +93,29 @@ function resolveDevServerOriginPort(devServerOrigin: URL): number {
     return devServerOrigin.protocol === 'https:' ? 443 : 80;
 }
 
+// Laravel reads INERTIA_SSR_URL from the process environment first and then
+// from the root .env file. It never layers .env.local or .env.[mode] the way
+// Vite's loadEnv does, so the SSR listener must use the same two sources or
+// the built server can bind an address PHP never calls. Values are read
+// literally: `${VAR}` references are not expanded here. A host that makes
+// Laravel load .env.[APP_ENV] in place of .env must set INERTIA_SSR_URL in the
+// process environment for the build.
+function readLaravelEnv(name: string): string | undefined {
+    const processValue = process.env[name];
+
+    if (processValue !== undefined) {
+        return processValue;
+    }
+
+    const envFile = resolve(process.cwd(), '.env');
+
+    if (!existsSync(envFile)) {
+        return undefined;
+    }
+
+    return parseEnv(readFileSync(envFile, 'utf8'))[name];
+}
+
 function resolveInertiaSsrListener(rawUrl: string | undefined): {
     host: string;
     port: number;
@@ -179,7 +205,9 @@ function resolveDevServer(
 export default defineConfig(({ command, mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
     const devServer = command === 'serve' ? resolveDevServer(env) : undefined;
-    const inertiaSsrListener = resolveInertiaSsrListener(env.INERTIA_SSR_URL);
+    const inertiaSsrListener = resolveInertiaSsrListener(
+        readLaravelEnv('INERTIA_SSR_URL'),
+    );
 
     return {
         build: {

@@ -160,6 +160,8 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString("env('INERTIA_SSR_HOT_URL')", $inertia);
         $this->assertStringContainsString('function resolveInertiaSsrListener(', $vite);
         $this->assertStringContainsString('inertia({ ssr: inertiaSsrListener })', $vite);
+        $this->assertStringContainsString("readLaravelEnv('INERTIA_SSR_URL')", $vite);
+        $this->assertStringNotContainsString('env.INERTIA_SSR_URL', $vite);
         $this->assertStringContainsString('Rebuild (`npm run build`) after changing either.', $env);
         $this->assertStringContainsString('VITE_DEV_SERVER_PORT=5186', $env);
         $this->assertStringContainsString('VITE_DEV_SERVER_ORIGIN="${APP_URL}"', $env);
