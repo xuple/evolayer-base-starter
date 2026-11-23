@@ -44,6 +44,9 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   (`2.4.1` → `2.5.1`) also moved. They are runtime dependencies reached
   through `web-auth/webauthn-lib` and phpDocumentor, and were picked up by
   `--with-dependencies`.
+- CI now tests on PHP 8.5 as well as PHP 8.4, and uses Node 24 in place of
+  Node 22. The framework-bump workflow still resolves the lock on PHP 8.4,
+  the declared floor, so the result installs on both versions.
 
 ## [0.2.0] - 2026-10-01
 
