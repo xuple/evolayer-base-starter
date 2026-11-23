@@ -17,23 +17,27 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   `composer audit --locked` is clean.
 - Updated the npm lock to clear the advisories `npm audit` reported against
   the previous lock: `vite` `8.1.0` → `8.3.8`, `source-map-js` `1.2.1` →
-  `1.2.4`, `zod`, and `minimatch` through `typescript-eslint` `8.62.0` →
+  `1.2.4`, `zod` `4.4.3` → `4.6.7` (development only, through
+  `eslint-plugin-react-hooks`), and `minimatch` through `typescript-eslint` `8.62.0` →
   `8.73.0`. The `shell-quote` override in `package.json` moves from `1.9.0`,
   which is now itself a vulnerable release, to `1.12.0`, with `concurrently`
   `9.2.4` → `9.2.5`. `npm audit` reports no vulnerabilities.
 
 ### Changed
 
-- Moved the locked Laravel tooling line together with the security update,
-  because Laravel `13.40+` adds the `QUERY` HTTP verb and the generated
-  Wayfinder routes only type-check from Wayfinder `0.1.22`, which requires
-  Boost `2.5` or newer: Boost `2.4.13` → `2.10.4`, Wayfinder `0.1.20` →
-  `0.1.23`, Inertia Laravel `3.3.0` → `3.7.0`, Laravel MCP `0.8.1` → `1.2.1`,
-  Roster `0.5.1` → `1.0.0` and Guzzle `7.15.5` → `8.6.0` (with
-  `guzzlehttp/psr7` `3.6.0` and `guzzlehttp/promises` `3.2.0`). This is a
-  lock-only change: Composer ran with `--no-scripts`, so the Boost guidance
-  block and skills in `AGENTS.md`/`CLAUDE.md` are still the `2.4.13` output
-  until they are regenerated in a follow-up change.
+- Moved runtime packages in the lock together with the security update.
+  Laravel `13.40+` adds the `QUERY` HTTP verb, and the generated Wayfinder
+  routes only type-check from Wayfinder `0.1.22`: Wayfinder `0.1.20` →
+  `0.1.23` and Inertia Laravel `3.3.0` → `3.7.0`. Guzzle moves `7.15.5` →
+  `8.6.0`, with `guzzlehttp/psr7` `3.6.0` and `guzzlehttp/promises` `3.2.0`.
+  Laravel `13.43.0` accepts Guzzle `^7.8.2 || ^8.0`, so Guzzle 8 is the newest
+  release the constraints allow, not a minimum for the security fix.
+- Moved development-only packages in the lock, because Wayfinder `0.1.21+`
+  and Inertia Laravel `3.7.0` conflict with Boost older than `2.5`: Boost
+  `2.4.13` → `2.10.4`, Laravel MCP `0.8.1` → `1.2.1` and Roster `0.5.1` →
+  `1.0.0`. This is a lock-only change: Composer ran with `--no-scripts`, so
+  the Boost guidance block and skills in `AGENTS.md`/`CLAUDE.md` are still the
+  `2.4.13` output until they are regenerated in a follow-up change.
 - Raised the declared PHP floor from `^8.4` to `^8.4.1`, the lowest version
   the locked Symfony packages accept.
 - `doctrine/deprecations` (`1.1.6` → `1.2.0`) and `webmozart/assert`
