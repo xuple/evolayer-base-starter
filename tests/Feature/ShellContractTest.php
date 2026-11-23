@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Inertia\Testing\AssertableInertia as Assert;
+use Symfony\Component\Process\Process;
 use Tests\TestCase;
 
 class ShellContractTest extends TestCase
@@ -20,6 +21,91 @@ class ShellContractTest extends TestCase
 
         // /home is host-owned; the package must not register an auth landing route.
         $this->assertNull(Route::getRoutes()->getByName('evolayer.base.home'));
+    }
+
+    public function test_ssr_listener_follows_the_sources_laravel_reads(): void
+    {
+        $default = ['host' => '127.0.0.1', 'port' => 13714];
+
+        // No .env and no process value: the default from config/inertia.php.
+        $this->assertSame($default, $this->resolveSsrListener(null, null)['listener']);
+
+        // .env beats the default; quotes are handled like phpdotenv.
+        $this->assertSame(
+            ['host' => '127.0.0.1', 'port' => 14001],
+            $this->resolveSsrListener("INERTIA_SSR_URL=\"http://127.0.0.1:14001\"\n", null)['listener'],
+        );
+
+        // The process environment beats .env.
+        $this->assertSame(
+            ['host' => '10.1.2.3', 'port' => 14004],
+            $this->resolveSsrListener("INERTIA_SSR_URL=http://127.0.0.1:14001\n", 'http://10.1.2.3:14004')['listener'],
+        );
+
+        // Files Vite would layer, but Laravel never reads, are ignored.
+        $this->assertSame(
+            ['host' => '127.0.0.1', 'port' => 14001],
+            $this->resolveSsrListener(
+                "INERTIA_SSR_URL=http://127.0.0.1:14001\n",
+                null,
+                ['.env.local' => "INERTIA_SSR_URL=http://10.8.8.8:15003\n", '.env.production' => "INERTIA_SSR_URL=http://10.9.9.9:15002\n"],
+            )['listener'],
+        );
+        $this->assertSame(
+            $default,
+            $this->resolveSsrListener("APP_NAME=Starter\n", null, ['.env.local' => "INERTIA_SSR_URL=http://10.8.8.8:15003\n"])['listener'],
+        );
+
+        // A set but blank value fails instead of binding the default.
+        foreach ([["INERTIA_SSR_URL=\n", null], ["INERTIA_SSR_URL=\"\"\n", null], ["INERTIA_SSR_URL=http://127.0.0.1:14001\n", ''], [null, '   ']] as [$dotenv, $processValue]) {
+            $result = $this->resolveSsrListener($dotenv, $processValue);
+
+            $this->assertNull($result['listener']);
+            $this->assertStringContainsString('INERTIA_SSR_URL is set but blank', $result['error']);
+        }
+    }
+
+    /**
+     * Runs the resolver exported by vite.config.ts in a scratch directory.
+     *
+     * @param  array<string, string>  $extraFiles
+     * @return array{listener: array{host: string, port: int}|null, error: string}
+     */
+    private function resolveSsrListener(?string $dotenv, ?string $processValue, array $extraFiles = []): array
+    {
+        $directory = sys_get_temp_dir().'/ssr-listener-'.bin2hex(random_bytes(6));
+        mkdir($directory);
+
+        $files = $extraFiles + ($dotenv === null ? [] : ['.env' => $dotenv]);
+
+        foreach ($files as $name => $contents) {
+            file_put_contents($directory.'/'.$name, $contents);
+        }
+
+        $script = <<<'JS'
+            const { pathToFileURL } = await import('node:url');
+            const config = await import(pathToFileURL(process.argv[1]).href);
+            process.stdout.write(JSON.stringify(config.resolveConfiguredInertiaSsrListener(process.argv[2])));
+            JS;
+
+        $process = new Process(
+            ['node', '--input-type=module', '--eval', $script, base_path('vite.config.ts'), $directory],
+            base_path(),
+            // false removes the variable from the child; the test must not inherit one.
+            ['INERTIA_SSR_URL' => $processValue ?? false],
+        );
+        $process->run();
+
+        foreach (array_keys($files) as $name) {
+            unlink($directory.'/'.$name);
+        }
+
+        rmdir($directory);
+
+        return [
+            'listener' => $process->isSuccessful() ? json_decode($process->getOutput(), true, flags: JSON_THROW_ON_ERROR) : null,
+            'error' => $process->getErrorOutput(),
+        ];
     }
 
     public function test_public_landing_renders_the_evolayer_base_explainer(): void
@@ -160,8 +246,7 @@ class ShellContractTest extends TestCase
         $this->assertStringContainsString("env('INERTIA_SSR_HOT_URL')", $inertia);
         $this->assertStringContainsString('function resolveInertiaSsrListener(', $vite);
         $this->assertStringContainsString('inertia({ ssr: inertiaSsrListener })', $vite);
-        $this->assertStringContainsString("readLaravelEnv('INERTIA_SSR_URL')", $vite);
-        $this->assertStringNotContainsString('env.INERTIA_SSR_URL', $vite);
+        $this->assertStringContainsString('const inertiaSsrListener = resolveConfiguredInertiaSsrListener();', $vite);
         $this->assertStringContainsString('Rebuild (`npm run build`) after changing either.', $env);
         $this->assertStringContainsString('VITE_DEV_SERVER_PORT=5186', $env);
         $this->assertStringContainsString('VITE_DEV_SERVER_ORIGIN="${APP_URL}"', $env);
