@@ -42,11 +42,11 @@ provider.
 | v0.10.0 – v0.11.2        | ❌             | `StreamsText.php` rewritten (+58/−11 by v0.10.0); the hunks no longer match                                            |
 | v1.0.0 – v1.0.1          | ❌             | Rewritten further (+119/−41 vs v0.8.1); 1.x also requires `laravel/mcp` ≥ 1.0 and the 1.0 conversation-table migration |
 
-**Drift protection:** `xuple/evolayer-base` requires `laravel/ai` `^0.8.1` (i.e. `<0.9.0`) and the starter commits an exact lock, so `composer update` cannot move onto a version the patch does not fit. The first Base release that lifts that cap must re-author this patch against the new `StreamsText.php` — or land the fix upstream first. Expect the patches plugin to report `FAILED to patch` at that point.
+**Drift protection:** `xuple/evolayer-base` requires `laravel/ai` `^0.8.1` (i.e. `<0.9.0`) and the starter commits an exact lock, so `composer update` cannot move onto a version the patch does not fit. Lifting the cap to `v0.9.x` alone keeps the patch applying. The first Base release that allows `laravel/ai` `v0.10.0` or newer must re-author this patch against the new `StreamsText.php` — or land the fix upstream first. Expect the patches plugin to report `FAILED to patch` from `v0.10.0`.
 
 ## Upstream PR — not yet filed
 
-The fix belongs upstream in `laravel/ai`. Filing was deferred when the patch was written (v0.6.5) on the expectation that a fast-moving SDK would ship a parallel design. That has not happened: three minor releases and the 1.0 line have landed with the guard intact. **Filing the PR now is recommended**, rebased onto the 1.x `StreamsText.php`, before the next `laravel/ai` bump forces the patch to be rewritten anyway. Reference the `ThreadStudioStreamTest` suite in this repo and the `evolayer:ai:stream-check` command as verification evidence.
+The fix belongs upstream in `laravel/ai`. Filing was deferred when the patch was written (v0.6.5) on the expectation that a fast-moving SDK would ship a parallel design. That has not happened: three minor releases and the 1.0 line have landed with the guard intact. **Filing the PR now is recommended**, rebased onto the 1.x `StreamsText.php`, before the next `laravel/ai` bump forces the patch to be rewritten anyway. Reference the `ThreadStudioStreamTest` suite in `xuple/evolayer-base` (`tests/Feature/ThreadStudioStreamTest.php`) and the `evolayer:ai:stream-check` command as verification evidence.
 
 **Where to file it:** https://github.com/laravel/ai
 

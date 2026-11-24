@@ -53,8 +53,11 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   `npm run build`, so rebuild after changing it. With the shipped default the
   renderer is loopback-only (`127.0.0.1:13714`); a renderer that must accept
   connections from another host or container needs an `INERTIA_SSR_URL` whose
-  host is an address the renderer can bind. The build rejects non-`http` URLs
-  and URLs carrying credentials, a path, a query, or a fragment.
+  host is an address the renderer can bind. The build reads the URL from the
+  process environment first and then from the root `.env` only, the sources
+  Laravel reads; `.env.local` and `.env.[mode]` are ignored for this value.
+  The build rejects a set but blank value, non-`http` URLs, and URLs carrying
+  credentials, a path, a query, or a fragment.
 - Refreshed the `laravel/ai` vendor patch dossier (`patches/README.md`) to the
   locked `v0.8.1` target and recorded the 2026-10-02 upstream check: the
   structured-streaming guard is still present through `laravel/ai` `v1.0.1`,
