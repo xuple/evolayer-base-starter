@@ -1,3 +1,6 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { parseEnv } from 'node:util';
 import inertia from '@inertiajs/vite';
 import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
@@ -90,8 +93,97 @@ function resolveDevServerOriginPort(devServerOrigin: URL): number {
     return devServerOrigin.protocol === 'https:' ? 443 : 80;
 }
 
-function resolveDevServer(mode: string): ServerOptions | undefined {
-    const env = loadEnv(mode, process.cwd(), '');
+// Laravel reads INERTIA_SSR_URL from the process environment first and then
+// from the root .env file. It never layers .env.local or .env.[mode] the way
+// Vite's loadEnv does, so the SSR listener must use the same two sources or
+// the built server can bind an address PHP never calls. Values are read
+// literally: `${VAR}` references are not expanded here. A host that makes
+// Laravel load .env.[APP_ENV] in place of .env must set INERTIA_SSR_URL in the
+// process environment for the build.
+function readLaravelEnv(name: string, cwd: string): string | undefined {
+    const processValue = process.env[name];
+
+    if (processValue !== undefined) {
+        return processValue;
+    }
+
+    const envFile = resolve(cwd, '.env');
+
+    if (!existsSync(envFile)) {
+        return undefined;
+    }
+
+    return parseEnv(readFileSync(envFile, 'utf8'))[name];
+}
+
+// An unset INERTIA_SSR_URL means the default, as in config/inertia.php. A set
+// but blank value is an error: Laravel keeps the blank string and would not
+// call the default listener, so binding it here would hide the mistake.
+function resolveInertiaSsrListener(rawUrl: string | undefined): {
+    host: string;
+    port: number;
+} {
+    if (rawUrl !== undefined && rawUrl.trim() === '') {
+        throw new Error(
+            'INERTIA_SSR_URL is set but blank; set an absolute http URL, or remove it to use http://127.0.0.1:13714.',
+        );
+    }
+
+    const ssrUrlValue = rawUrl?.trim() ?? 'http://127.0.0.1:13714';
+    let ssrUrl: URL;
+
+    try {
+        ssrUrl = new URL(ssrUrlValue);
+    } catch {
+        throw new Error(
+            `INERTIA_SSR_URL must be an absolute http URL when set; received "${rawUrl}".`,
+        );
+    }
+
+    const hasExtraParts =
+        ssrUrl.username !== '' ||
+        ssrUrl.password !== '' ||
+        ssrUrl.pathname !== '/' ||
+        ssrUrl.search !== '' ||
+        ssrUrl.hash !== '';
+
+    if (
+        ssrUrl.protocol !== 'http:' ||
+        ssrUrl.hostname === '' ||
+        hasExtraParts
+    ) {
+        throw new Error(
+            `INERTIA_SSR_URL must be an http URL without credentials, path, query, or fragment; received "${rawUrl}".`,
+        );
+    }
+
+    const port = ssrUrl.port === '' ? 80 : Number(ssrUrl.port);
+
+    if (!Number.isInteger(port) || port < 1 || port > 65535) {
+        throw new Error(
+            `INERTIA_SSR_URL must resolve to a port between 1 and 65535; received "${rawUrl}".`,
+        );
+    }
+
+    const host =
+        ssrUrl.hostname.startsWith('[') && ssrUrl.hostname.endsWith(']')
+            ? ssrUrl.hostname.slice(1, -1)
+            : ssrUrl.hostname;
+
+    return { host, port };
+}
+
+// Exported so the contract test can execute the precedence instead of
+// searching this file for text. Vite ignores named exports of a config file.
+export function resolveConfiguredInertiaSsrListener(
+    cwd: string = process.cwd(),
+): { host: string; port: number } {
+    return resolveInertiaSsrListener(readLaravelEnv('INERTIA_SSR_URL', cwd));
+}
+
+function resolveDevServer(
+    env: Record<string, string>,
+): ServerOptions | undefined {
     const devServerPort = resolveDevServerPort(env.VITE_DEV_SERVER_PORT);
     const devServerOrigin = resolveDevServerOrigin(env.VITE_DEV_SERVER_ORIGIN);
 
@@ -128,7 +220,9 @@ function resolveDevServer(mode: string): ServerOptions | undefined {
 }
 
 export default defineConfig(({ command, mode }) => {
-    const devServer = command === 'serve' ? resolveDevServer(mode) : undefined;
+    const env = loadEnv(mode, process.cwd(), '');
+    const devServer = command === 'serve' ? resolveDevServer(env) : undefined;
+    const inertiaSsrListener = resolveConfiguredInertiaSsrListener();
 
     return {
         build: {
@@ -161,7 +255,7 @@ export default defineConfig(({ command, mode }) => {
                     }),
                 ],
             }),
-            inertia(),
+            inertia({ ssr: inertiaSsrListener }),
             react({
                 babel: {
                     plugins: ['babel-plugin-react-compiler'],
