@@ -15,7 +15,7 @@ beforeEach(function (): void {
  * Hit the probe route from REMOTE_ADDR 127.0.0.1 with forwarded headers that
  * claim an https client at 203.0.113.9, under the given trusted-proxy value.
  */
-function trustedProxiesProbe(?string $proxies, string $host = 'localhost'): TestResponse
+function trustedProxiesProbe(?string $proxies, string $host = 'localhost', array $server = []): TestResponse
 {
     config(['trustedproxy.proxies' => $proxies]);
 
@@ -23,12 +23,25 @@ function trustedProxiesProbe(?string $proxies, string $host = 'localhost'): Test
     // the previous request's scheme — https once a trusted X-Forwarded-Proto
     // has been seen — and would make the next probe secure for the wrong reason.
     return test()
-        ->withServerVariables(['REMOTE_ADDR' => '127.0.0.1'])
+        ->withServerVariables(['REMOTE_ADDR' => '127.0.0.1', ...$server])
         ->withHeaders([
             'X-Forwarded-Proto' => 'https',
             'X-Forwarded-For' => '203.0.113.9',
         ])
         ->getJson("http://{$host}/_trusted-proxies-probe");
+}
+
+/**
+ * Server variables that make the framework recognise a Laravel Forge host.
+ * Since Laravel 13.43 the `.on-forge.com` host suffix alone is not enough:
+ * the request must also carry FORGE_SERVER_ID (Vapor likewise needs
+ * VAPOR_SSM_PATH), so a lookalike hostname cannot switch the auto-trust on.
+ *
+ * @return array<string, string>
+ */
+function forgeHostServerVariables(): array
+{
+    return ['FORGE_SERVER_ID' => '12345'];
 }
 
 it('ignores forwarded headers when no proxy is trusted', function (): void {
@@ -63,13 +76,13 @@ it('keeps the framework auto-trust on managed hosts when nothing is configured',
     // A null value is the framework default, which still trusts the platform
     // proxy on Laravel Cloud, Forge and Vapor hosts. The docs say so; this
     // pins it so "blank" is never mistaken for "off everywhere".
-    trustedProxiesProbe(null, 'app.on-forge.com')
+    trustedProxiesProbe(null, 'app.on-forge.com', forgeHostServerVariables())
         ->assertOk()
         ->assertJson(['secure' => true, 'ip' => '203.0.113.9']);
 });
 
 it('lets an explicit value override the managed-host auto-trust', function (): void {
-    trustedProxiesProbe('10.0.0.0/8', 'app.on-forge.com')
+    trustedProxiesProbe('10.0.0.0/8', 'app.on-forge.com', forgeHostServerVariables())
         ->assertOk()
         ->assertJson(['secure' => false, 'ip' => '127.0.0.1']);
 });
