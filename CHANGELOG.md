@@ -23,6 +23,15 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   which is now itself a vulnerable release, to `1.12.0`, with `concurrently`
   `9.2.4` → `9.2.5`. `npm audit` reports no vulnerabilities.
 
+- Updated the locked passkey dependencies to clear forty Composer advisories
+  newly listed against the previous lock: `web-auth/webauthn-lib` `5.3.5` →
+  `5.3.17`, `web-auth/cose-lib` `4.5.2` → `4.8.2`, `spomky-labs/cbor-php`
+  `3.2.3` → `3.4.2` and `spomky-labs/pki-framework` `1.4.2` → `1.6.3`. They
+  are runtime dependencies of `laravel/passkeys`. No other locked package
+  changed version; `symfony/polyfill-php81` `1.38.1` was added because
+  `spomky-labs/cbor-php` `3.4` requires it. `composer audit --locked` is
+  clean.
+
 ### Changed
 
 - Moved runtime packages in the lock together with the security update.
