@@ -4,7 +4,7 @@ The starter (`xuple/evolayer-base-starter`) ships alongside the package
 (`xuple/evolayer-base`). The authoritative release flow lives in the **package's
 `RELEASE.md`**; this is the starter-specific summary. Base and the starter are
 free/public MIT projects on GitHub and Packagist. The current public release is
-`xuple/evolayer-base-starter v0.2.0`, consuming the exact-pinned
+`xuple/evolayer-base-starter v0.2.2`, consuming the exact-pinned
 `xuple/evolayer-base v0.2.0`. GitHub is the public publication source.
 
 Web IA is part of the release posture: `evodevops.com` teaches and markets the
@@ -14,8 +14,11 @@ marketing routes expose that same page at `/about`.
 
 ## Current public release
 
-Current starter release: **v0.2.0**. It exact-pins
-**xuple/evolayer-base v0.2.0**. Future fixes use new releases; do not move
+Current starter release: **v0.2.2**. It exact-pins
+**xuple/evolayer-base v0.2.0**, as `v0.2.0` and `v0.2.1` did. `v0.2.1` corrected
+the tracked resync manifest; `v0.2.2` carries the security lock refreshes, the
+PHP 8.5 / Node 24 CI matrix, the SSR listener binding, configurable trusted
+proxies, and the Boost 2.10 guidance listed in `CHANGELOG.md`. Future fixes use new releases; do not move
 published tags.
 
 ## Prerelease history (0.2.0 train)
@@ -128,6 +131,14 @@ operator-controlled data operation.
 
 ## 0.2 RC dependency-audit boundary
 
+**Status for `v0.2.2`: cleared.** The November lock refresh (`typescript-eslint`
+`8.73.0` and its `minimatch`) removed the deferred chain; `npm audit` reports no
+vulnerabilities, so `npm run audit:full` passes without using the exception and
+its 2026-11-30 expiry no longer gates CI. The allowlist and its tests stay in
+`scripts/check-npm-audit.mjs` so a reappearance of the same chain is still
+classified rather than silently accepted. The rest of this section is the
+historical record for the 0.2 RC line.
+
 Production dependencies audit cleanly:
 
 ```bash
@@ -155,6 +166,13 @@ fix appears, the advisory or package scope changes, severity escalates to
 critical, or any unrecognised high finding appears. Low- and moderate-severity
 findings remain visible in npm's full report but do not block this bounded
 exception check.
+
+## Stable v0.2.2 dependency state
+
+`v0.2.2` keeps the exact Base `v0.2.0` pin. Its committed locks pass
+`composer audit --locked` and `npm audit` with no advisories, resolved on
+PHP 8.4 (the declared floor, now `^8.4.1`) and tested on PHP 8.4 and 8.5 with
+Node 24, for both the demo and application install profiles.
 
 ## Stable v0.2.0 dependency state
 
@@ -364,7 +382,7 @@ migrate/seed, generate Wayfinder and ontology, and then pass `npm install`,
 ## Distribution
 
 `xuple/evolayer-base` and `xuple/evolayer-base-starter` are **public on GitHub
-and published on Packagist**. The published Starter `v0.2.0` consumes Base
+and published on Packagist**. The published Starter `v0.2.2` consumes Base
 `v0.2.0`, exact-pinned while `0.x`, from Packagist. **GitHub is the public
 publication source**. See the package `RELEASE.md` for the package-first release
 flow.
