@@ -6,6 +6,8 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-25
+
 ### Added
 
 - Configurable trusted proxies. Set `TRUSTED_PROXIES` in `.env` to a
@@ -652,7 +654,8 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   Forge `vcs` repository at `dev-main` while `composer.lock` stayed uncommitted.
   The public line now resolves `^0.1` from Packagist. See `RELEASE.md`.
 
-[Unreleased]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0-rc.2...v0.2.0
 [0.2.0-rc.2]: https://github.com/xuple/evolayer-base-starter/compare/v0.1.19...v0.2.0-rc.2
