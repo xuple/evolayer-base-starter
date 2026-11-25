@@ -1,19 +1,5 @@
 # Agents Guide — EvoLayer Base Starter
 
-<!-- evolayer-application-profile:start -->
-> **Operational profile: demo.** Public registration and bundled examples are enabled for local exploration. The seeded test@example.com / password account is demonstration-only. Apply the application profile before treating this repository as an application deployment.
-<!-- evolayer-application-profile:end -->
-
-<!-- evolayer-generated-app-identity:start -->
-> **Generated application identity**
->
-> This codebase was created from `xuple/evolayer-base-starter`; you are working in the generated application, not maintaining the public starter distribution. Starter-only distribution rules are guidance, not binding product policy for this app: you may own marketing surfaces, add browser/E2E tests, and choose app-specific docs when appropriate.
->
-> The EvoLayer package boundary still applies. Framework features, ontology commands, package-managed stubs, and `evolayer:*` behavior belong upstream in `xuple/evolayer-base` unless this app has explicitly ejected or owns the surface. Commit `composer.lock` for reproducible app deploys, but it is not a public starter distribution artifact.
->
-> Optional Composer identity: keep the inherited package name for a valid lock, or deliberately run `composer config name app/app` followed by `composer update --lock` when you are ready to rename the app.
-<!-- evolayer-generated-app-identity:end -->
-
 For AI coding agents (Claude Code, Codex, OpenCode, Cursor, Aider, …) and any automation operating on this repo. Humans should start with [`README.md`](README.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 This file is the short, prescriptive version of those documents tuned for agent decision-making. When in doubt about an architectural rule, the routing matrix in [`CONTRIBUTING.md`](CONTRIBUTING.md) is the source of truth.

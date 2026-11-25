@@ -108,6 +108,15 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 - `laravel/sail` from `require-dev`. The starter ships no Sail compose file and
   documents no Sail workflow; the Boost guidelines block drops its Sail line.
 
+### Fixed
+
+- Removed the generated-application blocks (the operational-profile banner and
+  the generated-application identity note) that #30 committed into `AGENTS.md`
+  and `CLAUDE.md`. `scripts/evolayer-finalize-install.php` writes them into
+  applications created with `composer create-project`; the public starter's own
+  guides must not carry them. A contract test now asserts that the starter
+  ships both guides without either block.
+
 ## [0.2.1] - 2026-10-01
 
 ### Fixed
