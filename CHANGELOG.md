@@ -34,6 +34,15 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
   which is now itself a vulnerable release, to `1.12.0`, with `concurrently`
   `9.2.4` → `9.2.5`. `npm audit` reports no vulnerabilities.
 
+- Updated the locked passkey dependencies to clear forty Composer advisories
+  newly listed against the previous lock: `web-auth/webauthn-lib` `5.3.5` →
+  `5.3.17`, `web-auth/cose-lib` `4.5.2` → `4.8.2`, `spomky-labs/cbor-php`
+  `3.2.3` → `3.4.2` and `spomky-labs/pki-framework` `1.4.2` → `1.6.3`. They
+  are runtime dependencies of `laravel/passkeys`. No other locked package
+  changed version; `symfony/polyfill-php81` `1.38.1` was added because
+  `spomky-labs/cbor-php` `3.4` requires it. `composer audit --locked` is
+  clean.
+
 ### Changed
 
 - Moved runtime packages in the lock together with the security update.
@@ -58,6 +67,30 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 - CI now tests on PHP 8.5 as well as PHP 8.4, and uses Node 24 in place of
   Node 22. The framework-bump workflow still resolves the lock on PHP 8.4,
   the declared floor, so the result installs on both versions.
+- Refreshed the rest of the committed PHP dependency lock within the existing
+  constraints, resolved on PHP 8.4 (the declared floor): Fortify `1.37.3` →
+  `1.44.0`, Pint `1.30.0` → `1.32.3`, Pest `4.7.4` → `4.7.8`, PHPUnit
+  `12.5.30` → `12.5.33`, Media Library `11.23.3` → `11.23.14` and Pao `1.1.2`
+  → `1.1.6`, with Laravel Framework `13.43.0` → `13.44.1`, the Symfony
+  components to `8.1.12`, `brick/math` `0.17.2` → `1.0.0` and other transitive
+  patch releases (46 locked packages in all, including the Sail removal below).
+  Fortify `1.44` requires `laravel/passkeys` `^0.3`, so it moves `0.2.1` →
+  `0.3.0`. `composer audit --locked` and `npm audit` are clean.
+- Regenerated the Boost guidelines block and skills on PHP 8.4 with the locked
+  Boost `2.10.4`, finishing the follow-up noted above. Boost 2.10 replaces the
+  Pest-only `pest-testing` skill with `testing-best-practices` (removed from
+  `.claude/skills/` and `.agents/skills/`, since Boost does not prune skills it
+  no longer ships) and adds `infer-conventions`; `boost.json` follows.
+  `AGENTS.md`/`CLAUDE.md` now say the block is regenerated on PHP 8.4, because
+  Boost writes the running PHP version into it, and `scripts/boost-update.php`
+  skips regeneration on any other PHP minor (`BOOST_UPDATE_ANY_PHP=1`
+  overrides), so a `composer update` on a newer runtime cannot rewrite the
+  committed guidance.
+
+### Removed
+
+- `laravel/sail` from `require-dev`. The starter ships no Sail compose file and
+  documents no Sail workflow; the Boost guidelines block drops its Sail line.
 
 ## [0.2.0] - 2026-10-01
 
