@@ -67,6 +67,22 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 - CI now tests on PHP 8.5 as well as PHP 8.4, and uses Node 24 in place of
   Node 22. The framework-bump workflow still resolves the lock on PHP 8.4,
   the declared floor, so the result installs on both versions.
+- The production Inertia SSR server now listens on the host and port given by
+  `INERTIA_SSR_URL` instead of the `@inertiajs/react` default of
+  `0.0.0.0:13714`. The address is compiled into `bootstrap/ssr/` by
+  `npm run build`, so rebuild after changing it. With the shipped default the
+  renderer is loopback-only (`127.0.0.1:13714`); a renderer that must accept
+  connections from another host or container needs an `INERTIA_SSR_URL` whose
+  host is an address the renderer can bind. The build reads the URL from the
+  process environment first and then from the root `.env` only, the sources
+  Laravel reads; `.env.local` and `.env.[mode]` are ignored for this value.
+  The build rejects a set but blank value, non-`http` URLs, and URLs carrying
+  credentials, a path, a query, or a fragment.
+- Refreshed the `laravel/ai` vendor patch dossier (`patches/README.md`) to the
+  locked `v0.8.1` target and recorded the 2026-10-02 upstream check: the
+  structured-streaming guard is still present through `laravel/ai` `v1.0.1`,
+  and the patch stops applying from `v0.10.0`.
+
 - Refreshed the rest of the committed PHP dependency lock within the existing
   constraints, resolved on PHP 8.4 (the declared floor): Fortify `1.37.3` →
   `1.44.0`, Pint `1.30.0` → `1.32.3`, Pest `4.7.4` → `4.7.8`, PHPUnit
@@ -91,6 +107,15 @@ this project aims to follow [Semantic Versioning](https://semver.org/).
 
 - `laravel/sail` from `require-dev`. The starter ships no Sail compose file and
   documents no Sail workflow; the Boost guidelines block drops its Sail line.
+
+## [0.2.1] - 2026-10-01
+
+### Fixed
+
+- Corrected the tracked resync manifest (`.evolayer/resync.lock.json`) to
+  record the stable Base dependency already pinned by Composer:
+  `xuple/evolayer-base` `v0.2.0` at `df00dfd85538fe2d2426bb80a06a52683190fa1b`.
+  Package-managed files and their hashes are unchanged.
 
 ## [0.2.0] - 2026-10-01
 
@@ -627,5 +652,7 @@ Base layer pre-wired. Part of the EvoDevOps starter-kit family.
   Forge `vcs` repository at `dev-main` while `composer.lock` stayed uncommitted.
   The public line now resolves `^0.1` from Packagist. See `RELEASE.md`.
 
-[Unreleased]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0-rc.2...HEAD
+[Unreleased]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/xuple/evolayer-base-starter/compare/v0.2.0-rc.2...v0.2.0
 [0.2.0-rc.2]: https://github.com/xuple/evolayer-base-starter/compare/v0.1.19...v0.2.0-rc.2
